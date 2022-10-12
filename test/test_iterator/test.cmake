@@ -2,12 +2,13 @@ get_filename_component(TEST_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
 
 add_executable(${TEST_NAME})
 target_sources(${TEST_NAME} PRIVATE
+  ${UNITY_SOURCES}
   ${CMAKE_CURRENT_LIST_DIR}/main.c
-  ${TEST_ROOT_DIR}/bitmap_utils.c
+  ${CMAKE_CURRENT_LIST_DIR}/bare_range.c
+  ${CMAKE_CURRENT_LIST_DIR}/range.c
 )
 target_include_directories(${TEST_NAME} PRIVATE
-  ${SPNG_ROOT_DIR}/spng
+  ${UNITY_ROOT_DIR}/src
   ${SICGL_ROOT_DIR}/include
-  ${TEST_ROOT_DIR}
 )
-target_link_libraries(${TEST_NAME} ${SPNG_LIBRARIES})
+target_link_libraries(${TEST_NAME} ${SICGL_LIBRARIES})

@@ -6,6 +6,5 @@ target_sources(${TEST_NAME} PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/main.c
 )
 target_include_directories(${TEST_NAME} PRIVATE
-  ${UNITY_INCLUDES}
   ${UNITY_ROOT_DIR}/src
 )

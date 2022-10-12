@@ -8,5 +8,8 @@ project(
 
 set(CMAKE_C_STANDARD 17)
 
+# create sicgl shared lib
+include(${CMAKE_CURRENT_LIST_DIR}/sicgl.cmake)
+
 # include tests
 include(${CMAKE_CURRENT_LIST_DIR}/test/CMakeLists.txt)
