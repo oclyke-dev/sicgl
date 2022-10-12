@@ -2,6 +2,11 @@
 \ si-kəl \
 small iterator graphics library
 
+# todo
+
+* perform bounds checking within the library based on 
+  passed in parameters of the screen but not in tight loops
+
 # principles
 
 * hardware agnostic

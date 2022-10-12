@@ -55,3 +55,5 @@ static inline bitmap_pixel_t bmp_random_color () {
 
 // sicgl screenwriter functions
 void bmp_pixel(void* arg, color_t color, uext_t u, uext_t v);
+void bmp_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1);
+void bmp_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1);

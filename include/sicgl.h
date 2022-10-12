@@ -54,3 +54,5 @@ typedef struct _interface_t {
 void sicgl_draw(interface_t* interface, iter_t* iter);
 
 void sicgl_draw_pixel(interface_t* interface, color_t color, uext_t u, uext_t v);
+void sicgl_draw_hline(interface_t* interface, color_t color, uext_t u0, uext_t v, uext_t u1);
+void sicgl_draw_vline(interface_t* interface, color_t color, uext_t u, uext_t v0, uext_t v1);

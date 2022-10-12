@@ -45,9 +45,57 @@ void bmp_pixel(void* arg, color_t color, uext_t u, uext_t v) {
   }
 
   // set color in memory at the location
-  bitmap_pixel_t* px = &bitmap->pixels[offset];
-  px->r = bm_color->r;
-  px->g = bm_color->g;
-  px->b = bm_color->b;
-  px->a = bm_color->a;
+  bitmap->pixels[offset] = *bm_color;
+}
+
+void bmp_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
+  bitmap_t* bitmap = (bitmap_t*)arg;
+  bitmap_pixel_t* bm_color = (bitmap_pixel_t*)color;
+  // assume that coordinates are in-bounds for the bitmap
+
+  int increment;
+  size_t distance;
+  if (u0 < u1) {
+    increment = 1;
+    distance = u1 - u0;
+  } else {
+    increment = -1;
+    distance = u0 - u1;
+  }
+
+  // set first pixel
+  bitmap_pixel_t* px = &bitmap->pixels[bitmap->width * v + u0];
+  *px = *bm_color;
+
+  // set remaining pixels
+  for (size_t idx = 0; idx < distance; idx++) {
+    px += increment;
+    *px = *bm_color;
+  }
+}
+
+void bmp_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1) {
+  bitmap_t* bitmap = (bitmap_t*)arg;
+  bitmap_pixel_t* bm_color = (bitmap_pixel_t*)color;
+  // assume that coordinates are in-bounds for the bitmap
+
+  int increment;
+  size_t distance;
+  if (v0 < v1) {
+    increment = bitmap->width;
+    distance = v1 - v0;
+  } else {
+    increment = -bitmap->width;
+    distance = v0 - v1;
+  }
+
+  // set first pixel
+  bitmap_pixel_t* px = &bitmap->pixels[bitmap->width * v0 + u];
+  *px = *bm_color;
+
+  // set remaining pixels
+  for (size_t idx = 0; idx < distance; idx++) {
+    px += increment;
+    *px = *bm_color;
+  }
 }
