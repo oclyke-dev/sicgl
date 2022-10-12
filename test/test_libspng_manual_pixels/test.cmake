@@ -7,6 +7,7 @@ target_sources(${TEST_NAME} PRIVATE
 )
 target_include_directories(${TEST_NAME} PRIVATE
   ${SPNG_ROOT_DIR}/spng
+  ${SICGL_ROOT_DIR}/include
   ${TEST_ROOT_DIR}
 )
 target_link_libraries(${TEST_NAME} ${SPNG_LIBRARIES})
