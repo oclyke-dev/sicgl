@@ -24,4 +24,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "unit tests coming soon"
+      # check out the repo
+      - uses: actions/checkout@v3
+
+      # install tools
+      - name: install tools
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y cmake
+
+      # update submodules
+      - name: update submodules
+        run: git submodule update --init --recursive
+
+      # build
+      - name: build tests
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
+          find . -regex '\.\/test_[^\.]*$' -exec '{}' -v \;

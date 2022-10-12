@@ -31,6 +31,10 @@ unit tests are handled with [unity](https://github.com/ThrowTheSwitch/Unity) and
 ...
 ```
 
+**finding tests**
+on mac you could use this regex to find tests...
+```find -E . -regex '\.\/build\/test_[^\.]*$'```
+
 # code formatting
 this project uses clang-format. to format all the right code:
 
