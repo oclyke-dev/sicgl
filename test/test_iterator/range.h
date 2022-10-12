@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+
 #include "sicgl.h"
 
 typedef struct _range_t {

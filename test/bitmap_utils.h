@@ -24,8 +24,7 @@ typedef struct {
 
 static inline bitmap_t* bitmap_new(size_t width, size_t height) {
   size_t num_pix = width * height;
-  bitmap_t* bm =
-      malloc(sizeof(bitmap_t) + sizeof(bitmap_pixel_t) * num_pix);
+  bitmap_t* bm = malloc(sizeof(bitmap_t) + sizeof(bitmap_pixel_t) * num_pix);
   bm->num_pix = num_pix;
   bm->width = width;
   bm->height = height;
@@ -36,7 +35,8 @@ static inline void bitmap_free(bitmap_t* bitmap) { free(bitmap); }
 
 void bitmap_to_file(bitmap_t const* bitmap, char const* path);
 
-static inline bitmap_pixel_t bmp_make_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+static inline bitmap_pixel_t bmp_make_color(uint8_t r, uint8_t g, uint8_t b,
+                                            uint8_t a) {
   bitmap_pixel_t pixel;
   pixel.r = r;
   pixel.g = g;
@@ -45,7 +45,7 @@ static inline bitmap_pixel_t bmp_make_color(uint8_t r, uint8_t g, uint8_t b, uin
   return pixel;
 }
 
-static inline bitmap_pixel_t bmp_random_color () {
+static inline bitmap_pixel_t bmp_random_color() {
   uint8_t r = rand() % 255;
   uint8_t g = rand() % 255;
   uint8_t b = rand() % 255;

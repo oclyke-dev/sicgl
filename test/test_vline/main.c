@@ -1,8 +1,8 @@
-#include "sicgl.h"
-#include "bitmap_utils.h"
-#include "unity.h"
+#include <stdio.h>
 
-#include<stdio.h>
+#include "bitmap_utils.h"
+#include "sicgl.h"
+#include "unity.h"
 
 void setUp(void) {
   // set stuff up here
@@ -52,7 +52,7 @@ void test_vline(void) {
 
   // compare the memory for the two images
   const size_t memory_len = sizeof(bitmap_pixel_t) * width * height;
-  TEST_ASSERT_EQUAL_MEMORY (fast_bm->pixels, naive_bm->pixels, memory_len);
+  TEST_ASSERT_EQUAL_MEMORY(fast_bm->pixels, naive_bm->pixels, memory_len);
 
   // clean up
   bitmap_free(fast_bm);

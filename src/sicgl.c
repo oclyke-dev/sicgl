@@ -8,7 +8,8 @@ void iter_foreach(iter_t iter, void (*callback)(void*), void* arg) {
   }
 }
 
-void sicgl_draw_pixel(interface_t* interface, color_t color, uext_t u, uext_t v) {
+void sicgl_draw_pixel(interface_t* interface, color_t color, uext_t u,
+                      uext_t v) {
   // pixel must exist
   interface->screenwriter.pixel(interface->screenwriter.arg, color, u, v);
 }
@@ -69,7 +70,8 @@ static void naive_hline_cb(void* arg) {
   sicgl_draw_pixel(interface, color, hline->u, hline->v);
 }
 
-static inline void naive_hline(interface_t* interface, color_t color, uext_t u0, uext_t v, uext_t u1) {
+static inline void naive_hline(interface_t* interface, color_t color, uext_t u0,
+                               uext_t v, uext_t u1) {
   hline_t hline = hline_create(u0, u1, v);
   iter_t iter = hline_get_iter(&hline);
   hline_cb_arg_t cb_args;
@@ -78,15 +80,15 @@ static inline void naive_hline(interface_t* interface, color_t color, uext_t u0,
   cb_args.color = color;
   iter_foreach(iter, naive_hline_cb, &cb_args);
 }
-void sicgl_draw_hline(interface_t* interface, color_t color, uext_t u0, uext_t v, uext_t u1) {
+void sicgl_draw_hline(interface_t* interface, color_t color, uext_t u0,
+                      uext_t v, uext_t u1) {
   if (interface->screenwriter.hline) {
-    interface->screenwriter.hline(interface->screenwriter.arg, color, u0, v, u1);
+    interface->screenwriter.hline(interface->screenwriter.arg, color, u0, v,
+                                  u1);
   } else {
     naive_hline(interface, color, u0, v, u1);
   }
 }
-
-
 
 // structure to iterate vline
 typedef struct _vline_t {
@@ -144,7 +146,8 @@ static void naive_vline_cb(void* arg) {
   sicgl_draw_pixel(interface, color, vline->u, vline->v);
 }
 
-static inline void naive_vline(interface_t* interface, color_t color, uext_t u, uext_t v0, uext_t v1) {
+static inline void naive_vline(interface_t* interface, color_t color, uext_t u,
+                               uext_t v0, uext_t v1) {
   vline_t vline = vline_create(v0, v1, u);
   iter_t iter = vline_get_iter(&vline);
   vline_cb_arg_t cb_args;
@@ -153,19 +156,15 @@ static inline void naive_vline(interface_t* interface, color_t color, uext_t u, 
   cb_args.color = color;
   iter_foreach(iter, naive_vline_cb, &cb_args);
 }
-void sicgl_draw_vline(interface_t* interface, color_t color, uext_t u0, uext_t v, uext_t u1) {
+void sicgl_draw_vline(interface_t* interface, color_t color, uext_t u0,
+                      uext_t v, uext_t u1) {
   if (interface->screenwriter.vline) {
-    interface->screenwriter.vline(interface->screenwriter.arg, color, u0, v, u1);
+    interface->screenwriter.vline(interface->screenwriter.arg, color, u0, v,
+                                  u1);
   } else {
     naive_vline(interface, color, u0, v, u1);
   }
 }
-
-
-
-
-
-
 
 // structure to iterate region
 typedef struct _region_t {
@@ -225,7 +224,8 @@ static void naive_region_cb(void* arg) {
   sicgl_draw_hline(interface, color, region->u0, region->v, region->u1);
 }
 
-static void naive_region(interface_t* interface, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
+static void naive_region(interface_t* interface, color_t color, uext_t u0,
+                         uext_t v0, uext_t u1, uext_t v1) {
   // assume that hline is faster and select hline when available
   // todo: consider ways that the user can specify this choice
   region_t region = region_create(u0, v0, u1, v1);
@@ -236,9 +236,11 @@ static void naive_region(interface_t* interface, color_t color, uext_t u0, uext_
   cb_args.color = color;
   iter_foreach(iter, naive_region_cb, &cb_args);
 }
-void sicgl_draw_region(interface_t* interface, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
+void sicgl_draw_region(interface_t* interface, color_t color, uext_t u0,
+                       uext_t v0, uext_t u1, uext_t v1) {
   if (interface->screenwriter.region) {
-    interface->screenwriter.region(interface->screenwriter.arg, color, u0, v0, u1, v1);
+    interface->screenwriter.region(interface->screenwriter.arg, color, u0, v0,
+                                   u1, v1);
   } else {
     naive_region(interface, color, u0, v0, u1, v1);
   }

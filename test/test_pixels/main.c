@@ -1,8 +1,8 @@
-#include "sicgl.h"
-#include "bitmap_utils.h"
-#include "unity.h"
+#include <stdio.h>
 
-#include<stdio.h>
+#include "bitmap_utils.h"
+#include "sicgl.h"
+#include "unity.h"
 
 void setUp(void) {
   // set stuff up here
@@ -22,7 +22,7 @@ void test_pixel(void) {
 
   // set up the interface
   interface_t interface;
-  interface.screenwriter.arg = (void*)bm; // provide bitmap to screenwriter
+  interface.screenwriter.arg = (void*)bm;  // provide bitmap to screenwriter
   interface.screenwriter.pixel = bmp_pixel;
   interface.grid.height = height;
   interface.grid.width = width;

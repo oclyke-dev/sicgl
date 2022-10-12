@@ -1,7 +1,7 @@
+#include <stdio.h>
+
 #include "sicgl.h"
 #include "unity.h"
-
-#include<stdio.h>
 
 // fwd declarations
 void test_iterator_bare_range(void);
