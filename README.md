@@ -30,3 +30,8 @@ unit tests are handled with [unity](https://github.com/ThrowTheSwitch/Unity) and
 ~/sicgl/build % ./test_libspng_manual_pixels
 ...
 ```
+
+# code formatting
+this project uses clang-format. to format all the right code:
+
+mac: ```find -E . -regex '\.\/(src|include|test)\/.*\.(c|h)$' | xargs clang-format -i```
