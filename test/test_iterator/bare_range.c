@@ -9,19 +9,13 @@ void test_iterator_bare_range(void) {
   const int32_t expected_steps = max - min;
   range_t range;
   range_init(&range, min, max);
-
-  // create iterator based on the range type
-  iter_t iter;
-  iter.first = range_first;
-  iter.next = range_next;
-  iter.done = range_done;
-  iter.args = (void*)&range;
+  iter_t iter = range_get_iter(&range);
 
   // run through iterator
   size_t count = 0;
-  for (range_t* s = (range_t*)iter.first(&range); !iter.done(s); s = (range_t*)iter.next(s)) {
-    // printf("val: %d\n", s->val);
+  for (iter.first(iter.args); !iter.done(iter.args); iter.next(iter.args)) {
     count++;
+    // printf("bare range %d\n", range.val);
   }
 
   // assertions

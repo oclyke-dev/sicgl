@@ -27,3 +27,12 @@ static inline void range_init(range_t* range, int32_t min, int32_t max) {
   range->max = max;
   range->val = min;
 }
+
+static inline iter_t range_get_iter(range_t* range) {
+  iter_t iter;
+  iter.first = range_first;
+  iter.next = range_next;
+  iter.done = range_done;
+  iter.args = range;
+  return iter;
+}
