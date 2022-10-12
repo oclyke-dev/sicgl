@@ -62,7 +62,6 @@ typedef struct _screenwriter_t {
 } screenwriter_t;
 
 typedef struct _interface_t {
-  void* arg;  // not sure what this arg is doing or is meant to do right now...
   grid_t grid;
   screenwriter_t screenwriter;
 } interface_t;
