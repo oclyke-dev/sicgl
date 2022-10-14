@@ -1,79 +1,43 @@
 #pragma once
 
-#include <stdbool.h>
-#include <stdint.h>
+#include "sicgl/generic.h"
+#include "sicgl/specific.h"
+#include "sicgl/types.h"
 
-// colors are user-defined
-typedef void* color_t;
+// a note about types:
+// sicgl uses several distinct types each with their own purpose:
+// - color_t: abstraction of color information
+// - ext_t: signed coordinates within global pixel space
+// - ext_t: unsigned distances within global pixel space
+// - screen_t: virtual definition of a 2D rectilinear screen, this is
+//     common between all sicgl functions and not dependent on interface
+// - *interface_t: abstraction which allows sicgl to place colors at
+//     given locations
 
-// physical extents are large signed/unsigned integers
-typedef int32_t ext_t;
-typedef uint32_t uext_t;
+// a note about interfaces:
+// there are two types of interface
+// - generic: the generic interface makes no assumptions and uses
+//     function pointers to give the user total flexibility
+// - specifig: the specific interface requires the user to declare a
+//     fixed byte width for color information and manages memory
+//     internally to increase performance.
 
-// a generic iterator which carries user defined data
-typedef struct _iter_t {
-  // iterator function pointers
-  void* (*first)(void* args);
-  void* (*next)(void* args);
-  bool (*done)(void* args);
+// a note about APIs:
+// there are several APIs available, each with its own intended purpose:
+//
+// low-level (no screen, coordinates are interface-relative (local), inputs not
+// verified)
+// - sicgl_*_generic: perform direct operations upon a generic interface
+// - sicgl_*_specific: perform direct operations upon a specific interface
+//
+// per-screen (screen offset and dimensions are considered - coordinates are
+// global)
+// - sicgl_*_screen_generic: operate on single screen, generic interface
+// - sicgl_*_screen_specific: operate on single screen, specific interface
+//
+// global (multiple screens)
+// this is not currently implemented - it could be a feature but it is not
+// terribly hard for a user to implement themselves
 
-  // user data
-  void* args;
-} iter_t;
-
-void iter_foreach(iter_t iter, void (*callback)(void*), void* arg);
-
-// drawing is always done on a grid with uv coordinates from [0, 0] to [width-1,
-// height-1] a height or width of zero will make the grid un-writeable keeping
-// this simple interface makes it very easy to write drawing code other
-// functionalities, such as window management, should be handled externally for
-// instance: WAIT - how DO you do this? you could of course create an interface
-// which maps grid units into some other global coordinate system... is this
-// fast? is this an extra lookup for each pixel? each drawing interface? can you
-// even take advantage of bounds checking if you are then translating to some
-// other coordinate system? (maybe you CAN because you know that the resulting
-// coordinates are all bound within the original window...)
-typedef struct _grid_t {
-  uext_t width;
-  uext_t height;
-} grid_t;
-
-// sicgl needs implementations of various writer functions which
-// allow it to actually interact with the user application
-// a user defined implementation for 'pixel' is required. this
-// implementation may be used to inform default 'naive' sicgl
-// implementations of the other functions.
-typedef void (*pixel_fn_t)(void* arg, color_t color, uext_t u, uext_t v);
-typedef void (*hline_fn_t)(void* arg, color_t color, uext_t u0, uext_t v,
-                           uext_t u1);
-typedef void (*vline_fn_t)(void* arg, color_t color, uext_t u, uext_t v0,
-                           uext_t v1);
-typedef void (*region_fn_t)(void* arg, color_t color, uext_t u0, uext_t v0,
-                            uext_t u1, uext_t v1);
-
-typedef struct _screenwriter_t {
-  pixel_fn_t pixel;
-  hline_fn_t hline;
-  vline_fn_t vline;
-  region_fn_t region;
-
-  // argument provided to screenwriters
-  void* arg;
-} screenwriter_t;
-
-typedef struct _interface_t {
-  grid_t grid;
-  screenwriter_t screenwriter;
-} interface_t;
-
-// draw iterator through interface
-void sicgl_draw(interface_t* interface, iter_t* iter);
-
-void sicgl_draw_pixel(interface_t* interface, color_t color, uext_t u,
-                      uext_t v);
-void sicgl_draw_hline(interface_t* interface, color_t color, uext_t u0,
-                      uext_t v, uext_t u1);
-void sicgl_draw_vline(interface_t* interface, color_t color, uext_t u,
-                      uext_t v0, uext_t v1);
-void sicgl_draw_region(interface_t* interface, color_t color, uext_t u0,
-                       uext_t v0, uext_t u1, uext_t v1);
+// // draw iterator through interface
+// void sicgl_draw(interface_t* interface, iter_t* iter);

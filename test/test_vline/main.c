@@ -19,16 +19,16 @@ void test_vline(void) {
   // set up the interfaces
   // // a fast interface uses the bmp_vline implementation
   bitmap_t* fast_bm = bitmap_new(width, height);
-  interface_t fast_intfc = {0};
-  fast_intfc.screenwriter.arg = (void*)fast_bm;
-  fast_intfc.screenwriter.pixel = bmp_pixel;
-  fast_intfc.screenwriter.vline = bmp_vline;
+  generic_interface_t fast_intfc = {0};
+  fast_intfc.arg = (void*)fast_bm;
+  fast_intfc.pixel = bmp_pixel;
+  fast_intfc.vline = bmp_vline;
 
   // // a naive interface only provides the bmp_pixel implementation
   bitmap_t* naive_bm = bitmap_new(width, height);
-  interface_t naive_intfc = {0};
-  naive_intfc.screenwriter.arg = (void*)naive_bm;
-  naive_intfc.screenwriter.pixel = bmp_pixel;
+  generic_interface_t naive_intfc = {0};
+  naive_intfc.arg = (void*)naive_bm;
+  naive_intfc.pixel = bmp_pixel;
 
   TEST_ASSERT_NOT_NULL(fast_bm);
   TEST_ASSERT_NOT_NULL(naive_bm);
@@ -42,8 +42,8 @@ void test_vline(void) {
     bitmap_pixel_t pixel = bmp_random_color();
 
     // draw the pixel using the interfaces
-    sicgl_draw_vline(&fast_intfc, (void*)&pixel, u, v0, v1);
-    sicgl_draw_vline(&naive_intfc, (void*)&pixel, u, v0, v1);
+    sicgl_generic_vline(&fast_intfc, (void*)&pixel, u, v0, v1);
+    sicgl_generic_vline(&naive_intfc, (void*)&pixel, u, v0, v1);
   }
 
   // store images

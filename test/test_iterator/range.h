@@ -1,8 +1,10 @@
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #include "sicgl.h"
+#include "sicgl/iter.h"
 
 typedef struct _range_t {
   int32_t min;

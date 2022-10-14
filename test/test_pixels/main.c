@@ -21,11 +21,9 @@ void test_pixel(void) {
   const uint32_t num_pix = 1000;
 
   // set up the interface
-  interface_t interface;
-  interface.screenwriter.arg = (void*)bm;  // provide bitmap to screenwriter
-  interface.screenwriter.pixel = bmp_pixel;
-  interface.grid.height = height;
-  interface.grid.width = width;
+  generic_interface_t interface;
+  interface.arg = (void*)bm;  // provide bitmap to screenwriter
+  interface.pixel = bmp_pixel;
 
   // draw some pixels
   for (uint32_t count = 0; count < num_pix; count++) {
@@ -39,7 +37,7 @@ void test_pixel(void) {
     }
 
     // draw the pixel using the interface
-    sicgl_draw_pixel(&interface, (void*)&pixel, u, v);
+    sicgl_generic_pixel(&interface, (void*)&pixel, u, v);
   }
 
   // clean up

@@ -43,4 +43,7 @@ jobs:
           cd build
           cmake ..
           cmake --build .
-          find . -regex '\.\/test_[^\.]*$' -exec '{}' -v \;
+      
+      # test
+      - name: run tests
+        run: ./tools/run-tests.sh
