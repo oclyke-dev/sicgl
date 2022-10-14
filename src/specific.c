@@ -2,7 +2,8 @@
 
 #include <stddef.h>
 
-void sicgl_specific_hline(specific_interface_t* interface, screen_t* screen, color_t color, uext_t u0, uext_t v, uext_t u1) {
+void sicgl_specific_hline(specific_interface_t* interface, screen_t* screen,
+                          color_t color, uext_t u0, uext_t v, uext_t u1) {
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
@@ -21,7 +22,8 @@ void sicgl_specific_hline(specific_interface_t* interface, screen_t* screen, col
   }
 }
 
-void sicgl_specific_vline(specific_interface_t* interface, screen_t* screen, color_t color, uext_t u, uext_t v0, uext_t v1) {
+void sicgl_specific_vline(specific_interface_t* interface, screen_t* screen,
+                          color_t color, uext_t u, uext_t v0, uext_t v1) {
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
@@ -40,7 +42,9 @@ void sicgl_specific_vline(specific_interface_t* interface, screen_t* screen, col
   }
 }
 
-void sicgl_specific_region(specific_interface_t* interface, screen_t* screen, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
+void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
+                           color_t color, uext_t u0, uext_t v0, uext_t u1,
+                           uext_t v1) {
   size_t du;
   size_t dv;
   size_t bpp = interface->bpp;
@@ -72,7 +76,7 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen, co
         memcpy(p, color, bpp);
         p += bpp;
       }
-      p += bpp * (width - du); // adv to next row and back to starting column
+      p += bpp * (width - du);  // adv to next row and back to starting column
     }
   } else {
     // fill scratch buffer once then copy it repeatedly
@@ -86,17 +90,19 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen, co
     for (size_t idu = 0; idu < wu; idu++) {
       memcpy(scratch + bpp * idu, color, bpp);
     }
-    // copy scratch buffer into each 
+    // copy scratch buffer into each
     while (du > 0) {
       if (wu > du) {
         wu = du;
       }
       for (size_t idv = 0; idv < dv; idv++) {
         memcpy(p, scratch, wu);
-        p += bpp * width; // adv. to next row
+        p += bpp * width;  // adv. to next row
       }
       du -= wu;
-      p += bpp * (wu - width * dv); // adv. to next starting column and back to first row
+      p += bpp *
+           (wu -
+            width * dv);  // adv. to next starting column and back to first row
     }
   }
 }

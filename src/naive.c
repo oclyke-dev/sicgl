@@ -1,10 +1,12 @@
 #include "sicgl/naive.h"
+
 #include "sicgl/generic.h"
 #include "sicgl/iter.h"
 
 // // naive pixel cannot exist - its an oxymoron
 // // the user *must* at least provide the generic pixel function
-// static inline void naive_pixel(generic_interface_t* interface, color_t color, uext_t u, uext_t v) {
+// static inline void naive_pixel(generic_interface_t* interface, color_t color,
+// uext_t u, uext_t v) {
 //   interface->pixel(interface->arg, color, u, v);
 // }
 
@@ -33,15 +35,16 @@ static void naive_hline_cb(void* arg) {
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color 
- * @param u0 
- * @param v 
- * @param u1 
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @param u0
+ * @param v
+ * @param u1
  */
-void naive_hline(generic_interface_t* interface, color_t color, uext_t u0, uext_t v, uext_t u1) {
+void naive_hline(generic_interface_t* interface, color_t color, uext_t u0,
+                 uext_t v, uext_t u1) {
   hline_t hline = hline_create(u0, u1, v);
   iter_t iter = hline_get_iter(&hline);
   hline_cb_arg_t cb_args;
@@ -76,15 +79,16 @@ static void naive_vline_cb(void* arg) {
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color 
- * @param u 
- * @param v0 
- * @param v1 
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @param u
+ * @param v0
+ * @param v1
  */
-void naive_vline(generic_interface_t* interface, color_t color, uext_t u, uext_t v0, uext_t v1) {
+void naive_vline(generic_interface_t* interface, color_t color, uext_t u,
+                 uext_t v0, uext_t v1) {
   vline_t vline = vline_create(v0, v1, u);
   iter_t iter = vline_get_iter(&vline);
   vline_cb_arg_t cb_args;
@@ -119,17 +123,17 @@ static void naive_region_cb(void* arg) {
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color 
- * @param u0 
- * @param v0 
- * @param u1 
- * @param v1 
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @param u0
+ * @param v0
+ * @param u1
+ * @param v1
  */
 void naive_region(generic_interface_t* interface, color_t color, uext_t u0,
-                         uext_t v0, uext_t u1, uext_t v1) {
+                  uext_t v0, uext_t u1, uext_t v1) {
   // assume that hline is faster and select hline when available
   // todo: consider ways that the user can specify this choice
   region_t region = region_create(u0, v0, u1, v1);
