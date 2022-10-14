@@ -3,7 +3,6 @@
 #include <stdbool.h>
 
 #include "sicgl/generic.h"
-#include "sicgl/types.h"
 
 // naive fallbacks for generic interface
 void naive_hline(generic_interface_t* interface, color_t color, uext_t u0,

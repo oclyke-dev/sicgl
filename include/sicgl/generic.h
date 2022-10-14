@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sicgl.h"
+#include "sicgl/types.h"
 
 // sicgl needs implementations of various writer functions which
 // allow it to actually interact with the user application

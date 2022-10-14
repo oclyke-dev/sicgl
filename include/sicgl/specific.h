@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-#include "sicgl.h"
+#include "sicgl/types.h"
 
 typedef struct _specific_interface_t {
   size_t bpp;  // size of color_t in bytes
