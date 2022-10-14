@@ -6,7 +6,13 @@ set(SICGL_ROOT_DIR ${CMAKE_SOURCE_DIR})
 set(SICGL_LIBRARIES sicgl ${SICGL_LIB_DEPS})
 
 # create the shared library sicgl
-add_library(sicgl SHARED ${SICGL_ROOT_DIR}/src/sicgl.c)
+add_library(sicgl SHARED
+  ${SICGL_ROOT_DIR}/src/generic.c
+  ${SICGL_ROOT_DIR}/src/iter.c
+  ${SICGL_ROOT_DIR}/src/naive.c
+  ${SICGL_ROOT_DIR}/src/sicgl.c
+  ${SICGL_ROOT_DIR}/src/specific.c
+)
 target_include_directories(sicgl PRIVATE
   ${SICGL_ROOT_DIR}/include
 )
