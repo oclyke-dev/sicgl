@@ -46,8 +46,6 @@ void test_vline(void) {
     sicgl_generic_vline(&naive_intfc, (void*)&pixel, u, v0, v1);
   }
 
-  fast_bm->pixels[0].a = naive_bm->pixels[0].a + 1;
-
   // store images
   bitmap_to_file(fast_bm, "test_vline_fast.png");
   bitmap_to_file(naive_bm, "test_vline_naive.png");

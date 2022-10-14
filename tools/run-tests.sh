@@ -6,11 +6,8 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ret=0
 source=$(find $SCRIPT_DIR/.. -regex '.*\/build\/test_[^\.]*$')
 
-echo $SCRIPT_DIR
-
 for test in $source
 do
-  echo $test
   eval $test
   status=$?
   if [ $status -ne 0 ]; then
