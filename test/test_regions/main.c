@@ -61,6 +61,17 @@ DECLARE_TEST_CASE(location_test_two_generic_naive, true, 3, 5, false,
 DECLARE_TEST_CASE(location_test_two_specific, false, 3, 5, false,
                   pixel_location_expected_two, (void*)&test_color, 1, 1, 1, 3);
 
+const uint8_t pixel_location_expected_three[20] = {
+    0, 0, 0, 0, 0, test_color, test_color, 0, 0, test_color, test_color, 0, 0, test_color, test_color, 0, 0, 0, 0, 0,
+};
+DECLARE_TEST_CASE(location_test_three_generic_full, true, 4, 5, true,
+                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
+DECLARE_TEST_CASE(location_test_three_generic_naive, true, 4, 5, false,
+                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
+DECLARE_TEST_CASE(location_test_three_specific, false, 4, 5, false,
+                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
+
+
 // assemble the tests
 const location_test_case_t* location_tests[] = {
     // first test
@@ -72,6 +83,11 @@ const location_test_case_t* location_tests[] = {
     &location_test_two_generic_full,
     &location_test_two_generic_naive,
     &location_test_two_specific,
+
+    // third test
+    &location_test_three_generic_full,
+    &location_test_three_generic_naive,
+    &location_test_three_specific,
 };
 
 void setUp(void) {
@@ -168,19 +184,13 @@ void test_region(void) {
   spec_screen.v0 = 0;
 
   // draw some lines
-  const uint32_t region = 1;
-  // const uint32_t region = 250;
-  for (uint32_t count = 0; count < region; count++) {
+  const uint32_t regions = 250;
+  for (uint32_t count = 0; count < regions; count++) {
     uext_t u0 = rand() % width;
     uext_t v0 = rand() % height;
     uext_t u1 = rand() % width;
     uext_t v1 = rand() % height;
     bitmap_pixel_t pixel = bmp_random_color();
-
-    u0 = 0;
-    v0 = 0;
-    u1 = 0;
-    v1 = 0;
 
     // draw the pixel using the interfaces
     sicgl_generic_region(&fast_intfc, (void*)&pixel, u0, v0, u1, v1);
