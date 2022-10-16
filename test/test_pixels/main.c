@@ -1,15 +1,13 @@
 #include <stdio.h>
 
-#include "sicgl.h"
-#include "unity.h"
 #include "bitmap_utils.h"
 #include "bytes.h"
+#include "sicgl.h"
+#include "unity.h"
 
 // expected result from simple location test
 const uint8_t pixel_location_expected[9] = {
-  0, 0, 0,
-  0, 0xEA, 0,
-  0, 0, 0,
+    0, 0, 0, 0, 0xEA, 0, 0, 0, 0,
 };
 
 void setUp(void) {
@@ -20,7 +18,7 @@ void tearDown(void) {
   // clean stuff up here
 }
 
-void test_pixel_location_generic_full (void) {
+void test_pixel_location_generic_full(void) {
   // simple test to verify that pixels are placed in the expected location
   bytes_t* bytes = bytes_new(3, 3);
   generic_interface_t* intfc = bytes_new_generic_interface(bytes, true);
@@ -29,13 +27,14 @@ void test_pixel_location_generic_full (void) {
 
   // draw a pixel to the location
   sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1);
-  
+
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes->length);
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
+                           bytes->length);
   bytes_free(bytes);
 }
 
-void test_pixel_location_generic_naive (void) {
+void test_pixel_location_generic_naive(void) {
   // simple test to verify that pixels are placed in the expected location
   bytes_t* bytes = bytes_new(3, 3);
   generic_interface_t* intfc = bytes_new_generic_interface(bytes, false);
@@ -43,14 +42,17 @@ void test_pixel_location_generic_naive (void) {
   TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
 
   // draw a pixel to the location
-  sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1); // intentionally messed up the expected coordinates (1,1) here... for testing the test
-  
+  sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1,
+                      1);  // intentionally messed up the expected coordinates
+                           // (1,1) here... for testing the test
+
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes->length);
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
+                           bytes->length);
   bytes_free(bytes);
 }
 
-void test_pixel_location_specific (void) {
+void test_pixel_location_specific(void) {
   // simple test to verify that pixels are placed in the expected location
   bytes_t* bytes = bytes_new(3, 3);
   TEST_ASSERT_NOT_NULL_MESSAGE(bytes, "could not allocate bytes object");
@@ -62,9 +64,10 @@ void test_pixel_location_specific (void) {
 
   // draw a pixel to the location
   sicgl_specific_pixel(intfc, screen, (void*)&pixel_location_expected[4], 1, 1);
-  
+
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes->length);
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
+                           bytes->length);
   bytes_free(bytes);
 }
 

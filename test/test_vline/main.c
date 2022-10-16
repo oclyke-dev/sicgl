@@ -1,10 +1,10 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
-#include "sicgl.h"
-#include "unity.h"
 #include "bitmap_utils.h"
 #include "bytes.h"
+#include "sicgl.h"
+#include "unity.h"
 
 // allow for multiple tests
 typedef struct {
@@ -20,13 +20,19 @@ typedef struct {
   uext_t v1;
 } location_test_case_t;
 
-#define DECLARE_TEST_CASE(_name, _generic, _width, _height, _full, _reference, _tc, _u, _v0, _v1) \
-  location_test_case_t _name = { \
-    .name = #_name, \
-    .width = _width, .height = _height, \
-    .u = _u, .v0 = _v0, .v1 = _v1, \
-    .test_color = _tc, .reference = _reference, \
-    .full = _full, .generic = _generic, \
+#define DECLARE_TEST_CASE(_name, _generic, _width, _height, _full, _reference, \
+                          _tc, _u, _v0, _v1)                                   \
+  location_test_case_t _name = {                                               \
+      .name = #_name,                                                          \
+      .width = _width,                                                         \
+      .height = _height,                                                       \
+      .u = _u,                                                                 \
+      .v0 = _v0,                                                               \
+      .v1 = _v1,                                                               \
+      .test_color = _tc,                                                       \
+      .reference = _reference,                                                 \
+      .full = _full,                                                           \
+      .generic = _generic,                                                     \
   };
 
 // a color definition to use
@@ -34,36 +40,36 @@ const uint8_t test_color = 0xEA;
 
 // expected result from simple location test
 const uint8_t pixel_location_expected_one[9] = {
-  0, 0, 0,
-  0, test_color, 0,
-  0, 0, 0,
+    0, 0, 0, 0, test_color, 0, 0, 0, 0,
 };
-DECLARE_TEST_CASE(location_test_one_generic_full, true, 3, 3, true, pixel_location_expected_one, (void*)&test_color, 1, 1, 1);
-DECLARE_TEST_CASE(location_test_one_generic_naive, true, 3, 3, false, pixel_location_expected_one, (void*)&test_color, 1, 1, 1);
-DECLARE_TEST_CASE(location_test_one_specific, false, 3, 3, false, pixel_location_expected_one, (void*)&test_color, 1, 1, 1);
+DECLARE_TEST_CASE(location_test_one_generic_full, true, 3, 3, true,
+                  pixel_location_expected_one, (void*)&test_color, 1, 1, 1);
+DECLARE_TEST_CASE(location_test_one_generic_naive, true, 3, 3, false,
+                  pixel_location_expected_one, (void*)&test_color, 1, 1, 1);
+DECLARE_TEST_CASE(location_test_one_specific, false, 3, 3, false,
+                  pixel_location_expected_one, (void*)&test_color, 1, 1, 1);
 
 const uint8_t pixel_location_expected_two[15] = {
-  0, 0, 0,
-  0, test_color, 0,
-  0, test_color, 0,
-  0, test_color, 0, 
-  0, 0, 0,
+    0, 0, 0, 0, test_color, 0, 0, test_color, 0, 0, test_color, 0, 0, 0, 0,
 };
-DECLARE_TEST_CASE(location_test_two_generic_full, true, 3, 5, true, pixel_location_expected_two, (void*)&test_color, 1, 1, 3);
-DECLARE_TEST_CASE(location_test_two_generic_naive, true, 3, 5, false, pixel_location_expected_two, (void*)&test_color, 1, 1, 3);
-DECLARE_TEST_CASE(location_test_two_specific, false, 3, 5, false, pixel_location_expected_two, (void*)&test_color, 1, 1, 3);
+DECLARE_TEST_CASE(location_test_two_generic_full, true, 3, 5, true,
+                  pixel_location_expected_two, (void*)&test_color, 1, 1, 3);
+DECLARE_TEST_CASE(location_test_two_generic_naive, true, 3, 5, false,
+                  pixel_location_expected_two, (void*)&test_color, 1, 1, 3);
+DECLARE_TEST_CASE(location_test_two_specific, false, 3, 5, false,
+                  pixel_location_expected_two, (void*)&test_color, 1, 1, 3);
 
 // assemble the tests
 const location_test_case_t* location_tests[] = {
-  // first test
-  &location_test_one_generic_full,
-  &location_test_one_generic_naive,
-  &location_test_one_specific,
+    // first test
+    &location_test_one_generic_full,
+    &location_test_one_generic_naive,
+    &location_test_one_specific,
 
-  // second test
-  &location_test_two_generic_full,
-  &location_test_two_generic_naive,
-  &location_test_two_specific,
+    // second test
+    &location_test_two_generic_full,
+    &location_test_two_generic_naive,
+    &location_test_two_specific,
 };
 
 void setUp(void) {
@@ -103,11 +109,12 @@ void run_test_case(location_test_case_t test_case) {
   }
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY_MESSAGE(reference, bytes->memory, bytes->length, case_name);
+  TEST_ASSERT_EQUAL_MEMORY_MESSAGE(reference, bytes->memory, bytes->length,
+                                   case_name);
   bytes_free(bytes);
 }
 
-void test_locations (void) {
+void test_locations(void) {
   int num_tests = sizeof(location_tests) / sizeof(location_test_case_t*);
   printf("%d test cases to run\n", num_tests);
   for (int idx = 0; idx < num_tests; idx++) {
@@ -164,7 +171,8 @@ void test_vline(void) {
     // draw the pixel using the interfaces
     sicgl_generic_vline(&fast_intfc, (void*)&pixel, u, v0, v1);
     sicgl_generic_vline(&naive_intfc, (void*)&pixel, u, v0, v1);
-    sicgl_specific_vline(&specfic_intfc, &spec_screen, (void*)&pixel, u, v0, v1);
+    sicgl_specific_vline(&specfic_intfc, &spec_screen, (void*)&pixel, u, v0,
+                         v1);
   }
 
   // store images

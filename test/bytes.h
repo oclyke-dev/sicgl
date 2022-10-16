@@ -3,8 +3,8 @@
 
 // #include <stdint.h>
 // #include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "sicgl.h"
 
@@ -18,9 +18,7 @@ typedef struct {
   uint8_t* memory;
 } bytes_t;
 
-static inline void bytes_free(bytes_t* bytes) {
-  free(bytes);
-}
+static inline void bytes_free(bytes_t* bytes) { free(bytes); }
 
 // offset within array for (u, v)
 static inline size_t bytes_position(bytes_t* bytes, uext_t u, uext_t v) {
@@ -34,7 +32,8 @@ static inline void bytes_pixel(void* arg, color_t color, uext_t u, uext_t v) {
   bytes->memory[bytes_position(bytes, u, v)] = *c;
 }
 
-static inline void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
+static inline void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v,
+                               uext_t u1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
 
@@ -56,7 +55,8 @@ static inline void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v, ue
   }
 }
 
-static inline void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1) {
+static inline void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0,
+                               uext_t v1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
   size_t width = bytes->width;
@@ -76,7 +76,8 @@ static inline void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0, ue
   }
 }
 
-static inline void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
+static inline void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0,
+                                uext_t u1, uext_t v1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
   size_t width = bytes->width;
@@ -112,14 +113,16 @@ static inline bytes_t* bytes_new(size_t width, size_t height) {
   bytes->length = length;
   bytes->width = width;
   bytes->height = height;
-  bytes->bpp = 1; // this is for compatibility with the specific api
+  bytes->bpp = 1;  // this is for compatibility with the specific api
 
 out:
   return bytes;
 }
 
-static inline specific_interface_t* bytes_new_specific_interface(bytes_t* bytes) {
-  specific_interface_t* intfc = (specific_interface_t*)malloc(sizeof(specific_interface_t));
+static inline specific_interface_t* bytes_new_specific_interface(
+    bytes_t* bytes) {
+  specific_interface_t* intfc =
+      (specific_interface_t*)malloc(sizeof(specific_interface_t));
   if (intfc == NULL) {
     goto out;
   }
@@ -150,8 +153,10 @@ out:
   return screen;
 }
 
-static inline generic_interface_t* bytes_new_generic_interface(bytes_t* bytes, bool full) {
-  generic_interface_t* intfc = (generic_interface_t*)malloc(sizeof(generic_interface_t));
+static inline generic_interface_t* bytes_new_generic_interface(bytes_t* bytes,
+                                                               bool full) {
+  generic_interface_t* intfc =
+      (generic_interface_t*)malloc(sizeof(generic_interface_t));
   if (intfc == NULL) {
     goto out;
   }
@@ -170,7 +175,4 @@ out:
   return intfc;
 }
 
-
-static inline uint8_t bytes_random_color() {
-  return (uint8_t)(rand() % 255);
-}
+static inline uint8_t bytes_random_color() { return (uint8_t)(rand() % 255); }
