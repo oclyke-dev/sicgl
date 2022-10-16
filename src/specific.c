@@ -1,6 +1,7 @@
 #include "sicgl/specific.h"
 
 #include <stddef.h>
+#include <stdio.h>
 
 void sicgl_specific_hline(specific_interface_t* interface, screen_t* screen,
                           color_t color, uext_t u0, uext_t v, uext_t u1) {
@@ -15,7 +16,7 @@ void sicgl_specific_hline(specific_interface_t* interface, screen_t* screen,
     distance = u0 - u1 + 1;
   }
 
-  uint8_t* p = interface->memory + screen->width * v + u0;
+  uint8_t* p = interface->memory + interface->bpp * (screen->width * v + u0);
   for (size_t idx = 0; idx < distance; idx++) {
     memcpy(p, color, bpp);
     p += increment;
@@ -35,7 +36,7 @@ void sicgl_specific_vline(specific_interface_t* interface, screen_t* screen,
     distance = v0 - v1 + 1;
   }
 
-  uint8_t* p = interface->memory + screen->width * v0 + u;
+  uint8_t* p = interface->memory + interface->bpp * (screen->width * v0 + u);
   for (size_t idv = 0; idv < distance; idv++) {
     memcpy(p, color, bpp);
     p += increment;
@@ -62,11 +63,11 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
     p += u1;
   }
   if (v0 < v1) {
-    dv = u1 - u0 + 1;
+    dv = v1 - v0 + 1;
     p += width * v0;
   } else {
-    dv = u0 - u1 + 1;
-    p += width * u1;
+    dv = v0 - v1 + 1;
+    p += width * v1;
   }
 
   if (scratch_length == 0) {
@@ -100,9 +101,8 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
         p += bpp * width;  // adv. to next row
       }
       du -= wu;
-      p += bpp *
-           (wu -
-            width * dv);  // adv. to next starting column and back to first row
+      // adv. to next starting column and back to first row
+      p += bpp * (wu - width * dv);
     }
   }
 }

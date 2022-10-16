@@ -97,7 +97,7 @@ static inline void* region_next(void* args) {
 }
 static inline bool region_done(void* args) {
   region_t* region = (region_t*)args;
-  return region->v >= region->vmax;
+  return region->v > region->vmax;
 }
 static region_t region_create(uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
   region_t region;

@@ -19,7 +19,7 @@ typedef struct _specific_interface_t {
 static inline void sicgl_specific_pixel(specific_interface_t* interface,
                                         screen_t* screen, color_t color,
                                         ext_t u, ext_t v) {
-  uint8_t* p = interface->memory + screen->width * v + u;
+  uint8_t* p = interface->memory + interface->bpp * (screen->width * v + u);
   memcpy(p, color, interface->bpp);
 }
 
