@@ -50,7 +50,7 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
   size_t dv;
   size_t bpp = interface->bpp;
   uint8_t* p = interface->memory;
-  size_t offset; // pixels
+  size_t offset;  // pixels
   size_t scratch_length = interface->pixels_scratch;
   uint8_t* scratch = interface->scratch;
   uext_t width = screen->width;
@@ -76,10 +76,10 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
     for (size_t idv = 0; idv < dv; idv++) {
       for (size_t idu = 0; idu < du; idu++) {
         memcpy(interface->memory + bpp * offset, color, bpp);
-        offset++; // advance one column
+        offset++;  // advance one column
       }
-      offset += width; // advance one row
-      offset -= du; // advance back to starting column
+      offset += width;  // advance one row
+      offset -= du;     // advance back to starting column
     }
   } else {
     // fill scratch buffer once then copy it repeatedly

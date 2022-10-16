@@ -62,15 +62,19 @@ DECLARE_TEST_CASE(location_test_two_specific, false, 3, 5, false,
                   pixel_location_expected_two, (void*)&test_color, 1, 1, 1, 3);
 
 const uint8_t pixel_location_expected_three[20] = {
-    0, 0, 0, 0, 0, test_color, test_color, 0, 0, test_color, test_color, 0, 0, test_color, test_color, 0, 0, 0, 0, 0,
+    0,          0, 0,          0,          0, test_color, test_color,
+    0,          0, test_color, test_color, 0, 0,          test_color,
+    test_color, 0, 0,          0,          0, 0,
 };
 DECLARE_TEST_CASE(location_test_three_generic_full, true, 4, 5, true,
-                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
+                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2,
+                  3);
 DECLARE_TEST_CASE(location_test_three_generic_naive, true, 4, 5, false,
-                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
+                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2,
+                  3);
 DECLARE_TEST_CASE(location_test_three_specific, false, 4, 5, false,
-                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
-
+                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2,
+                  3);
 
 // assemble the tests
 const location_test_case_t* location_tests[] = {
