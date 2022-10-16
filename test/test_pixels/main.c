@@ -1,8 +1,16 @@
 #include <stdio.h>
 
-#include "bitmap_utils.h"
 #include "sicgl.h"
 #include "unity.h"
+#include "bitmap_utils.h"
+#include "bytes.h"
+
+// expected result from simple location test
+const uint8_t pixel_location_expected[9] = {
+  0, 0, 0,
+  0, 0xEA, 0,
+  0, 0, 0,
+};
 
 void setUp(void) {
   // set stuff up here
@@ -10,6 +18,54 @@ void setUp(void) {
 
 void tearDown(void) {
   // clean stuff up here
+}
+
+void test_pixel_location_generic_full (void) {
+  // simple test to verify that pixels are placed in the expected location
+  bytes_t* bytes = bytes_new(3, 3);
+  generic_interface_t* intfc = bytes_new_generic_interface(bytes, true);
+  TEST_ASSERT_NOT_NULL_MESSAGE(bytes, "could not allocate bytes object");
+  TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
+
+  // draw a pixel to the location
+  sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1);
+  
+  // verify that the location matches
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes->length);
+  bytes_free(bytes);
+}
+
+void test_pixel_location_generic_naive (void) {
+  // simple test to verify that pixels are placed in the expected location
+  bytes_t* bytes = bytes_new(3, 3);
+  generic_interface_t* intfc = bytes_new_generic_interface(bytes, false);
+  TEST_ASSERT_NOT_NULL_MESSAGE(bytes, "could not allocate bytes object");
+  TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
+
+  // draw a pixel to the location
+  sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1); // intentionally messed up the expected coordinates (1,1) here... for testing the test
+  
+  // verify that the location matches
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes->length);
+  bytes_free(bytes);
+}
+
+void test_pixel_location_specific (void) {
+  // simple test to verify that pixels are placed in the expected location
+  bytes_t* bytes = bytes_new(3, 3);
+  TEST_ASSERT_NOT_NULL_MESSAGE(bytes, "could not allocate bytes object");
+
+  specific_interface_t* intfc = bytes_new_specific_interface(bytes);
+  screen_t* screen = bytes_new_screen(bytes);
+  TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
+  TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not allocate screen object");
+
+  // draw a pixel to the location
+  sicgl_specific_pixel(intfc, screen, (void*)&pixel_location_expected[4], 1, 1);
+  
+  // verify that the location matches
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes->length);
+  bytes_free(bytes);
 }
 
 void test_pixel(void) {
@@ -71,6 +127,9 @@ void test_pixel(void) {
 // not needed when using generate_test_runner.rb
 int main(void) {
   UNITY_BEGIN();
+  RUN_TEST(test_pixel_location_generic_full);
+  RUN_TEST(test_pixel_location_generic_naive);
+  RUN_TEST(test_pixel_location_specific);
   RUN_TEST(test_pixel);
   return UNITY_END();
 }

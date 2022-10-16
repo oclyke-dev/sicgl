@@ -70,11 +70,6 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
     p += width * v1;
   }
 
-  printf("v0: %llu\n", v0);
-  printf("v1: %llu\n", v1);
-  printf("dv: %llu\n", dv);
-  printf("region:\n\tintfc: 0x%08x\n\tbpp: %d\n\tscratch length: %lu\n\tdu: %llu\n\tdv: %llu\n", (uint32_t)interface, interface->bpp, scratch_length, du, dv);
-
   if (scratch_length == 0) {
     // use naive pixel-by-pixel implementation
     for (size_t idv = 0; idv < dv; idv++) {
@@ -106,9 +101,8 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
         p += bpp * width;  // adv. to next row
       }
       du -= wu;
-      p += bpp *
-           (wu -
-            width * dv);  // adv. to next starting column and back to first row
+      // adv. to next starting column and back to first row
+      p += bpp * (wu - width * dv);
     }
   }
 }
