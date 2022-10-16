@@ -22,16 +22,22 @@ typedef struct {
   bitmap_pixel_t pixels[];
 } bitmap_t;
 
+static inline void bitmap_free(bitmap_t* bitmap) { free(bitmap); }
+
 static inline bitmap_t* bitmap_new(size_t width, size_t height) {
   size_t num_pix = width * height;
   bitmap_t* bm = malloc(sizeof(bitmap_t) + sizeof(bitmap_pixel_t) * num_pix);
+  if (bm == NULL) {
+    goto out;
+  }
+
   bm->num_pix = num_pix;
   bm->width = width;
   bm->height = height;
+
+out:
   return bm;
 }
-
-static inline void bitmap_free(bitmap_t* bitmap) { free(bitmap); }
 
 void bitmap_to_file(bitmap_t const* bitmap, char const* path);
 

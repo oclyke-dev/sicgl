@@ -13,6 +13,6 @@ typedef uint32_t uext_t;
 typedef struct _screen_t {
   uext_t u0;
   uext_t v0;
-  ext_t width;
-  ext_t height;
+  uext_t width;
+  uext_t height;
 } screen_t;
