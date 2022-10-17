@@ -46,7 +46,7 @@ jobs:
           cd third-party/libgd
           mkdir build
           cd build
-          cmake -DBUILD_TEST=1 ENABLE_PNG=1 ..
+          cmake -DBUILD_TEST=1 ..
           cmake --build .
           make install DESTDIR=../../../build/libgd-install
 

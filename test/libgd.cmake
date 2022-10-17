@@ -13,6 +13,6 @@
 # create useful variables
 set(LIBGD_LIB_DEPS)
 set(LIBGD_ROOT_DIR ${CMAKE_SOURCE_DIR}/build/libgd-install/usr/local)
-find_library(LIBGD libgd.dylib PATHS ${SICGL_ROOT_DIR}/build/libgd-install/usr/local/lib)
+find_library(LIBGD libgd NAMES libgd.dylib libgd.so PATHS ${SICGL_ROOT_DIR}/build/libgd-install/usr/local/lib)
 
 message(STATUS "Adding libgd library done")
