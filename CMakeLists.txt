@@ -8,6 +8,9 @@ project(
 
 set(CMAKE_C_STANDARD 17)
 
+# set some useful variables
+set(SICGL_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
+
 # create sicgl shared lib
 include(${CMAKE_CURRENT_LIST_DIR}/sicgl.cmake)
 

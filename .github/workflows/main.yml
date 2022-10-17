@@ -36,10 +36,23 @@ jobs:
       - name: update submodules
         run: git submodule update --init --recursive
 
+      # make build dir
+      - name: prepare build
+        run: mkdir build
+
+      # build and install libgd
+      - name: install libgd
+        run: |
+          cd third-party/libgd
+          mkdir build
+          cd build
+          cmake -DBUILD_TEST=1 ..
+          cmake --build .
+          make install DESTDIR=../../../build/libgd-install
+
       # build
       - name: build tests
         run: |
-          mkdir build
           cd build
           cmake ..
           cmake --build .

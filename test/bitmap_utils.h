@@ -7,6 +7,13 @@
 
 #include "sicgl.h"
 
+// because truecolor alpha supports a smaller range of alphas the easiest move
+// is to restrict the valid alpha values to [0, 127] for display these will be
+// mapped back to the [0, 254] range but any comparisons will be done in the
+// reduced range (to avoid off-by-one or incorrect range type)
+#define PNG_ALPHA_FROM_TRUECOLOR_ALPHA(_tca) \
+  (255 - (2 * ((_tca > 127) ? 127 : (_tca))))
+
 /* values range from 0 to 255 */
 typedef struct {
   uint8_t r;

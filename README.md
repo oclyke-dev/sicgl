@@ -14,7 +14,7 @@ small iterator graphics library
 * tested
 
 # tests
-unit tests are handled with [unity](https://github.com/ThrowTheSwitch/Unity) and functional tests are enabled using [libspng](https://github.com/randy408/libspng).
+unit tests are handled with [unity](https://github.com/ThrowTheSwitch/Unity) and functional tests are enabled using [libgd](https://github.com/libgd/libgd) and [libspng](https://github.com/randy408/libspng).
 
 **building tests**
 ```
