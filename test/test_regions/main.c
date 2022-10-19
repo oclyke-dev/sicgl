@@ -1,8 +1,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "test_utils.h"
 #include "sicgl.h"
+#include "test_utils.h"
 
 // allow for multiple tests
 typedef struct {

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "test_utils.h"
 #include "sicgl.h"
+#include "test_utils.h"
 
 // expected result from simple location test
 const uint8_t pixel_location_expected[9] = {

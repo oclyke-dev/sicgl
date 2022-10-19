@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "test_utils.h"
 #include "gd.h"
 #include "spng.h"
+#include "test_utils.h"
 
 void setUp(void) {
   // set stuff up here
@@ -24,20 +24,13 @@ void test_hline(void) {
 
   // draw to a libgd image using sicgl
 
-
-
-  gdImageLine(ref_im, 0, 0, width-1, height-1, truecolor);
+  gdImageLine(ref_im, 0, 0, width - 1, height - 1, truecolor);
 
   // ref_im->tpixels[0] = 1;
 
   // // compare the memory for the two images
   // const size_t memory_len = sizeof(int) * width * height;
   // TEST_ASSERT_EQUAL_MEMORY(ref_im->tpixels, test_im->tpixels, memory_len);
-
-
-  
-
-
 
   // convert the image to a PNG with spong
   bitmap_t* bm = bitmap_new(width, height);
@@ -60,9 +53,6 @@ void test_hline(void) {
   // output the png
   bitmap_to_file(bm, "libgd_parity_test.png");
   bitmap_free(bm);
-
-
-
 
   // gdImagePtr im;
   // int cor_rad = 60;
@@ -98,8 +88,6 @@ void test_hline(void) {
   // gdImageDestroy(im);
   // return 0;
 }
-
-
 
 int main() {
   UNITY_BEGIN();

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "test_utils.h"
 #include "gd.h"
 #include "spng.h"
+#include "test_utils.h"
 
 #define TRANSPARENT (127)
 #define OPAQUE (0)
