@@ -1,10 +1,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "bitmap_utils.h"
-#include "bytes.h"
 #include "sicgl.h"
-#include "unity.h"
+#include "test_utils.h"
 
 // allow for multiple tests
 typedef struct {
