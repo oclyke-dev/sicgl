@@ -1,4 +1,12 @@
-#include "bitmap_utils.h"
+#include "test_utils.h"
+
+void setUp(void) {
+  // set stuff up here
+}
+
+void tearDown(void) {
+  // clean stuff up here
+}
 
 int main() {
   bitmap_t* bm = bitmap_new(255, 255);

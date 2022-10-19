@@ -1,4 +1,4 @@
-#include "bitmap_utils.h"
+#include "utilities/bitmap_utils.h"
 
 #include "spng.h"
 

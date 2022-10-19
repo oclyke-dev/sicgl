@@ -2,6 +2,16 @@
 #include <spng.h>
 #include <stdio.h>
 
+#include "test_utils.h"
+
+void setUp(void) {
+  // set stuff up here
+}
+
+void tearDown(void) {
+  // clean stuff up here
+}
+
 int encode_image(void* image, size_t length, uint32_t width, uint32_t height,
                  enum spng_color_type color_type, int bit_depth) {
   int fmt;

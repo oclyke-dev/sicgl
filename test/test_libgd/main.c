@@ -1,12 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "bitmap_utils.h"
+#include "test_utils.h"
 #include "gd.h"
 #include "spng.h"
 
 #define TRANSPARENT (127)
 #define OPAQUE (0)
+
+void setUp(void) {
+  // set stuff up here
+}
+
+void tearDown(void) {
+  // clean stuff up here
+}
 
 int main() {
   size_t width = 400;
