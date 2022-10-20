@@ -1,11 +1,11 @@
 #pragma once
 
-#include <stdlib.h>
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
+#include <stdlib.h>
 
-#include "sicgl.h"
 #include "gd.h"
+#include "sicgl.h"
 
 // because truecolor alpha supports a smaller range of alphas the easiest move
 // is to restrict the valid alpha values to [0, 127] for display these will be
@@ -27,7 +27,6 @@ typedef struct {
   uext_t height;
   png_pixel_t pixels[];
 } png_t;
-
 
 static inline size_t png_length_pixels(png_t png) {
   return (png.height * png.width);

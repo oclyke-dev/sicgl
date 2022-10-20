@@ -4,15 +4,15 @@
 #include "unity.h"
 
 // include additional apis
-#include "utilities/png.h"
 #include "utilities/image.h"
+#include "utilities/png.h"
 #include "utilities/screen.h"
 
 // include interface definitions
-#include "utilities/interfaces.h"
 #include "utilities/interface_bytes.h"
 #include "utilities/interface_libgd.h"
 #include "utilities/interface_png.h"
+#include "utilities/interfaces.h"
 
 // what are common test operations?
 // * create images
@@ -20,7 +20,8 @@
 // * compare images
 // * directly compare drawing functions fr sicgl to the equivalent from libgd
 
-// from this point out we will standardize around using the libgd image definition for storage
+// from this point out we will standardize around using the libgd image
+// definition for storage
 
 // color conversions
 png_pixel_t png_color_from_truecolor(int truecolor);

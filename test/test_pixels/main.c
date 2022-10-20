@@ -5,7 +5,7 @@
 
 // expected result from simple location test
 const uint8_t pixel_location_expected[9] = {
-  0, 0, 0, 0, 0xEA, 0, 0, 0, 0,
+    0, 0, 0, 0, 0xEA, 0, 0, 0, 0,
 };
 
 void setUp(void) {
@@ -27,7 +27,8 @@ void test_pixel_location_generic_full(void) {
   sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1);
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes_length_bytes(*bytes));
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
+                           bytes_length_bytes(*bytes));
   release_bytes(bytes);
 }
 
@@ -35,9 +36,10 @@ void test_pixel_location_generic_naive(void) {
   // simple test to verify that pixels are placed in the expected location
   bytes_t* bytes = new_bytes(3, 3);
   generic_interface_t prototype = {
-    .pixel = (void*)true,
+      .pixel = (void*)true,
   };
-  generic_interface_t* intfc = new_bytes_generic_interface_partial(bytes, prototype);
+  generic_interface_t* intfc =
+      new_bytes_generic_interface_partial(bytes, prototype);
   TEST_ASSERT_NOT_NULL_MESSAGE(bytes, "could not allocate bytes object");
   TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
 
@@ -47,7 +49,8 @@ void test_pixel_location_generic_naive(void) {
                            // (1,1) here... for testing the test
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes_length_bytes(*bytes));
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
+                           bytes_length_bytes(*bytes));
   release_bytes(bytes);
 }
 
@@ -66,7 +69,8 @@ void test_pixel_location_specific(void) {
   sicgl_specific_pixel(intfc, screen, (void*)&pixel_location_expected[4], 1, 1);
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory, bytes_length_bytes(*bytes));
+  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
+                           bytes_length_bytes(*bytes));
   release_bytes(bytes);
 }
 
@@ -82,11 +86,13 @@ void test_pixel(void) {
 
   // set up the interfaces
   generic_interface_t naive_prototype = {
-    .pixel = (void*)true,
+      .pixel = (void*)true,
   };
   generic_interface_t* fast_intfc = new_png_generic_interface_full(fast_bm);
-  generic_interface_t* naive_intfc = new_png_generic_interface_partial(naive_bm, naive_prototype);
-  specific_interface_t* specfic_intfc = new_png_specific_interface(spec_bm, NULL, 0);
+  generic_interface_t* naive_intfc =
+      new_png_generic_interface_partial(naive_bm, naive_prototype);
+  specific_interface_t* specfic_intfc =
+      new_png_specific_interface(spec_bm, NULL, 0);
 
   TEST_ASSERT_NOT_NULL(fast_bm);
   TEST_ASSERT_NOT_NULL(naive_bm);

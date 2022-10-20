@@ -1,4 +1,5 @@
 #include "utilities/image.h"
+
 #include "utilities/png.h"
 
 int image_to_file(gdImage* image, char const* path) {

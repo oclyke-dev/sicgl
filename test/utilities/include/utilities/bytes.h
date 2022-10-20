@@ -20,9 +20,7 @@ static inline size_t bytes_length_pixels(bytes_t bytes) {
   return bytes_length_bytes(bytes);
 }
 
-static inline size_t bytes_bpp(bytes_t bytes) {
-  return 1;
-}
+static inline size_t bytes_bpp(bytes_t bytes) { return 1; }
 
 static inline void release_bytes(bytes_t* bytes) {
   if (NULL != bytes) {
@@ -51,6 +49,4 @@ out:
   return bytes;
 }
 
-static inline uint8_t bytes_random_color() {
-  return (uint8_t)(rand() % 255);
-}
+static inline uint8_t bytes_random_color() { return (uint8_t)(rand() % 255); }

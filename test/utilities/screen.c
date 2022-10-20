@@ -2,12 +2,7 @@
 
 #include "sicgl.h"
 
-screen_t* new_screen(
-  uext_t width,
-  uext_t height,
-  ext_t u0,
-  ext_t v0
-) {
+screen_t* new_screen(uext_t width, uext_t height, ext_t u0, ext_t v0) {
   screen_t* screen = (screen_t*)malloc(sizeof(screen_t));
   if (screen == NULL) {
     goto out;

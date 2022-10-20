@@ -1,5 +1,6 @@
-#include "utilities/interfaces.h"
 #include "utilities/interface_png.h"
+
+#include "utilities/interfaces.h"
 
 // fwd declarations of interface functions
 static void png_pixel(void* arg, color_t color, uext_t u, uext_t v);
@@ -10,32 +11,39 @@ static void png_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1);
  * @brief Create a generic interface from prototype.
  * Non-null fields in the prototpye will be replaced
  * with the appropriate interface function.
- * 
- * @param png 
- * @param prototype 
- * @return generic_interface_t* 
+ *
+ * @param png
+ * @param prototype
+ * @return generic_interface_t*
  */
-generic_interface_t* new_png_generic_interface_partial(png_t* png, generic_interface_t prototype) {
+generic_interface_t* new_png_generic_interface_partial(
+    png_t* png, generic_interface_t prototype) {
   generic_interface_t* interface = NULL;
 
   // ensure an image is provided
   if (NULL == png) {
     goto out;
   }
-  
+
   // create the interface structure
   interface = new_generic_interface();
   if (NULL == interface) {
     goto out;
   }
-  
+
   // set the image as the argument
   interface->arg = png;
 
   // configure the interface as desired
-  if (NULL != prototype.pixel) { interface->pixel = png_pixel; }
-  if (NULL != prototype.hline) { interface->hline = png_hline; }
-  if (NULL != prototype.vline) { interface->vline = png_vline; }
+  if (NULL != prototype.pixel) {
+    interface->pixel = png_pixel;
+  }
+  if (NULL != prototype.hline) {
+    interface->hline = png_hline;
+  }
+  if (NULL != prototype.vline) {
+    interface->vline = png_vline;
+  }
   // if (NULL != prototype.region) { interface->region = png_region; }
 
 out:
@@ -44,9 +52,9 @@ out:
 
 /**
  * @brief Create a fully-featured generic interface which draws to PNGs.
- * 
- * @param png 
- * @return generic_interface_t* 
+ *
+ * @param png
+ * @return generic_interface_t*
  */
 generic_interface_t* new_png_generic_interface_full(png_t* png) {
   // create full prototype
@@ -54,19 +62,21 @@ generic_interface_t* new_png_generic_interface_full(png_t* png) {
   memset(&prototype, 0x01, sizeof(prototype));
 
   // use prototype to get full interface
-  generic_interface_t* interface = new_png_generic_interface_partial(png, prototype);
+  generic_interface_t* interface =
+      new_png_generic_interface_partial(png, prototype);
 
 out:
   return interface;
 }
 
 /**
- * @brief 
- * 
- * @param png 
- * @return specific_interface_t* 
+ * @brief
+ *
+ * @param png
+ * @return specific_interface_t*
  */
-specific_interface_t* new_png_specific_interface(png_t* png, uint8_t* scratch, size_t scratch_length) {
+specific_interface_t* new_png_specific_interface(png_t* png, uint8_t* scratch,
+                                                 size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
   if (NULL == png) {
@@ -99,12 +109,13 @@ static void png_pixel(void* arg, color_t color, uext_t u, uext_t v) {
   // if (offset >= png->num_pix) {
   //   return;
   // }
-  
+
   // set color in memory at the location
   png->pixels[offset] = *bm_color;
 }
 
-static void png_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
+static void png_hline(void* arg, color_t color, uext_t u0, uext_t v,
+                      uext_t u1) {
   png_t* png = (png_t*)arg;
   png_pixel_t* bm_color = (png_pixel_t*)color;
   // assume that coordinates are in-bounds for the png
@@ -130,7 +141,8 @@ static void png_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) 
   }
 }
 
-static void png_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1) {
+static void png_vline(void* arg, color_t color, uext_t u, uext_t v0,
+                      uext_t v1) {
   png_t* png = (png_t*)arg;
   png_pixel_t* bm_color = (png_pixel_t*)color;
   // assume that coordinates are in-bounds for the png

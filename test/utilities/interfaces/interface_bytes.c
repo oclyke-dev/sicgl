@@ -2,42 +2,55 @@
 
 // sicgl generic interface functions
 static void bytes_pixel(void* arg, color_t color, uext_t u, uext_t v);
-static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1);
-static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1);
-static void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1);
+static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v,
+                        uext_t u1);
+static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0,
+                        uext_t v1);
+static void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0,
+                         uext_t u1, uext_t v1);
 
-generic_interface_t* new_bytes_generic_interface_partial(bytes_t* bytes, generic_interface_t prototype) {
+generic_interface_t* new_bytes_generic_interface_partial(
+    bytes_t* bytes, generic_interface_t prototype) {
   generic_interface_t* interface = NULL;
 
   // ensure an image is provided
   if (NULL == bytes) {
     goto out;
   }
-  
+
   // create the interface structure
   interface = new_generic_interface();
   if (NULL == interface) {
     goto out;
   }
-  
+
   // set the image as the argument
   interface->arg = bytes;
 
   // configure the interface as desired
-  if (NULL != prototype.pixel) { interface->pixel = bytes_pixel; }
-  if (NULL != prototype.hline) { interface->hline = bytes_hline; }
-  if (NULL != prototype.vline) { interface->vline = bytes_vline; }
-  if (NULL != prototype.region) { interface->region = bytes_region; }
+  if (NULL != prototype.pixel) {
+    interface->pixel = bytes_pixel;
+  }
+  if (NULL != prototype.hline) {
+    interface->hline = bytes_hline;
+  }
+  if (NULL != prototype.vline) {
+    interface->vline = bytes_vline;
+  }
+  if (NULL != prototype.region) {
+    interface->region = bytes_region;
+  }
 
 out:
   return interface;
 }
 
 /**
- * @brief Create a fully-featured generic interface which draws to bytes_t images.
- * 
- * @param png 
- * @return generic_interface_t* 
+ * @brief Create a fully-featured generic interface which draws to bytes_t
+ * images.
+ *
+ * @param png
+ * @return generic_interface_t*
  */
 generic_interface_t* new_bytes_generic_interface_full(bytes_t* bytes) {
   // create full prototype
@@ -48,18 +61,21 @@ generic_interface_t* new_bytes_generic_interface_full(bytes_t* bytes) {
   prototype.region = (void*)true;
 
   // use prototype to get full interface
-  generic_interface_t* interface = new_bytes_generic_interface_partial(bytes, prototype);
+  generic_interface_t* interface =
+      new_bytes_generic_interface_partial(bytes, prototype);
 
 out:
   return interface;
 }
 
-specific_interface_t* new_bytes_specific_interface(bytes_t* bytes, uint8_t* scratch, size_t scratch_length) {
+specific_interface_t* new_bytes_specific_interface(bytes_t* bytes,
+                                                   uint8_t* scratch,
+                                                   size_t scratch_length) {
   specific_interface_t* interface = NULL;
   if (NULL == bytes) {
     goto out;
   }
-  
+
   interface = new_specific_interface();
   if (NULL == interface) {
     goto out;
@@ -88,7 +104,8 @@ static void bytes_pixel(void* arg, color_t color, uext_t u, uext_t v) {
   bytes->memory[bytes_position(bytes, u, v)] = *c;
 }
 
-static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
+static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v,
+                        uext_t u1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
 
@@ -110,7 +127,8 @@ static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v, uext_t u1
   }
 }
 
-static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1) {
+static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0,
+                        uext_t v1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
   size_t width = bytes->width;
@@ -130,7 +148,8 @@ static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0, uext_t v1
   }
 }
 
-static inline void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
+static inline void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0,
+                                uext_t u1, uext_t v1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
   size_t width = bytes->width;

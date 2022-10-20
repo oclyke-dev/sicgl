@@ -100,7 +100,7 @@ void run_test_case(location_test_case_t test_case) {
       intfc = new_bytes_generic_interface_full(bytes);
     } else {
       generic_interface_t prototype = {
-        .pixel = (void*)true,
+          .pixel = (void*)true,
       };
       intfc = new_bytes_generic_interface_partial(bytes, prototype);
     }
@@ -115,7 +115,8 @@ void run_test_case(location_test_case_t test_case) {
   }
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY_MESSAGE(reference, bytes->memory, bytes_length_bytes(*bytes), case_name);
+  TEST_ASSERT_EQUAL_MEMORY_MESSAGE(reference, bytes->memory,
+                                   bytes_length_bytes(*bytes), case_name);
   release_bytes(bytes);
 }
 
@@ -141,11 +142,13 @@ void test_hline(void) {
   // // a fast interface uses the bmp_vline implementation
   // // a naive interface only provides the bmp_pixel implementation
   generic_interface_t naive_prototype = {
-    .pixel = (void*)true,
+      .pixel = (void*)true,
   };
   generic_interface_t* fast_intfc = new_png_generic_interface_full(fast_bm);
-  generic_interface_t* naive_intfc = new_png_generic_interface_partial(naive_bm, naive_prototype);
-  specific_interface_t* specfic_intfc = new_png_specific_interface(spec_bm, NULL, 0);
+  generic_interface_t* naive_intfc =
+      new_png_generic_interface_partial(naive_bm, naive_prototype);
+  specific_interface_t* specfic_intfc =
+      new_png_specific_interface(spec_bm, NULL, 0);
 
   TEST_ASSERT_NOT_NULL(fast_bm);
   TEST_ASSERT_NOT_NULL(naive_bm);

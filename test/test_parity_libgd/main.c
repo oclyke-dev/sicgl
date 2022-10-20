@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 #include "gd.h"
-#include "spng.h"
 #include "sicgl.h"
+#include "spng.h"
 #include "test_utils.h"
 
 void setUp(void) {
@@ -25,10 +25,11 @@ void test_hline(void) {
 
   // get sicgl interface
   generic_interface_t* generic = new_libgd_generic_interface_full(test_im);
-  TEST_ASSERT_NOT_NULL_MESSAGE(generic, "could not allocate generic interface object");
+  TEST_ASSERT_NOT_NULL_MESSAGE(generic,
+                               "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
-  sicgl_generic_hline(generic, (void*)truecolor, 0, 2, width-1);
+  sicgl_generic_hline(generic, (void*)truecolor, 0, 2, width - 1);
   gdImageLine(ref_im, 0, 0, width - 1, height - 1, truecolor);
 
   // ref_im->tpixels[0] = 1;
@@ -36,8 +37,6 @@ void test_hline(void) {
   // // compare the memory for the two images
   // const size_t memory_len = sizeof(int) * width * height;
   // TEST_ASSERT_EQUAL_MEMORY(ref_im->tpixels, test_im->tpixels, memory_len);
-
-
 
   // // output the png
   // png_to_file(bm, "libgd_parity_test.png");

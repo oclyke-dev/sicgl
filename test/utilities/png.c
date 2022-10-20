@@ -1,9 +1,10 @@
+#include "utilities/png.h"
+
 #include <stdlib.h>
 
-#include "utilities/png.h"
-#include "test_utils.h"
-#include "spng.h"
 #include "gd.h"
+#include "spng.h"
+#include "test_utils.h"
 
 png_pixel_t png_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
   png_pixel_t pixel;
@@ -24,10 +25,10 @@ png_pixel_t png_color_random() {
 
 /**
  * @brief Allocate and initialize a new PNG type.
- * 
- * @param width 
- * @param height 
- * @return png_t* 
+ *
+ * @param width
+ * @param height
+ * @return png_t*
  */
 png_t* new_png(uext_t width, uext_t height) {
   png_t* png = malloc(sizeof(png_t) + sizeof(png_pixel_t) * width * height);
@@ -45,19 +46,17 @@ out:
 
 /**
  * @brief Clean up an allocated PNG.
- * 
- * @param png 
+ *
+ * @param png
  */
-void release_png (png_t* png) {
-  free(png);
-}
+void release_png(png_t* png) { free(png); }
 
 /**
  * @brief Allocate a new PNG and convert the provided image to PNG format.
- * 
- * @param image 
- * @param output 
- * @return int 
+ *
+ * @param image
+ * @param output
+ * @return int
  */
 png_t* new_png_from_image(gdImage* image) {
   png_t* png = NULL;
@@ -72,12 +71,13 @@ png_t* new_png_from_image(gdImage* image) {
   if (NULL == png) {
     goto out;
   }
-  
+
   // convert the image to a PNG with spong
   uext_t width = png->width;
   for (size_t u = 0; u < png->width; u++) {
     for (size_t v = 0; v < png->height; v++) {
-      png->pixels[v * width + u] = png_color_from_truecolor(gdImageTrueColorPixel(image, u, v));
+      png->pixels[v * width + u] =
+          png_color_from_truecolor(gdImageTrueColorPixel(image, u, v));
     }
   }
 
@@ -87,10 +87,10 @@ out:
 
 /**
  * @brief Write out a png image to a file.
- * 
- * @param png 
- * @param path 
- * @return int 
+ *
+ * @param png
+ * @param path
+ * @return int
  */
 int png_to_file(png_t const* png, char const* path) {
   int ret = 0;
@@ -129,7 +129,9 @@ int png_to_file(png_t const* png, char const* path) {
   spng_set_ihdr(ctx, &ihdr);
 
   /* encode png data */
-  ret = spng_encode_image(ctx, &png->pixels, sizeof(png_pixel_t) * png->width * png->height, SPNG_FMT_PNG, SPNG_ENCODE_FINALIZE);
+  ret = spng_encode_image(ctx, &png->pixels,
+                          sizeof(png_pixel_t) * png->width * png->height,
+                          SPNG_FMT_PNG, SPNG_ENCODE_FINALIZE);
 
 cleanup_file:
   fclose(fp);
