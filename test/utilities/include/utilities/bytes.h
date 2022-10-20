@@ -37,7 +37,7 @@ static inline bytes_t* new_bytes(size_t width, size_t height) {
   if (bytes == NULL) {
     goto out;
   }
-  uint8_t* memory = (uint8_t*)malloc(length);
+  uint8_t* memory = (uint8_t*)calloc(1, length);
   if (memory == NULL) {
     release_bytes(bytes);
     bytes = NULL;
