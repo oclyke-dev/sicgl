@@ -50,8 +50,8 @@ void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
   size_t dv;
   size_t bpp = interface->bpp;
   uint8_t* p = interface->memory;
-  size_t offset;  // pixels
-  size_t scratch_length = interface->pixels_scratch;
+  size_t offset;  // length
+  size_t scratch_length = interface->scratch_length / bpp; // compute available length in scratch
   uint8_t* scratch = interface->scratch;
   uext_t width = screen->width;
 

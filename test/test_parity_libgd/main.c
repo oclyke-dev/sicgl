@@ -3,6 +3,7 @@
 
 #include "gd.h"
 #include "spng.h"
+#include "sicgl.h"
 #include "test_utils.h"
 
 void setUp(void) {
@@ -22,8 +23,12 @@ void test_hline(void) {
   gdImagePtr ref_im = gdImageCreateTrueColor(width, height);
   gdImagePtr test_im = gdImageCreateTrueColor(width, height);
 
-  // draw to a libgd image using sicgl
+  // get sicgl interface
+  generic_interface_t* generic = new_libgd_generic_interface_full(test_im);
+  TEST_ASSERT_NOT_NULL_MESSAGE(generic, "could not allocate generic interface object");
 
+  // draw using both sicgl and libgd
+  sicgl_generic_hline(generic, (void*)truecolor, 0, 2, width-1);
   gdImageLine(ref_im, 0, 0, width - 1, height - 1, truecolor);
 
   // ref_im->tpixels[0] = 1;
@@ -32,27 +37,11 @@ void test_hline(void) {
   // const size_t memory_len = sizeof(int) * width * height;
   // TEST_ASSERT_EQUAL_MEMORY(ref_im->tpixels, test_im->tpixels, memory_len);
 
-  // convert the image to a PNG with spong
-  bitmap_t* bm = bitmap_new(width, height);
-  for (size_t y = 0; y < bm->height; ++y) {
-    for (size_t x = 0; x < bm->width; ++x) {
-      bitmap_pixel_t* px = &bm->pixels[bm->width * y + x];
-      int tc = gdImageTrueColorPixel(test_im, x, y);
 
-      printf("%08x ", tc);
 
-      px->r = gdTrueColorGetRed(tc);
-      px->g = gdTrueColorGetGreen(tc);
-      px->b = gdTrueColorGetBlue(tc);
-      px->a = PNG_ALPHA_FROM_TRUECOLOR_ALPHA(gdTrueColorGetAlpha(tc));
-    }
-
-    printf("\n");
-  }
-
-  // output the png
-  bitmap_to_file(bm, "libgd_parity_test.png");
-  bitmap_free(bm);
+  // // output the png
+  // png_to_file(bm, "libgd_parity_test.png");
+  // bitmap_free(bm);
 
   // gdImagePtr im;
   // int cor_rad = 60;
@@ -68,7 +57,7 @@ void test_hline(void) {
   //                  180, gdTrueColorAlpha(0xFF, 0xFF, 0xFF, OPAQUE), gdPie);
 
   // // convert the image to a PNG with spong
-  // bitmap_t* bm = bitmap_new(width, height);
+  // png_t* bm = bitmap_new(width, height);
   // for (size_t y = 0; y < bm->height; ++y) {
   //   for (size_t x = 0; x < bm->width; ++x) {
   //     bitmap_pixel_t* px = &bm->pixels[bm->width * y + x];
@@ -82,7 +71,7 @@ void test_hline(void) {
   // }
 
   // // output the png
-  // bitmap_to_file(bm, "libgd_test.png");
+  // png_to_file(bm, "libgd_test.png");
   // bitmap_free(bm);
 
   // gdImageDestroy(im);
