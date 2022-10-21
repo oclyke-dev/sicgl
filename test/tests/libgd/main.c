@@ -51,7 +51,7 @@ int main() {
   }
 
   // output the png
-  png_to_file(bm, "libgd_test.png");
+  png_to_file(bm, TEST_OUTPUT_DIR "/test.png");
   release_png(bm);
 
   gdImageDestroy(im);

@@ -133,6 +133,8 @@ int png_to_file(png_t const* png, char const* path) {
       ctx, &png->pixels, sizeof(png_pixel_t) * png->width * png->height,
       SPNG_FMT_PNG, SPNG_ENCODE_FINALIZE);
 
+  printf("exiting with code: %d\n", ret);
+
 cleanup_file:
   fclose(fp);
 cleanup_ctx:
