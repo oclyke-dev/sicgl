@@ -4,9 +4,7 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ret=0
-source=$(find $SCRIPT_DIR/.. -regex '.*\/build\/test_[^\.]*$')
-
-echo "$source"
+source=$(find $SCRIPT_DIR/.. -regex '.*\/build\/tests\/.*\/test')
 
 count=0
 for test in $source
