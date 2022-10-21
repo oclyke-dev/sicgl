@@ -3,8 +3,9 @@
 #include <stddef.h>
 #include <stdio.h>
 
-void sicgl_specific_hline(specific_interface_t* interface, screen_t* screen,
-                          color_t color, uext_t u0, uext_t v, uext_t u1) {
+void sicgl_specific_hline(
+    specific_interface_t* interface, screen_t* screen, color_t color, uext_t u0,
+    uext_t v, uext_t u1) {
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
@@ -23,8 +24,9 @@ void sicgl_specific_hline(specific_interface_t* interface, screen_t* screen,
   }
 }
 
-void sicgl_specific_vline(specific_interface_t* interface, screen_t* screen,
-                          color_t color, uext_t u, uext_t v0, uext_t v1) {
+void sicgl_specific_vline(
+    specific_interface_t* interface, screen_t* screen, color_t color, uext_t u,
+    uext_t v0, uext_t v1) {
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
@@ -43,9 +45,9 @@ void sicgl_specific_vline(specific_interface_t* interface, screen_t* screen,
   }
 }
 
-void sicgl_specific_region(specific_interface_t* interface, screen_t* screen,
-                           color_t color, uext_t u0, uext_t v0, uext_t u1,
-                           uext_t v1) {
+void sicgl_specific_region(
+    specific_interface_t* interface, screen_t* screen, color_t color, uext_t u0,
+    uext_t v0, uext_t u1, uext_t v1) {
   size_t du;
   size_t dv;
   size_t bpp = interface->bpp;

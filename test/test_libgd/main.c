@@ -24,14 +24,17 @@ int main() {
   int cor_rad = 60;
   im = gdImageCreateTrueColor(width, height);
   im->alphaBlendingFlag = 0;  // turn off alpha blending
-  gdImageFilledRectangle(im, 0, 0, 399, 399,
-                         gdTrueColorAlpha(0x00, 0x00, 0x00, TRANSPARENT));
-  gdImageFilledRectangle(im, cor_rad, cor_rad, cor_rad * 2, cor_rad * 2,
-                         gdTrueColorAlpha(0x0F, 0xF0, 0xF0, OPAQUE));
-  gdImageEllipse(im, 2.75 * cor_rad, 3 * cor_rad, 2 * cor_rad, cor_rad,
-                 gdTrueColorAlpha(0xFF, 0x0F, 0xFF, OPAQUE));
-  gdImageFilledArc(im, cor_rad, 399 - cor_rad, cor_rad * 2, cor_rad * 2, 90,
-                   180, gdTrueColorAlpha(0xFF, 0xFF, 0xFF, OPAQUE), gdPie);
+  gdImageFilledRectangle(
+      im, 0, 0, 399, 399, gdTrueColorAlpha(0x00, 0x00, 0x00, TRANSPARENT));
+  gdImageFilledRectangle(
+      im, cor_rad, cor_rad, cor_rad * 2, cor_rad * 2,
+      gdTrueColorAlpha(0x0F, 0xF0, 0xF0, OPAQUE));
+  gdImageEllipse(
+      im, 2.75 * cor_rad, 3 * cor_rad, 2 * cor_rad, cor_rad,
+      gdTrueColorAlpha(0xFF, 0x0F, 0xFF, OPAQUE));
+  gdImageFilledArc(
+      im, cor_rad, 399 - cor_rad, cor_rad * 2, cor_rad * 2, 90, 180,
+      gdTrueColorAlpha(0xFF, 0xFF, 0xFF, OPAQUE), gdPie);
 
   // convert the image to a PNG with spong
   png_t* bm = new_png(width, height);

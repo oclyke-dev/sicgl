@@ -19,20 +19,21 @@ typedef struct {
   uext_t v1;
 } location_test_case_t;
 
-#define DECLARE_TEST_CASE(_name, _generic, _width, _height, _full, _reference, \
-                          _tc, _u0, _v0, _u1, _v1)                             \
-  location_test_case_t _name = {                                               \
-      .name = #_name,                                                          \
-      .width = _width,                                                         \
-      .height = _height,                                                       \
-      .u0 = _u0,                                                               \
-      .v0 = _v0,                                                               \
-      .u1 = _u1,                                                               \
-      .v1 = _v1,                                                               \
-      .test_color = _tc,                                                       \
-      .reference = _reference,                                                 \
-      .full = _full,                                                           \
-      .generic = _generic,                                                     \
+#define DECLARE_TEST_CASE(                                                   \
+    _name, _generic, _width, _height, _full, _reference, _tc, _u0, _v0, _u1, \
+    _v1)                                                                     \
+  location_test_case_t _name = {                                             \
+      .name = #_name,                                                        \
+      .width = _width,                                                       \
+      .height = _height,                                                     \
+      .u0 = _u0,                                                             \
+      .v0 = _v0,                                                             \
+      .u1 = _u1,                                                             \
+      .v1 = _v1,                                                             \
+      .test_color = _tc,                                                     \
+      .reference = _reference,                                               \
+      .full = _full,                                                         \
+      .generic = _generic,                                                   \
   };
 
 // a color definition to use
@@ -42,37 +43,43 @@ const uint8_t test_color = 0xEA;
 const uint8_t pixel_location_expected_one[9] = {
     0, 0, 0, 0, test_color, 0, 0, 0, 0,
 };
-DECLARE_TEST_CASE(location_test_one_generic_full, true, 3, 3, true,
-                  pixel_location_expected_one, (void*)&test_color, 1, 1, 1, 1);
-DECLARE_TEST_CASE(location_test_one_generic_naive, true, 3, 3, false,
-                  pixel_location_expected_one, (void*)&test_color, 1, 1, 1, 1);
-DECLARE_TEST_CASE(location_test_one_specific, false, 3, 3, false,
-                  pixel_location_expected_one, (void*)&test_color, 1, 1, 1, 1);
+DECLARE_TEST_CASE(
+    location_test_one_generic_full, true, 3, 3, true,
+    pixel_location_expected_one, (void*)&test_color, 1, 1, 1, 1);
+DECLARE_TEST_CASE(
+    location_test_one_generic_naive, true, 3, 3, false,
+    pixel_location_expected_one, (void*)&test_color, 1, 1, 1, 1);
+DECLARE_TEST_CASE(
+    location_test_one_specific, false, 3, 3, false, pixel_location_expected_one,
+    (void*)&test_color, 1, 1, 1, 1);
 
 const uint8_t pixel_location_expected_two[15] = {
     0, 0, 0, 0, test_color, 0, 0, test_color, 0, 0, test_color, 0, 0, 0, 0,
 };
-DECLARE_TEST_CASE(location_test_two_generic_full, true, 3, 5, true,
-                  pixel_location_expected_two, (void*)&test_color, 1, 1, 1, 3);
-DECLARE_TEST_CASE(location_test_two_generic_naive, true, 3, 5, false,
-                  pixel_location_expected_two, (void*)&test_color, 1, 1, 1, 3);
-DECLARE_TEST_CASE(location_test_two_specific, false, 3, 5, false,
-                  pixel_location_expected_two, (void*)&test_color, 1, 1, 1, 3);
+DECLARE_TEST_CASE(
+    location_test_two_generic_full, true, 3, 5, true,
+    pixel_location_expected_two, (void*)&test_color, 1, 1, 1, 3);
+DECLARE_TEST_CASE(
+    location_test_two_generic_naive, true, 3, 5, false,
+    pixel_location_expected_two, (void*)&test_color, 1, 1, 1, 3);
+DECLARE_TEST_CASE(
+    location_test_two_specific, false, 3, 5, false, pixel_location_expected_two,
+    (void*)&test_color, 1, 1, 1, 3);
 
 const uint8_t pixel_location_expected_three[20] = {
     0,          0, 0,          0,          0, test_color, test_color,
     0,          0, test_color, test_color, 0, 0,          test_color,
     test_color, 0, 0,          0,          0, 0,
 };
-DECLARE_TEST_CASE(location_test_three_generic_full, true, 4, 5, true,
-                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2,
-                  3);
-DECLARE_TEST_CASE(location_test_three_generic_naive, true, 4, 5, false,
-                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2,
-                  3);
-DECLARE_TEST_CASE(location_test_three_specific, false, 4, 5, false,
-                  pixel_location_expected_three, (void*)&test_color, 1, 1, 2,
-                  3);
+DECLARE_TEST_CASE(
+    location_test_three_generic_full, true, 4, 5, true,
+    pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
+DECLARE_TEST_CASE(
+    location_test_three_generic_naive, true, 4, 5, false,
+    pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
+DECLARE_TEST_CASE(
+    location_test_three_specific, false, 4, 5, false,
+    pixel_location_expected_three, (void*)&test_color, 1, 1, 2, 3);
 
 // assemble the tests
 const location_test_case_t* location_tests[] = {
@@ -139,8 +146,8 @@ void run_test_case(location_test_case_t test_case) {
   }
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY_MESSAGE(reference, bytes->memory,
-                                   bytes_length_bytes(bytes), case_name);
+  TEST_ASSERT_EQUAL_MEMORY_MESSAGE(
+      reference, bytes->memory, bytes_length_bytes(bytes), case_name);
 
   // bummer - if a test assert fails the execution does not continue and clean
   // up...

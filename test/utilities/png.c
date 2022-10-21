@@ -129,9 +129,9 @@ int png_to_file(png_t const* png, char const* path) {
   spng_set_ihdr(ctx, &ihdr);
 
   /* encode png data */
-  ret = spng_encode_image(ctx, &png->pixels,
-                          sizeof(png_pixel_t) * png->width * png->height,
-                          SPNG_FMT_PNG, SPNG_ENCODE_FINALIZE);
+  ret = spng_encode_image(
+      ctx, &png->pixels, sizeof(png_pixel_t) * png->width * png->height,
+      SPNG_FMT_PNG, SPNG_ENCODE_FINALIZE);
 
 cleanup_file:
   fclose(fp);
