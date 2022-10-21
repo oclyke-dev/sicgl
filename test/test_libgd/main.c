@@ -34,10 +34,10 @@ int main() {
                    180, gdTrueColorAlpha(0xFF, 0xFF, 0xFF, OPAQUE), gdPie);
 
   // convert the image to a PNG with spong
-  bitmap_t* bm = bitmap_new(width, height);
+  png_t* bm = new_png(width, height);
   for (size_t y = 0; y < bm->height; ++y) {
     for (size_t x = 0; x < bm->width; ++x) {
-      bitmap_pixel_t* px = &bm->pixels[bm->width * y + x];
+      png_pixel_t* px = &bm->pixels[bm->width * y + x];
       int tc = gdImageTrueColorPixel(im, x, y);
 
       px->r = gdTrueColorGetRed(tc);
@@ -48,8 +48,8 @@ int main() {
   }
 
   // output the png
-  bitmap_to_file(bm, "libgd_test.png");
-  bitmap_free(bm);
+  png_to_file(bm, "libgd_test.png");
+  release_png(bm);
 
   gdImageDestroy(im);
   return 0;
