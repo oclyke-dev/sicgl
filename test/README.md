@@ -1,6 +1,37 @@
 # tests
 these are a collection of tests for sicgl.
 
+# a general process
+
+## build and run all tests
+``` bash
+mkdir build
+
+# build and install libgd
+cd third-party/libgd/build
+cmake -DBUILD_TEST=1 ..
+cmake --build .
+make install DESTDIR=../../../build/libgd
+
+# build sicgl
+cd ../../../build
+cmake ..
+cmake --build .
+
+# run tests
+../tools/run_tests.sh
+```
+
+## build and run a single test
+sometimes you want to just build and run a single test because it is faster when iterating.
+to do this you can simply build the corresponding target with cmake
+
+```bash
+TEST=pixels
+cmake --build . --target ${TEST}
+./tests/${TEST}/test
+```
+
 # build system
 the top-level CMakeLists.txt collects cmake files matching ```${TEST_ROOT_DIR}/*/test.cmake```. each of these should add a target named after the test. when building each of these targets will be built.
 
