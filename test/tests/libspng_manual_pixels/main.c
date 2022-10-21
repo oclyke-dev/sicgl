@@ -21,7 +21,7 @@ int main() {
     }
   }
 
-  png_to_file(bm, TEST_OUTPUT_DIR "/test.png");
+  TEST_ASSERT_EQUAL_INT(0, png_to_file(bm, TEST_OUTPUT_DIR "/test.png"));
   release_png(bm);
 
   return EXIT_SUCCESS;

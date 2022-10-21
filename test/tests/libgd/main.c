@@ -51,7 +51,7 @@ int main() {
   }
 
   // output the png
-  png_to_file(bm, TEST_OUTPUT_DIR "/test.png");
+  TEST_ASSERT_EQUAL_INT(0, png_to_file(bm, TEST_OUTPUT_DIR "/test.png"));
   release_png(bm);
 
   gdImageDestroy(im);

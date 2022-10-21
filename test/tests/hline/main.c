@@ -179,9 +179,9 @@ void test_hline(void) {
   }
 
   // store images
-  png_to_file(fast_bm, TEST_OUTPUT_DIR "/fast.png");
-  png_to_file(naive_bm, TEST_OUTPUT_DIR "/naive.png");
-  png_to_file(spec_bm, TEST_OUTPUT_DIR "/specific.png");
+  TEST_ASSERT_EQUAL_INT(0, png_to_file(fast_bm, TEST_OUTPUT_DIR "/fast.png"));
+  TEST_ASSERT_EQUAL_INT(0, png_to_file(naive_bm, TEST_OUTPUT_DIR "/naive.png"));
+  TEST_ASSERT_EQUAL_INT(0, png_to_file(spec_bm, TEST_OUTPUT_DIR "/specific.png"));
 
   // compare the memory for the images
   size_t compare_len = png_compare_len_bytes(fast_bm, naive_bm);
