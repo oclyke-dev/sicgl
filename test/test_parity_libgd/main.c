@@ -25,8 +25,8 @@ void test_hline(void) {
 
   // get sicgl interface
   generic_interface_t* generic = new_libgd_generic_interface_full(test_im);
-  TEST_ASSERT_NOT_NULL_MESSAGE(generic,
-                               "could not allocate generic interface object");
+  TEST_ASSERT_NOT_NULL_MESSAGE(
+      generic, "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
   sicgl_generic_hline(generic, (void*)truecolor, 0, 2, width - 1);

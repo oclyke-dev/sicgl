@@ -12,8 +12,9 @@ void tearDown(void) {
   // clean stuff up here
 }
 
-int encode_image(void* image, size_t length, uint32_t width, uint32_t height,
-                 enum spng_color_type color_type, int bit_depth) {
+int encode_image(
+    void* image, size_t length, uint32_t width, uint32_t height,
+    enum spng_color_type color_type, int bit_depth) {
   int fmt;
   int ret = 0;
   spng_ctx* ctx = NULL;
@@ -203,16 +204,17 @@ int main(int argc, char** argv) {
     ret = spng_get_row_info(ctx, &row_info);
     if (ret) break;
 
-    ret = spng_decode_row(ctx, image + row_info.row_num * image_width,
-                          image_width);
+    ret = spng_decode_row(
+        ctx, image + row_info.row_num * image_width, image_width);
   } while (!ret);
 
   if (ret != SPNG_EOI) {
     printf("progressive decode error: %s\n", spng_strerror(ret));
 
     if (ihdr.interlace_method)
-      printf("last pass: %d, scanline: %u\n", row_info.pass,
-             row_info.scanline_idx);
+      printf(
+          "last pass: %d, scanline: %u\n", row_info.pass,
+          row_info.scanline_idx);
     else
       printf("last row: %u\n", row_info.row_num);
   }
@@ -270,8 +272,9 @@ no_text:
 
   /* This example assumes a non-paletted image */
   if (fmt == SPNG_FMT_PNG) {
-    ret = encode_image(image, image_size, ihdr.width, ihdr.height,
-                       ihdr.color_type, ihdr.bit_depth);
+    ret = encode_image(
+        image, image_size, ihdr.width, ihdr.height, ihdr.color_type,
+        ihdr.bit_depth);
   }
 
 error:

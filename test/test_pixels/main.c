@@ -27,8 +27,8 @@ void test_pixel_location_generic_full(void) {
   sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1);
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
-                           bytes_length_bytes(bytes));
+  TEST_ASSERT_EQUAL_MEMORY(
+      pixel_location_expected, bytes->memory, bytes_length_bytes(bytes));
   release_bytes(bytes);
 }
 
@@ -44,13 +44,14 @@ void test_pixel_location_generic_naive(void) {
   TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
 
   // draw a pixel to the location
-  sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1,
-                      1);  // intentionally messed up the expected coordinates
-                           // (1,1) here... for testing the test
+  sicgl_generic_pixel(
+      intfc, (void*)&pixel_location_expected[4], 1,
+      1);  // intentionally messed up the expected coordinates
+           // (1,1) here... for testing the test
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
-                           bytes_length_bytes(bytes));
+  TEST_ASSERT_EQUAL_MEMORY(
+      pixel_location_expected, bytes->memory, bytes_length_bytes(bytes));
   release_bytes(bytes);
 }
 
@@ -69,8 +70,8 @@ void test_pixel_location_specific(void) {
   sicgl_specific_pixel(intfc, screen, (void*)&pixel_location_expected[4], 1, 1);
 
   // verify that the location matches
-  TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
-                           bytes_length_bytes(bytes));
+  TEST_ASSERT_EQUAL_MEMORY(
+      pixel_location_expected, bytes->memory, bytes_length_bytes(bytes));
   release_bytes(bytes);
 }
 

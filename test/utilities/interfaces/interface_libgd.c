@@ -3,12 +3,12 @@
 #include "utilities/interfaces.h"
 
 static void libgd_pixel(void* arg, color_t color, uext_t u, uext_t v);
-static void libgd_hline(void* arg, color_t color, uext_t u0, uext_t v,
-                        uext_t u1);
-static void libgd_vline(void* arg, color_t color, uext_t u, uext_t v0,
-                        uext_t v1);
-static void libgd_region(void* arg, color_t color, uext_t u0, uext_t v0,
-                         uext_t u1, uext_t v1);
+static void libgd_hline(
+    void* arg, color_t color, uext_t u0, uext_t v, uext_t u1);
+static void libgd_vline(
+    void* arg, color_t color, uext_t u, uext_t v0, uext_t v1);
+static void libgd_region(
+    void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1);
 
 /**
  * @brief Create a generic interface which draws to libgd images based on
@@ -79,9 +79,8 @@ out:
  * @param image
  * @return specific_interface_t*
  */
-specific_interface_t* new_libgd_specific_interface(gdImage* image,
-                                                   uint8_t* scratch,
-                                                   size_t scratch_length) {
+specific_interface_t* new_libgd_specific_interface(
+    gdImage* image, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
   if (NULL == image) {
@@ -107,15 +106,15 @@ out:
 static void libgd_pixel(void* arg, color_t color, uext_t u, uext_t v) {
   gdImage* image = (gdImage*)arg;
 }
-static void libgd_hline(void* arg, color_t color, uext_t u0, uext_t v,
-                        uext_t u1) {
+static void libgd_hline(
+    void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
   gdImage* image = (gdImage*)arg;
 }
-static void libgd_vline(void* arg, color_t color, uext_t u, uext_t v0,
-                        uext_t v1) {
+static void libgd_vline(
+    void* arg, color_t color, uext_t u, uext_t v0, uext_t v1) {
   gdImage* image = (gdImage*)arg;
 }
-static void libgd_region(void* arg, color_t color, uext_t u0, uext_t v0,
-                         uext_t u1, uext_t v1) {
+static void libgd_region(
+    void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
   gdImage* image = (gdImage*)arg;
 }

@@ -2,12 +2,12 @@
 
 // sicgl generic interface functions
 static void bytes_pixel(void* arg, color_t color, uext_t u, uext_t v);
-static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v,
-                        uext_t u1);
-static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0,
-                        uext_t v1);
-static void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0,
-                         uext_t u1, uext_t v1);
+static void bytes_hline(
+    void* arg, color_t color, uext_t u0, uext_t v, uext_t u1);
+static void bytes_vline(
+    void* arg, color_t color, uext_t u, uext_t v0, uext_t v1);
+static void bytes_region(
+    void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1);
 
 generic_interface_t* new_bytes_generic_interface_partial(
     bytes_t* bytes, generic_interface_t prototype) {
@@ -68,9 +68,8 @@ out:
   return interface;
 }
 
-specific_interface_t* new_bytes_specific_interface(bytes_t* bytes,
-                                                   uint8_t* scratch,
-                                                   size_t scratch_length) {
+specific_interface_t* new_bytes_specific_interface(
+    bytes_t* bytes, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
   if (NULL == bytes) {
     goto out;
@@ -104,8 +103,8 @@ static void bytes_pixel(void* arg, color_t color, uext_t u, uext_t v) {
   bytes->memory[bytes_position(bytes, u, v)] = *c;
 }
 
-static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v,
-                        uext_t u1) {
+static void bytes_hline(
+    void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
 
@@ -127,8 +126,8 @@ static void bytes_hline(void* arg, color_t color, uext_t u0, uext_t v,
   }
 }
 
-static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0,
-                        uext_t v1) {
+static void bytes_vline(
+    void* arg, color_t color, uext_t u, uext_t v0, uext_t v1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
   size_t width = bytes->width;
@@ -148,8 +147,8 @@ static void bytes_vline(void* arg, color_t color, uext_t u, uext_t v0,
   }
 }
 
-static inline void bytes_region(void* arg, color_t color, uext_t u0, uext_t v0,
-                                uext_t u1, uext_t v1) {
+static inline void bytes_region(
+    void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
   bytes_t* bytes = (bytes_t*)arg;
   uint8_t* c = (uint8_t*)color;
   size_t width = bytes->width;

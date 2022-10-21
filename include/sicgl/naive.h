@@ -5,12 +5,15 @@
 #include "sicgl/generic.h"
 
 // naive fallbacks for generic interface
-void naive_hline(generic_interface_t* interface, color_t color, uext_t u0,
-                 uext_t v, uext_t u1);
-void naive_vline(generic_interface_t* interface, color_t color, uext_t u,
-                 uext_t v0, uext_t v1);
-void naive_region(generic_interface_t* interface, color_t color, uext_t u0,
-                  uext_t v0, uext_t u1, uext_t v1);
+void naive_hline(
+    generic_interface_t* interface, color_t color, uext_t u0, uext_t v,
+    uext_t u1);
+void naive_vline(
+    generic_interface_t* interface, color_t color, uext_t u, uext_t v0,
+    uext_t v1);
+void naive_region(
+    generic_interface_t* interface, color_t color, uext_t u0, uext_t v0,
+    uext_t u1, uext_t v1);
 
 // structure to iterate hline
 typedef struct _hline_t {
