@@ -105,6 +105,7 @@ int png_to_file(png_t const* png, char const* path) {
   }
 
   /* set png header */
+  memset(&ihdr, 0U, sizeof(ihdr));
   ihdr.width = png->width;
   ihdr.height = png->height;
   ihdr.bit_depth = 8;
@@ -125,15 +126,24 @@ int png_to_file(png_t const* png, char const* path) {
   };
 
   // set the file in the png context
-  spng_set_png_file(ctx, fp);
-  spng_set_ihdr(ctx, &ihdr);
+  ret = spng_set_png_file(ctx, fp);
+  if (0 != ret) {
+    printf("failed to set png file (code %d)", ret);
+    goto cleanup_file;
+  }
+  ret = spng_set_ihdr(ctx, &ihdr);
+  if (0 != ret) {
+    printf("failed to set ihdr (code %d)", ret);
+    goto cleanup_file;
+  }
 
   /* encode png data */
   ret = spng_encode_image(
       ctx, &png->pixels, sizeof(png_pixel_t) * png->width * png->height,
       SPNG_FMT_PNG, SPNG_ENCODE_FINALIZE);
-
-  printf("exiting with code: %d\n", ret);
+  if (0 != ret) {
+    printf("FAILED to encode png: '%s'\n", spng_strerror(ret));
+  }
 
 cleanup_file:
   fclose(fp);
