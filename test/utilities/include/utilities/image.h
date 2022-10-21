@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #include "gd.h"
 
 #define TRUECOLOR_TRANSPARENT (127)
