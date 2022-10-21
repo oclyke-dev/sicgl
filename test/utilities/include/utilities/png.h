@@ -28,15 +28,21 @@ typedef struct {
   png_pixel_t pixels[];
 } png_t;
 
-static inline size_t png_length_pixels(png_t png) {
-  return (png.height * png.width);
+static inline size_t png_length_pixels(png_t* png) {
+  if (NULL == png) {
+    return 0;
+  }
+  return (png->height * png->width);
 }
 
-static inline size_t png_length_bytes(png_t png) {
-  return (png.height * png.width) * sizeof(png_pixel_t);
+static inline size_t png_length_bytes(png_t* png) {
+  if (NULL == png) {
+    return 0;
+  }
+  return (png->height * png->width) * sizeof(png_pixel_t);
 }
 
-static inline size_t png_compare_len_bytes(png_t png0, png_t png1) {
+static inline size_t png_compare_len_bytes(png_t* png0, png_t* png1) {
   size_t len0 = png_length_bytes(png0);
   size_t len1 = png_length_bytes(png1);
   return (len0 < len1) ? len0 : len1;

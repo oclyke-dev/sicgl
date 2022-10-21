@@ -84,7 +84,7 @@ specific_interface_t* new_bytes_specific_interface(bytes_t* bytes,
   // create easy defaults
   interface->bpp = bytes_bpp(*bytes);
   interface->memory = bytes->memory;
-  interface->length = bytes_length_bytes(*bytes);
+  interface->length = bytes_length_bytes(bytes);
   interface->scratch = scratch;
   interface->scratch_length = scratch_length;
 

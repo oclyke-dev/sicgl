@@ -12,11 +12,14 @@ typedef struct {
   uint8_t* memory;
 } bytes_t;
 
-static inline size_t bytes_length_bytes(bytes_t bytes) {
-  return (bytes.height * bytes.width);
+static inline size_t bytes_length_bytes(bytes_t* bytes) {
+  if (NULL == bytes) {
+    return 0;
+  }
+  return (bytes->height * bytes->width);
 }
 
-static inline size_t bytes_length_pixels(bytes_t bytes) {
+static inline size_t bytes_length_pixels(bytes_t* bytes) {
   return bytes_length_bytes(bytes);
 }
 

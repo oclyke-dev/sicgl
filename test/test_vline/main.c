@@ -117,7 +117,7 @@ void run_test_case(location_test_case_t test_case) {
 
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY_MESSAGE(reference, bytes->memory,
-                                   bytes_length_bytes(*bytes), case_name);
+                                   bytes_length_bytes(bytes), case_name);
   release_bytes(bytes);
 }
 
@@ -177,7 +177,7 @@ void test_vline(void) {
   png_to_file(spec_bm, "test_vline_specific.png");
 
   // compare the memory for the two images
-  size_t compare_len = png_compare_len_bytes(*fast_bm, *naive_bm);
+  size_t compare_len = png_compare_len_bytes(fast_bm, naive_bm);
   TEST_ASSERT_EQUAL_MEMORY(fast_bm->pixels, naive_bm->pixels, compare_len);
   TEST_ASSERT_EQUAL_MEMORY(spec_bm->pixels, naive_bm->pixels, compare_len);
 

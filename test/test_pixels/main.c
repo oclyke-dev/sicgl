@@ -28,7 +28,7 @@ void test_pixel_location_generic_full(void) {
 
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
-                           bytes_length_bytes(*bytes));
+                           bytes_length_bytes(bytes));
   release_bytes(bytes);
 }
 
@@ -50,7 +50,7 @@ void test_pixel_location_generic_naive(void) {
 
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
-                           bytes_length_bytes(*bytes));
+                           bytes_length_bytes(bytes));
   release_bytes(bytes);
 }
 
@@ -70,7 +70,7 @@ void test_pixel_location_specific(void) {
 
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY(pixel_location_expected, bytes->memory,
-                           bytes_length_bytes(*bytes));
+                           bytes_length_bytes(bytes));
   release_bytes(bytes);
 }
 
@@ -126,7 +126,7 @@ void test_pixel(void) {
   png_to_file(spec_bm, "test_pixels_specific.png");
 
   // compare the memory for the two images
-  size_t compare_len = png_compare_len_bytes(*fast_bm, *naive_bm);
+  size_t compare_len = png_compare_len_bytes(fast_bm, naive_bm);
   TEST_ASSERT_EQUAL_MEMORY(fast_bm->pixels, naive_bm->pixels, compare_len);
   TEST_ASSERT_EQUAL_MEMORY(spec_bm->pixels, naive_bm->pixels, compare_len);
 
