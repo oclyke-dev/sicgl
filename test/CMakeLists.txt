@@ -1,5 +1,6 @@
 # set some useful variables
 set(TEST_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
+set(BUILD_ROOT_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
 # set some useful variables for unity
 include(${TEST_ROOT_DIR}/unity.cmake)
@@ -38,4 +39,14 @@ file(GLOB_RECURSE TESTS ${TEST_ROOT_DIR}/*/test.cmake)
 foreach(TEST ${TESTS})
   message("INCLUDE ${TEST}")
   INCLUDE(${TEST})
+  if(DEFINED TEST_NAME)
+    set(TEST_OUT_DIR ${BUILD_ROOT_DIR}/${TEST_NAME}_out)
+    file(MAKE_DIRECTORY "${TEST_OUT_DIR}")
+    target_compile_definitions(${TEST_NAME} PRIVATE
+      -DTEST_OUTPUT_DIR="${TEST_OUT_DIR}"
+    )
+  else()
+    message(SEND_ERROR "test ${TEST} did not define its name")
+  endif()
+  unset(TEST_NAME)
 endforeach(TEST)
