@@ -48,7 +48,7 @@ jobs:
           cd build
           cmake -DBUILD_TEST=1 ..
           cmake --build .
-          make install DESTDIR=../../../build/libgd-install
+          make install DESTDIR=../../../build/libgd
 
       # build
       - name: build tests

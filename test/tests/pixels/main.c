@@ -122,9 +122,9 @@ void test_pixel(void) {
   }
 
   // store images
-  png_to_file(fast_bm, "test_pixels_generic_fast.png");
-  png_to_file(naive_bm, "test_pixels_generic_naive.png");
-  png_to_file(spec_bm, "test_pixels_specific.png");
+  png_to_file(fast_bm, TEST_OUTPUT_DIR "/fast.png");
+  png_to_file(naive_bm, TEST_OUTPUT_DIR "/naive.png");
+  png_to_file(spec_bm, TEST_OUTPUT_DIR "/specific.png");
 
   // compare the memory for the two images
   size_t compare_len = png_compare_len_bytes(fast_bm, naive_bm);
