@@ -33,8 +33,10 @@ void test_hline(void) {
   gdImageLine(ref_im, 0, 2, width - 1, 2, truecolor);
 
   // output both the images
-  TEST_ASSERT_EQUAL_INT(0, image_to_file(ref_im, TEST_OUTPUT_DIR "/hline_ref.png"));
-  TEST_ASSERT_EQUAL_INT(0, image_to_file(test_im, TEST_OUTPUT_DIR "/hline_test.png"));
+  TEST_ASSERT_EQUAL_INT(
+      0, image_to_file(ref_im, TEST_OUTPUT_DIR "/hline_ref.png"));
+  TEST_ASSERT_EQUAL_INT(
+      0, image_to_file(test_im, TEST_OUTPUT_DIR "/hline_test.png"));
 
   // compare the images
   TEST_ASSERT_EQUAL_INT(0, compare_image(ref_im, test_im));
@@ -59,8 +61,10 @@ void test_vline(void) {
   gdImageLine(ref_im, 4, 1, 4, height - 2, truecolor);
 
   // output both the images
-  TEST_ASSERT_EQUAL_INT(0, image_to_file(ref_im, TEST_OUTPUT_DIR "/vline_ref.png"));
-  TEST_ASSERT_EQUAL_INT(0, image_to_file(test_im, TEST_OUTPUT_DIR "/vline_test.png"));
+  TEST_ASSERT_EQUAL_INT(
+      0, image_to_file(ref_im, TEST_OUTPUT_DIR "/vline_ref.png"));
+  TEST_ASSERT_EQUAL_INT(
+      0, image_to_file(test_im, TEST_OUTPUT_DIR "/vline_test.png"));
 
   // compare the images
   TEST_ASSERT_EQUAL_INT(0, compare_image(ref_im, test_im));
@@ -85,8 +89,10 @@ void test_region(void) {
   gdImageFilledRectangle(ref_im, 4, 1, 8, height - 2, truecolor);
 
   // output both the images
-  TEST_ASSERT_EQUAL_INT(0, image_to_file(ref_im, TEST_OUTPUT_DIR "/region_ref.png"));
-  TEST_ASSERT_EQUAL_INT(0, image_to_file(test_im, TEST_OUTPUT_DIR "/region_test.png"));
+  TEST_ASSERT_EQUAL_INT(
+      0, image_to_file(ref_im, TEST_OUTPUT_DIR "/region_ref.png"));
+  TEST_ASSERT_EQUAL_INT(
+      0, image_to_file(test_im, TEST_OUTPUT_DIR "/region_test.png"));
 
   // compare the images
   TEST_ASSERT_EQUAL_INT(0, compare_image(ref_im, test_im));

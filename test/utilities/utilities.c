@@ -1,5 +1,5 @@
-#include "test_utils.h"
 #include "gd.h"
+#include "test_utils.h"
 
 /**
  * @brief Convert a libgd truecolor to png_pixel_t
@@ -41,13 +41,14 @@ int compare_image(gdImage* reference, gdImage* image) {
     return -1;
   }
 
-
   for (size_t idv = 0; idv < reference->sy; idv++) {
     for (size_t idu = 0; idu < reference->sx; idu++) {
       int ref_pix = gdImageGetTrueColorPixel(reference, idu, idv);
       int test_pix = gdImageGetTrueColorPixel(image, idu, idv);
       if (ref_pix != test_pix) {
-        printf("pixel mismatch at (%lu, %lu), reference: 0x%08x, test: 0x%08x\n", idu, idv, ref_pix, test_pix);
+        printf(
+            "pixel mismatch at (%lu, %lu), reference: 0x%08x, test: 0x%08x\n",
+            idu, idv, ref_pix, test_pix);
         return -1;
       }
     }
