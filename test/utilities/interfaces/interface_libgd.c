@@ -105,7 +105,6 @@ static void libgd_pixel(void* arg, color_t color, uext_t u, uext_t v) {
 static void libgd_hline(
     void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
   gdImage* image = (gdImage*)arg;
-  printf("sicgl hline color: 0x%08x\n", (uint32_t)color);
   gdImageLine(image, u0, v, u1, v, (int)color);
 }
 static void libgd_vline(
