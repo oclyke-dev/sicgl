@@ -26,3 +26,6 @@
 // color conversions
 png_pixel_t png_color_from_truecolor(int truecolor);
 int truecolor_from_png_pixel(png_pixel_t pixel);
+
+// image comparison
+int compare_image(gdImage* reference, gdImage* image);
