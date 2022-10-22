@@ -24,6 +24,7 @@ target_include_directories(testutils PRIVATE
 )
 target_link_libraries(testutils
   ${SPNG_LIBRARIES}
+  ${LIBGD}
 )
 
 message(STATUS "Adding testutils library done")

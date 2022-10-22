@@ -7,8 +7,6 @@ static void libgd_hline(
     void* arg, color_t color, uext_t u0, uext_t v, uext_t u1);
 static void libgd_vline(
     void* arg, color_t color, uext_t u, uext_t v0, uext_t v1);
-static void libgd_region(
-    void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1);
 
 /**
  * @brief Create a generic interface which draws to libgd images based on
@@ -45,9 +43,6 @@ generic_interface_t* new_libgd_generic_interface_partial(
   }
   if (NULL != prototype.vline) {
     interface->vline = libgd_vline;
-  }
-  if (NULL != prototype.region) {
-    interface->region = libgd_region;
   }
 
 out:
@@ -105,16 +100,15 @@ out:
 
 static void libgd_pixel(void* arg, color_t color, uext_t u, uext_t v) {
   gdImage* image = (gdImage*)arg;
+  gdImageSetPixel(image, u, v, (int)color);
 }
 static void libgd_hline(
     void* arg, color_t color, uext_t u0, uext_t v, uext_t u1) {
   gdImage* image = (gdImage*)arg;
+  gdImageLine(image, u0, v, u1, v, (int)color);
 }
 static void libgd_vline(
     void* arg, color_t color, uext_t u, uext_t v0, uext_t v1) {
   gdImage* image = (gdImage*)arg;
-}
-static void libgd_region(
-    void* arg, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
-  gdImage* image = (gdImage*)arg;
+  gdImageLine(image, u, v0, u, v1, (int)color);
 }
