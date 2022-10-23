@@ -12,6 +12,7 @@ add_library(sicgl SHARED
   ${SICGL_ROOT_DIR}/src/naive.c
   ${SICGL_ROOT_DIR}/src/sicgl.c
   ${SICGL_ROOT_DIR}/src/specific.c
+  ${SICGL_ROOT_DIR}/src/transformations.c
 )
 target_include_directories(sicgl PRIVATE
   ${SICGL_ROOT_DIR}/include

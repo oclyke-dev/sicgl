@@ -10,6 +10,7 @@ add_library(testutils SHARED
   ${TESTUTILS_ROOT_DIR}/png.c
   ${TESTUTILS_ROOT_DIR}/screen.c
   ${TESTUTILS_ROOT_DIR}/utilities.c
+  ${TESTUTILS_ROOT_DIR}/simultaneous.c
 
   ${TESTUTILS_ROOT_DIR}/interfaces/interface_bytes.c
   ${TESTUTILS_ROOT_DIR}/interfaces/interface_libgd.c

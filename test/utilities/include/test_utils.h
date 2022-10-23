@@ -1,5 +1,7 @@
 #pragma once
 
+#include <errno.h>
+
 // unity provides unit test framework
 #include "unity.h"
 

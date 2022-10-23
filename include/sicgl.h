@@ -3,6 +3,7 @@
 #include "sicgl/generic.h"
 #include "sicgl/specific.h"
 #include "sicgl/types.h"
+#include "sicgl/transformations.h"
 
 // a note about types:
 // sicgl uses several distinct types each with their own purpose:
@@ -41,3 +42,14 @@
 
 // // draw iterator through interface
 // void sicgl_draw(interface_t* interface, iter_t* iter);
+
+/**
+ * @brief The sicgl API
+ * 
+ * sicgl presents a single API to handle all drawing operations.
+ * this is the intended way to use the library in user applications.
+ * if performance and overhead are particularly concerning it would
+ * be possible to use the underlying interfaces directly, though this
+ * is discouraged in general.
+ * 
+ */
