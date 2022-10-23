@@ -77,7 +77,7 @@ int main() {
   printf("generic_naive interface took %f seconds.\n", time_taken_generic_naive);
 
   // run test of specific_regular interface
-  specific_interface_t* specific_regular = new_libgd_specific_interface(image, screen, NULL, 0);
+  specific_interface_t* specific_regular = new_libgd_specific_interface(screen, NULL, 0);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
     sicgl_specific_region(specific_regular, &color, u0, v0, u1, v1);
@@ -88,7 +88,7 @@ int main() {
   printf("specific_regular interface took %f seconds.\n", time_taken_specific_regular);
 
   // run test of specific_fast interface
-  specific_interface_t* specific_fast = new_libgd_specific_interface(image, screen, scratch, scratch_bytes);
+  specific_interface_t* specific_fast = new_libgd_specific_interface(screen, scratch, scratch_bytes);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
     sicgl_specific_region(specific_fast, &color, u0, v0, u1, v1);

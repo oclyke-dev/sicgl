@@ -77,16 +77,12 @@ out:
  * @return specific_interface_t*
  */
 specific_interface_t* new_libgd_specific_interface(
-  gdImage* image,
   screen_t* screen,
   uint8_t* scratch,
   size_t scratch_length
 ) {
   specific_interface_t* interface = NULL;
 
-  if (NULL == image) {
-    goto out;
-  }
   if (NULL == screen) {
     goto out;
   }
@@ -103,7 +99,7 @@ specific_interface_t* new_libgd_specific_interface(
   // it is formed by many individual calls to malloc -- therefore
   // we must allocate our own contiguous memory to operate on)
   interface->bpp = sizeof(int);
-  interface->length = image->sx * image->sy * interface->bpp;
+  interface->length = screen->width * screen->height * interface->bpp;
   interface->memory = malloc(interface->length);
   if (NULL == interface->memory) {
     free(interface);

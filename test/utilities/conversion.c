@@ -28,7 +28,6 @@ int truecolor_from_png_pixel(png_pixel_t pixel) {
   return gdTrueColorAlpha(pixel.r, pixel.g, pixel.b, alpha);
 }
 
-
 /**
  * @brief Tool to store a LIBGD image as a PNG file.
  * 
@@ -61,4 +60,39 @@ png_t* new_png_from_image(gdImage* image) {
 
 out:
   return png;
+}
+
+/**
+ * @brief 
+ * 
+ * @param interface 
+ * @param image 
+ * @return gdImage* 
+ */
+gdImage* new_image_from_libgd_specific_interface(specific_interface_t* interface) {
+  gdImage* image = NULL;
+
+  if (NULL == interface) {
+    goto out;
+  }
+
+  // prepare image
+  uext_t width = interface->display.width;
+  uext_t height = interface->display.height;
+  image = gdImageCreateTrueColor(width, height);
+  if (NULL == image) {
+    goto out;
+  }
+
+  // convert memory
+  size_t pixels = interface->length / interface->bpp;
+  int* p = (int*)interface->memory;
+  for (size_t v = 0; v < height; v++) {
+    for (size_t u = 0; u < width; u++) {
+      gdImageSetPixel(image, u, v, p[v * width + u]);
+    }
+  }
+
+out:
+  return image;
 }

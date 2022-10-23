@@ -87,7 +87,7 @@ int sicgl_line(
     absdv = (v0 - v1);
   }
   if (absdu == absdv) {
-    sicgl_specific_diagonal(interface, color, u0, v0, signu, signv, absdu);
+    sicgl_specific_diagonal(interface, color, u0, v0, signu, signv, absdu + 1);
     goto out;
   }
 

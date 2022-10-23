@@ -3,51 +3,6 @@
 #include "test_utils.h"
 
 /**
- * @brief Methods of testing sicgl against libgd using identical inputs.
- * 
- */
-
-static gdImage* new_image(uext_t width, uext_t height) {
-  return gdImageCreateTrueColor(width, height);
-}
-
-/**
- * @brief Prepare identical images for comparison of sicgl against libgd.
- * 
- * @param reference 
- * @param image 
- * @param width 
- * @param height 
- * @return int 
- */
-static int prep_images (
-  gdImage** reference,
-  gdImage** image,
-  uext_t width, uext_t height
-) {
-  int ret = 0;
-
-  // check outputs
-  if ((NULL == reference) || (NULL == image)) {
-    ret = -EINVAL;
-    goto out;
-  }
-
-  // allocate images
-  *reference = new_image(width, height);
-  *image = new_image(width, height);
-
-  // check allocation
-  if ((NULL == *reference) || (NULL == *image)) {
-    ret = -ENOMEM;
-    goto out;
-  }
-
-out:
-  return ret;
-}
-
-/**
  * @brief Apply transformation to coordinates for use in libgd.
  * 
  */
@@ -95,12 +50,20 @@ int simultaneous_line(
 ) {
   int ret = 0;
   uint8_t buffer[width];
-  ret = prep_images(reference, image, width, height);
-  if (0 != ret) {
+
+  // check inputs
+  if ((NULL == image) || (NULL == reference) || (NULL == screen)) {
+    ret = -EINVAL;
     goto out;
   }
 
-  printf("screen: %d\n\twidth: %d, height: %d, u0: %d, v0: %d\n", (uint32_t)screen, screen->width, screen->height, screen->u0, screen->v0);
+  // create image for libgd
+  *reference = gdImageCreateTrueColor(width, height);
+  if (NULL == *reference) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
 
   // // create coordinates for libgd
   // int x0 = u0;
@@ -115,18 +78,27 @@ int simultaneous_line(
   // }
 
   // create interface(s)
-  // specific_interface_t* specific = new_libgd_specific_interface(*image, screen, buffer, width);
-  specific_interface_t* specific = new_libgd_specific_interface(*image, screen, NULL, 0);
-
-  printf("specific interface is: %d\n", (uint32_t)specific);
-  printf("display: %d\n\twidth: %d, height: %d, u0: %d, v0: %d\n", &specific->display, specific->display.width, specific->display.height, specific->display.u0, specific->display.v0);
+  specific_interface_t* specific = new_libgd_specific_interface(screen, buffer, width);
+  if (NULL == specific) {
+    printf("failed to create specific interface\n");
+    ret = -EINVAL;
+    goto out;
+  }
 
   // draw to each interface
   sicgl_line(specific, screen, &color, u0, v0, u1, v1);
   gdImageLine(*reference, u0, v0, u1, v1, color);
 
-  release_libgd_specific_interface(specific);
+  // convert image to gd
+  *image = new_image_from_libgd_specific_interface(specific);
+  if (NULL == *image) {
+    printf("failed to make image from libgd interface\n");
+    ret = -ENOMEM;
+    goto cleanup;
+  }
 
+cleanup:
+  release_libgd_specific_interface(specific);
 out:
   return ret;
 }
