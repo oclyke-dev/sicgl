@@ -1,4 +1,5 @@
 #include "utilities/interface_png.h"
+
 #include "utilities/interfaces.h"
 
 // fwd declarations of interface functions
@@ -75,11 +76,7 @@ out:
  * @return specific_interface_t*
  */
 specific_interface_t* new_png_specific_interface(
-  png_t* png,
-  screen_t* screen,
-  uint8_t* scratch,
-  size_t scratch_length
-) {
+    png_t* png, screen_t* screen, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
   if (NULL == png) {

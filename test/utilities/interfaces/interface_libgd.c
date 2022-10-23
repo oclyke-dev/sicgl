@@ -1,7 +1,8 @@
+#include "utilities/interface_libgd.h"
+
 #include "gd.h"
 #include "sicgl.h"
 #include "utilities/conversion.h"
-#include "utilities/interface_libgd.h"
 #include "utilities/interfaces.h"
 
 static void libgd_pixel(void* arg, color_t color, uext_t u, uext_t v);
@@ -77,10 +78,7 @@ out:
  * @return specific_interface_t*
  */
 specific_interface_t* new_libgd_specific_interface(
-  screen_t* screen,
-  uint8_t* scratch,
-  size_t scratch_length
-) {
+    screen_t* screen, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
   if (NULL == screen) {
@@ -112,7 +110,7 @@ specific_interface_t* new_libgd_specific_interface(
   interface->display = *screen;
   interface->scratch = scratch;
   interface->scratch_length = scratch_length;
-  
+
 out:
   return interface;
 }
@@ -133,9 +131,9 @@ out:
 
 /**
  * @brief Show the contents of a libgd specific interface interface memory.
- * 
- * @param interface 
- * @return int 
+ *
+ * @param interface
+ * @return int
  */
 int libgd_specific_interface_show_memory(specific_interface_t* interface) {
   int ret = 0;
@@ -166,14 +164,14 @@ out:
 
 /**
  * @brief Create a new PNG from a libgd specific interface.
- * 
- * @param interface 
- * @return png_t* 
+ *
+ * @param interface
+ * @return png_t*
  */
 png_t* new_png_from_libgd_specific_interface(specific_interface_t* interface) {
   png_t* png = NULL;
 
-  if(NULL == interface) {
+  if (NULL == interface) {
     goto out;
   }
 

@@ -1,16 +1,13 @@
-#include "sicgl.h"
 #include "gd.h"
+#include "sicgl.h"
 #include "test_utils.h"
 
 /**
  * @brief Apply transformation to coordinates for use in libgd.
- * 
+ *
  */
-static int apply_screen_transformation (
-  screen_t* screen,
-  int* x0, int* y0,
-  int* x1, int* y1
-) {
+static int apply_screen_transformation(
+    screen_t* screen, int* x0, int* y0, int* x1, int* y1) {
   int ret = 0;
   ret = transform_screen_to_global(screen, x0, y0);
   if (0 != ret) {
@@ -24,30 +21,23 @@ out:
   return ret;
 }
 
-
 /**
- * @brief 
- * 
- * @param reference 
- * @param image 
- * @param width 
- * @param height 
- * @param u0 
- * @param v0 
- * @param u1 
- * @param v1 
- * @param color 
- * @return int 
+ * @brief
+ *
+ * @param reference
+ * @param image
+ * @param width
+ * @param height
+ * @param u0
+ * @param v0
+ * @param u1
+ * @param v1
+ * @param color
+ * @return int
  */
 int simultaneous_line(
-  gdImage** reference,
-  gdImage** image,
-  uext_t width, uext_t height,
-  screen_t* screen,
-  ext_t u0, ext_t v0,
-  ext_t u1, ext_t v1,
-  int color
-) {
+    gdImage** reference, gdImage** image, uext_t width, uext_t height,
+    screen_t* screen, ext_t u0, ext_t v0, ext_t u1, ext_t v1, int color) {
   int ret = 0;
   uint8_t buffer[width];
 
@@ -64,7 +54,6 @@ int simultaneous_line(
     goto out;
   }
 
-
   // // create coordinates for libgd
   // int x0 = u0;
   // int y0 = v0;
@@ -78,7 +67,8 @@ int simultaneous_line(
   // }
 
   // create interface(s)
-  specific_interface_t* specific = new_libgd_specific_interface(screen, buffer, width);
+  specific_interface_t* specific =
+      new_libgd_specific_interface(screen, buffer, width);
   if (NULL == specific) {
     printf("failed to create specific interface\n");
     ret = -EINVAL;

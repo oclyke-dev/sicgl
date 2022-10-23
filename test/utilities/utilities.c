@@ -1,7 +1,7 @@
+#include <stdio.h>
+
 #include "gd.h"
 #include "test_utils.h"
-
-#include <stdio.h>
 
 int compare_image(gdImage* reference, gdImage* image) {
   if ((NULL == reference) || (NULL == image)) {

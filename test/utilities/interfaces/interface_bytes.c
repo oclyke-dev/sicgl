@@ -69,11 +69,7 @@ out:
 }
 
 specific_interface_t* new_bytes_specific_interface(
-  bytes_t* bytes,
-  screen_t* screen,
-  uint8_t* scratch,
-  size_t scratch_length
-) {
+    bytes_t* bytes, screen_t* screen, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
   if (NULL == bytes) {
     goto out;

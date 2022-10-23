@@ -30,10 +30,10 @@ int truecolor_from_png_pixel(png_pixel_t pixel) {
 
 /**
  * @brief Tool to store a LIBGD image as a PNG file.
- * 
- * @param image 
- * @param path 
- * @return int 
+ *
+ * @param image
+ * @param path
+ * @return int
  */
 png_t* new_png_from_image(gdImage* image) {
   png_t* png = NULL;
@@ -54,7 +54,8 @@ png_t* new_png_from_image(gdImage* image) {
   // loop over image and fill png
   for (size_t v = 0; v < height; v++) {
     for (size_t u = 0; u < width; u++) {
-      png->pixels[v * width + u] = png_color_from_truecolor(gdImageGetTrueColorPixel(image, u, v));
+      png->pixels[v * width + u] =
+          png_color_from_truecolor(gdImageGetTrueColorPixel(image, u, v));
     }
   }
 
@@ -63,13 +64,14 @@ out:
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param image 
- * @return gdImage* 
+ * @brief
+ *
+ * @param interface
+ * @param image
+ * @return gdImage*
  */
-gdImage* new_image_from_libgd_specific_interface(specific_interface_t* interface) {
+gdImage* new_image_from_libgd_specific_interface(
+    specific_interface_t* interface) {
   gdImage* image = NULL;
 
   if (NULL == interface) {

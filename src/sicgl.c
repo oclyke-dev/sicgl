@@ -1,9 +1,8 @@
 #include "sicgl.h"
 
 int sicgl_hline(
-  specific_interface_t* interface, screen_t* screen, color_t color,
-  ext_t u0, ext_t v0, ext_t u1
-) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1) {
   int ret = -EINPROGRESS;
 
 out:
@@ -11,9 +10,8 @@ out:
 }
 
 int sicgl_vline(
-  specific_interface_t* interface, screen_t* screen, color_t color,
-  ext_t u0, ext_t v0, ext_t u1
-) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1) {
   int ret = -EINPROGRESS;
 
 out:
@@ -21,10 +19,8 @@ out:
 }
 
 int sicgl_line(
-  specific_interface_t* interface, screen_t* screen, color_t color,
-  ext_t u0, ext_t v0,
-  ext_t u1, ext_t v1
-) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
 
   if (NULL == interface) {
@@ -65,7 +61,7 @@ int sicgl_line(
     v0 = v1;
     v1 = tmp;
     tmp = u0;
-    u0 = u1; 
+    u0 = u1;
     u1 = tmp;
   }
 
@@ -108,7 +104,8 @@ int sicgl_line(
     len0 = (min_run / 2) + 1;
     len1 = len0;
     if ((remainder == 0) && ((min_run & 0x01) == 0)) {
-      len0--; // when min_run is even and the slope is an integer the extra pixel will be placed at the end
+      len0--;  // when min_run is even and the slope is an integer the extra
+               // pixel will be placed at the end
     }
     if ((min_run & 0x01) != 0) {
       accumulator += (reset / 2);
@@ -125,7 +122,7 @@ int sicgl_line(
       accumulator += remainder;
       if (accumulator > 0) {
         run_len++;
-        accumulator -= reset;   /* reset the error term */
+        accumulator -= reset; /* reset the error term */
       }
       drun = signu * run_len;
     }
@@ -141,7 +138,8 @@ int sicgl_line(
     len0 = (min_run / 2) + 1;
     len1 = len0;
     if ((remainder == 0) && ((min_run & 0x01) == 0)) {
-      len0--; // when min_run is even and the slope is an integer the extra pixel will be placed at the end
+      len0--;  // when min_run is even and the slope is an integer the extra
+               // pixel will be placed at the end
     }
     if ((min_run & 0x01) != 0) {
       accumulator += (reset / 2);
@@ -158,7 +156,7 @@ int sicgl_line(
       accumulator += remainder;
       if (accumulator > 0) {
         run_len++;
-        accumulator -= reset;   /* reset the error term */
+        accumulator -= reset; /* reset the error term */
       }
       drun = signv * run_len;
     }

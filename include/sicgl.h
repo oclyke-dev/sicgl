@@ -3,12 +3,12 @@
 #include <errno.h>
 #ifdef SICGL_DEBUG_PRINTF
 #include <stdio.h>
-#endif // SICGL_DEBUG_PRINTF
+#endif  // SICGL_DEBUG_PRINTF
 
 #include "sicgl/generic.h"
 #include "sicgl/specific.h"
-#include "sicgl/types.h"
 #include "sicgl/transformations.h"
+#include "sicgl/types.h"
 
 // a note about types:
 // sicgl uses several distinct types each with their own purpose:
@@ -22,13 +22,21 @@
 
 /**
  * @brief The sicgl API
- * 
+ *
  * sicgl assumes integer-byte widths for color types in preference of
  * speed over memory footprint. for detail see README.md
- * 
+ *
  */
 
-int sicgl_line(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
-int sicgl_rectangle(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
-int sicgl_circle(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
-int sicgl_ellipse(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
+int sicgl_line(
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1);
+int sicgl_rectangle(
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1);
+int sicgl_circle(
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1);
+int sicgl_ellipse(
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1);

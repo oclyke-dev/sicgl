@@ -29,7 +29,8 @@ void test_line(void) {
   ext_t v1 = 6;
 
   // draw the line simultaneously
-  simultaneous_line(&reference, &image, width, height, screen, u0, v0, u1, v1, color);
+  simultaneous_line(
+      &reference, &image, width, height, screen, u0, v0, u1, v1, color);
   TEST_ASSERT_NOT_NULL(reference);
   TEST_ASSERT_NOT_NULL(image);
 
@@ -39,7 +40,8 @@ void test_line(void) {
   // save the images
   png_t* ref_png = new_png_from_image(reference);
   png_t* test_png = new_png_from_image(image);
-  int output_status_ref = png_to_file(ref_png, TEST_OUTPUT_DIR "/reference.png");
+  int output_status_ref =
+      png_to_file(ref_png, TEST_OUTPUT_DIR "/reference.png");
   int output_status_test = png_to_file(test_png, TEST_OUTPUT_DIR "/test.png");
   release_png(ref_png);
   release_png(test_png);

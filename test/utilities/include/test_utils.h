@@ -6,10 +6,10 @@
 #include "unity.h"
 
 // include additional apis
+#include "utilities/conversion.h"
 #include "utilities/image.h"
 #include "utilities/png.h"
 #include "utilities/screen.h"
-#include "utilities/conversion.h"
 
 // include interface definitions
 #include "utilities/interface_bytes.h"
@@ -31,11 +31,5 @@ int compare_image(gdImage* reference, gdImage* image);
 
 // simultaneous drawing
 int simultaneous_line(
-  gdImage** reference,
-  gdImage** image,
-  uext_t width, uext_t height,
-  screen_t* screen,
-  ext_t u0, ext_t v0,
-  ext_t u1, ext_t v1,
-  int color
-);
+    gdImage** reference, gdImage** image, uext_t width, uext_t height,
+    screen_t* screen, ext_t u0, ext_t v0, ext_t u1, ext_t v1, int color);
