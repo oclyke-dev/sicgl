@@ -94,26 +94,38 @@ int simultaneous_line(
   int color
 ) {
   int ret = 0;
+  uint8_t buffer[width];
   ret = prep_images(reference, image, width, height);
   if (0 != ret) {
     goto out;
   }
 
-  // create coordinates for libgd
-  int x0 = u0;
-  int y0 = v0;
-  int x1 = u1;
-  int y1 = v1;
-  if (NULL != screen) {
-    ret = apply_screen_transformation(screen, &x0, &y0, &x1, &y1);
-    if (0 != ret) {
-      goto out;
-    }
-  }
+  printf("screen: %d\n\twidth: %d, height: %d, u0: %d, v0: %d\n", (uint32_t)screen, screen->width, screen->height, screen->u0, screen->v0);
 
-  // // draw to each interface
-  // sicgl_line(screen)
+  // // create coordinates for libgd
+  // int x0 = u0;
+  // int y0 = v0;
+  // int x1 = u1;
+  // int y1 = v1;
+  // if (NULL != screen) {
+  //   ret = apply_screen_transformation(screen, &x0, &y0, &x1, &y1);
+  //   if (0 != ret) {
+  //     goto out;
+  //   }
+  // }
 
+  // create interface(s)
+  // specific_interface_t* specific = new_libgd_specific_interface(*image, screen, buffer, width);
+  specific_interface_t* specific = new_libgd_specific_interface(*image, screen, NULL, 0);
+
+  printf("specific interface is: %d\n", (uint32_t)specific);
+  printf("display: %d\n\twidth: %d, height: %d, u0: %d, v0: %d\n", &specific->display, specific->display.width, specific->display.height, specific->display.u0, specific->display.v0);
+
+  // draw to each interface
+  sicgl_line(specific, screen, &color, u0, v0, u1, v1);
+  gdImageLine(*reference, u0, v0, u1, v1, color);
+
+  release_libgd_specific_interface(specific);
 
 out:
   return ret;

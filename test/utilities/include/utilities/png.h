@@ -57,5 +57,4 @@ png_t* new_png(uext_t width, uext_t height);
 void release_png(png_t* png);
 
 // output tools
-png_t* new_png_from_image(gdImage* image);
 int png_to_file(png_t const* png, char const* path);

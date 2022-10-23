@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "sicgl.h"
 #include "sicgl/naive.h"
 

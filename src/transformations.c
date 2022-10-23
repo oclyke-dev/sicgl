@@ -15,7 +15,7 @@ int transform_screen_to_global(
 
 int transform_global_to_screen(
   screen_t* screen,
-  uext_t* u, uext_t* v
+  ext_t* u, ext_t* v
 ) {
   *u = *u - screen->u0;
   *v = *v - screen->v0;

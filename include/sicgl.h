@@ -1,5 +1,7 @@
 #pragma once
 
+#include <errno.h>
+
 #include "sicgl/generic.h"
 #include "sicgl/specific.h"
 #include "sicgl/types.h"
@@ -15,41 +17,15 @@
 // - *interface_t: abstraction which allows sicgl to place colors at
 //     given locations
 
-// a note about interfaces:
-// there are two types of interface
-// - generic: the generic interface makes no assumptions and uses
-//     function pointers to give the user total flexibility
-// - specifig: the specific interface requires the user to declare a
-//     fixed byte width for color information and manages memory
-//     internally to increase performance.
-
-// a note about APIs:
-// there are several APIs available, each with its own intended purpose:
-//
-// low-level (no screen, coordinates are interface-relative (local), inputs not
-// verified)
-// - sicgl_*_generic: perform direct operations upon a generic interface
-// - sicgl_*_specific: perform direct operations upon a specific interface
-//
-// per-screen (screen offset and dimensions are considered - coordinates are
-// global)
-// - sicgl_*_screen_generic: operate on single screen, generic interface
-// - sicgl_*_screen_specific: operate on single screen, specific interface
-//
-// global (multiple screens)
-// this is not currently implemented - it could be a feature but it is not
-// terribly hard for a user to implement themselves
-
-// // draw iterator through interface
-// void sicgl_draw(interface_t* interface, iter_t* iter);
-
 /**
  * @brief The sicgl API
  * 
- * sicgl presents a single API to handle all drawing operations.
- * this is the intended way to use the library in user applications.
- * if performance and overhead are particularly concerning it would
- * be possible to use the underlying interfaces directly, though this
- * is discouraged in general.
+ * sicgl assumes integer-byte widths for color types in preference of
+ * speed over memory footprint. for detail see README.md
  * 
  */
+
+int sicgl_line(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
+int sicgl_rectangle(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
+int sicgl_circle(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
+int sicgl_ellipse(specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1);

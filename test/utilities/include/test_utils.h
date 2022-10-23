@@ -9,6 +9,7 @@
 #include "utilities/image.h"
 #include "utilities/png.h"
 #include "utilities/screen.h"
+#include "utilities/conversion.h"
 
 // include interface definitions
 #include "utilities/interface_bytes.h"
@@ -25,9 +26,16 @@
 // from this point out we will standardize around using the libgd image
 // definition for storage
 
-// color conversions
-png_pixel_t png_color_from_truecolor(int truecolor);
-int truecolor_from_png_pixel(png_pixel_t pixel);
-
 // image comparison
 int compare_image(gdImage* reference, gdImage* image);
+
+// simultaneous drawing
+int simultaneous_line(
+  gdImage** reference,
+  gdImage** image,
+  uext_t width, uext_t height,
+  screen_t* screen,
+  ext_t u0, ext_t v0,
+  ext_t u1, ext_t v1,
+  int color
+);
