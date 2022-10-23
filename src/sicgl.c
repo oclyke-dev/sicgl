@@ -87,7 +87,7 @@ int sicgl_line(
     absdv = (v0 - v1);
   }
   if (absdu == absdv) {
-    sicgl_specific_diagonal(interface, color, u0, v0, signu, signv, absdu + 1);
+    sicgl_specific_diagonal(interface, color, u0, v0, signu, signv, absdu);
     goto out;
   }
 
@@ -97,39 +97,12 @@ int sicgl_line(
 
   // draw a run-sliced line
   uext_t min_run, run_len;
-  ext_t accumulator, remainder, reset;
+  ext_t accumulator, remainder, reset, drun;
   uext_t len0, len1;
   if (absdu >= absdv) {
     // u is longer
     min_run = absdu / absdv;
     remainder = 2 * (absdu % absdv);
-    reset = 2 * absdu;
-    accumulator = (remainder / 2) - reset;
-    len0 = (min_run / 2) + 1;
-    len1 = len0;
-    if ((remainder == 0) && ((min_run & 0x01) == 0)) {
-      len0--; // when min_run is even and the slope is an integer the extra pixel will be placed at the end
-    }
-    // prepare first partial run
-    ext_t unext = u + signu * len0;
-    do {
-      sicgl_specific_hline(interface, color, u, v, unext - 1);
-      run_len = min_run;
-      if ((accumulator += remainder) > 0) {
-        run_len++;
-        accumulator -= reset;
-      }
-      u = unext;
-      unext = u + signu * run_len;
-      v++;
-    } while (v < v1);
-    // draw the final run
-    unext = u + signu * len1;
-    sicgl_specific_hline(interface, color, u, v, unext);
-  } else {
-    // v is longer
-    min_run = absdv / absdu;
-    remainder = 2 * (absdv % absdu);
     reset = 2 * absdv;
     accumulator = (remainder / 2) - reset;
     len0 = (min_run / 2) + 1;
@@ -137,22 +110,61 @@ int sicgl_line(
     if ((remainder == 0) && ((min_run & 0x01) == 0)) {
       len0--; // when min_run is even and the slope is an integer the extra pixel will be placed at the end
     }
+    if ((min_run & 0x01) != 0) {
+      accumulator += (reset / 2);
+    }
     // prepare first partial run
-    ext_t vnext = v + signv * len0;
-    do {
-      sicgl_specific_vline(interface, color, u, v, vnext - 1);
+    drun = signu * len0;
+    while (v < v1) {
+      sicgl_specific_hrun(interface, color, u, v, drun);
+      u += drun;
+      v += 1;
+
+      // compute next slice
       run_len = min_run;
-      if ((accumulator += remainder) > 0) {
+      accumulator += remainder;
+      if (accumulator > 0) {
         run_len++;
-        accumulator -= reset;
+        accumulator -= reset;   /* reset the error term */
       }
-      v = vnext;
-      vnext = v + signv * run_len;
-      u++;
-    } while (v < v1);
+      drun = signu * run_len;
+    }
     // draw the final run
-    vnext = u + signv * len1;
-    sicgl_specific_vline(interface, color, u, v, vnext);
+    drun = signu * len1;
+    sicgl_specific_hrun(interface, color, u, v, drun);
+  } else {
+    // v is longer
+    min_run = absdv / absdu;
+    remainder = 2 * (absdv % absdu);
+    reset = 2 * absdu;
+    accumulator = (remainder / 2) - reset;
+    len0 = (min_run / 2) + 1;
+    len1 = len0;
+    if ((remainder == 0) && ((min_run & 0x01) == 0)) {
+      len0--; // when min_run is even and the slope is an integer the extra pixel will be placed at the end
+    }
+    if ((min_run & 0x01) != 0) {
+      accumulator += (reset / 2);
+    }
+    // prepare first partial run
+    drun = signv * len0;
+    while (v < v1) {
+      sicgl_specific_vrun(interface, color, u, v, drun);
+      v += drun;
+      u += signu;
+
+      // compute next slice
+      run_len = min_run;
+      accumulator += remainder;
+      if (accumulator > 0) {
+        run_len++;
+        accumulator -= reset;   /* reset the error term */
+      }
+      drun = signv * run_len;
+    }
+    // draw the final run
+    drun = signv * len1;
+    sicgl_specific_hrun(interface, color, u, v, drun);
   }
 
 out:

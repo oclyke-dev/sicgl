@@ -20,5 +20,10 @@ target_include_directories(sicgl PRIVATE
 target_link_libraries(sicgl
   ${SICGL_LIB_DEPS}
 )
+target_compile_definitions(sicgl PRIVATE
+  ${SICGL_COMPILE_DEFINITIONS}
+)
+
+message("SICGL_COMPILE_DEFINITIONS=${SICGL_COMPILE_DEFINITIONS}")
 
 message(STATUS "Adding sicgl library done")

@@ -24,6 +24,14 @@ static inline void sicgl_specific_pixel(
   memcpy(p, color, interface->bpp);
 }
 
+void sicgl_specific_hrun(
+  specific_interface_t* interface, color_t color,
+  uext_t u, uext_t v, ext_t du
+);
+void sicgl_specific_vrun(
+  specific_interface_t* interface, color_t color,
+  uext_t u, uext_t v, ext_t dv
+);
 void sicgl_specific_hline(
     specific_interface_t* interface, color_t color,
     uext_t u0, uext_t v, uext_t u1);

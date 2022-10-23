@@ -1,6 +1,9 @@
 #pragma once
 
 #include <errno.h>
+#ifdef SICGL_DEBUG_PRINTF
+#include <stdio.h>
+#endif // SICGL_DEBUG_PRINTF
 
 #include "sicgl/generic.h"
 #include "sicgl/specific.h"

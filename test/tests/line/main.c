@@ -23,24 +23,13 @@ void test_line(void) {
   int color = truecolor_random_color();
   screen_t* screen = new_screen(width, height, 0, 0);
 
-
-  // gdImagePtr _image = gdImageCreateTrueColor(width, height);
-  // specific_interface_t* specific_regular = new_libgd_specific_interface(_image, screen, NULL, 0);
-  // sicgl_specific_region(specific_regular, &color, 1, 1, 3, 3);
-
-  // // view the memory contents
-  // libgd_specific_interface_show_memory(specific_regular);
-
-
-  // png_t* png = new_png_from_libgd_specific_interface(specific_regular);
-  // TEST_ASSERT_EQUAL_INT(0, png_to_file(png, TEST_OUTPUT_DIR "/out.png"));
-  
-  // release_libgd_specific_interface(specific_regular);
-  // release_screen(screen);
-  // release_png(png);
+  ext_t u0 = 0;
+  ext_t v0 = 0;
+  ext_t u1 = 5;
+  ext_t v1 = 6;
 
   // draw the line simultaneously
-  simultaneous_line(&reference, &image, width, height, screen, 1, 1, 3, 3, color);
+  simultaneous_line(&reference, &image, width, height, screen, u0, v0, u1, v1, color);
   TEST_ASSERT_NOT_NULL(reference);
   TEST_ASSERT_NOT_NULL(image);
 

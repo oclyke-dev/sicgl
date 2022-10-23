@@ -8,6 +8,14 @@ project(
 
 set(CMAKE_C_STANDARD 17)
 
+# handle command line options
+if(DEFINED DEBUG)
+message("debug was set")
+set(SICGL_COMPILE_DEFINITIONS
+  -DSICGL_DEBUG_PRINTF
+)
+endif()
+
 # set some useful variables
 set(SICGL_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
 

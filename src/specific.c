@@ -2,6 +2,35 @@
 
 #include <stddef.h>
 
+void sicgl_specific_hrun(
+  specific_interface_t* interface, color_t color,
+  uext_t u, uext_t v, ext_t du
+) {
+  size_t bpp = interface->bpp;
+  int increment = (du > 0) ? bpp : -bpp;
+  int count = (du > 0) ? du : -du;
+  uint8_t* p = interface->memory + bpp * (interface->display.width * v + u);
+  while (count-- > 0) {
+    memcpy(p, color, bpp);
+    p += increment;
+  }
+}
+
+void sicgl_specific_vrun(
+  specific_interface_t* interface, color_t color,
+  uext_t u, uext_t v, ext_t dv
+) {
+  size_t bpp = interface->bpp;
+  uext_t width = interface->display.width;
+  int increment = (dv > 0) ? bpp * width : -bpp * width;
+  int count = (dv > 0) ? dv : -dv;
+  uint8_t* p = interface->memory + bpp * (width * v + u);
+  while (count-- > 0) {
+    memcpy(p, color, bpp);
+    p += increment;
+  }
+}
+
 void sicgl_specific_hline(
     specific_interface_t* interface, color_t color,
     uext_t u0, uext_t v, uext_t u1
