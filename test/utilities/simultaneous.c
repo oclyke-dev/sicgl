@@ -57,14 +57,14 @@ static int apply_screen_transformation (
   int* x1, int* y1
 ) {
   int ret = 0;
-  // ret = transform_screen_to_global(screen, x0, y0);
-  // if (0 != ret) {
-  //   goto out;
-  // }
-  // ret = transform_screen_to_global(screen, x1, y1);
-  // if (0 != ret) {
-  //   goto out;
-  // }
+  ret = transform_screen_to_global(screen, x0, y0);
+  if (0 != ret) {
+    goto out;
+  }
+  ret = transform_screen_to_global(screen, x1, y1);
+  if (0 != ret) {
+    goto out;
+  }
 out:
   return ret;
 }
@@ -94,25 +94,25 @@ int simultaneous_line(
   int color
 ) {
   int ret = 0;
-  // ret = prep_images(reference, image, width, height);
-  // if (0 != ret) {
-  //   goto out;
-  // }
+  ret = prep_images(reference, image, width, height);
+  if (0 != ret) {
+    goto out;
+  }
 
-  // // create coordinates for libgd
-  // int x0 = u0;
-  // int y0 = v0;
-  // int x1 = u1;
-  // int y1 = v1;
-  // if (NULL != screen) {
-  //   ret = apply_screen_transformation(screen, &x0, &y0, &x1, &y1);
-  //   if (0 != ret) {
-  //     goto out;
-  //   }
-  // }
+  // create coordinates for libgd
+  int x0 = u0;
+  int y0 = v0;
+  int x1 = u1;
+  int y1 = v1;
+  if (NULL != screen) {
+    ret = apply_screen_transformation(screen, &x0, &y0, &x1, &y1);
+    if (0 != ret) {
+      goto out;
+    }
+  }
 
-  // // // draw to each interface
-  // // sicgl_line(screen)
+  // // draw to each interface
+  // sicgl_line(screen)
 
 
 out:

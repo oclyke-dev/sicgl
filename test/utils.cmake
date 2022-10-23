@@ -24,6 +24,7 @@ target_include_directories(testutils PRIVATE
   ${SICGL_ROOT_DIR}/include
 )
 target_link_libraries(testutils
+  ${SICGL_LIBRARIES}
   ${SPNG_LIBRARIES}
   ${LIBGD}
 )

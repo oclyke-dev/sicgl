@@ -63,7 +63,7 @@ int main() {
   // run test of generic_full interface
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
-    sicgl_generic_region(generic_full, color, u0, v0, u1, v1);
+    sicgl_generic_region(generic_full, &color, u0, v0, u1, v1);
   }
   end = clock(); // in clock cycles
   time_taken_generic_full = ((double) (end - start)) / CLOCKS_PER_SEC;
@@ -72,7 +72,7 @@ int main() {
   // run test of generic_naive interface
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
-    sicgl_generic_region(generic_naive, color, u0, v0, u1, v1);
+    sicgl_generic_region(generic_naive, &color, u0, v0, u1, v1);
   }
   end = clock(); // in clock cycles
   time_taken_generic_naive = ((double) (end - start)) / CLOCKS_PER_SEC;

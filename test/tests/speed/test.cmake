@@ -12,3 +12,5 @@ target_include_directories(${TEST_NAME} PRIVATE
 target_link_libraries(${TEST_NAME}
   ${TESTS_LIBS}
 )
+
+message("speed cmake TESTS_LIBS=${TESTS_LIBS}")
