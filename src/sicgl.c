@@ -29,14 +29,18 @@ int sicgl_line(
   }
 
   // apply transformation
-  ret = transform_global_to_screen(&interface->display, &u0, &v0);
-  if (0 != ret) {
-    goto out;
+  if (NULL != screen) {
+    ret = transform_screen_to_global(screen, &u0, &v0);
+    if (0 != ret) {
+      goto out;
+    }
+    ret = transform_screen_to_global(screen, &u1, &v1);
+    if (0 != ret) {
+      goto out;
+    }
   }
-  ret = transform_global_to_screen(&interface->display, &u1, &v1);
-  if (0 != ret) {
-    goto out;
-  }
+
+  printf("line: (%d, %d) to (%d, %d)\n", u0, v0, u1, v1);
 
   // // apply bounding
   // todo: actually apply smart bounding based on screen
