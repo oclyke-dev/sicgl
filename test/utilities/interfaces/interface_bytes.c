@@ -69,9 +69,12 @@ out:
 }
 
 specific_interface_t* new_bytes_specific_interface(
-    bytes_t* bytes, uint8_t* scratch, size_t scratch_length) {
+    bytes_t* bytes, screen_t* screen, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
   if (NULL == bytes) {
+    goto out;
+  }
+  if (NULL == screen) {
     goto out;
   }
 
@@ -81,6 +84,7 @@ specific_interface_t* new_bytes_specific_interface(
   }
 
   // create easy defaults
+  interface->display = *screen;
   interface->bpp = bytes_bpp(*bytes);
   interface->memory = bytes->memory;
   interface->length = bytes_length_bytes(bytes);
@@ -89,6 +93,20 @@ specific_interface_t* new_bytes_specific_interface(
 
 out:
   return interface;
+}
+
+int release_bytes_generic_interface(generic_interface_t* interface) {
+  int ret = 0;
+  free(interface);
+out:
+  return ret;
+}
+
+int release_bytes_specific_interface(specific_interface_t* interface) {
+  int ret = 0;
+  free(interface);
+out:
+  return ret;
 }
 
 // offset within array for (u, v)

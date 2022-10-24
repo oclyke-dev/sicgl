@@ -1,11 +1,37 @@
 #include "sicgl/specific.h"
 
 #include <stddef.h>
-#include <stdio.h>
+
+void sicgl_specific_hrun(
+    specific_interface_t* interface, color_t color, uext_t u, uext_t v,
+    ext_t du) {
+  size_t bpp = interface->bpp;
+  int increment = (du > 0) ? bpp : -bpp;
+  int count = (du > 0) ? du : -du;
+  uint8_t* p = interface->memory + bpp * (interface->display.width * v + u);
+  while (count-- > 0) {
+    memcpy(p, color, bpp);
+    p += increment;
+  }
+}
+
+void sicgl_specific_vrun(
+    specific_interface_t* interface, color_t color, uext_t u, uext_t v,
+    ext_t dv) {
+  size_t bpp = interface->bpp;
+  uext_t width = interface->display.width;
+  int increment = (dv > 0) ? bpp * width : -bpp * width;
+  int count = (dv > 0) ? dv : -dv;
+  uint8_t* p = interface->memory + bpp * (width * v + u);
+  while (count-- > 0) {
+    memcpy(p, color, bpp);
+    p += increment;
+  }
+}
 
 void sicgl_specific_hline(
-    specific_interface_t* interface, screen_t* screen, color_t color, uext_t u0,
-    uext_t v, uext_t u1) {
+    specific_interface_t* interface, color_t color, uext_t u0, uext_t v,
+    uext_t u1) {
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
@@ -17,7 +43,8 @@ void sicgl_specific_hline(
     distance = u0 - u1 + 1;
   }
 
-  uint8_t* p = interface->memory + interface->bpp * (screen->width * v + u0);
+  uint8_t* p =
+      interface->memory + interface->bpp * (interface->display.width * v + u0);
   for (size_t idx = 0; idx < distance; idx++) {
     memcpy(p, color, bpp);
     p += increment;
@@ -25,29 +52,55 @@ void sicgl_specific_hline(
 }
 
 void sicgl_specific_vline(
-    specific_interface_t* interface, screen_t* screen, color_t color, uext_t u,
-    uext_t v0, uext_t v1) {
+    specific_interface_t* interface, color_t color, uext_t u, uext_t v0,
+    uext_t v1) {
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
   if (v0 < v1) {
-    increment = bpp * screen->width;
+    increment = bpp * interface->display.width;
     distance = v1 - v0 + 1;
   } else {
-    increment = -bpp * screen->width;
+    increment = -bpp * interface->display.width;
     distance = v0 - v1 + 1;
   }
 
-  uint8_t* p = interface->memory + interface->bpp * (screen->width * v0 + u);
+  uint8_t* p =
+      interface->memory + interface->bpp * (interface->display.width * v0 + u);
   for (size_t idv = 0; idv < distance; idv++) {
     memcpy(p, color, bpp);
     p += increment;
   }
 }
 
+void sicgl_specific_diagonal(
+    specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
+    ext_t diru, ext_t dirv, uext_t count) {
+  int du, dv;
+  size_t bpp = interface->bpp;
+  if (diru > 0) {
+    du = bpp;
+  } else {
+    du = -bpp;
+  }
+  if (dirv > 0) {
+    dv = bpp * interface->display.width;
+  } else {
+    dv = -bpp * interface->display.width;
+  }
+
+  uint8_t* p =
+      interface->memory + interface->bpp * (interface->display.width * v0 + u0);
+  for (uext_t idx = 0; idx < count; idx++) {
+    memcpy(p, color, bpp);
+    p += du;
+    p += dv;
+  }
+}
+
 void sicgl_specific_region(
-    specific_interface_t* interface, screen_t* screen, color_t color, uext_t u0,
-    uext_t v0, uext_t u1, uext_t v1) {
+    specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
+    uext_t u1, uext_t v1) {
   size_t du;
   size_t dv;
   size_t bpp = interface->bpp;
@@ -56,7 +109,7 @@ void sicgl_specific_region(
   size_t scratch_length =
       interface->scratch_length / bpp;  // compute available length in scratch
   uint8_t* scratch = interface->scratch;
-  uext_t width = screen->width;
+  uext_t width = interface->display.width;
 
   // compute values
   if (u0 < u1) {

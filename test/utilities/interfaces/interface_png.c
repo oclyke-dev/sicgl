@@ -76,10 +76,13 @@ out:
  * @return specific_interface_t*
  */
 specific_interface_t* new_png_specific_interface(
-    png_t* png, uint8_t* scratch, size_t scratch_length) {
+    png_t* png, screen_t* screen, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
   if (NULL == png) {
+    goto out;
+  }
+  if (NULL == screen) {
     goto out;
   }
 
@@ -90,13 +93,29 @@ specific_interface_t* new_png_specific_interface(
   }
 
   // set attributes
+  interface->display = *screen;
   interface->bpp = sizeof(png_pixel_t);
   interface->memory = (uint8_t*)png->pixels;
+  interface->length = png_length_bytes(png);
   interface->scratch = scratch;
   interface->scratch_length = scratch_length;
 
 out:
   return interface;
+}
+
+int release_png_generic_interface(generic_interface_t* interface) {
+  int ret = 0;
+  free(interface);
+out:
+  return ret;
+}
+
+int release_png_specific_interface(specific_interface_t* interface) {
+  int ret = 0;
+  free(interface);
+out:
+  return ret;
 }
 
 static void png_pixel(void* arg, color_t color, uext_t u, uext_t v) {

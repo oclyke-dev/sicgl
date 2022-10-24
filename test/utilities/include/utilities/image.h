@@ -14,5 +14,3 @@ static inline int truecolor_random_color() {
   uint8_t a = 255;
   return gdTrueColorAlpha(r, g, b, TRUECOLOR_OPAQUE);
 }
-
-int image_to_file(gdImage* image, char const* path);

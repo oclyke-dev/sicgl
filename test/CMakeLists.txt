@@ -40,18 +40,22 @@ foreach(TEST ${TESTS})
   message("INCLUDE ${TEST}")
   INCLUDE(${TEST})
   if(DEFINED TEST_NAME)
-    set(TEST_OUT_DIR ${BUILD_ROOT_DIR}/tests/${TEST_NAME})
-    file(MAKE_DIRECTORY "${TEST_OUT_DIR}")
-    file(MAKE_DIRECTORY "${TEST_OUT_DIR}/output")
-    target_compile_definitions(${TEST_NAME} PRIVATE
-      -DTEST_OUTPUT_DIR="${TEST_OUT_DIR}/output"
-    )
-    set_target_properties(${TEST_NAME} PROPERTIES
-      OUTPUT_NAME test
-      RUNTIME_OUTPUT_DIRECTORY "${TEST_OUT_DIR}"
-    )
+    if(DEFINED TARGET_NAME)
+      set(TEST_OUT_DIR ${BUILD_ROOT_DIR}/tests/${TEST_NAME})
+      file(MAKE_DIRECTORY "${TEST_OUT_DIR}")
+      file(MAKE_DIRECTORY "${TEST_OUT_DIR}/output")
+      target_compile_definitions(${TARGET_NAME} PRIVATE
+        -DTEST_OUTPUT_DIR="${TEST_OUT_DIR}/output"
+      )
+      set_target_properties(${TARGET_NAME} PROPERTIES
+        OUTPUT_NAME test
+        RUNTIME_OUTPUT_DIRECTORY "${TEST_OUT_DIR}"
+      )
+    else()
+      message(SEND_ERROR "test ${TEST} did not define its TARGET_NAME")
+    endif()
   else()
-    message(SEND_ERROR "test ${TEST} did not define its name")
+    message(SEND_ERROR "test ${TEST} did not define its TEST_NAME")
   endif()
   unset(TEST_NAME)
 endforeach(TEST)

@@ -29,6 +29,7 @@ void test_pixel_location_generic_full(void) {
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY(
       pixel_location_expected, bytes->memory, bytes_length_bytes(bytes));
+  release_bytes_generic_interface(intfc);
   release_bytes(bytes);
 }
 
@@ -52,6 +53,7 @@ void test_pixel_location_generic_naive(void) {
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY(
       pixel_location_expected, bytes->memory, bytes_length_bytes(bytes));
+  release_bytes_generic_interface(intfc);
   release_bytes(bytes);
 }
 
@@ -60,19 +62,22 @@ void test_pixel_location_specific(void) {
   bytes_t* bytes = new_bytes(3, 3);
   TEST_ASSERT_NOT_NULL_MESSAGE(bytes, "could not allocate bytes object");
 
-  specific_interface_t* intfc = new_bytes_specific_interface(bytes, NULL, 0);
-  TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
-
   screen_t* screen = new_screen(bytes->width, bytes->height, 0, 0);
   TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not allocate screen object");
 
+  specific_interface_t* intfc =
+      new_bytes_specific_interface(bytes, screen, NULL, 0);
+  TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
+
   // draw a pixel to the location
-  sicgl_specific_pixel(intfc, screen, (void*)&pixel_location_expected[4], 1, 1);
+  sicgl_specific_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1);
 
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY(
       pixel_location_expected, bytes->memory, bytes_length_bytes(bytes));
+  release_bytes_specific_interface(intfc);
   release_bytes(bytes);
+  release_screen(screen);
 }
 
 void test_pixel(void) {
@@ -93,7 +98,7 @@ void test_pixel(void) {
   generic_interface_t* naive_intfc =
       new_png_generic_interface_partial(naive_bm, naive_prototype);
   specific_interface_t* specfic_intfc =
-      new_png_specific_interface(spec_bm, NULL, 0);
+      new_png_specific_interface(spec_bm, screen, NULL, 0);
 
   TEST_ASSERT_NOT_NULL(fast_bm);
   TEST_ASSERT_NOT_NULL(naive_bm);
@@ -118,7 +123,7 @@ void test_pixel(void) {
     // draw the pixel using the interface(s)
     sicgl_generic_pixel(fast_intfc, (void*)&pixel, u, v);
     sicgl_generic_pixel(naive_intfc, (void*)&pixel, u, v);
-    sicgl_specific_pixel(specfic_intfc, screen, (void*)&pixel, u, v);
+    sicgl_specific_pixel(specfic_intfc, (void*)&pixel, u, v);
   }
 
   // store images
@@ -136,6 +141,10 @@ void test_pixel(void) {
   release_png(fast_bm);
   release_png(naive_bm);
   release_png(spec_bm);
+  release_png_generic_interface(fast_intfc);
+  release_png_generic_interface(naive_intfc);
+  release_png_specific_interface(specfic_intfc);
+  release_screen(screen);
 }
 
 // not needed when using generate_test_runner.rb

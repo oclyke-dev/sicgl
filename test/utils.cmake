@@ -6,9 +6,10 @@ set(TESTUTILS_LIBRARIES testutils)
 
 # create the shared library testutils
 add_library(testutils SHARED
-  ${TESTUTILS_ROOT_DIR}/image.c
+  ${TESTUTILS_ROOT_DIR}/conversion.c
   ${TESTUTILS_ROOT_DIR}/png.c
   ${TESTUTILS_ROOT_DIR}/screen.c
+  ${TESTUTILS_ROOT_DIR}/simultaneous.c
   ${TESTUTILS_ROOT_DIR}/utilities.c
 
   ${TESTUTILS_ROOT_DIR}/interfaces/interface_bytes.c
@@ -23,6 +24,7 @@ target_include_directories(testutils PRIVATE
   ${SICGL_ROOT_DIR}/include
 )
 target_link_libraries(testutils
+  ${SICGL_LIBRARIES}
   ${SPNG_LIBRARIES}
   ${LIBGD}
 )

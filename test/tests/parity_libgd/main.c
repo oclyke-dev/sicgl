@@ -29,17 +29,22 @@ void test_hline(void) {
       generic, "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
-  sicgl_generic_hline(generic, (void*)truecolor, 0, 2, width - 1);
+  sicgl_generic_hline(generic, &truecolor, 0, 2, width - 1);
   gdImageLine(ref_im, 0, 2, width - 1, 2, truecolor);
 
   // output both the images
+  png_t* ref_png = new_png_from_image(ref_im);
+  png_t* test_png = new_png_from_image(test_im);
   TEST_ASSERT_EQUAL_INT(
-      0, image_to_file(ref_im, TEST_OUTPUT_DIR "/hline_ref.png"));
+      0, png_to_file(ref_png, TEST_OUTPUT_DIR "/hline_ref.png"));
   TEST_ASSERT_EQUAL_INT(
-      0, image_to_file(test_im, TEST_OUTPUT_DIR "/hline_test.png"));
+      0, png_to_file(test_png, TEST_OUTPUT_DIR "/hline_test.png"));
 
   // compare the images
   TEST_ASSERT_EQUAL_INT(0, compare_image(ref_im, test_im));
+  release_libgd_generic_interface(generic);
+  release_png(ref_png);
+  release_png(test_png);
 }
 
 void test_vline(void) {
@@ -57,17 +62,22 @@ void test_vline(void) {
       generic, "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
-  sicgl_generic_vline(generic, (void*)truecolor, 4, 1, height - 2);
+  sicgl_generic_vline(generic, &truecolor, 4, 1, height - 2);
   gdImageLine(ref_im, 4, 1, 4, height - 2, truecolor);
 
   // output both the images
+  png_t* ref_png = new_png_from_image(ref_im);
+  png_t* test_png = new_png_from_image(test_im);
   TEST_ASSERT_EQUAL_INT(
-      0, image_to_file(ref_im, TEST_OUTPUT_DIR "/vline_ref.png"));
+      0, png_to_file(ref_png, TEST_OUTPUT_DIR "/vline_ref.png"));
   TEST_ASSERT_EQUAL_INT(
-      0, image_to_file(test_im, TEST_OUTPUT_DIR "/vline_test.png"));
+      0, png_to_file(test_png, TEST_OUTPUT_DIR "/vline_test.png"));
 
   // compare the images
   TEST_ASSERT_EQUAL_INT(0, compare_image(ref_im, test_im));
+  release_libgd_generic_interface(generic);
+  release_png(ref_png);
+  release_png(test_png);
 }
 
 void test_region(void) {
@@ -85,17 +95,22 @@ void test_region(void) {
       generic, "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
-  sicgl_generic_region(generic, (void*)truecolor, 4, 1, 8, height - 2);
+  sicgl_generic_region(generic, &truecolor, 4, 1, 8, height - 2);
   gdImageFilledRectangle(ref_im, 4, 1, 8, height - 2, truecolor);
 
   // output both the images
+  png_t* ref_png = new_png_from_image(ref_im);
+  png_t* test_png = new_png_from_image(ref_im);
   TEST_ASSERT_EQUAL_INT(
-      0, image_to_file(ref_im, TEST_OUTPUT_DIR "/region_ref.png"));
+      0, png_to_file(ref_png, TEST_OUTPUT_DIR "/region_ref.png"));
   TEST_ASSERT_EQUAL_INT(
-      0, image_to_file(test_im, TEST_OUTPUT_DIR "/region_test.png"));
+      0, png_to_file(test_png, TEST_OUTPUT_DIR "/region_test.png"));
 
   // compare the images
   TEST_ASSERT_EQUAL_INT(0, compare_image(ref_im, test_im));
+  release_libgd_generic_interface(generic);
+  release_png(ref_png);
+  release_png(test_png);
 }
 
 int main() {

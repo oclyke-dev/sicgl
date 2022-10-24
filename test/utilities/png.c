@@ -52,40 +52,6 @@ out:
 void release_png(png_t* png) { free(png); }
 
 /**
- * @brief Allocate a new PNG and convert the provided image to PNG format.
- *
- * @param image
- * @param output
- * @return int
- */
-png_t* new_png_from_image(gdImage* image) {
-  png_t* png = NULL;
-
-  // check input
-  if (NULL == image) {
-    goto out;
-  }
-
-  // create a new PNG
-  png = new_png(image->sx, image->sy);
-  if (NULL == png) {
-    goto out;
-  }
-
-  // convert the image to a PNG with spong
-  uext_t width = png->width;
-  for (size_t u = 0; u < png->width; u++) {
-    for (size_t v = 0; v < png->height; v++) {
-      png->pixels[v * width + u] =
-          png_color_from_truecolor(gdImageTrueColorPixel(image, u, v));
-    }
-  }
-
-out:
-  return png;
-}
-
-/**
  * @brief Write out a png image to a file.
  *
  * @param png
