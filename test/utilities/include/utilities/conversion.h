@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gd.h"
-#include "utilities/interfaces.h"
+#include "sicgl_specific.h"
 #include "utilities/png.h"
 
 // color conversions

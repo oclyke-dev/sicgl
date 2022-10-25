@@ -1,6 +1,5 @@
 #include "range.h"
 
-#include "sicgl.h"
 #include "unity.h"
 
 static void range_count_cb(void* arg) {

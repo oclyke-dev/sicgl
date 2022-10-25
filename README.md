@@ -44,6 +44,9 @@ this project uses clang-format. to format all the right code:
 
 mac: ```find -E . -regex '\.\/(src|include|test)\/.*\.(c|h)$' | xargs clang-format -i```
 
+# debug mode
+```cmake .. -DDEBUG=true```
+
 # speed over memory footprint
 in its early conception sicgl was meant to be hardware-agnostic and extremely
 easy to tailor to any hardware. this was acheieved through a function-pointer

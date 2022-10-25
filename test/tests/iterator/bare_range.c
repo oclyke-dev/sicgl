@@ -1,5 +1,4 @@
 #include "range.h"
-#include "sicgl.h"
 #include "unity.h"
 
 void test_iterator_bare_range(void) {

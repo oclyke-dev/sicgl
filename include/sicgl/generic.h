@@ -1,6 +1,7 @@
 #pragma once
 
-#include "sicgl/types.h"
+#include "sicgl/color.h"
+#include "sicgl/extent.h"
 
 // sicgl needs implementations of various writer functions which
 // allow it to actually interact with the user application

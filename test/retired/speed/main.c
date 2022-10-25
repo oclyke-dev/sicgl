@@ -4,7 +4,7 @@
 
 #include "gd.h"
 #include "spng.h"
-#include "test_utils.h"
+#include "utils.h"
 
 #define TRANSPARENT (127)
 #define OPAQUE (0)
@@ -31,7 +31,7 @@ int main() {
   // define size of image
   uext_t width = 512;
   uext_t height = 512;
-  screen_t* screen = new_screen(width, height, 0, 0);
+  display_t* display = new_screen(width, height, 0, 0);
 
   // size of the rectangle to draw
   uext_t u0 = 15;
@@ -81,7 +81,7 @@ int main() {
 
   // run test of specific_regular interface
   specific_interface_t* specific_regular =
-      new_libgd_specific_interface(screen, NULL, 0);
+      new_libgd_specific_interface(display, NULL, 0);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
     sicgl_specific_region(specific_regular, &color, u0, v0, u1, v1);

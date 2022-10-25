@@ -1,7 +1,8 @@
 #include "utilities/interface_libgd.h"
 
+#include <errno.h>
+
 #include "gd.h"
-#include "sicgl.h"
 #include "utilities/conversion.h"
 #include "utilities/interfaces.h"
 
@@ -78,10 +79,10 @@ out:
  * @return specific_interface_t*
  */
 specific_interface_t* new_libgd_specific_interface(
-    screen_t* screen, uint8_t* scratch, size_t scratch_length) {
+    display_t* display, uint8_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
-  if (NULL == screen) {
+  if (NULL == display) {
     goto out;
   }
 
@@ -97,7 +98,7 @@ specific_interface_t* new_libgd_specific_interface(
   // it is formed by many individual calls to malloc -- therefore
   // we must allocate our own contiguous memory to operate on)
   interface->bpp = sizeof(int);
-  interface->length = screen->width * screen->height * interface->bpp;
+  interface->length = display->width * display->height * interface->bpp;
   interface->memory = malloc(interface->length);
   if (NULL == interface->memory) {
     free(interface);
@@ -107,7 +108,7 @@ specific_interface_t* new_libgd_specific_interface(
   memset(interface->memory, 0x00, interface->length);
 
   // set attributes
-  interface->display = *screen;
+  interface->display = *display;
   interface->scratch = scratch;
   interface->scratch_length = scratch_length;
 

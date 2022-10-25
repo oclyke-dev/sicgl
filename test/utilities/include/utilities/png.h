@@ -4,8 +4,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "gd.h"
-#include "sicgl.h"
+#include "sicgl/extent.h"
 
 // because truecolor alpha supports a smaller range of alphas the easiest move
 // is to restrict the valid alpha values to [0, 127] for display these will be
