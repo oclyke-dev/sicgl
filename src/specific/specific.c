@@ -3,8 +3,9 @@
 #include <stddef.h>
 
 void sicgl_specific_hrun(
-    specific_interface_t* interface, color_t color, uext_t u, uext_t v,
-    ext_t du) {
+    specific_interface_t* interface, color_sequence_t* sequence, uext_t u,
+    uext_t v, ext_t du) {
+  color_t color = color_sequence_get_color(sequence);
   size_t bpp = interface->bpp;
   int increment = (du > 0) ? bpp : -bpp;
   int count = (du > 0) ? du : -du;
@@ -16,8 +17,9 @@ void sicgl_specific_hrun(
 }
 
 void sicgl_specific_vrun(
-    specific_interface_t* interface, color_t color, uext_t u, uext_t v,
-    ext_t dv) {
+    specific_interface_t* interface, color_sequence_t* sequence, uext_t u,
+    uext_t v, ext_t dv) {
+  color_t color = color_sequence_get_color(sequence);
   size_t bpp = interface->bpp;
   uext_t width = interface->display.width;
   int increment = (dv > 0) ? bpp * width : -bpp * width;
@@ -30,8 +32,9 @@ void sicgl_specific_vrun(
 }
 
 void sicgl_specific_hline(
-    specific_interface_t* interface, color_t color, uext_t u0, uext_t v,
-    uext_t u1) {
+    specific_interface_t* interface, color_sequence_t* sequence, uext_t u0,
+    uext_t v, uext_t u1) {
+  color_t color = color_sequence_get_color(sequence);
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
@@ -52,8 +55,9 @@ void sicgl_specific_hline(
 }
 
 void sicgl_specific_vline(
-    specific_interface_t* interface, color_t color, uext_t u, uext_t v0,
-    uext_t v1) {
+    specific_interface_t* interface, color_sequence_t* sequence, uext_t u,
+    uext_t v0, uext_t v1) {
+  color_t color = color_sequence_get_color(sequence);
   int increment;
   size_t distance;
   size_t bpp = interface->bpp;
@@ -74,9 +78,10 @@ void sicgl_specific_vline(
 }
 
 void sicgl_specific_diagonal(
-    specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
-    ext_t diru, ext_t dirv, uext_t count) {
+    specific_interface_t* interface, color_sequence_t* sequence, uext_t u0,
+    uext_t v0, ext_t diru, ext_t dirv, uext_t count) {
   int du, dv;
+  color_t color = color_sequence_get_color(sequence);
   size_t bpp = interface->bpp;
   if (diru > 0) {
     du = bpp;
@@ -99,8 +104,9 @@ void sicgl_specific_diagonal(
 }
 
 void sicgl_specific_region(
-    specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
-    uext_t u1, uext_t v1) {
+    specific_interface_t* interface, color_sequence_t* sequence, uext_t u0,
+    uext_t v0, uext_t u1, uext_t v1) {
+  color_t color = color_sequence_get_color(sequence);
   size_t du;
   size_t dv;
   size_t bpp = interface->bpp;

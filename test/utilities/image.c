@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include "utilities/image.h"
 
-#include "gd.h"
-#include "test_utils.h"
+gdImage* new_image(uext_t width, uext_t height) {
+  return gdImageCreateTrueColor(width, height);
+}
+void release_image(gdImage* image) { free(image); }
 
 int compare_image(gdImage* reference, gdImage* image) {
   if ((NULL == reference) || (NULL == image)) {

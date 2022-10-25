@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "sicgl.h"
+#include "sicgl/iterator.h"
 #include "unity.h"
 
 // fwd declarations

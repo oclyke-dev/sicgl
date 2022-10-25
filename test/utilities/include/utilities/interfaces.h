@@ -2,7 +2,8 @@
 
 #include <stdlib.h>
 
-#include "sicgl.h"
+#include "sicgl_generic.h"
+#include "sicgl_specific.h"
 
 static inline generic_interface_t* new_generic_interface(void) {
   return calloc(1, sizeof(generic_interface_t));
