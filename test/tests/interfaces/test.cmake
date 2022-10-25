@@ -5,6 +5,7 @@ add_executable(${TARGET_NAME})
 target_sources(${TARGET_NAME} PRIVATE
   ${TESTS_SRC}
   ${CMAKE_CURRENT_LIST_DIR}/main.c
+	${CMAKE_CURRENT_LIST_DIR}/specific_display.c
 )
 target_include_directories(${TARGET_NAME} PRIVATE
   ${TESTS_INCLUDE_DIRECTORIES}
