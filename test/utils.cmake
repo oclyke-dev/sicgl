@@ -13,7 +13,10 @@ add_library(testutils SHARED
 	${TESTUTILS_ROOT_DIR}/interface_libgd.c
 	${TESTUTILS_ROOT_DIR}/png.c
 	${TESTUTILS_ROOT_DIR}/screen.c
-	${TESTUTILS_ROOT_DIR}/simultaneous.c
+	${TESTUTILS_ROOT_DIR}/simultaneous_generic_display.c
+	${TESTUTILS_ROOT_DIR}/simultaneous_generic_screen.c
+	${TESTUTILS_ROOT_DIR}/simultaneous_specific_display.c
+	${TESTUTILS_ROOT_DIR}/simultaneous_specific_screen.c
 )
 target_include_directories(testutils PRIVATE
 	${SICGL_ROOT_DIR}/include
