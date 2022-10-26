@@ -2,67 +2,51 @@
 #include "utils.h"
 
 void test_generic_display_line(void) {
-  TEST_IGNORE_MESSAGE("not implemented");
+  uext_t width = 255;
+  uext_t height = 255;
 
-  // uext_t width = 3;
-  // uext_t height = 3;
+  gdImage* reference;
+  gdImage* image;
 
-  // gdImage* reference;
-  // gdImage* image;
+  generic_interface_t* interface;
+  png_t* ref;
+  png_t* img;
 
-  // generic_interface_t* interface;
-  // color_sequence_t* color_sequence;
-  // png_t* ref;
-  // png_t* img;
+  if (TEST_PROTECT()) {
+    // create images
+    reference = new_image(width, height);
+    image = new_image(width, height);
+    TEST_ASSERT_NOT_NULL_MESSAGE(
+        reference, "could not allocate reference image");
+    TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not allocate test image");
 
-  // if (TEST_PROTECT()) {
-  //   // create images
-  //   reference = new_image(width, height);
-  //   image = new_image(width, height);
-  //   TEST_ASSERT_NOT_NULL_MESSAGE(
-  //       reference, "could not allocate reference image");
-  //   TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not allocate test image");
+    // create generic interface
+    interface = new_libgd_generic_interface_full(image);
+    TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
-  //   // create generic interface
-  //   interface = new_libgd_generic_interface_full(image);
-  //   TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
+    // create a color sequence
+    int color = truecolor_random_color();
+    int ret = simultaneous_generic_display_line(reference, interface, &color, 1, 1, width - 1, height/2);
 
-  //   // create a color sequence
-  //   int color = truecolor_random_color();
-  //   color_sequence = new_color_sequence(
-  //       SICGL_CS_STATIC, sizeof(int), (uint8_t*)&color, sizeof(color));
-  //   TEST_ASSERT_NOT_NULL_MESSAGE(
-  //       color_sequence, "could not create color sequence");
+    // save images to png
+    ref = new_png_from_image(reference);
+    img = new_png_from_image(image);
+    TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
+    TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
+    TEST_ASSERT_EQUAL_INT(0, png_to_file(ref, TEST_OUTPUT_DIR "/generic_display_line_ref.png"));
+    TEST_ASSERT_EQUAL_INT(0, png_to_file(img, TEST_OUTPUT_DIR "/generic_display_line_img.png"));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw pixel");
 
-  //   // draw a pixel
-  //   int ret =
-  //       simultaneous_generic_pixel(reference, interface, color_sequence, 1,
-  //       1);
+    // compare the images
+    TEST_ASSERT_EQUAL_INT(0, compare_image(reference, image));
 
-  //   // save images to png
-  //   ref = new_png_from_image(reference);
-  //   img = new_png_from_image(image);
-  //   TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
-  //   TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
-  //   TEST_ASSERT_EQUAL_INT(
-  //       0, png_to_file(
-  //              ref, TEST_OUTPUT_DIR "/generic_full_display_pixel_ref.png"));
-  //   TEST_ASSERT_EQUAL_INT(
-  //       0, png_to_file(
-  //              img, TEST_OUTPUT_DIR "/generic_full_display_pixel_img.png"));
-  //   TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw pixel");
-
-  //   // compare the images
-  //   TEST_ASSERT_EQUAL_INT(0, compare_image(reference, image));
-
-  // } else {
-  //   release_image(reference);
-  //   release_image(image);
-  //   release_libgd_generic_interface(interface);
-  //   release_color_sequence(color_sequence);
-  //   release_png(ref);
-  //   release_png(img);
-  // }
+  } else {
+    release_image(reference);
+    release_image(image);
+    release_libgd_generic_interface(interface);
+    release_png(ref);
+    release_png(img);
+  }
 }
 
 void test_generic_display_rectangle(void) {
