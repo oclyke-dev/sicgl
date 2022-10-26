@@ -1,8 +1,8 @@
+#include "utilities/simultaneous/specific/interface.h"
+
 #include <errno.h>
 
-#include "utilities/simultaneous.h"
-
-int simultaneous_specific_display_pixel(
+int simultaneous_specific_pixel(
     gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
     ext_t u0, ext_t v0) {
   int ret = 0;
@@ -13,7 +13,7 @@ out:
   return ret;
 }
 
-int simultaneous_specific_display_hline(
+int simultaneous_specific_hline(
     gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
     ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
@@ -24,7 +24,7 @@ out:
   return ret;
 }
 
-int simultaneous_specific_display_vline(
+int simultaneous_specific_vline(
     gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
     ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
@@ -35,7 +35,7 @@ out:
   return ret;
 }
 
-int simultaneous_specific_display_region(
+int simultaneous_specific_region(
     gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
     ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
@@ -44,28 +44,4 @@ int simultaneous_specific_display_region(
   sicgl_specific_region(interface, sequence, u0, v0, u1, v1);
 out:
   return ret;
-}
-
-int simultaneous_specific_display_line(
-    gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
-    ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
-	return -EINVAL;
-}
-
-int simultaneous_specific_display_rectangle(
-    gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
-    ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
-	return -EINVAL;
-}
-
-int simultaneous_specific_display_circle(
-    gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
-    ext_t u0, ext_t v0, ext_t radius) {
-	return -EINVAL;
-}
-
-int simultaneous_specific_display_ellipse(
-    gdImage* image, specific_interface_t* interface, color_sequence_t* sequence,
-    ext_t u0, ext_t v0, ext_t major, ext_t minor) {
-	return -EINVAL;
 }

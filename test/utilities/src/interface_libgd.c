@@ -1,6 +1,7 @@
 #include "utilities/interface_libgd.h"
 
 #include <errno.h>
+#include <stdbool.h>
 
 #include "gd.h"
 #include "utilities/conversion.h"
@@ -56,13 +57,34 @@ out:
 /**
  * @brief Create a fully-featured generic interface which draws to libgd images.
  *
- * @param png
+ * @param image
  * @return generic_interface_t*
  */
 generic_interface_t* new_libgd_generic_interface_full(gdImage* image) {
   // create full prototype
   generic_interface_t prototype;
   memset(&prototype, 0x01, sizeof(prototype));
+
+  // use prototype to get full interface
+  generic_interface_t* interface =
+      new_libgd_generic_interface_partial(image, prototype);
+
+out:
+  return interface;
+}
+
+/**
+ * @brief Create a naive generic interface which draws to libgd images using
+ * only a pixel definition.
+ *
+ * @param image
+ * @return generic_interface_t*
+ */
+generic_interface_t* new_libgd_generic_interface_naive(gdImage* image) {
+  // create prototype w/ only pixel
+  generic_interface_t prototype;
+  memset(&prototype, 0x00, sizeof(prototype));
+  prototype.pixel = (void*)true;
 
   // use prototype to get full interface
   generic_interface_t* interface =

@@ -9,6 +9,7 @@ set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/display.c
 	${SICGL_ROOT_DIR}/src/iter.c
 	${SICGL_ROOT_DIR}/src/screen.c
+	${SICGL_ROOT_DIR}/src/translate.c
 
 	${SICGL_ROOT_DIR}/src/specific/color_sequence.c
 	${SICGL_ROOT_DIR}/src/specific/specific.c
