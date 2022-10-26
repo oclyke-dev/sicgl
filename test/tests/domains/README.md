@@ -1,2 +1,2 @@
-# test interfaces
-this collection of tests is meant to verify the underlying interfaces which support higher-level sicgl drawing functions.
+# test domains
+this collection of tests is meant to verify the higher level APIs ability to handle coordinate frame (domain) translations.

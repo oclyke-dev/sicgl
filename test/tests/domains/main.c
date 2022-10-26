@@ -14,41 +14,37 @@ void tearDown(void) {
 int main(void) {
   UNITY_BEGIN();
 
-  // specific display
-  RUN_TEST(test_specific_display_pixel);
-  RUN_TEST(test_specific_display_hline);
-  RUN_TEST(test_specific_display_vline);
-  RUN_TEST(test_specific_display_region);
+  // specific
+  RUN_TEST(test_specific_display_line);
+  RUN_TEST(test_specific_display_rectangle);
+  RUN_TEST(test_specific_display_circle);
+  RUN_TEST(test_specific_display_ellipse);
 
-  // specific screen
-  RUN_TEST(test_specific_screen_pixel);
-  RUN_TEST(test_specific_screen_hline);
-  RUN_TEST(test_specific_screen_vline);
-  RUN_TEST(test_specific_screen_region);
+  RUN_TEST(test_specific_global_line);
+  RUN_TEST(test_specific_global_rectangle);
+  RUN_TEST(test_specific_global_circle);
+  RUN_TEST(test_specific_global_ellipse);
 
-  // generic full display
-  RUN_TEST(test_generic_full_display_pixel);
-  RUN_TEST(test_generic_full_display_hline);
-  RUN_TEST(test_generic_full_display_vline);
-  RUN_TEST(test_generic_full_display_region);
+  RUN_TEST(test_specific_screen_line);
+  RUN_TEST(test_specific_screen_rectangle);
+  RUN_TEST(test_specific_screen_circle);
+  RUN_TEST(test_specific_screen_ellipse);
 
-  // generic full screen
-  RUN_TEST(test_generic_full_screen_pixel);
-  RUN_TEST(test_generic_full_screen_hline);
-  RUN_TEST(test_generic_full_screen_vline);
-  RUN_TEST(test_generic_full_screen_region);
+  // generic
+  RUN_TEST(test_generic_display_line);
+  RUN_TEST(test_generic_display_rectangle);
+  RUN_TEST(test_generic_display_circle);
+  RUN_TEST(test_generic_display_ellipse);
 
-  // generic naive display
-  RUN_TEST(test_generic_naive_display_pixel);
-  RUN_TEST(test_generic_naive_display_hline);
-  RUN_TEST(test_generic_naive_display_vline);
-  RUN_TEST(test_generic_naive_display_region);
+  RUN_TEST(test_generic_global_line);
+  RUN_TEST(test_generic_global_rectangle);
+  RUN_TEST(test_generic_global_circle);
+  RUN_TEST(test_generic_global_ellipse);
 
-  // generic naive screen
-  RUN_TEST(test_generic_naive_screen_pixel);
-  RUN_TEST(test_generic_naive_screen_hline);
-  RUN_TEST(test_generic_naive_screen_vline);
-  RUN_TEST(test_generic_naive_screen_region);
+  RUN_TEST(test_generic_screen_line);
+  RUN_TEST(test_generic_screen_rectangle);
+  RUN_TEST(test_generic_screen_circle);
+  RUN_TEST(test_generic_screen_ellipse);
 
   return UNITY_END();
 }

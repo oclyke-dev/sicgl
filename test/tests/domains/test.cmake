@@ -5,16 +5,17 @@ add_executable(${TARGET_NAME})
 target_sources(${TARGET_NAME} PRIVATE
   ${TESTS_SRC}
   ${CMAKE_CURRENT_LIST_DIR}/main.c
-	${CMAKE_CURRENT_LIST_DIR}/generic_full_display.c
-	${CMAKE_CURRENT_LIST_DIR}/generic_full_screen.c
-	${CMAKE_CURRENT_LIST_DIR}/generic_naive_display.c
-	${CMAKE_CURRENT_LIST_DIR}/generic_naive_screen.c
-	${CMAKE_CURRENT_LIST_DIR}/specific_display.c
-	${CMAKE_CURRENT_LIST_DIR}/specific_screen.c
+	${CMAKE_CURRENT_LIST_DIR}/src/generic/display.c
+	${CMAKE_CURRENT_LIST_DIR}/src/generic/global.c
+	${CMAKE_CURRENT_LIST_DIR}/src/generic/screen.c
+	${CMAKE_CURRENT_LIST_DIR}/src/specific/display.c
+	${CMAKE_CURRENT_LIST_DIR}/src/specific/global.c
+	${CMAKE_CURRENT_LIST_DIR}/src/specific/screen.c
 )
 target_include_directories(${TARGET_NAME} PRIVATE
   ${TESTS_INCLUDE_DIRECTORIES}
   ${CMAKE_CURRENT_LIST_DIR}
+	${CMAKE_CURRENT_LIST_DIR}/include
 )
 target_link_libraries(${TARGET_NAME}
   ${TESTS_LIBS}
