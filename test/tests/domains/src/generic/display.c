@@ -26,15 +26,18 @@ void test_generic_display_line(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    int ret = simultaneous_generic_display_line(reference, interface, &color, 1, 1, width - 1, height/2);
+    int ret = simultaneous_generic_display_line(
+        reference, interface, &color, 1, 1, width - 1, height / 2);
 
     // save images to png
     ref = new_png_from_image(reference);
     img = new_png_from_image(image);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
-    TEST_ASSERT_EQUAL_INT(0, png_to_file(ref, TEST_OUTPUT_DIR "/generic_display_line_ref.png"));
-    TEST_ASSERT_EQUAL_INT(0, png_to_file(img, TEST_OUTPUT_DIR "/generic_display_line_img.png"));
+    TEST_ASSERT_EQUAL_INT(
+        0, png_to_file(ref, TEST_OUTPUT_DIR "/generic_display_line_ref.png"));
+    TEST_ASSERT_EQUAL_INT(
+        0, png_to_file(img, TEST_OUTPUT_DIR "/generic_display_line_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw pixel");
 
     // compare the images

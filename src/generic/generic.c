@@ -11,11 +11,11 @@ void sicgl_generic_pixel(
 }
 
 void sicgl_generic_hrun(
-    generic_interface_t* interface, color_t color, uext_t u,
-    uext_t v, ext_t du) {
-	if (du == 0) {
-		interface->pixel(interface->arg, color, u, v);
-	}
+    generic_interface_t* interface, color_t color, uext_t u, uext_t v,
+    ext_t du) {
+  if (du == 0) {
+    interface->pixel(interface->arg, color, u, v);
+  }
   if (interface->hline) {
     interface->hline(interface->arg, color, u, v, u + du - 1);
   } else {
@@ -24,11 +24,11 @@ void sicgl_generic_hrun(
 }
 
 void sicgl_generic_vrun(
-    generic_interface_t* interface, color_t color, uext_t u,
-    uext_t v, ext_t dv) {
-	if (dv == 0) {
-		interface->pixel(interface->arg, color, u, v);
-	}
+    generic_interface_t* interface, color_t color, uext_t u, uext_t v,
+    ext_t dv) {
+  if (dv == 0) {
+    interface->pixel(interface->arg, color, u, v);
+  }
   if (interface->hline) {
     interface->vline(interface->arg, color, u, v, v + dv - 1);
   } else {
@@ -56,13 +56,12 @@ void sicgl_generic_vline(
   }
 }
 
-
 void sicgl_generic_diagonal(
-    generic_interface_t* interface, color_t color, uext_t u0,
-    uext_t v0, ext_t diru, ext_t dirv, uext_t count) {
+    generic_interface_t* interface, color_t color, uext_t u0, uext_t v0,
+    ext_t diru, ext_t dirv, uext_t count) {
   uext_t u = u0;
-	uext_t v = v0;
-	int du, dv;
+  uext_t v = v0;
+  int du, dv;
 
   if (diru > 0) {
     du = 1;
@@ -76,9 +75,9 @@ void sicgl_generic_diagonal(
   }
 
   for (uext_t idx = 0; idx < count; idx++) {
-		interface->pixel(interface->arg, color, u, v);
-		u += du;
-		v += dv;
+    interface->pixel(interface->arg, color, u, v);
+    u += du;
+    v += dv;
   }
 }
 
@@ -92,7 +91,9 @@ void sicgl_generic_region(
   }
 }
 
-int sicgl_generic_line(generic_interface_t* interface, color_t color, uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
+int sicgl_generic_line(
+    generic_interface_t* interface, color_t color, uext_t u0, uext_t v0,
+    uext_t u1, uext_t v1) {
   int ret = 0;
 
   if (NULL == interface) {
