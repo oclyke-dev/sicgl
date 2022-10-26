@@ -9,12 +9,19 @@ set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/display.c
 	${SICGL_ROOT_DIR}/src/iter.c
 	${SICGL_ROOT_DIR}/src/screen.c
+	${SICGL_ROOT_DIR}/src/translate.c
 
 	${SICGL_ROOT_DIR}/src/specific/color_sequence.c
 	${SICGL_ROOT_DIR}/src/specific/specific.c
+	${SICGL_ROOT_DIR}/src/specific/display.c
+	${SICGL_ROOT_DIR}/src/specific/global.c
+	${SICGL_ROOT_DIR}/src/specific/screen.c
 
 	${SICGL_ROOT_DIR}/src/generic/generic.c
 	${SICGL_ROOT_DIR}/src/generic/naive.c
+	${SICGL_ROOT_DIR}/src/generic/display.c
+	${SICGL_ROOT_DIR}/src/generic/global.c
+	${SICGL_ROOT_DIR}/src/generic/screen.c
 )
 if(DEFINED DEBUG)
 	set(SICGL_SOURCES ${SICGL_SOURCES}

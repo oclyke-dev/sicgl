@@ -6,14 +6,23 @@ set(TESTUTILS_LIBRARIES testutils)
 
 # create the shared library testutils
 add_library(testutils SHARED
-	${TESTUTILS_ROOT_DIR}/color_sequence.c
-	${TESTUTILS_ROOT_DIR}/conversion.c
-	${TESTUTILS_ROOT_DIR}/display.c
-	${TESTUTILS_ROOT_DIR}/image.c
-	${TESTUTILS_ROOT_DIR}/interface_libgd.c
-	${TESTUTILS_ROOT_DIR}/png.c
-	${TESTUTILS_ROOT_DIR}/screen.c
-	${TESTUTILS_ROOT_DIR}/simultaneous.c
+	${TESTUTILS_ROOT_DIR}/src/color_sequence.c
+	${TESTUTILS_ROOT_DIR}/src/conversion.c
+	${TESTUTILS_ROOT_DIR}/src/display.c
+	${TESTUTILS_ROOT_DIR}/src/image.c
+	${TESTUTILS_ROOT_DIR}/src/interface_libgd.c
+	${TESTUTILS_ROOT_DIR}/src/png.c
+	${TESTUTILS_ROOT_DIR}/src/screen.c
+
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/display.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/global.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/interface.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/screen.c
+
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/display.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/global.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/interface.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/screen.c
 )
 target_include_directories(testutils PRIVATE
 	${SICGL_ROOT_DIR}/include
