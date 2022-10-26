@@ -33,8 +33,9 @@ void test_specific_display_line(void) {
         color_sequence, "could not create color sequence");
 
     // draw a pixel
-    int ret =
-        simultaneous_specific_display_line(reference, interface, color_sequence, width / 4, height / 8, 3*width/4, 7*height/8);
+    int ret = simultaneous_specific_display_line(
+        reference, interface, color_sequence, width / 4, height / 8,
+        3 * width / 4, 7 * height / 8);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 

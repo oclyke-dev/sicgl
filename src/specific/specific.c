@@ -1,8 +1,6 @@
-#include <errno.h>
-#include <stddef.h>
-
 #include "sicgl/specific.h"
 
+#include <errno.h>
 #include <stddef.h>
 
 void sicgl_specific_hrun(
@@ -175,8 +173,8 @@ void sicgl_specific_region(
 }
 
 int sicgl_specific_line(
-    specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u0,
-    uext_t v0, uext_t u1, uext_t v1) {
+    specific_interface_t* interface, color_sequence_t* color_sequence,
+    uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
   int ret = 0;
 
   if (NULL == interface) {
@@ -226,7 +224,8 @@ int sicgl_specific_line(
     absdv = (v0 - v1);
   }
   if (absdu == absdv) {
-    sicgl_specific_diagonal(interface, color_sequence, u0, v0, signu, signv, absdu);
+    sicgl_specific_diagonal(
+        interface, color_sequence, u0, v0, signu, signv, absdu);
     goto out;
   }
 
