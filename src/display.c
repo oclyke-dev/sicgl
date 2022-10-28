@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <stddef.h>
 
+#include "sicgl/debug.h"
 #include "sicgl/minmax.h"
 
 /**

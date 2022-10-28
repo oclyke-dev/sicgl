@@ -2,5 +2,6 @@
 
 void test_specific_screen_line(void);
 void test_specific_screen_rectangle(void);
-void test_specific_screen_circle(void);
+void test_specific_screen_circle_bresenham(void);
+void test_specific_screen_circle_midpoint(void);
 void test_specific_screen_ellipse(void);

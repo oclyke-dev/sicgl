@@ -3,6 +3,8 @@
 #include <errno.h>
 #include <stddef.h>
 
+#include "sicgl/debug.h"
+
 int translate_screen_to_global(screen_t* screen, ext_t* u, ext_t* v) {
   int ret = 0;
   if (NULL == screen) {

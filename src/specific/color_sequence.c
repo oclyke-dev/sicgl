@@ -2,6 +2,8 @@
 
 #include <errno.h>
 
+#include "sicgl/debug.h"
+
 int color_sequence_set(
     color_sequence_t* sequence, color_sequence_type_e type, size_t bpp,
     uint8_t* buffer, size_t length) {

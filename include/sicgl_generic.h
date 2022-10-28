@@ -1,6 +1,5 @@
 #pragma once
 
-#include "sicgl/debug.h"
 #include "sicgl/display.h"
 #include "sicgl/extent.h"
 #include "sicgl/generic.h"
@@ -13,12 +12,15 @@ int sicgl_generic_display_line(
 int sicgl_generic_display_rectangle(
     generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
     ext_t v1);
-int sicgl_generic_display_circle(
-    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
-    ext_t v1);
+int sicgl_generic_display_circle_bresenham(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t diameter);
+int sicgl_generic_display_circle_ellipse(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t diameter);
 int sicgl_generic_display_ellipse(
-    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
-    ext_t v1);
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t semiu, ext_t semiv);
 
 // write through virtual screens
 int sicgl_generic_screen_line(
@@ -27,9 +29,12 @@ int sicgl_generic_screen_line(
 int sicgl_generic_screen_rectangle(
     generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1);
-int sicgl_generic_screen_circle(
+int sicgl_generic_screen_circle_bresenham(
     generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
-    ext_t v0, ext_t u1, ext_t v1);
+    ext_t v0, ext_t diameter);
+int sicgl_generic_screen_circle_midpoint(
+    generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t diameter);
 int sicgl_generic_screen_ellipse(
     generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1);
@@ -41,9 +46,12 @@ int sicgl_generic_global_line(
 int sicgl_generic_global_rectangle(
     generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1);
-int sicgl_generic_global_circle(
+int sicgl_generic_global_circle_bresenham(
     generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
-    ext_t v0, ext_t u1, ext_t v1);
+    ext_t v0, ext_t diameter);
+int sicgl_generic_global_circle_midpoint(
+    generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t diameter);
 int sicgl_generic_global_ellipse(
     generic_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1);

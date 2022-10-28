@@ -1,6 +1,5 @@
 #pragma once
 
-#include "sicgl/debug.h"
 #include "sicgl/screen.h"
 
 screen_t* new_screen(

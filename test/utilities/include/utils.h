@@ -19,3 +19,4 @@
 
 // include interfaces
 #include "utilities/interface_libgd.h"
+#include "utilities/interfaces.h"

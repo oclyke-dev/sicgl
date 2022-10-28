@@ -1,5 +1,6 @@
 #include "sicgl/naive.h"
 
+#include "sicgl/debug.h"
 #include "sicgl/generic.h"
 #include "sicgl/iterator.h"
 
