@@ -24,13 +24,13 @@ int main(void) {
   RUN_TEST(test_specific_global_line);
   RUN_TEST(test_specific_global_rectangle);
   RUN_TEST(test_specific_global_circle_bresenham);
-  RUN_TEST(test_specific_global_circle_midpoint);
+  RUN_TEST(test_specific_global_circle_ellipse);
   RUN_TEST(test_specific_global_ellipse);
 
   RUN_TEST(test_specific_screen_line);
   RUN_TEST(test_specific_screen_rectangle);
   RUN_TEST(test_specific_screen_circle_bresenham);
-  RUN_TEST(test_specific_screen_circle_midpoint);
+  RUN_TEST(test_specific_screen_circle_ellipse);
   RUN_TEST(test_specific_screen_ellipse);
 
   // generic
@@ -43,13 +43,13 @@ int main(void) {
   RUN_TEST(test_generic_global_line);
   RUN_TEST(test_generic_global_rectangle);
   RUN_TEST(test_generic_global_circle_bresenham);
-  RUN_TEST(test_generic_global_circle_midpoint);
+  RUN_TEST(test_generic_global_circle_ellipse);
   RUN_TEST(test_generic_global_ellipse);
 
   RUN_TEST(test_generic_screen_line);
   RUN_TEST(test_generic_screen_rectangle);
   RUN_TEST(test_generic_screen_circle_bresenham);
-  RUN_TEST(test_generic_screen_circle_midpoint);
+  RUN_TEST(test_generic_screen_circle_ellipse);
   RUN_TEST(test_generic_screen_ellipse);
 
   return UNITY_END();

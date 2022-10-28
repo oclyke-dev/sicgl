@@ -12,7 +12,7 @@ int simultaneous_generic_global_rectangle(
 int simultaneous_generic_global_circle_bresenham(
     gdImage* image, generic_interface_t* interface, screen_t* screen,
     color_t color, ext_t u0, ext_t v0, ext_t diameter);
-int simultaneous_generic_global_circle_midpoint(
+int simultaneous_generic_global_circle_ellipse(
     gdImage* image, generic_interface_t* interface, screen_t* screen,
     color_t color, ext_t u0, ext_t v0, ext_t diameter);
 int simultaneous_generic_global_ellipse(

@@ -12,7 +12,7 @@ int simultaneous_specific_screen_rectangle(
 int simultaneous_specific_screen_circle_bresenham(
     gdImage* image, specific_interface_t* interface, screen_t* screen,
     color_sequence_t* sequence, ext_t u0, ext_t v0, ext_t diameter);
-int simultaneous_specific_screen_circle_midpoint(
+int simultaneous_specific_screen_circle_ellipse(
     gdImage* image, specific_interface_t* interface, screen_t* screen,
     color_sequence_t* sequence, ext_t u0, ext_t v0, ext_t diameter);
 int simultaneous_specific_screen_ellipse(

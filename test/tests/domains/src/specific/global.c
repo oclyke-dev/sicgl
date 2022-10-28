@@ -11,7 +11,7 @@ void test_specific_global_circle_bresenham(void) {
   TEST_IGNORE_MESSAGE("not implemented");
 }
 
-void test_specific_global_circle_midpoint(void) {
+void test_specific_global_circle_ellipse(void) {
   TEST_IGNORE_MESSAGE("not implemented");
 }
 
