@@ -25,18 +25,12 @@ int sicgl_specific_display_line(specific_interface_t* interface, color_sequence_
 
   // handle simple cases
   if ((u0 == u1) && (v0 == v1)) {
-		int ret1 = screen_clip_hline(screen, &u0, &v0, &u1);
-		int ret2 = screen_clip_vline(screen, &u0, &v0, &v1);
-		if (ret1 < 0) {
-			ret = ret1;
-			goto out;
-		}
-		if (ret2 < 0) {
-			ret = ret2;
-			goto out;
-		}
-		if ((0 == ret1) && (0 == ret2)) {
+		ret = screen_clip_pixel(screen, u0, v0);
+		if (ret == 0) {
 			sicgl_specific_pixel(interface, color_sequence, u0, v0);
+			goto out;
+		} else if (ret > 0) {
+			ret = 0;
 			goto out;
 		}
 		goto out;
@@ -46,6 +40,9 @@ int sicgl_specific_display_line(specific_interface_t* interface, color_sequence_
 		if (0 == ret) {
 			sicgl_specific_hline(interface, color_sequence, u0, v0, u1);
 			goto out;
+		} else if (ret > 0) {
+			ret = 0;
+			goto out;
 		}
 		goto out;
   }
@@ -53,6 +50,9 @@ int sicgl_specific_display_line(specific_interface_t* interface, color_sequence_
 		ret = screen_clip_vline(screen, &u0, &v0, &v1);
 		if (0 == ret) {
 			sicgl_specific_vline(interface, color_sequence, u0, v0, v1);
+			goto out;
+		} else if (ret > 0) {
+			ret = 0;
 			goto out;
 		}
 		goto out;
@@ -96,9 +96,21 @@ int sicgl_specific_display_line(specific_interface_t* interface, color_sequence_
 		if (0 == ret) {
 			sicgl_specific_diagonal(interface, color_sequence, u0, v0, signu, signv, num_pixels);
 			goto out;
+		} else if (ret > 0) {
+			ret = 0;
+			goto out;
 		}
 		goto out;
   }
+
+	// clip the line
+	ret = screen_clip_line(screen, &u0, &v0, &u1, &v1);
+	if (ret > 0) {
+		ret = 0;
+		goto out;
+	} else if (ret < 0) {
+		goto out;
+	}
 
   // prepare working coordinates
   ext_t u = u0;

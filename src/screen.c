@@ -156,6 +156,35 @@ out:
  * @brief Clip a horizontal line to the given dislay.
  * Coordinates are given in screen frame.
  * Preserves original order of u0 and u1.
+ * Screen must be mnormalized.
+ * 
+ * @param screen 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 	0 for success with pixels to draw, positive for success with
+ *							no pixels to draw, negative errno on failure.
+ */
+int screen_clip_pixel(screen_t* screen, ext_t u0, ext_t v0) {
+	int ret = 0;
+	if (NULL == screen) {
+		ret = -EINVAL;
+		goto out;
+	}
+	if ((u0 < screen->u0) || (u0 > screen->u1) || (v0 < screen->v0) || (v0 > screen->v1)) {
+		ret = 1;
+		goto out;
+	}
+out:
+	return ret;
+}
+
+/**
+ * @brief Clip a horizontal line to the given dislay.
+ * Coordinates are given in screen frame.
+ * Preserves original order of u0 and u1.
+ * Screen must be mnormalized.
  * 
  * @param screen 
  * @param u0 
@@ -207,6 +236,7 @@ out:
  * @brief Clip a vertical line to the given screen.
  * Coordinates are given in screen frame.
  * Preserves original order of v0 and v1.
+ * Screen must be normalized.
  * 
  * @param screen 
  * @param u0 
@@ -258,6 +288,7 @@ out:
  * @brief Clips screen diagonal from interior of screen.
  * Does not change initial point, as it is assumed to be interior to the screen.
  * May reduce the pixel count if an overrun would occur.
+ * Screen must be normalized.
  * 
  * @param screen 
  * @param u 
@@ -267,9 +298,14 @@ out:
  * @param _count 
  * @return int 
  */
-static int screen_clip_diagonal_from_interior(screen_t* screen, ext_t u, ext_t v, ext_t diru, ext_t dirv, uext_t* _count) {
+static int screen_clip_diagonal_from_interior(screen_t* screen, ext_t u, ext_t v, ext_t diru, ext_t dirv, uext_t* count) {
 	int ret = 0;
 	uext_t du, dv, max_pixels;
+
+	if ((NULL == screen) || (NULL == count)) {
+		ret = -ENOMEM;
+		goto out;
+	}
 
 	// the line is starting inside the screen draw until either u or v goes off-screen
 	if (diru < 0) {
@@ -285,8 +321,8 @@ static int screen_clip_diagonal_from_interior(screen_t* screen, ext_t u, ext_t v
 	// coordinates are already on-screen, no need to modify them.
 	// just set the count as needed then exit.
 	max_pixels = min(du, dv) + 1;
-	if (*_count > max_pixels) {
-		*_count = max_pixels;
+	if (*count > max_pixels) {
+		*count = max_pixels;
 	}
 
 out:
@@ -445,6 +481,109 @@ int screen_clip_diagonal(screen_t* screen, ext_t* _u0, ext_t* _v0, ext_t _diru, 
 		goto out;
 	} else {
 		ret = -EINVAL;
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
+/**
+ * @brief Clip a line along the first axis so that it fits within [umin, umax].
+ * 
+ * @param screen 
+ * @param _u0 
+ * @param _v0 
+ * @param _u1 
+ * @param _v1 
+ * @return int 	0 for success with pixels to draw, positive for success with
+ *							no pixels to draw, negative errno on failure.
+ */
+static int screen_clip_line_partial(ext_t *u0, ext_t *v0, ext_t *u1, ext_t *v1, ext_t umin, ext_t umax) {
+	int ret = 0;
+	if ((NULL == u0) || (NULL == v0) || (NULL == u1) || (NULL == v1)) {
+		ret = -ENOMEM;
+		goto out;
+	}
+	double slope;
+
+	// check whether the line begins outside the window
+	if (*u0 < umin) {
+		if (*u1 < umin) {
+			// both start and end dimensions are off-screen - no pixels to draw
+			ret = 1;
+			goto out;
+		}
+		slope = (*v1 - *v0) / (double) (*u1 - *u0);
+		*v0 -= (ext_t)(slope * (*u0 - umin));
+		*u0 = umin;
+
+		// we already know the slope, it is easy to check the other point as well now
+		if (*u1 > umax) {
+			*v1 += slope * (umax - *u1);
+			*u1 = umax;
+		}
+		goto out;
+	}
+	if (*u0 > umax) {
+		if (*u1 > umax) {
+			// both start and end dimensions are off-screen - no pixels to draw
+			ret = 1;
+			goto out;
+		}
+		slope = (*v1 - *v0) / (double) (*u1 - *u0);
+		*v0 += (ext_t)(slope * (umax - *u0));
+		*u0 = umax;
+
+		// we already know the slope, it is easy to check the other point as well now
+		if (*u1 < umin) {
+			*v1 -= (ext_t)(slope * (*u1 - umin));
+			*u1 = umin;
+		}
+		goto out;
+	}
+	// if this point is reached the starting point is known to be on-screen
+	if (*u1 > umax) {
+		// ending point is beyond umax
+		slope = (*v1 - *v0) / (double) (*u1 - *u0);
+		*v1 += (ext_t)(slope * (umax - *u1));
+		*u1 = umax;
+		goto out;
+	}
+	if (*u1 < umin) {
+		// ending point is below umin
+		slope = (*v1 - *v0) / (double) (*u1 - *u0);
+		*v1 -= (ext_t)(slope * (*u1 - umin));
+		*u1 = umin;
+		goto out;
+	}
+	// both starting and ending points were within the window in the primary axis
+
+out:
+	return ret;
+}
+
+/**
+ * @brief Clip a line to the given dislay.
+ * Coordinates are given in screen frame.
+ * Screen must be normalized.
+ * 
+ * @param screen 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 	0 for success with pixels to draw, positive for success with
+ *							no pixels to draw, negative errno on failure.
+ */
+int screen_clip_line(screen_t* screen, ext_t* u0, ext_t* v0, ext_t* u1, ext_t* v1) {
+	int ret = 0;
+	ret = screen_clip_line_partial(u0, v0, u1, v1, screen->u0, screen->u1); // clip u axis
+	if (0 != ret) {
+		goto out;
+	}
+	ret = screen_clip_line_partial(v0, u0, v1, u1, screen->v0, screen->v1); // clip v axis
+	if (0 != ret) {
 		goto out;
 	}
 

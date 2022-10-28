@@ -23,18 +23,12 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
 
   // handle simple cases
   if ((u0 == u1) && (v0 == v1)) {
-		int ret1 = screen_clip_hline(screen, &u0, &v0, &u1);
-		int ret2 = screen_clip_vline(screen, &u0, &v0, &v1);
-		if (ret1 < 0) {
-			ret = ret1;
-			goto out;
-		}
-		if (ret2 < 0) {
-			ret = ret2;
-			goto out;
-		}
-		if ((0 == ret1) && (0 == ret2)) {
+		ret = screen_clip_pixel(screen, u0, v0);
+		if (ret == 0) {
 			sicgl_generic_pixel(interface, color, u0, v0);
+			goto out;
+		} else if (ret > 0) {
+			ret = 0;
 			goto out;
 		}
 		goto out;
@@ -44,6 +38,9 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
 		if (0 == ret) {
     	sicgl_generic_hline(interface, color, u0, v0, u1);
 			goto out;
+		} else if (ret > 0) {
+			ret = 0;
+			goto out;
 		}
     goto out;
   }
@@ -51,6 +48,9 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
 		ret = screen_clip_hline(screen, &u0, &v0, &u1);
 		if (0 == ret) {
     	sicgl_generic_vline(interface, color, u0, v0, v1);
+			goto out;
+		} else if (ret > 0) {
+			ret = 0;
 			goto out;
 		}
     goto out;
@@ -94,12 +94,23 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
 		uext_t num_pixels = absdu + 1;
 		ret = screen_clip_diagonal(screen, &u0, &v0, signu, signv, &num_pixels);
 		if (0 == ret) {
-    	sicgl_generic_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
+			sicgl_generic_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
+			goto out;
+		} else if (ret > 0) {
+			ret = 0;
 			goto out;
 		}
     goto out;
   }
 
+	// clip the line to the display screen
+	ret = screen_clip_line(screen, &u0, &v0, &u1, &v1);
+	if (ret > 0) {
+		ret = 0;
+		goto out;
+	} else if (ret < 0) {
+		goto out;
+	}
 
   // prepare working coordinates
   ext_t u = u0;
