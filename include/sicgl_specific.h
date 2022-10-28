@@ -7,6 +7,9 @@
 #include "sicgl/specific.h"
 
 // write direct-to-display
+int sicgl_specific_display_pixel(
+    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
+    ext_t v0);
 int sicgl_specific_display_line(
     specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1);
@@ -24,6 +27,9 @@ int sicgl_specific_display_ellipse(
     ext_t v0, ext_t u1, ext_t v1);
 
 // write through virtual screens
+int sicgl_specific_screen_pixel(
+    specific_interface_t* interface, screen_t* screen,
+    color_sequence_t* color_sequence, ext_t u0, ext_t v0);
 int sicgl_specific_screen_line(
     specific_interface_t* interface, screen_t* screen,
     color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
@@ -41,6 +47,9 @@ int sicgl_specific_screen_ellipse(
     color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
 
 // write in global coordinates through an optional screen
+int sicgl_specific_global_pixel(
+    specific_interface_t* interface, screen_t* screen,
+    color_sequence_t* color_sequence, ext_t u0, ext_t v0);
 int sicgl_specific_global_line(
     specific_interface_t* interface, screen_t* screen,
     color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t u1, ext_t v1);
