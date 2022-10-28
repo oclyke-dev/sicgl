@@ -55,6 +55,3 @@ void sicgl_generic_diagonal(
 void sicgl_generic_region(
     generic_interface_t* interface, color_t color, uext_t u0, uext_t v0,
     uext_t u1, uext_t v1);
-int sicgl_generic_line(
-    generic_interface_t* interface, color_t color, uext_t u0, uext_t v0,
-    uext_t u1, uext_t v1);
