@@ -52,17 +52,16 @@ void test_specific_display_line(void) {
 
     // compare the images
     TEST_ASSERT_EQUAL_INT(0, compare_image(reference, image));
-
   }
 
-	// clean up
-	release_image(reference);
-	release_image(image);
-	release_display(display);
-	release_libgd_specific_interface(interface);
-	release_color_sequence(color_sequence);
-	release_png(ref);
-	release_png(img);
+  // clean up
+  release_image(reference);
+  release_image(image);
+  release_display(display);
+  release_libgd_specific_interface(interface);
+  release_color_sequence(color_sequence);
+  release_png(ref);
+  release_png(img);
 }
 
 void test_specific_display_rectangle(void) {
@@ -109,24 +108,25 @@ void test_specific_display_rectangle(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(ref, TEST_OUTPUT_DIR "/specific_display_rectangle_ref.png"));
+        0, png_to_file(
+               ref, TEST_OUTPUT_DIR "/specific_display_rectangle_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(img, TEST_OUTPUT_DIR "/specific_display_rectangle_img.png"));
+        0, png_to_file(
+               img, TEST_OUTPUT_DIR "/specific_display_rectangle_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw rectangle");
 
     // compare the images
     TEST_ASSERT_EQUAL_INT(0, compare_image(reference, image));
-
   }
 
-	// clean up
-	release_image(reference);
-	release_image(image);
-	release_display(display);
-	release_libgd_specific_interface(interface);
-	release_color_sequence(color_sequence);
-	release_png(ref);
-	release_png(img);
+  // clean up
+  release_image(reference);
+  release_image(image);
+  release_display(display);
+  release_libgd_specific_interface(interface);
+  release_color_sequence(color_sequence);
+  release_png(ref);
+  release_png(img);
 }
 
 void test_specific_display_circle_bresenham(void) {
@@ -161,7 +161,8 @@ void test_specific_display_circle_bresenham(void) {
         color_sequence, "could not create color sequence");
 
     // draw a circle
-    int ret = simultaneous_specific_display_circle_bresenham(reference, interface, color_sequence, width / 2, height / 2, 20);
+    int ret = simultaneous_specific_display_circle_bresenham(
+        reference, interface, color_sequence, width / 2, height / 2, 20);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -171,23 +172,28 @@ void test_specific_display_circle_bresenham(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(ref, TEST_OUTPUT_DIR "/specific_display_circle_bresenham_ref.png"));
+        0,
+        png_to_file(
+            ref, TEST_OUTPUT_DIR "/specific_display_circle_bresenham_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(img, TEST_OUTPUT_DIR "/specific_display_circle_bresenham_img.png"));
+        0,
+        png_to_file(
+            img, TEST_OUTPUT_DIR "/specific_display_circle_bresenham_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw circle");
 
     // compare the images
-    // // note: bresenham circles are not expected to match the libgd implementation
+    // // note: bresenham circles are not expected to match the libgd
+    // implementation
   }
 
-	// clean up
-	release_image(reference);
-	release_image(image);
-	release_display(display);
-	release_libgd_specific_interface(interface);
-	release_color_sequence(color_sequence);
-	release_png(ref);
-	release_png(img);
+  // clean up
+  release_image(reference);
+  release_image(image);
+  release_display(display);
+  release_libgd_specific_interface(interface);
+  release_color_sequence(color_sequence);
+  release_png(ref);
+  release_png(img);
 }
 
 void test_specific_display_circle_ellipse(void) {
@@ -222,7 +228,8 @@ void test_specific_display_circle_ellipse(void) {
         color_sequence, "could not create color sequence");
 
     // draw a circle
-    int ret = simultaneous_specific_display_circle_ellipse(reference, interface, color_sequence, width / 2, height / 2, 20);
+    int ret = simultaneous_specific_display_circle_ellipse(
+        reference, interface, color_sequence, width / 2, height / 2, 20);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -232,23 +239,27 @@ void test_specific_display_circle_ellipse(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(ref, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_ref.png"));
+        0,
+        png_to_file(
+            ref, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(img, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_img.png"));
+        0,
+        png_to_file(
+            img, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw circle");
 
     // compare the images
     TEST_ASSERT_EQUAL_INT(0, compare_image(reference, image));
   }
 
-	// clean up
-	release_image(reference);
-	release_image(image);
-	release_display(display);
-	release_libgd_specific_interface(interface);
-	release_color_sequence(color_sequence);
-	release_png(ref);
-	release_png(img);
+  // clean up
+  release_image(reference);
+  release_image(image);
+  release_display(display);
+  release_libgd_specific_interface(interface);
+  release_color_sequence(color_sequence);
+  release_png(ref);
+  release_png(img);
 }
 
 void test_specific_display_ellipse(void) {

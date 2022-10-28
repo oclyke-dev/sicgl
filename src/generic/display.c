@@ -12,59 +12,69 @@
  *
  */
 
-static int generic_display_pixel(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
-	int ret = screen_clip_pixel(&interface->screen, u0, v0);
-	if (0 == ret) {
-		sicgl_generic_pixel(interface, color, u0, v0);
-	} else if (ret > 0) {
-		ret = 0;
-		goto out;
-	}
+static int generic_display_pixel(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
+  int ret = screen_clip_pixel(&interface->screen, u0, v0);
+  if (0 == ret) {
+    sicgl_generic_pixel(interface, color, u0, v0);
+  } else if (ret > 0) {
+    ret = 0;
+    goto out;
+  }
 
 out:
-	return ret;
+  return ret;
 }
 
-static int generic_display_hline(generic_interface_t* interface, color_t color, ext_t u0, ext_t v, ext_t u1) {
-	int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
-	if (0 == ret) {
-		sicgl_generic_hline(interface, color, u0, v, u1);
-	} else if (ret > 0) {
-		ret = 0;
-		goto out;
-	}
+static int generic_display_hline(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v,
+    ext_t u1) {
+  int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
+  if (0 == ret) {
+    sicgl_generic_hline(interface, color, u0, v, u1);
+  } else if (ret > 0) {
+    ret = 0;
+    goto out;
+  }
 
 out:
-	return ret;
+  return ret;
 }
 
-static int generic_display_vline(generic_interface_t* interface, color_t color, ext_t u, ext_t v0, ext_t v1) {
-	int ret = screen_clip_vline(&interface->screen, &u, &v0, &v1);
-	if (0 == ret) {
-		sicgl_generic_vline(interface, color, u, v0, v1);
-	} else if (ret > 0) {
-		ret = 0;
-		goto out;
-	}
+static int generic_display_vline(
+    generic_interface_t* interface, color_t color, ext_t u, ext_t v0,
+    ext_t v1) {
+  int ret = screen_clip_vline(&interface->screen, &u, &v0, &v1);
+  if (0 == ret) {
+    sicgl_generic_vline(interface, color, u, v0, v1);
+  } else if (ret > 0) {
+    ret = 0;
+    goto out;
+  }
 
 out:
-	return ret;
+  return ret;
 }
 
-static int generic_display_diagonal(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t diru, ext_t dirv, uext_t count) {
-	int ret = screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
-	if (0 == ret) {
-		sicgl_generic_diagonal(interface, color, u0, v0, diru, dirv, count);
-	} else if (ret > 0) {
-		ret = 0;
-		goto out;
-	}
+static int generic_display_diagonal(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t diru, ext_t dirv, uext_t count) {
+  int ret =
+      screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
+  if (0 == ret) {
+    sicgl_generic_diagonal(interface, color, u0, v0, diru, dirv, count);
+  } else if (ret > 0) {
+    ret = 0;
+    goto out;
+  }
 
 out:
-	return ret;
+  return ret;
 }
 
-static int generic_display_circle_eight(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t du, ext_t dv) {
+static int generic_display_circle_eight(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t du,
+    ext_t dv) {
   int ret = 0;
   generic_display_pixel(interface, color, u0 + du, v0 + dv);
   generic_display_pixel(interface, color, u0 - du, v0 + dv);
@@ -78,19 +88,21 @@ static int generic_display_circle_eight(generic_interface_t* interface, color_t 
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color 
- * @param u0 
- * @param v0 
- * @param u1 
- * @param v1 
- * @return int 
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @param u0
+ * @param v0
+ * @param u1
+ * @param v1
+ * @return int
  */
-int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+int sicgl_generic_display_line(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    ext_t v1) {
   int ret = 0;
-	screen_t* screen = &interface->screen;
+  screen_t* screen = &interface->screen;
 
   if (NULL == interface) {
     ret = -EINVAL;
@@ -99,32 +111,32 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
 
   // handle simple cases
   if ((u0 == u1) && (v0 == v1)) {
-		ret = generic_display_pixel(interface, color, u0, v0);
-		if (0 != ret) {
-			goto out;
-		}
-		goto out;
+    ret = generic_display_pixel(interface, color, u0, v0);
+    if (0 != ret) {
+      goto out;
+    }
+    goto out;
   }
   if (v0 == v1) {
-		ret = generic_display_hline(interface, color, u0, v0, u1);
-		if (0 != ret) {
-			goto out;
-		}
-		goto out;
+    ret = generic_display_hline(interface, color, u0, v0, u1);
+    if (0 != ret) {
+      goto out;
+    }
+    goto out;
   }
   if (u0 == u1) {
-		ret = generic_display_vline(interface, color, u0, v0, v1);
-		if (0 != ret) {
-			goto out;
-		}
-		goto out;
+    ret = generic_display_vline(interface, color, u0, v0, v1);
+    if (0 != ret) {
+      goto out;
+    }
+    goto out;
   }
 
-	// get dimensions for clipping
-	ext_t su0 = interface->screen.u0;
-	ext_t sv0 = interface->screen.v0;
-	ext_t su1 = interface->screen.u1;
-	ext_t sv1 = interface->screen.v1;
+  // get dimensions for clipping
+  ext_t su0 = interface->screen.u0;
+  ext_t sv0 = interface->screen.v0;
+  ext_t su1 = interface->screen.u1;
+  ext_t sv1 = interface->screen.v1;
 
   // standardize vertical direction for consistency
   ext_t tmp;
@@ -155,22 +167,23 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
     absdv = (v0 - v1);
   }
   if (absdu == absdv) {
-		uext_t num_pixels = absdu + 1;
-    ret = generic_display_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
+    uext_t num_pixels = absdu + 1;
+    ret = generic_display_diagonal(
+        interface, color, u0, v0, signu, signv, num_pixels);
     if (0 != ret) {
       goto out;
     }
     goto out;
   }
 
-	// clip the line to the display screen
-	ret = screen_clip_line(screen, &u0, &v0, &u1, &v1);
-	if (ret > 0) {
-		ret = 0;
-		goto out;
-	} else if (ret < 0) {
-		goto out;
-	}
+  // clip the line to the display screen
+  ret = screen_clip_line(screen, &u0, &v0, &u1, &v1);
+  if (ret > 0) {
+    ret = 0;
+    goto out;
+  } else if (ret < 0) {
+    goto out;
+  }
 
   // prepare working coordinates
   ext_t u = u0;
@@ -255,60 +268,64 @@ out:
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color 
- * @param u0 
- * @param v0 
- * @param u1 
- * @param v1 
- * @return int 
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @param u0
+ * @param v0
+ * @param u1
+ * @param v1
+ * @return int
  */
-int sicgl_generic_display_rectangle(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+int sicgl_generic_display_rectangle(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    ext_t v1) {
   int ret = 0;
 
-	ret = generic_display_hline(interface, color, u0, v0, u1);
-	if (0 != ret) {
-		goto out;
-	}
+  ret = generic_display_hline(interface, color, u0, v0, u1);
+  if (0 != ret) {
+    goto out;
+  }
 
-	ret = generic_display_hline(interface, color, u0, v1, u1);
-	if (0 != ret) {
-		goto out;
-	}
+  ret = generic_display_hline(interface, color, u0, v1, u1);
+  if (0 != ret) {
+    goto out;
+  }
 
-	ret = generic_display_vline(interface, color, u0, v0, v1);
-	if (0 != ret) {
-		goto out;
-	}
+  ret = generic_display_vline(interface, color, u0, v0, v1);
+  if (0 != ret) {
+    goto out;
+  }
 
-	ret = generic_display_vline(interface, color, u1, v0, v1);
-	if (0 != ret) {
-		goto out;
-	}
+  ret = generic_display_vline(interface, color, u1, v0, v1);
+  if (0 != ret) {
+    goto out;
+  }
 
 out:
-	return ret;
+  return ret;
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color 
- * @param u0 
- * @param v0 
- * @param u1 
- * @param v1 
- * @return int 
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @param u0
+ * @param v0
+ * @param u1
+ * @param v1
+ * @return int
  */
-int sicgl_generic_display_circle_bresenham(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
-	int ret = 0;
-	if (NULL == interface) {
-		ret = -ENOMEM;
-		goto out;
-	}
+int sicgl_generic_display_circle_bresenham(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t d) {
+  int ret = 0;
+  if (NULL == interface) {
+    ret = -ENOMEM;
+    goto out;
+  }
 
   // bail early if zero diameter
   if (0 == d) {
@@ -329,38 +346,40 @@ int sicgl_generic_display_circle_bresenham(generic_interface_t* interface, color
   ext_t dv = r;
   ext_t accumulator = 3 - 2 * r;
 
-	// draw corners
-	while (dv >= du) {
-		generic_display_circle_eight(interface, color, u0, v0, du, dv);
-		du++;
-		if(accumulator > 0) {
-			dv--; 
-		  accumulator = accumulator + 4 * (du - dv) + 10;
-		} else {
-			accumulator = accumulator + 4 * du + 6;
-		}
-	}
+  // draw corners
+  while (dv >= du) {
+    generic_display_circle_eight(interface, color, u0, v0, du, dv);
+    du++;
+    if (accumulator > 0) {
+      dv--;
+      accumulator = accumulator + 4 * (du - dv) + 10;
+    } else {
+      accumulator = accumulator + 4 * du + 6;
+    }
+  }
 
 out:
-	return ret;
+  return ret;
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color 
- * @param u0 
- * @param v0 
- * @param d 
- * @return int 
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @param u0
+ * @param v0
+ * @param d
+ * @return int
  */
-int sicgl_generic_display_circle_ellipse(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
-	int ret = 0;
-	if (NULL == interface) {
-		ret = -ENOMEM;
-		goto out;
-	}
+int sicgl_generic_display_circle_ellipse(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t d) {
+  int ret = 0;
+  if (NULL == interface) {
+    ret = -ENOMEM;
+    goto out;
+  }
 
   // bail early if zero diameter
   if (0 == d) {
@@ -379,19 +398,21 @@ out:
 
 /**
  * @brief Draw an ellipse on the display.
- * 
+ *
  * Based on implementation by GD library (https://github.com/libgd/libgd)
  * Please see licenses/DG.md for license acknowledgement.
- * 
- * @param interface 
- * @param color 
- * @param u0 
- * @param v0 
- * @param semiu 
- * @param semiv 
- * @return int 
+ *
+ * @param interface
+ * @param color
+ * @param u0
+ * @param v0
+ * @param semiu
+ * @param semiv
+ * @return int
  */
-int sicgl_generic_display_ellipse(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t semiu, ext_t semiv) {
+int sicgl_generic_display_ellipse(
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t semiu, ext_t semiv) {
   int ret = 0;
   ext_t x = 0, mu0 = 0, mu1 = 0, mv0 = 0, mv1 = 0;
   int64_t aq, bq, dx, dy, r, rx, ry, a, b;
@@ -421,7 +442,7 @@ int sicgl_generic_display_ellipse(generic_interface_t* interface, color_t color,
   bq = b * b;
   dx = aq << 1;
   dy = bq << 1;
-  r  = a * bq;
+  r = a * bq;
   rx = r << 1;
   ry = 0;
   x = a;
@@ -429,15 +450,15 @@ int sicgl_generic_display_ellipse(generic_interface_t* interface, color_t color,
     if (r > 0) {
       mv0++;
       mv1--;
-      ry +=dx;
-      r  -=ry;
+      ry += dx;
+      r -= ry;
     }
     if (r <= 0) {
       x--;
       mu0++;
       mu1--;
-      rx -=dy;
-      r  +=rx;
+      rx -= dy;
+      r += rx;
     }
     generic_display_pixel(interface, color, mu0, mv0);
     generic_display_pixel(interface, color, mu0, mv1);

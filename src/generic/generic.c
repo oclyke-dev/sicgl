@@ -2,8 +2,8 @@
 #include <stddef.h>
 
 #include "sicgl/debug.h"
-#include "sicgl_generic.h"
 #include "sicgl/naive.h"
+#include "sicgl_generic.h"
 
 void sicgl_generic_pixel(
     generic_interface_t* interface, color_t color, uext_t u, uext_t v) {

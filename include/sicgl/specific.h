@@ -11,7 +11,7 @@
 typedef struct _specific_interface_t {
   size_t bpp;         // size of color_t in bytes
   display_t display;  // hardware display information
-	screen_t screen; 		// display information represented as screen
+  screen_t screen;    // display information represented as screen
 
   // display memory
   uint8_t* memory;  // pointer to start of specific memory

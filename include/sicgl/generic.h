@@ -29,9 +29,9 @@ typedef struct _generic_interface_t {
   // argument provided to functions
   void* arg;
 
-	// hardware display information (used for clipping)
-	display_t display;
-	screen_t screen;
+  // hardware display information (used for clipping)
+  display_t display;
+  screen_t screen;
 } generic_interface_t;
 
 // direct to interface functions

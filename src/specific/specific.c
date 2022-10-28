@@ -1,8 +1,9 @@
+#include "sicgl/specific.h"
+
 #include <errno.h>
 #include <stddef.h>
 
 #include "sicgl/debug.h"
-#include "sicgl/specific.h"
 
 void sicgl_specific_hrun(
     specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u,
@@ -34,8 +35,8 @@ void sicgl_specific_vrun(
 }
 
 void sicgl_specific_hline(
-    specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u0,
-    uext_t v, uext_t u1) {
+    specific_interface_t* interface, color_sequence_t* color_sequence,
+    uext_t u0, uext_t v, uext_t u1) {
   color_t color = color_sequence_get_color(color_sequence);
   int increment;
   size_t distance;
@@ -80,8 +81,8 @@ void sicgl_specific_vline(
 }
 
 void sicgl_specific_diagonal(
-    specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u0,
-    uext_t v0, ext_t diru, ext_t dirv, uext_t count) {
+    specific_interface_t* interface, color_sequence_t* color_sequence,
+    uext_t u0, uext_t v0, ext_t diru, ext_t dirv, uext_t count) {
   int du, dv;
   color_t color = color_sequence_get_color(color_sequence);
   size_t bpp = interface->bpp;
@@ -106,8 +107,8 @@ void sicgl_specific_diagonal(
 }
 
 void sicgl_specific_region(
-    specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u0,
-    uext_t v0, uext_t u1, uext_t v1) {
+    specific_interface_t* interface, color_sequence_t* color_sequence,
+    uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
   color_t color = color_sequence_get_color(color_sequence);
   size_t du;
   size_t dv;

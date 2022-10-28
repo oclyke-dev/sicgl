@@ -1,5 +1,6 @@
-#include "sicgl/debug.h"
 #include "sicgl.h"
+
+#include "sicgl/debug.h"
 
 int sicgl_hline(
     specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,

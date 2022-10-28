@@ -19,7 +19,8 @@ int simultaneous_specific_display_rectangle(
   int ret = 0;
   color_t color = color_sequence_get_color(color_sequence);
   gdImageRectangle(image, u0, v0, u1, v1, *(int*)color);
-  ret = sicgl_specific_display_rectangle(interface, color_sequence, u0, v0, u1, v1);
+  ret = sicgl_specific_display_rectangle(
+      interface, color_sequence, u0, v0, u1, v1);
 out:
   return ret;
 }
@@ -30,7 +31,8 @@ int simultaneous_specific_display_circle_bresenham(
   int ret = 0;
   color_t color = color_sequence_get_color(color_sequence);
   gdImageEllipse(image, u0, v0, diameter, diameter, *(int*)color);
-  ret = sicgl_specific_display_circle_bresenham(interface, color_sequence, u0, v0, diameter);
+  ret = sicgl_specific_display_circle_bresenham(
+      interface, color_sequence, u0, v0, diameter);
   return ret;
 }
 
@@ -40,7 +42,8 @@ int simultaneous_specific_display_circle_ellipse(
   int ret = 0;
   color_t color = color_sequence_get_color(color_sequence);
   gdImageEllipse(image, u0, v0, diameter, diameter, *(int*)color);
-  ret = sicgl_specific_display_circle_ellipse(interface, color_sequence, u0, v0, diameter);
+  ret = sicgl_specific_display_circle_ellipse(
+      interface, color_sequence, u0, v0, diameter);
   return ret;
 }
 
