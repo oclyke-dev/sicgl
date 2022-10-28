@@ -14,6 +14,19 @@
  *
  */
 
+static int specific_display_pixel(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0, ext_t v0) {
+	int ret = screen_clip_pixel(&interface->screen, u0, v0);
+	if (0 == ret) {
+		sicgl_specific_pixel(interface, color_sequence, u0, v0);
+	} else if (ret > 0) {
+		ret = 0;
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
 static int specific_display_hline(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0, ext_t v, ext_t u1) {
 	int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
 	if (0 == ret) {
@@ -51,6 +64,19 @@ static int specific_display_diagonal(specific_interface_t* interface, color_sequ
 
 out:
 	return ret;
+}
+
+static int specific_display_circle_eight(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t du, ext_t dv) {
+  int ret = 0;
+  specific_display_pixel(interface, color_sequence, u0 + du, v0 + dv);
+  specific_display_pixel(interface, color_sequence, u0 - du, v0 + dv);
+  specific_display_pixel(interface, color_sequence, u0 + du, v0 - dv);
+  specific_display_pixel(interface, color_sequence, u0 - du, v0 - dv);
+  specific_display_pixel(interface, color_sequence, u0 + dv, v0 + du);
+  specific_display_pixel(interface, color_sequence, u0 - dv, v0 + du);
+  specific_display_pixel(interface, color_sequence, u0 + dv, v0 - du);
+  specific_display_pixel(interface, color_sequence, u0 - dv, v0 - du);
+  return ret;
 }
 
 /**
@@ -277,4 +303,57 @@ int sicgl_specific_display_rectangle(
 
 out:
   return ret;
+}
+
+/**
+ * @brief 
+ * 
+ * @param interface 
+ * @param color 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 
+ */
+int sicgl_specific_display_circle(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t d) {
+	int ret = 0;
+	if (NULL == interface) {
+		ret = -ENOMEM;
+		goto out;
+	}
+
+  // bail early if zero diameter
+  if (0 == d) {
+    goto out;
+  }
+
+  // compute radius
+  ext_t r = d / 2;
+
+  // draw single pixel for zero radius circles
+  if (r == 0) {
+    ret = specific_display_pixel(interface, color_sequence, u0, v0);
+    goto out;
+  }
+
+  // prepare state
+  ext_t du = 0;
+  ext_t dv = r;
+  ext_t accumulator = 3 - 2 * r;
+
+	// draw corners
+	while (dv >= du) {
+		specific_display_circle_eight(interface, color_sequence, u0, v0, du, dv);
+		du++;
+		if(accumulator > 0) {
+			dv--; 
+		  accumulator = accumulator + 4 * (du - dv) + 10;
+		} else {
+			accumulator = accumulator + 4 * du + 6;
+		}
+	}
+
+out:
+	return ret;
 }

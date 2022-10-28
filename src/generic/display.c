@@ -64,6 +64,30 @@ out:
 	return ret;
 }
 
+static int generic_display_circle_eight(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t du, ext_t dv) {
+  int ret = 0;
+  generic_display_pixel(interface, color, u0 + du, v0 + dv);
+  generic_display_pixel(interface, color, u0 - du, v0 + dv);
+  generic_display_pixel(interface, color, u0 + du, v0 - dv);
+  generic_display_pixel(interface, color, u0 - du, v0 - dv);
+  generic_display_pixel(interface, color, u0 + dv, v0 + du);
+  generic_display_pixel(interface, color, u0 - dv, v0 + du);
+  generic_display_pixel(interface, color, u0 + dv, v0 - du);
+  generic_display_pixel(interface, color, u0 - dv, v0 - du);
+  return ret;
+}
+
+/**
+ * @brief 
+ * 
+ * @param interface 
+ * @param color 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 
+ */
 int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
 	screen_t* screen = &interface->screen;
@@ -279,19 +303,43 @@ out:
  * @param v1 
  * @return int 
  */
-int sicgl_generic_display_circle(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t r) {
+int sicgl_generic_display_circle(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
 	int ret = 0;
 	if (NULL == interface) {
 		ret = -ENOMEM;
 		goto out;
 	}
 
-	screen_t* screen = &interface->screen;
+  // bail early if zero diameter
+  if (0 == d) {
+    goto out;
+  }
+
+  // compute radius
+  ext_t r = d / 2;
+
+  // draw single pixel for zero radius circles
+  if (r == 0) {
+    ret = generic_display_pixel(interface, color, u0, v0);
+    goto out;
+  }
+
+  // prepare state
+  ext_t du = 0;
+  ext_t dv = r;
+  ext_t accumulator = 3 - 2 * r;
 
 	// draw corners
-
-
-
+	while (dv >= du) {
+		generic_display_circle_eight(interface, color, u0, v0, du, dv);
+		du++;
+		if(accumulator > 0) {
+			dv--; 
+		  accumulator = accumulator + 4 * (du - dv) + 10;
+		} else {
+			accumulator = accumulator + 4 * du + 6;
+		}
+	}
 
 out:
 	return ret;

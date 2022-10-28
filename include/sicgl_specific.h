@@ -15,7 +15,7 @@ int sicgl_specific_display_rectangle(
     ext_t v0, ext_t u1, ext_t v1);
 int sicgl_specific_display_circle(
     specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t u1, ext_t v1);
+    ext_t v0, ext_t diameter);
 int sicgl_specific_display_ellipse(
     specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1);

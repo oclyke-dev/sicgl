@@ -26,8 +26,12 @@ out:
 
 int simultaneous_specific_display_circle(
     gdImage* image, specific_interface_t* interface,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t radius) {
-  return -EINVAL;
+    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t diameter) {
+  int ret = 0;
+  color_t color = color_sequence_get_color(color_sequence);
+  gdImageEllipse(image, u0, v0, diameter, diameter, *(int*)color);
+  ret = sicgl_specific_display_circle(interface, color_sequence, u0, v0, diameter);
+  return ret;
 }
 
 int simultaneous_specific_display_ellipse(
