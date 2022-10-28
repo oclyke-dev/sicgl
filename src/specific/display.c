@@ -14,6 +14,43 @@
  *
  */
 
+static int specific_display_hline(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0, ext_t v, ext_t u1) {
+	int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
+	if (0 == ret) {
+		sicgl_specific_hline(interface, color_sequence, u0, v, u1);
+	} else if (ret > 0) {
+		ret = 0;
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
+static int specific_display_vline(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u, ext_t v0, ext_t v1) {
+	int ret = screen_clip_vline(&interface->screen, &u, &v0, &v1);
+	if (0 == ret) {
+		sicgl_specific_vline(interface, color_sequence, u, v0, v1);
+	} else if (ret > 0) {
+		ret = 0;
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
+/**
+ * @brief 
+ * 
+ * @param interface 
+ * @param color_sequence 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 
+ */
 int sicgl_specific_display_line(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
 	screen_t* screen = &interface->screen;
@@ -208,19 +245,27 @@ int sicgl_specific_display_rectangle(
     specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
-	screen_t* screen = &interface->screen;
-	if (0 == screen_clip_hline(screen, &u0, &v0, &u1)) {
-		sicgl_specific_hline(interface, color_sequence, u0, v0, u1);
+
+	ret = specific_display_hline(interface, color_sequence, u0, v0, u1);
+	if (0 != ret) {
+		goto out;
 	}
-	if (0 == screen_clip_hline(screen, &u0, &v1, &u1)) {
-		sicgl_specific_hline(interface, color_sequence, u0, v1, u1);
+
+	ret = specific_display_hline(interface, color_sequence, u0, v1, u1);
+	if (0 != ret) {
+		goto out;
 	}
-	if (0 == screen_clip_vline(screen, &u0, &v0, &v1)) {
-		sicgl_specific_vline(interface, color_sequence, u0, v0, v1);
+
+	ret = specific_display_vline(interface, color_sequence, u0, v0, v1);
+	if (0 != ret) {
+		goto out;
 	}
-	if (0 == screen_clip_vline(screen, &u1, &v0, &v1)) {
-		sicgl_specific_vline(interface, color_sequence, u1, v1, v1);
+
+	ret = specific_display_vline(interface, color_sequence, u1, v0, v1);
+	if (0 != ret) {
+		goto out;
 	}
+
 out:
   return ret;
 }

@@ -15,7 +15,11 @@ out:
 int simultaneous_generic_display_rectangle(
     gdImage* image, generic_interface_t* interface, color_t color, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1) {
-  return -EINVAL;
+	int ret = 0;
+  gdImageRectangle(image, u0, v0, u1, v1, *(int*)color);
+  ret = sicgl_generic_display_rectangle(interface, color, u0, v0, u1, v1);
+out:
+  return ret;
 }
 
 int simultaneous_generic_display_circle(
