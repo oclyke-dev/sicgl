@@ -1,8 +1,9 @@
 #include <errno.h>
 #include <stddef.h>
 
-#include "sicgl/naive.h"
+#include "sicgl/debug.h"
 #include "sicgl_generic.h"
+#include "sicgl/naive.h"
 
 void sicgl_generic_pixel(
     generic_interface_t* interface, color_t color, uext_t u, uext_t v) {
@@ -143,7 +144,8 @@ int sicgl_generic_line(
     absdv = (v0 - v1);
   }
   if (absdu == absdv) {
-    sicgl_generic_diagonal(interface, color, u0, v0, signu, signv, absdu);
+		uext_t num_pixels = absdu + 1;
+    sicgl_generic_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
     goto out;
   }
 

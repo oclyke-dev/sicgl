@@ -1,8 +1,8 @@
-#include "sicgl/display.h"
-
 #include <errno.h>
 #include <stddef.h>
 
+#include "sicgl/debug.h"
+#include "sicgl/display.h"
 #include "sicgl/minmax.h"
 
 /**

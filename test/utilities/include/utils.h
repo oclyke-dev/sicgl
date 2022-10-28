@@ -18,4 +18,5 @@
 #include "utilities/simultaneous.h"
 
 // include interfaces
+#include "utilities/interfaces.h"
 #include "utilities/interface_libgd.h"

@@ -1,11 +1,12 @@
-#include "utilities/interface_libgd.h"
-
 #include <errno.h>
 #include <stdbool.h>
 
 #include "gd.h"
+#include "utilities/interface_libgd.h"
 #include "utilities/conversion.h"
 #include "utilities/interfaces.h"
+#include "utilities/display.h"
+#include "utilities/screen.h"
 
 static void libgd_pixel(void* arg, color_t color, uext_t u, uext_t v);
 static void libgd_hline(
@@ -49,6 +50,26 @@ generic_interface_t* new_libgd_generic_interface_partial(
   if (NULL != prototype.vline) {
     interface->vline = libgd_vline;
   }
+
+	// add the display information
+	interface->display.width = image->sx;
+	interface->display.height = image->sy;
+	interface->display.lu = 0;
+	interface->display.lv = 0;
+
+	// create the screen definition from display
+	int ret = screen_set_from_display(&interface->screen, &interface->display);
+	if (0 != ret) {
+		release_libgd_generic_interface(interface);
+		interface = NULL;
+		goto out;
+	}
+	ret = screen_normalize(&interface->screen);
+	if (0 != ret) {
+		release_libgd_generic_interface(interface);
+		interface = NULL;
+		goto out;
+	}
 
 out:
   return interface;
@@ -133,6 +154,20 @@ specific_interface_t* new_libgd_specific_interface(
   interface->display = *display;
   interface->scratch = scratch;
   interface->scratch_length = scratch_length;
+
+	// create the screen definition from display
+	int ret = screen_set_from_display(&interface->screen, &interface->display);
+	if (0 != ret) {
+		release_libgd_specific_interface(interface);
+		interface = NULL;
+		goto out;
+	}
+	ret = screen_normalize(&interface->screen);
+	if (0 != ret) {
+		release_libgd_specific_interface(interface);
+		interface = NULL;
+		goto out;
+	}
 
 out:
   return interface;

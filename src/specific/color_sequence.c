@@ -1,6 +1,7 @@
-#include "sicgl/color_sequence.h"
-
 #include <errno.h>
+
+#include "sicgl/color_sequence.h"
+#include "sicgl/debug.h"
 
 int color_sequence_set(
     color_sequence_t* sequence, color_sequence_type_e type, size_t bpp,

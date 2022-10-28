@@ -1,7 +1,6 @@
 #pragma once
 
 #include "sicgl/color_sequence.h"
-#include "sicgl/debug.h"
 #include "sicgl/display.h"
 #include "sicgl/extent.h"
 #include "sicgl/screen.h"

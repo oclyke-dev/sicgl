@@ -1,9 +1,10 @@
-#include "sicgl/screen.h"
-
 #include <errno.h>
 #include <stddef.h>
+#include <stdbool.h>
 
+#include "sicgl/debug.h"
 #include "sicgl/minmax.h"
+#include "sicgl/screen.h"
 
 /**
  * @brief Set the public members of a screen all at once.
@@ -28,6 +29,31 @@ int screen_set(
   screen->v1 = v1;
   screen->lu = lu;
   screen->lv = lv;
+
+out:
+  return ret;
+}
+
+/**
+ * @brief Set the public members of a screen from a display_t.
+ *
+ * @param screen
+ * @return int
+ */
+int screen_set_from_display(screen_t* screen, display_t* display) {
+  int ret = 0;
+  if ((NULL == screen) || (NULL == display)) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  // apply public properties
+  screen->u0 = 0;
+  screen->v0 = 0;
+  screen->u1 = display->width - 1;
+  screen->v1 = display->height - 1;;
+  screen->lu = display->lu;
+  screen->lv = display->lv;
 
 out:
   return ret;
@@ -124,4 +150,304 @@ int screen_intersect(screen_t* target, screen_t* s0, screen_t* s1) {
 
 out:
   return ret;
+}
+
+/**
+ * @brief Clip a horizontal line to the given dislay.
+ * Coordinates are given in screen frame.
+ * Preserves original order of u0 and u1.
+ * 
+ * @param screen 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 	0 for success with pixels to draw, positive for success with
+ *							no pixels to draw, negative errno on failure.
+ */
+int screen_clip_hline(screen_t* screen, ext_t* _u0, ext_t* _v0, ext_t* _u1) {
+	int ret = 0;
+	if ((NULL == screen) || (NULL == _u0) || (NULL == _v0) || (NULL == _u1)) {
+		ret = -EINVAL;
+		goto out;
+	}
+	int reversed = (*_u0 <= *_u1) ? false : true;
+	ext_t u0 = min(*_u0, *_u1);
+	ext_t v0 = *_v0;
+	ext_t u1 = max(*_u0, *_u1);
+
+	// check whether hline is off-screen entirely
+	if ((v0 < screen->v0) || (v0 > screen->v1)) {
+		ret = 1;
+		goto out;
+	}
+	// limit endpoints for screen
+	if (reversed) {
+		// original direction was negative
+		if (u0 < screen->u0) {
+			*_u1 = screen->u0;
+		}
+		if (u1 > screen->u1) {
+			*_u0 = screen->u1;
+		}
+	} else {
+		// original direction was positive
+		if (u0 < screen->u0) {
+			*_u0 = screen->u0;
+		}
+		if (u1 > screen->u1) {
+			*_u1 = screen->u1;
+		}
+	}
+out:
+	return ret;
+}
+
+/**
+ * @brief Clip a vertical line to the given screen.
+ * Coordinates are given in screen frame.
+ * Preserves original order of v0 and v1.
+ * 
+ * @param screen 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 	0 for success with pixels to draw, positive for success with
+ *							no pixels to draw, negative errno on failure.
+ */
+int screen_clip_vline(screen_t* screen, ext_t* _u0, ext_t* _v0, ext_t* _v1) {
+	int ret = 0;
+	if ((NULL == screen) || (NULL == _u0) || (NULL == _v0) || (NULL == _v1)) {
+		ret = -EINVAL;
+		goto out;
+	}
+	int reversed = (*_v0 <= *_v1) ? false : true;
+	ext_t u0 = *_u0;
+	ext_t v0 = min(*_v0, *_v1);
+	ext_t v1 = max(*_v0, *_v1);
+
+	// check whether hline is off-screen entirely
+	if ((u0 < screen->u0) || (u0 > screen->u1)) {
+		ret = 1;
+		goto out;
+	}
+	// limit endpoints for screen
+	if (reversed) {
+		// original direction was negative
+		if (v0 < screen->v0) {
+			*_v1 = screen->v0;
+		}
+		if (v1 > screen->v1) {
+			*_v0 = screen->v1;
+		}
+	} else {
+		// original direction was positive
+		if (v0 < screen->v0) {
+			*_v0 = screen->v0;
+		}
+		if (v1 > screen->v1) {
+			*_v1 = screen->v1;
+		}
+	}
+out:
+	return ret;
+}
+
+/**
+ * @brief Clips screen diagonal from interior of screen.
+ * Does not change initial point, as it is assumed to be interior to the screen.
+ * May reduce the pixel count if an overrun would occur.
+ * 
+ * @param screen 
+ * @param u 
+ * @param v 
+ * @param diru 
+ * @param dirv 
+ * @param _count 
+ * @return int 
+ */
+static int screen_clip_diagonal_from_interior(screen_t* screen, ext_t u, ext_t v, ext_t diru, ext_t dirv, uext_t* _count) {
+	int ret = 0;
+	uext_t du, dv, max_pixels;
+
+	// the line is starting inside the screen draw until either u or v goes off-screen
+	if (diru < 0) {
+		du = u - screen->u0;
+	} else {
+		du = screen->u1 - u;
+	}
+	if (dirv < 0) {
+		dv = v - screen->v0;
+	} else {
+		dv = screen->v1 - v;
+	}
+	// coordinates are already on-screen, no need to modify them.
+	// just set the count as needed then exit.
+	max_pixels = min(du, dv) + 1;
+	if (*_count > max_pixels) {
+		*_count = max_pixels;
+	}
+
+out:
+	return ret;
+}
+
+/**
+ * @brief Clip a diagonal line to the given dislay.
+ * Coordinates are given in screen frame.
+ * Screen must be normalized.
+ * 
+ * @param screen 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 	0 for success with pixels to draw, positive for success with
+ *							no pixels to draw, negative errno on failure.
+ */
+int screen_clip_diagonal(screen_t* screen, ext_t* _u0, ext_t* _v0, ext_t _diru, ext_t _dirv, uext_t* _count) {
+	int ret = 0;
+	if ((NULL == screen) || (NULL == _u0) || (NULL == _v0) || (NULL == _count)) {
+		ret = -EINVAL;
+		goto out;
+	}
+	ext_t u = *_u0;
+	ext_t v = *_v0;
+	ext_t diru = _diru;
+	ext_t dirv = _dirv;
+	ext_t su0 = screen->u0;
+	ext_t su1 = screen->u1;
+	ext_t sv0 = screen->v0;
+	ext_t sv1 = screen->v1;
+	uext_t count = *_count;
+
+	// check for the case that the line is already starting within the screen boundaries:
+	// if this is the case then it is simple to compute the remaining length allowed.
+	if (
+		((su0 <= u) && (u <= su1)) &&
+		((sv0 <= v) && (v <= sv1))
+	) {
+		ret = screen_clip_diagonal_from_interior(screen, u, v, diru, dirv, _count);
+		goto out;
+	}
+
+	// check for cases where line will stay off-screen
+	// this eliminates some possible lines right up to the edges of
+	// the screen and works in conjunction with the test below. 
+	if (((u < su0) && (diru < 0)) ||
+			((u > su1) && (diru > 0)) ||
+			((v < sv0) && (dirv < 0)) ||
+			((v > sv1) && (dirv > 0))
+	) {
+		ret = 1;
+		goto out;
+	}
+
+	// imagine a square rotated 45 degrees so that the diagonal axes are aligned with u and v
+	// this square circumscribes the screen when its sides are given by the equation:
+	// abs(v) + abs(u) = (width + height) / 2
+	// since we know the screen is normalized the positive values of width and height are:
+	uext_t width = su1 - su0 + 1;
+	uext_t height = sv1 - sv0 + 1;
+
+	// since pixels and integers do that annoying discrete thing the right side of the above
+	// equation actually becomes:
+	uext_t distance = (width + height) / 2;
+
+	// when both width and height are even add one - in other cases (where at least one is odd)
+	// there is some overlap which takes up this extra distance. (draw it out and you'll see)
+	if (((width & 0x01) == 0) && ((height & 0x01) == 0)) {
+		distance += 1;
+	}
+
+	// the next computations are peformed relative to the center of the screen, (cu, cv)
+	// when either the width or height (or both) are odd the center is chosen to include some
+	// overlap - this prevents any starting locations from being missed. (this is done by
+	// relying on integer division to truncate the remainder toward zero)
+	ext_t cu = (su0 + su1) / 2;
+	ext_t cv = (sv0 + sv1) / 2;
+
+	// transform drawing coordinates to be relative to the center of the screen.
+	ext_t ru = u - cu;
+	ext_t rv = v - cv;
+
+	// now change the signs so that this all happens in the first quadrant
+	bool u_flipped = false;
+	bool v_flipped = false;
+	if (ru < 0) {
+		u_flipped = true;
+		ru = -ru;
+		diru = -diru;
+	}
+	if (rv < 0) {
+		v_flipped = true;
+		rv = -rv;
+		dirv = -dirv;
+	}
+
+	// now: check for lines which are never going to intersect...
+	// if the starting coordinate is on or outside the circumscribing rectangle and
+	// either of the directions is positive then there will never be an intersection.
+	if ((ru + rv) > (distance - 1)) {
+		if ((diru > 0) || (dirv > 0)) {
+			ret = 1;
+			goto out;
+		}
+	}
+
+	// any remaining lines are off-screen and pointing toward the valid area.
+	// all that is left is to determine:
+	// - whether they make it to the valid area
+	// - how far through the valid area they make it
+	// (and then transform back to original coordinates)
+
+	// the distance to the screen can be computed for the u and v axes independently
+	// and the larger of the two will be the valid distance.
+	ext_t du = ru - (width / 2);
+	ext_t dv = rv - (height / 2);
+	uext_t bump = max(du, dv);
+
+	// adjust the relative coordinates toward the screen
+	if (count <= bump) {
+		// if the original count is smaller than bump the line does not reach the screen
+		ret = 1;
+		goto out;
+	}
+	ru -= bump;
+	rv -= bump;
+	count -= bump;
+
+	// transform the coordinates back into real space
+	if (u_flipped) {
+		ru = -ru;
+		diru = -diru;
+	}
+	if (v_flipped) {
+		rv = -rv;
+		dirv = -dirv;
+	}
+	u = ru + cu;
+	v = rv + cv;
+
+	// finally the first algorithm - for determining the length to the end 
+	// of the screen from within, may be reapplied.
+	// checking boundaries again should not be necessary, but itwill help
+	// catch errors early in testing.
+	if (
+		((su0 <= u) && (u <= su1)) &&
+		((sv0 <= v) && (v <= sv1))
+	) {
+		*_u0 = u;
+		*_v0 = v;
+		*_count = count;
+		ret = screen_clip_diagonal_from_interior(screen, u, v, diru, dirv, _count);
+		goto out;
+	} else {
+		ret = -EINVAL;
+		goto out;
+	}
+
+out:
+	return ret;
 }

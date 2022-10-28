@@ -1,3 +1,4 @@
+#include "sicgl/debug.h"
 #include "sicgl/generic.h"
 
 /**

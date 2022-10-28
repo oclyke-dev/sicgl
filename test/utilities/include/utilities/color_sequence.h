@@ -1,7 +1,6 @@
 #pragma once
 
 #include "sicgl/color_sequence.h"
-#include "sicgl/debug.h"
 
 color_sequence_t* new_color_sequence(
     color_sequence_type_e type, size_t bpp, uint8_t* buffer, size_t length);

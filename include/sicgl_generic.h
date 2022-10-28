@@ -1,6 +1,5 @@
 #pragma once
 
-#include "sicgl/debug.h"
 #include "sicgl/display.h"
 #include "sicgl/extent.h"
 #include "sicgl/generic.h"

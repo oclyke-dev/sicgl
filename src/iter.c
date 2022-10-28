@@ -1,3 +1,4 @@
+#include "sicgl/debug.h"
 #include "sicgl/iterator.h"
 
 void iter_foreach(iter_t iter, void (*callback)(void*), void* arg) {

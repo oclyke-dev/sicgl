@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sicgl/extent.h"
+#include "sicgl/display.h"
 
 // a screen which exists within the global pixel space
 typedef struct _screen_t {
@@ -32,5 +33,11 @@ typedef struct _screen_t {
 int screen_set(
     screen_t* screen, ext_t u0, ext_t v0, ext_t u1, ext_t v1, ext_t lu,
     ext_t lv);
+int screen_set_from_display(screen_t* screen, display_t* display);
+
 int screen_normalize(screen_t* screen);
 int screen_intersect(screen_t* target, screen_t* s0, screen_t* s1);
+
+int screen_clip_hline(screen_t* screen, ext_t* u0, ext_t* v0, ext_t* u1);
+int screen_clip_vline(screen_t* screen, ext_t* u0, ext_t* v0, ext_t* v1);
+int screen_clip_diagonal(screen_t* screen, ext_t* u0, ext_t* v0, ext_t diru, ext_t dirv, uext_t* count);

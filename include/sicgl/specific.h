@@ -11,6 +11,7 @@
 typedef struct _specific_interface_t {
   size_t bpp;         // size of color_t in bytes
   display_t display;  // hardware display information
+	screen_t screen; 		// display information represented as screen
 
   // display memory
   uint8_t* memory;  // pointer to start of specific memory
@@ -59,8 +60,5 @@ void sicgl_specific_diagonal(
     specific_interface_t* interface, color_sequence_t* color_sequence,
     uext_t u0, uext_t v0, ext_t diru, ext_t dirv, uext_t count);
 void sicgl_specific_region(
-    specific_interface_t* interface, color_sequence_t* color_sequence,
-    uext_t u0, uext_t v0, uext_t u1, uext_t v1);
-int sicgl_specific_line(
     specific_interface_t* interface, color_sequence_t* color_sequence,
     uext_t u0, uext_t v0, uext_t u1, uext_t v1);

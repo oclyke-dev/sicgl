@@ -1,7 +1,9 @@
 #pragma once
 
 #include "sicgl/color.h"
+#include "sicgl/display.h"
 #include "sicgl/extent.h"
+#include "sicgl/screen.h"
 
 // sicgl needs implementations of various writer functions which
 // allow it to actually interact with the user application
@@ -26,6 +28,10 @@ typedef struct _generic_interface_t {
 
   // argument provided to functions
   void* arg;
+
+	// hardware display information (used for clipping)
+	display_t display;
+	screen_t screen;
 } generic_interface_t;
 
 // direct to interface functions
