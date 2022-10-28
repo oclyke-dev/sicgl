@@ -2,7 +2,7 @@
 #include <stddef.h>
 
 #include "sicgl/debug.h"
-#include "sicgl/generic.h"
+#include "sicgl_generic.h"
 
 /**
  * @brief Display-relative drawing functions.
@@ -303,7 +303,7 @@ out:
  * @param v1 
  * @return int 
  */
-int sicgl_generic_display_circle(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
+int sicgl_generic_display_circle_bresenham(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
 	int ret = 0;
 	if (NULL == interface) {
 		ret = -ENOMEM;
@@ -343,4 +343,108 @@ int sicgl_generic_display_circle(generic_interface_t* interface, color_t color, 
 
 out:
 	return ret;
+}
+
+/**
+ * @brief 
+ * 
+ * @param interface 
+ * @param color 
+ * @param u0 
+ * @param v0 
+ * @param d 
+ * @return int 
+ */
+int sicgl_generic_display_circle_ellipse(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
+	int ret = 0;
+	if (NULL == interface) {
+		ret = -ENOMEM;
+		goto out;
+	}
+
+  // bail early if zero diameter
+  if (0 == d) {
+    goto out;
+  }
+
+  // compute radius
+  ext_t r = d / 2;
+
+  // draw circle using ellipse
+  ret = sicgl_generic_display_ellipse(interface, color, u0, v0, r, r);
+
+out:
+  return ret;
+}
+
+/**
+ * @brief Draw an ellipse on the display.
+ * 
+ * Based on implementation by GD library (https://github.com/libgd/libgd)
+ * Please see licenses/DG.md for license acknowledgement.
+ * 
+ * @param interface 
+ * @param color 
+ * @param u0 
+ * @param v0 
+ * @param semiu 
+ * @param semiv 
+ * @return int 
+ */
+int sicgl_generic_display_ellipse(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t semiu, ext_t semiv) {
+  int ret = 0;
+  ext_t x = 0, mu0 = 0, mu1 = 0, mv0 = 0, mv1 = 0;
+  int64_t aq, bq, dx, dy, r, rx, ry, a, b;
+
+  // ensure width and height are positive
+  if (semiu < 0) {
+    semiu = -semiu;
+  }
+  if (semiv < 0) {
+    semiv = -semiv;
+  }
+
+  // compute primary and secondary axis lengths
+  a = semiu;
+  b = semiv;
+
+  // draw pixels at either end
+  generic_display_pixel(interface, color, u0 + a, v0);
+  generic_display_pixel(interface, color, u0 - a, v0);
+
+  mu0 = u0 - a;
+  mv0 = v0;
+  mu1 = u0 + a;
+  mv1 = v0;
+
+  aq = a * a;
+  bq = b * b;
+  dx = aq << 1;
+  dy = bq << 1;
+  r  = a * bq;
+  rx = r << 1;
+  ry = 0;
+  x = a;
+  while (x > 0) {
+    if (r > 0) {
+      mv0++;
+      mv1--;
+      ry +=dx;
+      r  -=ry;
+    }
+    if (r <= 0) {
+      x--;
+      mu0++;
+      mu1--;
+      rx -=dy;
+      r  +=rx;
+    }
+    generic_display_pixel(interface, color, mu0, mv0);
+    generic_display_pixel(interface, color, mu0, mv1);
+    generic_display_pixel(interface, color, mu1, mv0);
+    generic_display_pixel(interface, color, mu1, mv1);
+  }
+
+out:
+  return ret;
 }

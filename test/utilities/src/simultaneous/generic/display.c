@@ -22,12 +22,21 @@ out:
   return ret;
 }
 
-int simultaneous_generic_display_circle(
+int simultaneous_generic_display_circle_bresenham(
     gdImage* image, generic_interface_t* interface, color_t color, ext_t u0,
     ext_t v0, ext_t diameter) {
   int ret = 0;
   gdImageEllipse(image, u0, v0, diameter, diameter, *(int*)color);
-  ret = sicgl_generic_display_circle(interface, color, u0, v0, diameter);
+  ret = sicgl_generic_display_circle_bresenham(interface, color, u0, v0, diameter);
+  return ret;
+}
+
+int simultaneous_generic_display_circle_ellipse(
+    gdImage* image, generic_interface_t* interface, color_t color, ext_t u0,
+    ext_t v0, ext_t diameter) {
+  int ret = 0;
+  gdImageEllipse(image, u0, v0, diameter, diameter, *(int*)color);
+  ret = sicgl_generic_display_circle_ellipse(interface, color, u0, v0, diameter);
   return ret;
 }
 

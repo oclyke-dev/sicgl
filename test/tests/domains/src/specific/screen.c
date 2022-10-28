@@ -8,7 +8,11 @@ void test_specific_screen_rectangle(void) {
   TEST_IGNORE_MESSAGE("not implemented");
 }
 
-void test_specific_screen_circle(void) {
+void test_specific_screen_circle_bresenham(void) {
+  TEST_IGNORE_MESSAGE("not implemented");
+}
+
+void test_specific_screen_circle_midpoint(void) {
   TEST_IGNORE_MESSAGE("not implemented");
 }
 
