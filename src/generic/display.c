@@ -12,6 +12,19 @@
  *
  */
 
+static int generic_display_pixel(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
+	int ret = screen_clip_pixel(&interface->screen, u0, v0);
+	if (0 == ret) {
+		sicgl_generic_pixel(interface, color, u0, v0);
+	} else if (ret > 0) {
+		ret = 0;
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
 static int generic_display_hline(generic_interface_t* interface, color_t color, ext_t u0, ext_t v, ext_t u1) {
 	int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
 	if (0 == ret) {
@@ -38,6 +51,19 @@ out:
 	return ret;
 }
 
+static int generic_display_diagonal(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t diru, ext_t dirv, uext_t count) {
+	int ret = screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
+	if (0 == ret) {
+		sicgl_generic_diagonal(interface, color, u0, v0, diru, dirv, count);
+	} else if (ret > 0) {
+		ret = 0;
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
 int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
 	screen_t* screen = &interface->screen;
@@ -49,37 +75,25 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
 
   // handle simple cases
   if ((u0 == u1) && (v0 == v1)) {
-		ret = screen_clip_pixel(screen, u0, v0);
-		if (ret == 0) {
-			sicgl_generic_pixel(interface, color, u0, v0);
-			goto out;
-		} else if (ret > 0) {
-			ret = 0;
+		ret = generic_display_pixel(interface, color, u0, v0);
+		if (0 != ret) {
 			goto out;
 		}
 		goto out;
   }
   if (v0 == v1) {
-		ret = screen_clip_hline(screen, &u0, &v0, &u1);
-		if (0 == ret) {
-    	sicgl_generic_hline(interface, color, u0, v0, u1);
-			goto out;
-		} else if (ret > 0) {
-			ret = 0;
+		ret = generic_display_hline(interface, color, u0, v0, u1);
+		if (0 != ret) {
 			goto out;
 		}
-    goto out;
+		goto out;
   }
   if (u0 == u1) {
-		ret = screen_clip_hline(screen, &u0, &v0, &u1);
-		if (0 == ret) {
-    	sicgl_generic_vline(interface, color, u0, v0, v1);
-			goto out;
-		} else if (ret > 0) {
-			ret = 0;
+		ret = generic_display_vline(interface, color, u0, v0, v1);
+		if (0 != ret) {
 			goto out;
 		}
-    goto out;
+		goto out;
   }
 
 	// get dimensions for clipping
@@ -118,14 +132,10 @@ int sicgl_generic_display_line(generic_interface_t* interface, color_t color, ex
   }
   if (absdu == absdv) {
 		uext_t num_pixels = absdu + 1;
-		ret = screen_clip_diagonal(screen, &u0, &v0, signu, signv, &num_pixels);
-		if (0 == ret) {
-			sicgl_generic_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
-			goto out;
-		} else if (ret > 0) {
-			ret = 0;
-			goto out;
-		}
+    ret = generic_display_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
+    if (0 != ret) {
+      goto out;
+    }
     goto out;
   }
 
@@ -253,6 +263,35 @@ int sicgl_generic_display_rectangle(generic_interface_t* interface, color_t colo
 	if (0 != ret) {
 		goto out;
 	}
+
+out:
+	return ret;
+}
+
+/**
+ * @brief 
+ * 
+ * @param interface 
+ * @param color 
+ * @param u0 
+ * @param v0 
+ * @param u1 
+ * @param v1 
+ * @return int 
+ */
+int sicgl_generic_display_circle(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t r) {
+	int ret = 0;
+	if (NULL == interface) {
+		ret = -ENOMEM;
+		goto out;
+	}
+
+	screen_t* screen = &interface->screen;
+
+	// draw corners
+
+
+
 
 out:
 	return ret;

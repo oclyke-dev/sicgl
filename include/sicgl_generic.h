@@ -13,8 +13,7 @@ int sicgl_generic_display_rectangle(
     generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
     ext_t v1);
 int sicgl_generic_display_circle(
-    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
-    ext_t v1);
+    generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t r);
 int sicgl_generic_display_ellipse(
     generic_interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
     ext_t v1);

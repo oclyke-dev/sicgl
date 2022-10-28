@@ -40,6 +40,19 @@ out:
 	return ret;
 }
 
+static int specific_display_diagonal(specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t diru, ext_t dirv, uext_t count) {
+	int ret = screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
+	if (0 == ret) {
+		sicgl_specific_diagonal(interface, color_sequence, u0, v0, diru, dirv, count);
+	} else if (ret > 0) {
+		ret = 0;
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
 /**
  * @brief 
  * 
@@ -129,15 +142,11 @@ int sicgl_specific_display_line(specific_interface_t* interface, color_sequence_
   }
   if (absdu == absdv) {
 		uext_t num_pixels = absdu + 1;
-		ret = screen_clip_diagonal(screen, &u0, &v0, signu, signv, &num_pixels);
-		if (0 == ret) {
-			sicgl_specific_diagonal(interface, color_sequence, u0, v0, signu, signv, num_pixels);
-			goto out;
-		} else if (ret > 0) {
-			ret = 0;
-			goto out;
-		}
-		goto out;
+    ret = specific_display_diagonal(interface, color_sequence, u0, v0, signu, signv, num_pixels);
+    if (0 != ret) {
+      goto out;
+    }
+    goto out;
   }
 
 	// clip the line
