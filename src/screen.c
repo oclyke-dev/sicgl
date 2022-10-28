@@ -166,8 +166,8 @@ out:
  * @param u1
  * @param v1
  * @return int 	0 for success with pixels to draw, positive for success with
- *							no pixels to draw, negative errno on
- *failure.
+ *							no pixels to draw,
+ *negative errno on failure.
  */
 int screen_clip_pixel(screen_t* screen, ext_t u0, ext_t v0) {
   int ret = 0;
@@ -196,8 +196,8 @@ out:
  * @param u1
  * @param v1
  * @return int 	0 for success with pixels to draw, positive for success with
- *							no pixels to draw, negative errno on
- *failure.
+ *							no pixels to draw,
+ *negative errno on failure.
  */
 int screen_clip_hline(screen_t* screen, ext_t* _u0, ext_t* _v0, ext_t* _u1) {
   int ret = 0;
@@ -249,8 +249,7 @@ out:
  * @param u1
  * @param v1
  * @return int 	0 for success with pixels to draw, positive for success with
- *							no pixels to draw, negative errno on
- *failure.
+ *              no pixels to draw, negative errno on failure.
  */
 int screen_clip_vline(screen_t* screen, ext_t* _u0, ext_t* _v0, ext_t* _v1) {
   int ret = 0;
@@ -348,8 +347,7 @@ out:
  * @param u1
  * @param v1
  * @return int 	0 for success with pixels to draw, positive for success with
- *							no pixels to draw, negative errno on
- *failure.
+ *              no pixels to draw, negative errno on failure.
  */
 int screen_clip_diagonal(
     screen_t* screen, ext_t* _u0, ext_t* _v0, ext_t _diru, ext_t _dirv,
@@ -504,8 +502,8 @@ out:
  * @param _u1
  * @param _v1
  * @return int 	0 for success with pixels to draw, positive for success with
- *							no pixels to draw, negative errno on
- *failure.
+ *							no pixels to draw,
+ *negative errno on failure.
  */
 static int screen_clip_line_partial(
     ext_t* u0, ext_t* v0, ext_t* u1, ext_t* v1, ext_t umin, ext_t umax) {
@@ -585,8 +583,8 @@ out:
  * @param u1
  * @param v1
  * @return int 	0 for success with pixels to draw, positive for success with
- *							no pixels to draw, negative errno on
- *failure.
+ *							no pixels to draw,
+ *negative errno on failure.
  */
 int screen_clip_line(
     screen_t* screen, ext_t* u0, ext_t* v0, ext_t* u1, ext_t* v1) {
