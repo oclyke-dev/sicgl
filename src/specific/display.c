@@ -93,6 +93,24 @@ static int specific_display_circle_eight(
 }
 
 /**
+ * @brief 
+ * 
+ * @param interface 
+ * @param color_sequence 
+ * @param u0 
+ * @param v0 
+ * @return int 
+ */
+int sicgl_specific_display_pixel(
+    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
+    ext_t v0) {
+  int ret = 0;
+  ret = specific_display_pixel(interface, color_sequence, u0, v0);
+out:
+  return ret;
+}
+
+/**
  * @brief
  *
  * @param interface

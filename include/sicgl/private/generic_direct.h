@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sicgl/generic.h"
+#include "sicgl/generic/interface.h"
 
 // direct to interface functions
 void generic_pixel(

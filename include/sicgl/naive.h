@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 
-#include "sicgl/generic.h"
+#include "sicgl/generic/interface.h"
 
 // naive fallbacks for generic interface
 void naive_hline(

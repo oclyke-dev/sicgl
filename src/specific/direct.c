@@ -1,4 +1,4 @@
-#include "sicgl/specific.h"
+#include "sicgl/specific/interface.h"
 
 #include <errno.h>
 #include <stddef.h>

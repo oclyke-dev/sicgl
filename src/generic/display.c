@@ -89,6 +89,22 @@ static int generic_display_circle_eight(
 }
 
 /**
+ * @brief 
+ * 
+ * @param interface 
+ * @param color 
+ * @param u0 
+ * @param v0 
+ * @return int 
+ */
+int sicgl_generic_display_pixel(generic_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
+  int ret = 0;
+  ret = generic_display_pixel(interface, color, u0, v0);
+out:
+  return ret;
+}
+
+/**
  * @brief
  *
  * @param interface

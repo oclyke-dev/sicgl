@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sicgl/specific.h"
+#include "sicgl/specific/interface.h"
 
 static inline void sicgl_specific_pixel(
     specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u,
