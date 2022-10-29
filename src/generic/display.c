@@ -1,6 +1,7 @@
 #include <errno.h>
 #include <stddef.h>
 
+#include "sicgl/private/generic_direct.h"
 #include "sicgl/debug.h"
 #include "sicgl_generic.h"
 

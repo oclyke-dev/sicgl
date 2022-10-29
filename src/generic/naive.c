@@ -1,7 +1,7 @@
 #include "sicgl/naive.h"
 
+#include "sicgl/private/generic_direct.h"
 #include "sicgl/debug.h"
-#include "sicgl/generic.h"
 #include "sicgl/iterator.h"
 
 // // naive pixel cannot exist - its an oxymoron

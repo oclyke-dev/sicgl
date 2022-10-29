@@ -1,6 +1,7 @@
 #include <errno.h>
 #include <stddef.h>
 
+#include "sicgl/private/specific_direct.h"
 #include "sicgl/debug.h"
 #include "sicgl/screen.h"
 #include "sicgl_specific.h"
