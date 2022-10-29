@@ -24,7 +24,7 @@ void test_pixel_location_generic_full(void) {
   TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
 
   // draw a pixel to the location
-  sicgl_generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1);
+  generic_pixel(intfc, (void*)&pixel_location_expected[4], 1, 1);
 
   // verify that the location matches
   TEST_ASSERT_EQUAL_MEMORY(
@@ -45,7 +45,7 @@ void test_pixel_location_generic_naive(void) {
   TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
 
   // draw a pixel to the location
-  sicgl_generic_pixel(
+  generic_pixel(
       intfc, (void*)&pixel_location_expected[4], 1,
       1);  // intentionally messed up the expected coordinates
            // (1,1) here... for testing the test
@@ -121,8 +121,8 @@ void test_pixel(void) {
     }
 
     // draw the pixel using the interface(s)
-    sicgl_generic_pixel(fast_intfc, (void*)&pixel, u, v);
-    sicgl_generic_pixel(naive_intfc, (void*)&pixel, u, v);
+    generic_pixel(fast_intfc, (void*)&pixel, u, v);
+    generic_pixel(naive_intfc, (void*)&pixel, u, v);
     sicgl_specific_pixel(specfic_intfc, (void*)&pixel, u, v);
   }
 

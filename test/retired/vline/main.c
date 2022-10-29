@@ -111,7 +111,7 @@ void run_test_case(location_test_case_t test_case) {
       intfc = new_bytes_generic_interface_partial(bytes, prototype);
     }
     TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
-    sicgl_generic_vline(intfc, test_color, u, v0, v1);
+    generic_vline(intfc, test_color, u, v0, v1);
     release_bytes_generic_interface(intfc);
   } else {
     screen_t* screen = new_screen(bytes->width, bytes->height, 0, 0);
@@ -119,7 +119,7 @@ void run_test_case(location_test_case_t test_case) {
     specific_interface_t* intfc =
         new_bytes_specific_interface(bytes, screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
-    sicgl_specific_vline(intfc, test_color, u, v0, v1);
+    specific_vline(intfc, test_color, u, v0, v1);
     release_bytes_specific_interface(intfc);
     release_screen(screen);
   }
@@ -175,9 +175,9 @@ void test_vline(void) {
     png_pixel_t pixel = png_color_random();
 
     // draw the pixel using the interfaces
-    sicgl_generic_vline(fast_intfc, &pixel, u, v0, v1);
-    sicgl_generic_vline(naive_intfc, &pixel, u, v0, v1);
-    sicgl_specific_vline(specfic_intfc, &pixel, u, v0, v1);
+    generic_vline(fast_intfc, &pixel, u, v0, v1);
+    generic_vline(naive_intfc, &pixel, u, v0, v1);
+    specific_vline(specfic_intfc, &pixel, u, v0, v1);
   }
 
   // store images

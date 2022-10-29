@@ -17,7 +17,7 @@ static int generic_display_pixel(
     generic_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
   int ret = screen_clip_pixel(&interface->screen, u0, v0);
   if (0 == ret) {
-    sicgl_generic_pixel(interface, color, u0, v0);
+    generic_pixel(interface, color, u0, v0);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -32,7 +32,7 @@ static int generic_display_hline(
     ext_t u1) {
   int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
   if (0 == ret) {
-    sicgl_generic_hline(interface, color, u0, v, u1);
+    generic_hline(interface, color, u0, v, u1);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -47,7 +47,7 @@ static int generic_display_vline(
     ext_t v1) {
   int ret = screen_clip_vline(&interface->screen, &u, &v0, &v1);
   if (0 == ret) {
-    sicgl_generic_vline(interface, color, u, v0, v1);
+    generic_vline(interface, color, u, v0, v1);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -63,7 +63,7 @@ static int generic_display_diagonal(
   int ret =
       screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
   if (0 == ret) {
-    sicgl_generic_diagonal(interface, color, u0, v0, diru, dirv, count);
+    generic_diagonal(interface, color, u0, v0, diru, dirv, count);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -212,7 +212,7 @@ int sicgl_generic_display_line(
     // prepare first partial run
     drun = signu * len0;
     while (v < v1) {
-      sicgl_generic_hrun(interface, color, u, v, drun);
+      generic_hrun(interface, color, u, v, drun);
       u += drun;
       v++;
 
@@ -227,7 +227,7 @@ int sicgl_generic_display_line(
     }
     // draw the final run
     drun = signu * len1;
-    sicgl_generic_hrun(interface, color, u, v, drun);
+    generic_hrun(interface, color, u, v, drun);
   } else {
     // v is longer
     min_run = absdv / absdu;
@@ -246,7 +246,7 @@ int sicgl_generic_display_line(
     // prepare first partial run
     drun = signv * len0;
     while (v < v1) {
-      sicgl_generic_vrun(interface, color, u, v, drun);
+      generic_vrun(interface, color, u, v, drun);
       v += drun;
       u += signu;
 
@@ -261,7 +261,7 @@ int sicgl_generic_display_line(
     }
     // draw the final run
     drun = signv * len1;
-    sicgl_generic_hrun(interface, color, u, v, drun);
+    generic_hrun(interface, color, u, v, drun);
   }
 
 out:

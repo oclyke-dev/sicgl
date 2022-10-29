@@ -58,7 +58,7 @@ int main() {
   generic_interface_t* generic_full = new_libgd_generic_interface_full(image);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
-    sicgl_generic_region(generic_full, &color, u0, v0, u1, v1);
+    generic_region(generic_full, &color, u0, v0, u1, v1);
   }
   end = clock();  // in clock cycles
   release_libgd_generic_interface(generic_full);
@@ -71,7 +71,7 @@ int main() {
       new_libgd_generic_interface_partial(image, naive_prototype);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
-    sicgl_generic_region(generic_naive, &color, u0, v0, u1, v1);
+    generic_region(generic_naive, &color, u0, v0, u1, v1);
   }
   end = clock();  // in clock cycles
   release_libgd_generic_interface(generic_naive);
@@ -84,7 +84,7 @@ int main() {
       new_libgd_specific_interface(display, NULL, 0);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
-    sicgl_specific_region(specific_regular, &color, u0, v0, u1, v1);
+    specific_region(specific_regular, &color, u0, v0, u1, v1);
   }
   end = clock();  // in clock cycles
   release_libgd_specific_interface(specific_regular);
@@ -98,7 +98,7 @@ int main() {
       new_libgd_specific_interface(screen, scratch, scratch_bytes);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
-    sicgl_specific_region(specific_fast, &color, u0, v0, u1, v1);
+    specific_region(specific_fast, &color, u0, v0, u1, v1);
   }
   end = clock();  // in clock cycles
   release_libgd_specific_interface(specific_fast);

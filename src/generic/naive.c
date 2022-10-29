@@ -32,7 +32,7 @@ static void naive_hline_cb(void* arg) {
   generic_interface_t* interface = cb_args->interface;
   color_t color = cb_args->color;
 
-  sicgl_generic_pixel(interface, color, hline->u, hline->v);
+  generic_pixel(interface, color, hline->u, hline->v);
 }
 
 /**
@@ -77,7 +77,7 @@ static void naive_vline_cb(void* arg) {
   generic_interface_t* interface = cb_args->interface;
   color_t color = cb_args->color;
 
-  sicgl_generic_pixel(interface, color, vline->u, vline->v);
+  generic_pixel(interface, color, vline->u, vline->v);
 }
 
 /**
@@ -122,7 +122,7 @@ static void naive_region_cb(void* arg) {
   generic_interface_t* interface = cb_args->interface;
   color_t color = cb_args->color;
 
-  sicgl_generic_hline(interface, color, region->u0, region->v, region->u1);
+  generic_hline(interface, color, region->u0, region->v, region->u1);
 }
 
 /**

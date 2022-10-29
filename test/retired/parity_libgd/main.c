@@ -29,7 +29,7 @@ void test_hline(void) {
       generic, "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
-  sicgl_generic_hline(generic, &truecolor, 0, 2, width - 1);
+  generic_hline(generic, &truecolor, 0, 2, width - 1);
   gdImageLine(ref_im, 0, 2, width - 1, 2, truecolor);
 
   // output both the images
@@ -62,7 +62,7 @@ void test_vline(void) {
       generic, "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
-  sicgl_generic_vline(generic, &truecolor, 4, 1, height - 2);
+  generic_vline(generic, &truecolor, 4, 1, height - 2);
   gdImageLine(ref_im, 4, 1, 4, height - 2, truecolor);
 
   // output both the images
@@ -95,7 +95,7 @@ void test_region(void) {
       generic, "could not allocate generic interface object");
 
   // draw using both sicgl and libgd
-  sicgl_generic_region(generic, &truecolor, 4, 1, 8, height - 2);
+  generic_region(generic, &truecolor, 4, 1, 8, height - 2);
   gdImageFilledRectangle(ref_im, 4, 1, 8, height - 2, truecolor);
 
   // output both the images

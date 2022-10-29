@@ -20,7 +20,7 @@ int simultaneous_specific_hline(
   int ret = 0;
   color_t color = color_sequence_get_color(sequence);
   gdImageLine(image, u0, v0, u1, v1, *(int*)color);
-  sicgl_specific_hline(interface, sequence, u0, v0, u1);
+  specific_hline(interface, sequence, u0, v0, u1);
 out:
   return ret;
 }
@@ -31,7 +31,7 @@ int simultaneous_specific_vline(
   int ret = 0;
   color_t color = color_sequence_get_color(sequence);
   gdImageLine(image, u0, v0, u1, v1, *(int*)color);
-  sicgl_specific_vline(interface, sequence, u0, v0, v1);
+  specific_vline(interface, sequence, u0, v0, v1);
 out:
   return ret;
 }
@@ -42,7 +42,7 @@ int simultaneous_specific_region(
   int ret = 0;
   color_t color = color_sequence_get_color(sequence);
   gdImageFilledRectangle(image, u0, v0, u1, v1, *(int*)color);
-  sicgl_specific_region(interface, sequence, u0, v0, u1, v1);
+  specific_region(interface, sequence, u0, v0, u1, v1);
 out:
   return ret;
 }

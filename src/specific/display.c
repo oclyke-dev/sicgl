@@ -35,7 +35,7 @@ static int specific_display_hline(
     ext_t v, ext_t u1) {
   int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
   if (0 == ret) {
-    sicgl_specific_hline(interface, color_sequence, u0, v, u1);
+    specific_hline(interface, color_sequence, u0, v, u1);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -50,7 +50,7 @@ static int specific_display_vline(
     ext_t v0, ext_t v1) {
   int ret = screen_clip_vline(&interface->screen, &u, &v0, &v1);
   if (0 == ret) {
-    sicgl_specific_vline(interface, color_sequence, u, v0, v1);
+    specific_vline(interface, color_sequence, u, v0, v1);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -66,7 +66,7 @@ static int specific_display_diagonal(
   int ret =
       screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
   if (0 == ret) {
-    sicgl_specific_diagonal(
+    specific_diagonal(
         interface, color_sequence, u0, v0, diru, dirv, count);
   } else if (ret > 0) {
     ret = 0;
@@ -129,7 +129,7 @@ int sicgl_specific_display_line(
   if (v0 == v1) {
     ret = screen_clip_hline(screen, &u0, &v0, &u1);
     if (0 == ret) {
-      sicgl_specific_hline(interface, color_sequence, u0, v0, u1);
+      specific_hline(interface, color_sequence, u0, v0, u1);
       goto out;
     } else if (ret > 0) {
       ret = 0;
@@ -140,7 +140,7 @@ int sicgl_specific_display_line(
   if (u0 == u1) {
     ret = screen_clip_vline(screen, &u0, &v0, &v1);
     if (0 == ret) {
-      sicgl_specific_vline(interface, color_sequence, u0, v0, v1);
+      specific_vline(interface, color_sequence, u0, v0, v1);
       goto out;
     } else if (ret > 0) {
       ret = 0;
@@ -226,7 +226,7 @@ int sicgl_specific_display_line(
     // prepare first partial run
     drun = signu * len0;
     while (v < v1) {
-      sicgl_specific_hrun(interface, color_sequence, u, v, drun);
+      specific_hrun(interface, color_sequence, u, v, drun);
       u += drun;
       v += 1;
 
@@ -241,7 +241,7 @@ int sicgl_specific_display_line(
     }
     // draw the final run
     drun = signu * len1;
-    sicgl_specific_hrun(interface, color_sequence, u, v, drun);
+    specific_hrun(interface, color_sequence, u, v, drun);
   } else {
     // v is longer
     min_run = absdv / absdu;
@@ -260,7 +260,7 @@ int sicgl_specific_display_line(
     // prepare first partial run
     drun = signv * len0;
     while (v < v1) {
-      sicgl_specific_vrun(interface, color_sequence, u, v, drun);
+      specific_vrun(interface, color_sequence, u, v, drun);
       v += drun;
       u += signu;
 
@@ -275,7 +275,7 @@ int sicgl_specific_display_line(
     }
     // draw the final run
     drun = signv * len1;
-    sicgl_specific_hrun(interface, color_sequence, u, v, drun);
+    specific_hrun(interface, color_sequence, u, v, drun);
   }
 
 out:
