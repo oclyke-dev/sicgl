@@ -33,7 +33,6 @@ int sicgl_generic_global_line(
     generic_interface_t* interface, color_t color, ext_t u0,
     ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
-
 	ret = translate_global_to_screen(&interface->screen, &u0, &v0);
 	if (0 != ret) {
 		goto out;
