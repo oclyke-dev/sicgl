@@ -1,6 +1,7 @@
+#include "utilities/simultaneous/specific/interface.h"
+
 #include <errno.h>
 
-#include "utilities/simultaneous/specific/interface.h"
 #include "sicgl/private/specific_direct.h"
 
 int simultaneous_specific_pixel(

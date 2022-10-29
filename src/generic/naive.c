@@ -1,8 +1,8 @@
 #include "sicgl/naive.h"
 
-#include "sicgl/private/generic_direct.h"
 #include "sicgl/debug.h"
 #include "sicgl/iterator.h"
+#include "sicgl/private/generic_direct.h"
 
 // // naive pixel cannot exist - its an oxymoron
 // // the user *must* at least provide the generic pixel function

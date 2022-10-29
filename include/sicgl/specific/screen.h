@@ -1,7 +1,7 @@
 #pragma once
 
-#include "sicgl/specific/interface.h"
 #include "sicgl/screen.h"
+#include "sicgl/specific/interface.h"
 
 // write through virtual screens
 int sicgl_specific_screen_pixel(
@@ -21,4 +21,5 @@ int sicgl_specific_screen_circle_ellipse(
     color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t diameter);
 int sicgl_specific_screen_ellipse(
     specific_interface_t* interface, screen_t* screen,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t semiu, ext_t semiv);
+    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t semiu,
+    ext_t semiv);

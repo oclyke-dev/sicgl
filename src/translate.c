@@ -5,7 +5,8 @@
 
 #include "sicgl/debug.h"
 
-int translate_screen_to_screen(screen_t* from, screen_t* to, ext_t* u, ext_t* v) {
+int translate_screen_to_screen(
+    screen_t* from, screen_t* to, ext_t* u, ext_t* v) {
   int ret = 0;
   if ((NULL == from) || (NULL == to)) {
     ret = -ENOMEM;

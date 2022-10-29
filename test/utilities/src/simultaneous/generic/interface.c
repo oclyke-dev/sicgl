@@ -1,6 +1,7 @@
+#include "utilities/simultaneous/generic/interface.h"
+
 #include <errno.h>
 
-#include "utilities/simultaneous/generic/interface.h"
 #include "sicgl/private/generic_direct.h"
 
 int simultaneous_generic_pixel(

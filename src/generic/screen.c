@@ -74,7 +74,8 @@ int sicgl_generic_screen_circle_bresenham(
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_generic_display_circle_bresenham(interface, color, u0, v0, diameter);
+  ret = sicgl_generic_display_circle_bresenham(
+      interface, color, u0, v0, diameter);
 out:
   return ret;
 }
@@ -87,7 +88,8 @@ int sicgl_generic_screen_circle_ellipse(
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_generic_display_circle_ellipse(interface, color, u0, v0, diameter);
+  ret =
+      sicgl_generic_display_circle_ellipse(interface, color, u0, v0, diameter);
 out:
   return ret;
 }

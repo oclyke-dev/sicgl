@@ -1,8 +1,8 @@
 #include <errno.h>
 #include <stddef.h>
 
-#include "sicgl/private/specific_direct.h"
 #include "sicgl/debug.h"
+#include "sicgl/private/specific_direct.h"
 #include "sicgl/screen.h"
 #include "sicgl_specific.h"
 
@@ -66,8 +66,7 @@ static int specific_display_diagonal(
   int ret =
       screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
   if (0 == ret) {
-    specific_diagonal(
-        interface, color_sequence, u0, v0, diru, dirv, count);
+    specific_diagonal(interface, color_sequence, u0, v0, diru, dirv, count);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -93,13 +92,13 @@ static int specific_display_circle_eight(
 }
 
 /**
- * @brief 
- * 
- * @param interface 
- * @param color_sequence 
- * @param u0 
- * @param v0 
- * @return int 
+ * @brief
+ *
+ * @param interface
+ * @param color_sequence
+ * @param u0
+ * @param v0
+ * @return int
  */
 int sicgl_specific_display_pixel(
     specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,

@@ -1,9 +1,8 @@
-#include "sicgl/specific/interface.h"
-
 #include <errno.h>
 #include <stddef.h>
 
 #include "sicgl/debug.h"
+#include "sicgl/specific/interface.h"
 
 void specific_hrun(
     specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u,
