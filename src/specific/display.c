@@ -292,7 +292,7 @@ int sicgl_specific_display_line(
     }
     // draw the final run
     drun = signv * len1;
-    specific_hrun(interface, color_sequence, u, v, drun);
+    specific_vrun(interface, color_sequence, u, v, drun);
   }
 
 out:

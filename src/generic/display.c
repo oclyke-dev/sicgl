@@ -278,7 +278,7 @@ int sicgl_generic_display_line(
     }
     // draw the final run
     drun = signv * len1;
-    generic_hrun(interface, color, u, v, drun);
+    generic_vrun(interface, color, u, v, drun);
   }
 
 out:
