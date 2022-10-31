@@ -298,7 +298,8 @@ void test_specific_display_line_case1(void) {
         color_sequence, "could not create color sequence");
 
     // draw a line
-    int ret = simultaneous_specific_display_line(reference, interface, color_sequence, 1, 1, 0, 6);
+    int ret = simultaneous_specific_display_line(
+        reference, interface, color_sequence, 1, 1, 0, 6);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -308,9 +309,11 @@ void test_specific_display_line_case1(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(ref, TEST_OUTPUT_DIR "/specific_display_line_case1_ref.png"));
+        0, png_to_file(
+               ref, TEST_OUTPUT_DIR "/specific_display_line_case1_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(img, TEST_OUTPUT_DIR "/specific_display_line_case1_img.png"));
+        0, png_to_file(
+               img, TEST_OUTPUT_DIR "/specific_display_line_case1_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw line");
 
     // compare the images

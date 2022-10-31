@@ -476,7 +476,7 @@ void test_screen_clip_line(void) {
     ret = screen_clip_line(&screen, NULL, &v0, &u1, &v1);
     TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
         0, ret, "should return negative error code");
-    
+
     ret = screen_clip_line(&screen, &u0, NULL, &u1, &v1);
     TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
         0, ret, "should return negative error code");
@@ -504,7 +504,6 @@ void test_screen_clip_line(void) {
     TEST_ASSERT_EQUAL_INT(1, v0);
     TEST_ASSERT_EQUAL_INT(0, u1);
     TEST_ASSERT_EQUAL_INT(6, v1);
-
   }
 
   // this area for cleanup of dynamically allocated items

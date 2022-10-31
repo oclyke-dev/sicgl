@@ -252,9 +252,11 @@ void test_generic_display_line_case1(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(ref, TEST_OUTPUT_DIR "/generic_display_line_case1_ref.png"));
+        0, png_to_file(
+               ref, TEST_OUTPUT_DIR "/generic_display_line_case1_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(img, TEST_OUTPUT_DIR "/generic_display_line_case1_img.png"));
+        0, png_to_file(
+               img, TEST_OUTPUT_DIR "/generic_display_line_case1_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw line");
 
     // compare the images
