@@ -16,6 +16,7 @@ int main(void) {
 
   // specific
   RUN_TEST(test_specific_display_line);
+  RUN_TEST(test_specific_display_line_case1);
   RUN_TEST(test_specific_display_rectangle);
   RUN_TEST(test_specific_display_circle_bresenham);
   RUN_TEST(test_specific_display_circle_ellipse);
@@ -35,6 +36,7 @@ int main(void) {
 
   // generic
   RUN_TEST(test_generic_display_line);
+  RUN_TEST(test_generic_display_line_case1);
   RUN_TEST(test_generic_display_rectangle);
   RUN_TEST(test_generic_display_circle_bresenham);
   RUN_TEST(test_generic_display_circle_ellipse);

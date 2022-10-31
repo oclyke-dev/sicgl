@@ -461,6 +461,54 @@ void test_screen_clip_diagonal(void) {
   }
 }
 
+void test_screen_clip_line(void) {
+  int ret = 0;
+  screen_t screen;
+  screen_set(&screen, 0, 0, 0, 0, 0, 0);
+  ext_t u0, v0, u1, v1;
+  uext_t count;
+  if (TEST_PROTECT()) {
+    // check null inputs
+    ret = screen_clip_line(NULL, &u0, &v0, &u1, &v1);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    ret = screen_clip_line(&screen, NULL, &v0, &u1, &v1);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    ret = screen_clip_line(&screen, &u0, NULL, &u1, &v1);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    ret = screen_clip_line(&screen, &u0, &v0, NULL, &v1);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    ret = screen_clip_line(&screen, &u0, &v0, &u1, NULL);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    // 8x8 screen
+    ret = screen_set(&screen, 0, 0, 7, 7, 0, 0);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    // this is a test case encountered in real life
+    u0 = 1;
+    v0 = 1;
+    u1 = 0;
+    v1 = 6;
+    ret = screen_clip_line(&screen, &u0, &v0, &u1, &v1);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(1, u0);
+    TEST_ASSERT_EQUAL_INT(1, v0);
+    TEST_ASSERT_EQUAL_INT(0, u1);
+    TEST_ASSERT_EQUAL_INT(6, v1);
+  }
+
+  // this area for cleanup of dynamically allocated items
+}
+
 // not needed when using generate_test_runner.rb
 int main(void) {
   UNITY_BEGIN();
@@ -470,5 +518,6 @@ int main(void) {
   RUN_TEST(test_screen_clip_hline);
   RUN_TEST(test_screen_clip_vline);
   RUN_TEST(test_screen_clip_diagonal);
+  RUN_TEST(test_screen_clip_line);
   return UNITY_END();
 }
