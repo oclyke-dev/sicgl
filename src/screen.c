@@ -589,6 +589,10 @@ out:
 int screen_clip_line(
     screen_t* screen, ext_t* u0, ext_t* v0, ext_t* u1, ext_t* v1) {
   int ret = 0;
+  if (NULL == screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
   ret = screen_clip_line_partial(
       u0, v0, u1, v1, screen->u0, screen->u1);  // clip u axis
   if (0 != ret) {
