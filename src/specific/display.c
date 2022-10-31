@@ -225,6 +225,7 @@ int sicgl_specific_display_line(
   uext_t min_run, run_len;
   ext_t accumulator, remainder, reset, drun;
   uext_t len0, len1;
+  uext_t runs = 0;
   if (absdu >= absdv) {
     // u is longer
     min_run = absdu / absdv;
@@ -242,8 +243,9 @@ int sicgl_specific_display_line(
     }
     // prepare first partial run
     drun = signu * len0;
-    while (v < v1) {
+    while (runs < absdv) {
       specific_hrun(interface, color_sequence, u, v, drun);
+      runs++;
       u += drun;
       v += 1;
 
@@ -276,8 +278,9 @@ int sicgl_specific_display_line(
     }
     // prepare first partial run
     drun = signv * len0;
-    while (v < v1) {
+    while (runs < absdu) {
       specific_vrun(interface, color_sequence, u, v, drun);
+      runs++;
       v += drun;
       u += signu;
 
