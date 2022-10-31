@@ -270,3 +270,56 @@ void test_generic_display_line_case1(void) {
   release_png(ref);
   release_png(img);
 }
+
+void test_generic_display_line_case2(void) {
+  uext_t width = 8;
+  uext_t height = 8;
+
+  gdImage* reference;
+  gdImage* image;
+
+  generic_interface_t* interface;
+  png_t* ref;
+  png_t* img;
+
+  if (TEST_PROTECT()) {
+    // create images
+    reference = new_image(width, height);
+    image = new_image(width, height);
+    TEST_ASSERT_NOT_NULL_MESSAGE(
+        reference, "could not allocate reference image");
+    TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not allocate test image");
+
+    // create generic interface
+    interface = new_libgd_generic_interface_full(image);
+    TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
+
+    // draw a line
+    int color = truecolor_random_color();
+    int ret = simultaneous_generic_display_line(
+        reference, interface, &color, 1, 1, 25, 6);
+
+    // save images to png
+    ref = new_png_from_image(reference);
+    img = new_png_from_image(image);
+    TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
+    TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
+    TEST_ASSERT_EQUAL_INT(
+        0, png_to_file(
+               ref, TEST_OUTPUT_DIR "/generic_display_line_case2_ref.png"));
+    TEST_ASSERT_EQUAL_INT(
+        0, png_to_file(
+               img, TEST_OUTPUT_DIR "/generic_display_line_case2_img.png"));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw line");
+
+    // compare the images
+    TEST_ASSERT_EQUAL_INT(0, compare_image(reference, image));
+  }
+
+  // clean up
+  release_image(reference);
+  release_image(image);
+  release_libgd_generic_interface(interface);
+  release_png(ref);
+  release_png(img);
+}

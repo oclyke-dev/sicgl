@@ -167,6 +167,15 @@ int sicgl_generic_display_line(
     u1 = tmp;
   }
 
+  // clip the line to the display screen
+  ret = screen_clip_line(screen, &u0, &v0, &u1, &v1);
+  if (ret > 0) {
+    ret = 0;
+    goto out;
+  } else if (ret < 0) {
+    goto out;
+  }
+
   // check for diagonal
   ext_t signu, signv;   // direction in u and v axes
   uext_t absdu, absdv;  // absolute value of distance in u and v axes
@@ -186,20 +195,9 @@ int sicgl_generic_display_line(
   }
   if (absdu == absdv) {
     uext_t num_pixels = absdu + 1;
-    ret = generic_display_diagonal(
+    // use the direct interface here because clipping was already computed
+    generic_diagonal(
         interface, color, u0, v0, signu, signv, num_pixels);
-    if (0 != ret) {
-      goto out;
-    }
-    goto out;
-  }
-
-  // clip the line to the display screen
-  ret = screen_clip_line(screen, &u0, &v0, &u1, &v1);
-  if (ret > 0) {
-    ret = 0;
-    goto out;
-  } else if (ret < 0) {
     goto out;
   }
 

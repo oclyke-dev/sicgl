@@ -504,6 +504,18 @@ void test_screen_clip_line(void) {
     TEST_ASSERT_EQUAL_INT(1, v0);
     TEST_ASSERT_EQUAL_INT(0, u1);
     TEST_ASSERT_EQUAL_INT(6, v1);
+
+    // this is a test case encountered in real life
+    u0 = 1;
+    v0 = 1;
+    u1 = 25;
+    v1 = 6;
+    ret = screen_clip_line(&screen, &u0, &v0, &u1, &v1);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(1, u0);
+    TEST_ASSERT_EQUAL_INT(1, v0);
+    TEST_ASSERT_EQUAL_INT(7, u1); // u1 should be limited to the edge of display
+    TEST_ASSERT_EQUAL_INT(3, v1); // v1 should be
   }
 
   // this area for cleanup of dynamically allocated items

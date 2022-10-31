@@ -8,3 +8,4 @@ void test_specific_display_ellipse(void);
 
 // special cases
 void test_specific_display_line_case1(void);
+void test_specific_display_line_case2(void);
