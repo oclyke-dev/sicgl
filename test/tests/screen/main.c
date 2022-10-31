@@ -514,8 +514,9 @@ void test_screen_clip_line(void) {
     TEST_ASSERT_EQUAL_INT(0, ret);
     TEST_ASSERT_EQUAL_INT(1, u0);
     TEST_ASSERT_EQUAL_INT(1, v0);
-    TEST_ASSERT_EQUAL_INT(7, u1); // u1 should be limited to the edge of display
-    TEST_ASSERT_EQUAL_INT(3, v1); // v1 should be
+    TEST_ASSERT_EQUAL_INT(
+        7, u1);  // u1 should be limited to the edge of display
+    TEST_ASSERT_EQUAL_INT(3, v1);  // v1 should be
   }
 
   // this area for cleanup of dynamically allocated items

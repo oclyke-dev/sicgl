@@ -196,8 +196,7 @@ int sicgl_generic_display_line(
   if (absdu == absdv) {
     uext_t num_pixels = absdu + 1;
     // use the direct interface here because clipping was already computed
-    generic_diagonal(
-        interface, color, u0, v0, signu, signv, num_pixels);
+    generic_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
     goto out;
   }
 
