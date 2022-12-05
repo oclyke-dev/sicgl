@@ -27,8 +27,7 @@ void test_specific_display_line(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -90,8 +89,7 @@ void test_specific_display_rectangle(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -155,8 +153,7 @@ void test_specific_display_circle_bresenham(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -222,8 +219,7 @@ void test_specific_display_circle_ellipse(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -292,8 +288,7 @@ void test_specific_display_line_case1(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -356,8 +351,7 @@ void test_specific_display_line_case2(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 

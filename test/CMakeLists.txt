@@ -35,7 +35,7 @@ set(TESTS_LIBS
 )
 
 # set flags
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -Wall -Werror -Wno-error=unused-function -Wno-error=unused-label")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -Wno-error=unused-function -Wno-error=unused-label")
 
 # include all tests
 file(GLOB_RECURSE TESTS ${TEST_ROOT_DIR}/tests/*/test.cmake)

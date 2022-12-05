@@ -27,8 +27,7 @@ void test_specific_pixel(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -89,8 +88,7 @@ void test_specific_hline(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -151,8 +149,7 @@ void test_specific_vline(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
@@ -213,8 +210,7 @@ void test_specific_region(void) {
 
     // create a color sequence
     int color = truecolor_random_color();
-    color_sequence = new_color_sequence(
-        SICGL_CS_STATIC, &color, sizeof(color));
+    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
     TEST_ASSERT_NOT_NULL_MESSAGE(
         color_sequence, "could not create color sequence");
 
