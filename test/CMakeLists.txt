@@ -34,6 +34,9 @@ set(TESTS_LIBS
   ${TESTUTILS_LIBRARIES}
 )
 
+# set flags
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -Wall -Werror -Wno-error=unused-function -Wno-error=unused-label")
+
 # include all tests
 file(GLOB_RECURSE TESTS ${TEST_ROOT_DIR}/tests/*/test.cmake)
 foreach(TEST ${TESTS})

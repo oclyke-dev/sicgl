@@ -3,7 +3,7 @@
 #include "utils.h"
 
 color_sequence_t* new_color_sequence(
-    color_sequence_type_e type, size_t bpp, uint8_t* buffer, size_t length) {
+    color_sequence_type_e type, color_t* buffer, size_t length) {
   color_sequence_t* color_sequence =
       (color_sequence_t*)malloc(sizeof(color_sequence_t));
   if (color_sequence == NULL) {
@@ -17,7 +17,7 @@ color_sequence_t* new_color_sequence(
   memset(color_sequence, 0U, sizeof(*color_sequence));
 
   // set the properties
-  int ret = color_sequence_set(color_sequence, type, bpp, buffer, length);
+  int ret = color_sequence_set(color_sequence, type, COLOR_SIZE_BYTES, buffer, length);
   if (0 != ret) {
     release_color_sequence(color_sequence);
     color_sequence = NULL;

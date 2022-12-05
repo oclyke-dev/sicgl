@@ -27,7 +27,7 @@ void test_generic_display_line(void) {
     // draw a line
     int color = truecolor_random_color();
     int ret = simultaneous_generic_display_line(
-        reference, interface, &color, 1, 1, width - 1, height / 2);
+        reference, interface, color, 1, 1, width - 1, height / 2);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -78,7 +78,7 @@ void test_generic_display_rectangle(void) {
     // draw a rectangle
     int color = truecolor_random_color();
     int ret = simultaneous_generic_display_rectangle(
-        reference, interface, &color, -(width / 4), height / 8, 3 * width / 4,
+        reference, interface, color, -(width / 4), height / 8, 3 * width / 4,
         7 * height / 8);
 
     // save images to png
@@ -132,7 +132,7 @@ void test_generic_display_circle_bresenham(void) {
     // draw a rectangle
     int color = truecolor_random_color();
     int ret = simultaneous_generic_display_circle_bresenham(
-        reference, interface, &color, width / 2, height / 2, 10);
+        reference, interface, color, width / 2, height / 2, 10);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -187,7 +187,7 @@ void test_generic_display_circle_ellipse(void) {
     // draw a rectangle
     int color = truecolor_random_color();
     int ret = simultaneous_generic_display_circle_ellipse(
-        reference, interface, &color, 0, height / 2, 10);
+        reference, interface, color, 0, height / 2, 10);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -244,7 +244,7 @@ void test_generic_display_line_case1(void) {
     // draw a line
     int color = truecolor_random_color();
     int ret = simultaneous_generic_display_line(
-        reference, interface, &color, 1, 1, 0, 6);
+        reference, interface, color, 1, 1, 0, 6);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -297,7 +297,7 @@ void test_generic_display_line_case2(void) {
     // draw a line
     int color = truecolor_random_color();
     int ret = simultaneous_generic_display_line(
-        reference, interface, &color, 1, 1, 25, 6);
+        reference, interface, color, 1, 1, 25, 6);
 
     // save images to png
     ref = new_png_from_image(reference);

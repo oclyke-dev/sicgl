@@ -7,8 +7,8 @@ static inline void sicgl_specific_pixel(
     ext_t v) {
   color_t color = color_sequence_get_color(color_sequence);
   uint8_t* p =
-      interface->memory + interface->bpp * (interface->display.width * v + u);
-  memcpy(p, color, interface->bpp);
+      interface->memory + COLOR_SIZE_BYTES * (interface->display.width * v + u);
+  memcpy(p, &color, COLOR_SIZE_BYTES);
 }
 
 void specific_hrun(

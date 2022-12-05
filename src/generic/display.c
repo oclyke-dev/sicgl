@@ -150,12 +150,6 @@ int sicgl_generic_display_line(
     goto out;
   }
 
-  // get dimensions for clipping
-  ext_t su0 = interface->screen.u0;
-  ext_t sv0 = interface->screen.v0;
-  ext_t su1 = interface->screen.u1;
-  ext_t sv1 = interface->screen.v1;
-
   // standardize vertical direction for consistency
   ext_t tmp;
   if (v1 < v0) {

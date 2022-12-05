@@ -26,7 +26,7 @@ void test_generic_naive_pixel(void) {
 
     // draw a pixel
     int color = truecolor_random_color();
-    int ret = simultaneous_generic_pixel(reference, interface, &color, 1, 1);
+    int ret = simultaneous_generic_pixel(reference, interface, color, 1, 1);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -58,7 +58,6 @@ void test_generic_naive_hline(void) {
 
   gdImage* reference;
   gdImage* image;
-  screen_t* screen;
   generic_interface_t* interface;
   color_sequence_t* color_sequence;
   png_t* ref;
@@ -79,7 +78,7 @@ void test_generic_naive_hline(void) {
     // draw a hline
     int color = truecolor_random_color();
     int ret =
-        simultaneous_generic_hline(reference, interface, &color, 1, 1, 28, 1);
+        simultaneous_generic_hline(reference, interface, color, 1, 1, 28, 1);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -111,7 +110,6 @@ void test_generic_naive_vline(void) {
 
   gdImage* reference;
   gdImage* image;
-  screen_t* screen;
   generic_interface_t* interface;
   color_sequence_t* color_sequence;
   png_t* ref;
@@ -132,7 +130,7 @@ void test_generic_naive_vline(void) {
     // draw a vline
     int color = truecolor_random_color();
     int ret =
-        simultaneous_generic_vline(reference, interface, &color, 1, 1, 1, 28);
+        simultaneous_generic_vline(reference, interface, color, 1, 1, 1, 28);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -164,7 +162,6 @@ void test_generic_naive_region(void) {
 
   gdImage* reference;
   gdImage* image;
-  screen_t* screen;
   generic_interface_t* interface;
   color_sequence_t* color_sequence;
   png_t* ref;
@@ -185,7 +182,7 @@ void test_generic_naive_region(void) {
     // draw a region
     int color = truecolor_random_color();
     int ret =
-        simultaneous_generic_region(reference, interface, &color, 1, 1, 28, 28);
+        simultaneous_generic_region(reference, interface, color, 1, 1, 28, 28);
 
     // save images to png
     ref = new_png_from_image(reference);

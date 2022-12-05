@@ -466,7 +466,6 @@ void test_screen_clip_line(void) {
   screen_t screen;
   screen_set(&screen, 0, 0, 0, 0, 0, 0);
   ext_t u0, v0, u1, v1;
-  uext_t count;
   if (TEST_PROTECT()) {
     // check null inputs
     ret = screen_clip_line(NULL, &u0, &v0, &u1, &v1);

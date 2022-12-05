@@ -9,7 +9,6 @@
 #include "sicgl/screen.h"
 
 typedef struct _specific_interface_t {
-  size_t bpp;         // size of color_t in bytes
   display_t display;  // hardware display information
   screen_t screen;    // display information represented as screen
 
@@ -24,13 +23,13 @@ typedef struct _specific_interface_t {
 
 static inline color_t color_sequence_get_color(
     color_sequence_t* color_sequence) {
-  color_t color = NULL;
+  color_t color = 0;
   if (NULL == color_sequence) {
     goto out;
   }
   // todo: advance through the sequence according to the type and scale of the
   // sequence
-  color = color_sequence->buffer;
+  color = color_sequence->buffer[0];
 out:
   return color;
 }
