@@ -10,8 +10,8 @@
  */
 
 int sicgl_specific_screen_pixel(
-    specific_interface_t* interface, screen_t* screen,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0) {
   int ret = 0;
 
   // translate coordinates from screen to display
@@ -21,15 +21,15 @@ int sicgl_specific_screen_pixel(
   }
 
   // draw pixel to display
-  ret = sicgl_specific_display_pixel(interface, color_sequence, u0, v0);
+  ret = sicgl_specific_display_pixel(interface, color, u0, v0);
 
 out:
   return ret;
 }
 
 int sicgl_specific_screen_line(
-    specific_interface_t* interface, screen_t* screen,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
   ret = translate_screen_to_screen(screen, &interface->screen, &u0, &v0);
   if (0 != ret) {
@@ -39,15 +39,15 @@ int sicgl_specific_screen_line(
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_specific_display_line(interface, color_sequence, u0, v0, u1, v1);
+  ret = sicgl_specific_display_line(interface, color, u0, v0, u1, v1);
 
 out:
   return ret;
 }
 
 int sicgl_specific_screen_rectangle(
-    specific_interface_t* interface, screen_t* screen,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
   ret = translate_screen_to_screen(screen, &interface->screen, &u0, &v0);
   if (0 != ret) {
@@ -57,54 +57,51 @@ int sicgl_specific_screen_rectangle(
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_specific_display_rectangle(
-      interface, color_sequence, u0, v0, u1, v1);
+  ret = sicgl_specific_display_rectangle(interface, color, u0, v0, u1, v1);
 
 out:
   return ret;
 }
 
 int sicgl_specific_screen_circle_bresenham(
-    specific_interface_t* interface, screen_t* screen,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t diameter) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t diameter) {
   int ret = 0;
   ret = translate_screen_to_screen(screen, &interface->screen, &u0, &v0);
   if (0 != ret) {
     goto out;
   }
   ret = sicgl_specific_display_circle_bresenham(
-      interface, color_sequence, u0, v0, diameter);
+      interface, color, u0, v0, diameter);
 
 out:
   return ret;
 }
 
 int sicgl_specific_screen_circle_ellipse(
-    specific_interface_t* interface, screen_t* screen,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t diameter) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t diameter) {
   int ret = 0;
   ret = translate_screen_to_screen(screen, &interface->screen, &u0, &v0);
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_specific_display_circle_ellipse(
-      interface, color_sequence, u0, v0, diameter);
+  ret =
+      sicgl_specific_display_circle_ellipse(interface, color, u0, v0, diameter);
 
 out:
   return ret;
 }
 
 int sicgl_specific_screen_ellipse(
-    specific_interface_t* interface, screen_t* screen,
-    color_sequence_t* color_sequence, ext_t u0, ext_t v0, ext_t semiu,
-    ext_t semiv) {
+    specific_interface_t* interface, screen_t* screen, color_t color, ext_t u0,
+    ext_t v0, ext_t semiu, ext_t semiv) {
   int ret = 0;
   ret = translate_screen_to_screen(screen, &interface->screen, &u0, &v0);
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_specific_display_ellipse(
-      interface, color_sequence, u0, v0, semiu, semiv);
+  ret = sicgl_specific_display_ellipse(interface, color, u0, v0, semiu, semiv);
 
 out:
   return ret;

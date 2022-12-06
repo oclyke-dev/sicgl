@@ -16,11 +16,10 @@
  */
 
 static int specific_display_pixel(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
   int ret = screen_clip_pixel(&interface->screen, u0, v0);
   if (0 == ret) {
-    sicgl_specific_pixel(interface, color_sequence, u0, v0);
+    sicgl_specific_pixel(interface, color, u0, v0);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -31,11 +30,11 @@ out:
 }
 
 static int specific_display_hline(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v, ext_t u1) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v,
+    ext_t u1) {
   int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
   if (0 == ret) {
-    specific_hline(interface, color_sequence, u0, v, u1);
+    specific_hline(interface, color, u0, v, u1);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -46,11 +45,11 @@ out:
 }
 
 static int specific_display_vline(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u,
-    ext_t v0, ext_t v1) {
+    specific_interface_t* interface, color_t color, ext_t u, ext_t v0,
+    ext_t v1) {
   int ret = screen_clip_vline(&interface->screen, &u, &v0, &v1);
   if (0 == ret) {
-    specific_vline(interface, color_sequence, u, v0, v1);
+    specific_vline(interface, color, u, v0, v1);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -61,12 +60,12 @@ out:
 }
 
 static int specific_display_diagonal(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t diru, ext_t dirv, uext_t count) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t diru, ext_t dirv, uext_t count) {
   int ret =
       screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
   if (0 == ret) {
-    specific_diagonal(interface, color_sequence, u0, v0, diru, dirv, count);
+    specific_diagonal(interface, color, u0, v0, diru, dirv, count);
   } else if (ret > 0) {
     ret = 0;
     goto out;
@@ -77,17 +76,17 @@ out:
 }
 
 static int specific_display_circle_eight(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t du, ext_t dv) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t du, ext_t dv) {
   int ret = 0;
-  specific_display_pixel(interface, color_sequence, u0 + du, v0 + dv);
-  specific_display_pixel(interface, color_sequence, u0 - du, v0 + dv);
-  specific_display_pixel(interface, color_sequence, u0 + du, v0 - dv);
-  specific_display_pixel(interface, color_sequence, u0 - du, v0 - dv);
-  specific_display_pixel(interface, color_sequence, u0 + dv, v0 + du);
-  specific_display_pixel(interface, color_sequence, u0 - dv, v0 + du);
-  specific_display_pixel(interface, color_sequence, u0 + dv, v0 - du);
-  specific_display_pixel(interface, color_sequence, u0 - dv, v0 - du);
+  specific_display_pixel(interface, color, u0 + du, v0 + dv);
+  specific_display_pixel(interface, color, u0 - du, v0 + dv);
+  specific_display_pixel(interface, color, u0 + du, v0 - dv);
+  specific_display_pixel(interface, color, u0 - du, v0 - dv);
+  specific_display_pixel(interface, color, u0 + dv, v0 + du);
+  specific_display_pixel(interface, color, u0 - dv, v0 + du);
+  specific_display_pixel(interface, color, u0 + dv, v0 - du);
+  specific_display_pixel(interface, color, u0 - dv, v0 - du);
   return ret;
 }
 
@@ -95,16 +94,15 @@ static int specific_display_circle_eight(
  * @brief
  *
  * @param interface
- * @param color_sequence
+ * @param color
  * @param u0
  * @param v0
  * @return int
  */
 int sicgl_specific_display_pixel(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
   int ret = 0;
-  ret = specific_display_pixel(interface, color_sequence, u0, v0);
+  ret = specific_display_pixel(interface, color, u0, v0);
 out:
   return ret;
 }
@@ -113,7 +111,7 @@ out:
  * @brief
  *
  * @param interface
- * @param color_sequence
+ * @param color
  * @param u0
  * @param v0
  * @param u1
@@ -121,8 +119,8 @@ out:
  * @return int
  */
 int sicgl_specific_display_line(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t u1, ext_t v1) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t u1, ext_t v1) {
   int ret = 0;
   screen_t* screen = &interface->screen;
 
@@ -135,7 +133,7 @@ int sicgl_specific_display_line(
   if ((u0 == u1) && (v0 == v1)) {
     ret = screen_clip_pixel(screen, u0, v0);
     if (ret == 0) {
-      sicgl_specific_pixel(interface, color_sequence, u0, v0);
+      sicgl_specific_pixel(interface, color, u0, v0);
       goto out;
     } else if (ret > 0) {
       ret = 0;
@@ -146,7 +144,7 @@ int sicgl_specific_display_line(
   if (v0 == v1) {
     ret = screen_clip_hline(screen, &u0, &v0, &u1);
     if (0 == ret) {
-      specific_hline(interface, color_sequence, u0, v0, u1);
+      specific_hline(interface, color, u0, v0, u1);
       goto out;
     } else if (ret > 0) {
       ret = 0;
@@ -157,7 +155,7 @@ int sicgl_specific_display_line(
   if (u0 == u1) {
     ret = screen_clip_vline(screen, &u0, &v0, &v1);
     if (0 == ret) {
-      specific_vline(interface, color_sequence, u0, v0, v1);
+      specific_vline(interface, color, u0, v0, v1);
       goto out;
     } else if (ret > 0) {
       ret = 0;
@@ -206,8 +204,7 @@ int sicgl_specific_display_line(
   if (absdu == absdv) {
     uext_t num_pixels = absdu + 1;
     // use the direct interface here because clipping was already computed
-    specific_diagonal(
-        interface, color_sequence, u0, v0, signu, signv, num_pixels);
+    specific_diagonal(interface, color, u0, v0, signu, signv, num_pixels);
     goto out;
   }
 
@@ -238,7 +235,7 @@ int sicgl_specific_display_line(
     // prepare first partial run
     drun = signu * len0;
     while (runs < absdv) {
-      specific_hrun(interface, color_sequence, u, v, drun);
+      specific_hrun(interface, color, u, v, drun);
       runs++;
       u += drun;
       v += 1;
@@ -254,7 +251,7 @@ int sicgl_specific_display_line(
     }
     // draw the final run
     drun = signu * len1;
-    specific_hrun(interface, color_sequence, u, v, drun);
+    specific_hrun(interface, color, u, v, drun);
   } else {
     // v is longer
     min_run = absdv / absdu;
@@ -273,7 +270,7 @@ int sicgl_specific_display_line(
     // prepare first partial run
     drun = signv * len0;
     while (runs < absdu) {
-      specific_vrun(interface, color_sequence, u, v, drun);
+      specific_vrun(interface, color, u, v, drun);
       runs++;
       v += drun;
       u += signu;
@@ -289,7 +286,7 @@ int sicgl_specific_display_line(
     }
     // draw the final run
     drun = signv * len1;
-    specific_vrun(interface, color_sequence, u, v, drun);
+    specific_vrun(interface, color, u, v, drun);
   }
 
 out:
@@ -297,8 +294,8 @@ out:
 }
 
 int sicgl_specific_rectangle(
-    specific_interface_t* interface, color_sequence_t* color_sequence,
-    uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
+    specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
+    uext_t u1, uext_t v1) {
   int ret = 0;
 
 out:
@@ -306,26 +303,26 @@ out:
 }
 
 int sicgl_specific_display_rectangle(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t u1, ext_t v1) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t u1, ext_t v1) {
   int ret = 0;
 
-  ret = specific_display_hline(interface, color_sequence, u0, v0, u1);
+  ret = specific_display_hline(interface, color, u0, v0, u1);
   if (0 != ret) {
     goto out;
   }
 
-  ret = specific_display_hline(interface, color_sequence, u0, v1, u1);
+  ret = specific_display_hline(interface, color, u0, v1, u1);
   if (0 != ret) {
     goto out;
   }
 
-  ret = specific_display_vline(interface, color_sequence, u0, v0, v1);
+  ret = specific_display_vline(interface, color, u0, v0, v1);
   if (0 != ret) {
     goto out;
   }
 
-  ret = specific_display_vline(interface, color_sequence, u1, v0, v1);
+  ret = specific_display_vline(interface, color, u1, v0, v1);
   if (0 != ret) {
     goto out;
   }
@@ -346,8 +343,8 @@ out:
  * @return int
  */
 int sicgl_specific_display_circle_bresenham(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t d) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t d) {
   int ret = 0;
   if (NULL == interface) {
     ret = -ENOMEM;
@@ -364,7 +361,7 @@ int sicgl_specific_display_circle_bresenham(
 
   // draw single pixel for zero radius circles
   if (r == 0) {
-    ret = specific_display_pixel(interface, color_sequence, u0, v0);
+    ret = specific_display_pixel(interface, color, u0, v0);
     goto out;
   }
 
@@ -375,7 +372,7 @@ int sicgl_specific_display_circle_bresenham(
 
   // draw corners
   while (dv >= du) {
-    specific_display_circle_eight(interface, color_sequence, u0, v0, du, dv);
+    specific_display_circle_eight(interface, color, u0, v0, du, dv);
     du++;
     if (accumulator > 0) {
       dv--;
@@ -400,8 +397,8 @@ out:
  * @return int
  */
 int sicgl_specific_display_circle_ellipse(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t d) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t d) {
   int ret = 0;
   if (NULL == interface) {
     ret = -ENOMEM;
@@ -417,7 +414,7 @@ int sicgl_specific_display_circle_ellipse(
   ext_t r = d / 2;
 
   // draw circle using ellipse
-  ret = sicgl_specific_display_ellipse(interface, color_sequence, u0, v0, r, r);
+  ret = sicgl_specific_display_ellipse(interface, color, u0, v0, r, r);
 
 out:
   return ret;
@@ -438,8 +435,8 @@ out:
  * @return int
  */
 int sicgl_specific_display_ellipse(
-    specific_interface_t* interface, color_sequence_t* color_sequence, ext_t u0,
-    ext_t v0, ext_t semiu, ext_t semiv) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t semiu, ext_t semiv) {
   int ret = 0;
   ext_t x = 0, mu0 = 0, mu1 = 0, mv0 = 0, mv1 = 0;
   int64_t aq, bq, dx, dy, r, rx, ry, a, b;
@@ -457,8 +454,8 @@ int sicgl_specific_display_ellipse(
   b = semiv;
 
   // draw pixels at either end
-  specific_display_pixel(interface, color_sequence, u0 + a, v0);
-  specific_display_pixel(interface, color_sequence, u0 - a, v0);
+  specific_display_pixel(interface, color, u0 + a, v0);
+  specific_display_pixel(interface, color, u0 - a, v0);
 
   mu0 = u0 - a;
   mv0 = v0;
@@ -487,10 +484,10 @@ int sicgl_specific_display_ellipse(
       rx -= dy;
       r += rx;
     }
-    specific_display_pixel(interface, color_sequence, mu0, mv0);
-    specific_display_pixel(interface, color_sequence, mu0, mv1);
-    specific_display_pixel(interface, color_sequence, mu1, mv0);
-    specific_display_pixel(interface, color_sequence, mu1, mv1);
+    specific_display_pixel(interface, color, mu0, mv0);
+    specific_display_pixel(interface, color, mu0, mv1);
+    specific_display_pixel(interface, color, mu1, mv0);
+    specific_display_pixel(interface, color, mu1, mv1);
   }
 
 out:
