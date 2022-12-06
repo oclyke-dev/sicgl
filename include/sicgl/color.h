@@ -8,7 +8,7 @@
 typedef int color_t;
 
 // size of a color_t variable in bytes (must be positive... duh)
-static inline int bytes_per_pixel (void) {
+static inline int bytes_per_pixel(void) {
   return (sizeof(color_t) / sizeof(uint8_t));
 }
 
@@ -27,6 +27,8 @@ static inline color_t color_channel_blue(color_t color) {
 }
 
 // tools to assemble color channels
-static inline color_t color_from_channels(color_t red, color_t green, color_t blue) {
-  return (((red & 0xff) << 16U) | ((green & 0xff) << 8U) | ((blue & 0xff) << 0U));
+static inline color_t color_from_channels(
+    color_t red, color_t green, color_t blue) {
+  return (
+      ((red & 0xff) << 16U) | ((green & 0xff) << 8U) | ((blue & 0xff) << 0U));
 }

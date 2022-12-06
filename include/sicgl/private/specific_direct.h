@@ -5,8 +5,7 @@
 static inline void sicgl_specific_pixel(
     specific_interface_t* interface, color_t color, ext_t u, ext_t v) {
   int bpp = bytes_per_pixel();
-  uint8_t* p =
-      interface->memory + bpp * (interface->display.width * v + u);
+  uint8_t* p = interface->memory + bpp * (interface->display.width * v + u);
   memcpy(p, &color, bpp);
 }
 

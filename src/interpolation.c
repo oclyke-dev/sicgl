@@ -1,11 +1,12 @@
 #include "sicgl/private/interpolation.h"
 
-#include <math.h>
 #include <errno.h>
+#include <math.h>
 
 #include "sicgl/debug.h"
 
-static inline int interpolate_color_between(color_t lower, color_t upper, double phase, color_t* color) {
+static inline int interpolate_color_between(
+    color_t lower, color_t upper, double phase, color_t* color) {
   int ret = 0;
   if (NULL == color) {
     ret = -ENOMEM;
@@ -13,9 +14,15 @@ static inline int interpolate_color_between(color_t lower, color_t upper, double
   }
 
   // interpolate channels individually
-  color_t red = (phase * ((int)color_channel_red(upper) - (int)color_channel_red(lower))) + color_channel_red(lower);
-  color_t green = (phase * ((int)color_channel_green(upper) - (int)color_channel_green(lower))) + color_channel_green(lower);
-  color_t blue = (phase * ((int)color_channel_blue(upper) - (int)color_channel_blue(lower))) + color_channel_blue(lower);
+  color_t red = (phase * ((int)color_channel_red(upper) -
+                          (int)color_channel_red(lower))) +
+                color_channel_red(lower);
+  color_t green = (phase * ((int)color_channel_green(upper) -
+                            (int)color_channel_green(lower))) +
+                  color_channel_green(lower);
+  color_t blue = (phase * ((int)color_channel_blue(upper) -
+                           (int)color_channel_blue(lower))) +
+                 color_channel_blue(lower);
 
   // assemble the resulting color
   *color = color_from_channels(red, green, blue);
@@ -24,7 +31,8 @@ out:
   return ret;
 }
 
-int interpolate_color_linear(color_t* colors, size_t length, double phase, color_t* color) {
+int interpolate_color_linear(
+    color_t* colors, size_t length, double phase, color_t* color) {
   int ret = 0;
 
   // user does not need result
@@ -59,9 +67,9 @@ int interpolate_color_linear(color_t* colors, size_t length, double phase, color
 
   // get bounding values
   size_t max_idx = length - 1;
-  double center = phase * max_idx; // center E [0, max_idx]
-  size_t lower_idx = floor(center); // lower E [0, max_idx], integer
-  size_t upper_idx = ceil(center); // upper E [0, max_idx], integer
+  double center = phase * max_idx;   // center E [0, max_idx]
+  size_t lower_idx = floor(center);  // lower E [0, max_idx], integer
+  size_t upper_idx = ceil(center);   // upper E [0, max_idx], integer
 
   // handle balance case
   if (lower_idx == upper_idx) {
@@ -74,7 +82,8 @@ int interpolate_color_linear(color_t* colors, size_t length, double phase, color
   double delta = (phase / spacing) - lower_idx;
 
   // interpolate between these two colors
-  ret = interpolate_color_between(colors[lower_idx], colors[upper_idx], delta, color);
+  ret = interpolate_color_between(
+      colors[lower_idx], colors[upper_idx], delta, color);
   if (0 != ret) {
     goto out;
   }
@@ -83,7 +92,8 @@ out:
   return ret;
 }
 
-int interpolate_color_circular(color_t* colors, size_t length, double phase, color_t* color) {
+int interpolate_color_circular(
+    color_t* colors, size_t length, double phase, color_t* color) {
   int ret = 0;
 
   // user does not need result
@@ -111,9 +121,9 @@ int interpolate_color_circular(color_t* colors, size_t length, double phase, col
   phase = fmod(phase, 1.0f);
 
   // get bounding values
-  double center = phase * length; // center E [0, length]
-  size_t lower_idx = floor(center); // lower E [0, length], integer
-  size_t upper_idx = ceil(center); // upper E [0, length], integer
+  double center = phase * length;    // center E [0, length]
+  size_t lower_idx = floor(center);  // lower E [0, length], integer
+  size_t upper_idx = ceil(center);   // upper E [0, length], integer
 
   // handle balance case
   if (lower_idx == upper_idx) {
@@ -131,7 +141,8 @@ int interpolate_color_circular(color_t* colors, size_t length, double phase, col
   double delta = (phase / spacing) - lower_idx;
 
   // interpolate between these two colors
-  ret = interpolate_color_between(colors[lower_idx], colors[upper_idx], delta, color);
+  ret = interpolate_color_between(
+      colors[lower_idx], colors[upper_idx], delta, color);
   if (0 != ret) {
     goto out;
   }

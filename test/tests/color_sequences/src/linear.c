@@ -29,14 +29,16 @@ void test_linear_case1(void) {
     color_t red = 0x00ff0000;
     color_t blue = 0x000000ff;
     color_t colors[] = {red, blue};
-    color_sequence = new_color_sequence(colors, sizeof(colors)/sizeof(color_t));
-    TEST_ASSERT_NOT_NULL_MESSAGE(color_sequence, "could not create color sequence");
+    color_sequence =
+        new_color_sequence(colors, sizeof(colors) / sizeof(color_t));
+    TEST_ASSERT_NOT_NULL_MESSAGE(
+        color_sequence, "could not create color sequence");
 
     // draw an interpolated gradient hline
     int ret;
     for (size_t idu = 1; idu < width - 1; idu++) {
       color_t color;
-      
+
       // determine the phase
       double phase = ((idu - 1) / (double)(width - 3));
 
@@ -107,14 +109,16 @@ void test_linear_case2(void) {
     color_t cyan = 0x0000aaaa;
     color_t green = 0x0000ff00;
     color_t colors[] = {blue, red, cyan, green};
-    color_sequence = new_color_sequence(colors, sizeof(colors)/sizeof(color_t));
-    TEST_ASSERT_NOT_NULL_MESSAGE(color_sequence, "could not create color sequence");
+    color_sequence =
+        new_color_sequence(colors, sizeof(colors) / sizeof(color_t));
+    TEST_ASSERT_NOT_NULL_MESSAGE(
+        color_sequence, "could not create color sequence");
 
     // draw an interpolated gradient hline
     int ret;
     for (size_t idu = 1; idu < width - 1; idu++) {
       color_t color;
-      
+
       // determine the phase
       double phase = ((idu - 1) / (double)(width - 3));
 

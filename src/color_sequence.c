@@ -65,7 +65,8 @@ int color_sequence_get_color_linear(
   }
 
   // linear interpolation of the color sequence
-  ret = interpolate_color_linear(sequence->colors, sequence->length, phase, color);
+  ret = interpolate_color_linear(
+      sequence->colors, sequence->length, phase, color);
   if (0 != ret) {
     goto out;
   }
@@ -85,7 +86,8 @@ int color_sequence_get_color_circular(
   }
 
   // circular interpolation of the color sequence
-  ret = interpolate_color_circular(sequence->colors, sequence->length, phase, color);
+  ret = interpolate_color_circular(
+      sequence->colors, sequence->length, phase, color);
   if (0 != ret) {
     goto out;
   }

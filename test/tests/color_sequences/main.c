@@ -1,6 +1,6 @@
 #include "sicgl/screen.h"
-#include "utils.h"
 #include "tests.h"
+#include "utils.h"
 
 void setUp(void) {
   // set stuff up here

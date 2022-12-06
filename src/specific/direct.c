@@ -10,8 +10,7 @@ void specific_hrun(
   int bpp = bytes_per_pixel();
   int increment = (du > 0) ? bpp : -bpp;
   int count = (du > 0) ? du : -du;
-  uint8_t* p =
-      interface->memory + bpp * (interface->display.width * v + u);
+  uint8_t* p = interface->memory + bpp * (interface->display.width * v + u);
   while (count-- > 0) {
     memcpy(p, &color, bpp);
     p += increment;
@@ -23,8 +22,7 @@ void specific_vrun(
     ext_t dv) {
   uext_t width = interface->display.width;
   int bpp = bytes_per_pixel();
-  int increment =
-      (dv > 0) ? bpp * width : -bpp * width;
+  int increment = (dv > 0) ? bpp * width : -bpp * width;
   int count = (dv > 0) ? dv : -dv;
   uint8_t* p = interface->memory + bpp * (width * v + u);
   while (count-- > 0) {
@@ -47,8 +45,7 @@ void specific_hline(
     distance = u0 - u1 + 1;
   }
 
-  uint8_t* p = interface->memory +
-               bpp * (interface->display.width * v + u0);
+  uint8_t* p = interface->memory + bpp * (interface->display.width * v + u0);
   for (size_t idx = 0; idx < distance; idx++) {
     memcpy(p, &color, bpp);
     p += increment;
@@ -69,8 +66,7 @@ void specific_vline(
     distance = v0 - v1 + 1;
   }
 
-  uint8_t* p = interface->memory +
-               bpp * (interface->display.width * v0 + u);
+  uint8_t* p = interface->memory + bpp * (interface->display.width * v0 + u);
   for (size_t idv = 0; idv < distance; idv++) {
     memcpy(p, &color, bpp);
     p += increment;
@@ -93,8 +89,7 @@ void specific_diagonal(
     dv = -bpp * interface->display.width;
   }
 
-  uint8_t* p = interface->memory +
-               bpp * (interface->display.width * v0 + u0);
+  uint8_t* p = interface->memory + bpp * (interface->display.width * v0 + u0);
   for (uext_t idx = 0; idx < count; idx++) {
     memcpy(p, &color, bpp);
     p += du;
@@ -111,8 +106,7 @@ void specific_region(
   uint8_t* p = interface->memory;
   size_t offset;  // length
   size_t scratch_length =
-      interface->scratch_length /
-      bpp;  // compute available length in scratch
+      interface->scratch_length / bpp;  // compute available length in scratch
   uint8_t* scratch = interface->scratch;
   uext_t width = interface->display.width;
 
@@ -136,9 +130,7 @@ void specific_region(
     // use naive pixel-by-pixel implementation
     for (size_t idv = 0; idv < dv; idv++) {
       for (size_t idu = 0; idu < du; idu++) {
-        memcpy(
-            interface->memory + bpp * offset, &color,
-            bpp);
+        memcpy(interface->memory + bpp * offset, &color, bpp);
         offset++;  // advance one column
       }
       offset += width;  // advance one row
