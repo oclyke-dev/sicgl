@@ -5,12 +5,12 @@ void test_generic_display_line(void) {
   uext_t width = 255;
   uext_t height = 255;
 
-  gdImage* reference;
-  gdImage* image;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
 
-  generic_interface_t* interface;
-  png_t* ref;
-  png_t* img;
+  generic_interface_t* interface = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -56,12 +56,12 @@ void test_generic_display_rectangle(void) {
   uext_t width = 255;
   uext_t height = 255;
 
-  gdImage* reference;
-  gdImage* image;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
 
-  generic_interface_t* interface;
-  png_t* ref;
-  png_t* img;
+  generic_interface_t* interface = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -110,12 +110,12 @@ void test_generic_display_circle_bresenham(void) {
   uext_t width = 30;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
 
-  generic_interface_t* interface;
-  png_t* ref;
-  png_t* img;
+  generic_interface_t* interface = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -165,12 +165,12 @@ void test_generic_display_circle_ellipse(void) {
   uext_t width = 30;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
 
-  generic_interface_t* interface;
-  png_t* ref;
-  png_t* img;
+  generic_interface_t* interface = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -222,12 +222,12 @@ void test_generic_display_line_case1(void) {
   uext_t width = 8;
   uext_t height = 8;
 
-  gdImage* reference;
-  gdImage* image;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
 
-  generic_interface_t* interface;
-  png_t* ref;
-  png_t* img;
+  generic_interface_t* interface = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -275,12 +275,12 @@ void test_generic_display_line_case2(void) {
   uext_t width = 8;
   uext_t height = 8;
 
-  gdImage* reference;
-  gdImage* image;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
 
-  generic_interface_t* interface;
-  png_t* ref;
-  png_t* img;
+  generic_interface_t* interface = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images

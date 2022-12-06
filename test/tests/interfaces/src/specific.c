@@ -5,13 +5,13 @@ void test_specific_pixel(void) {
   uext_t width = 3;
   uext_t height = 3;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -66,13 +66,13 @@ void test_specific_hline(void) {
   uext_t width = 30;
   uext_t height = 3;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -127,13 +127,13 @@ void test_specific_vline(void) {
   uext_t width = 3;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -188,13 +188,13 @@ void test_specific_region(void) {
   uext_t width = 30;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images

@@ -5,13 +5,13 @@ void test_specific_display_line(void) {
   uext_t width = 255;
   uext_t height = 255;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -67,13 +67,13 @@ void test_specific_display_rectangle(void) {
   uext_t width = 255;
   uext_t height = 255;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -131,13 +131,13 @@ void test_specific_display_circle_bresenham(void) {
   uext_t width = 30;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -197,13 +197,13 @@ void test_specific_display_circle_ellipse(void) {
   uext_t width = 30;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -266,13 +266,13 @@ void test_specific_display_line_case1(void) {
   uext_t width = 8;
   uext_t height = 8;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -329,13 +329,13 @@ void test_specific_display_line_case2(void) {
   uext_t width = 8;
   uext_t height = 8;
 
-  gdImage* reference;
-  gdImage* image;
-  display_t* display;
-  specific_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  display_t* display = NULL;
+  specific_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
