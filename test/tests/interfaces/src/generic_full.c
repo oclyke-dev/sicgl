@@ -5,13 +5,12 @@ void test_generic_full_pixel(void) {
   uext_t width = 3;
   uext_t height = 3;
 
-  gdImage* reference;
-  gdImage* image;
-
-  generic_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  generic_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -27,7 +26,7 @@ void test_generic_full_pixel(void) {
 
     // draw a pixel
     int color = truecolor_random_color();
-    int ret = simultaneous_generic_pixel(reference, interface, &color, 1, 1);
+    int ret = simultaneous_generic_pixel(reference, interface, color, 1, 1);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -57,13 +56,12 @@ void test_generic_full_hline(void) {
   uext_t width = 30;
   uext_t height = 3;
 
-  gdImage* reference;
-  gdImage* image;
-  screen_t* screen;
-  generic_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  generic_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -80,7 +78,7 @@ void test_generic_full_hline(void) {
     // draw a hline
     int color = truecolor_random_color();
     int ret =
-        simultaneous_generic_hline(reference, interface, &color, 1, 1, 28, 1);
+        simultaneous_generic_hline(reference, interface, color, 1, 1, 28, 1);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -110,13 +108,12 @@ void test_generic_full_vline(void) {
   uext_t width = 3;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
-  screen_t* screen;
-  generic_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  generic_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -133,7 +130,7 @@ void test_generic_full_vline(void) {
     // draw a vline
     int color = truecolor_random_color();
     int ret =
-        simultaneous_generic_vline(reference, interface, &color, 1, 1, 1, 28);
+        simultaneous_generic_vline(reference, interface, color, 1, 1, 1, 28);
 
     // save images to png
     ref = new_png_from_image(reference);
@@ -163,13 +160,12 @@ void test_generic_full_region(void) {
   uext_t width = 30;
   uext_t height = 30;
 
-  gdImage* reference;
-  gdImage* image;
-  screen_t* screen;
-  generic_interface_t* interface;
-  color_sequence_t* color_sequence;
-  png_t* ref;
-  png_t* img;
+  gdImage* reference = NULL;
+  gdImage* image = NULL;
+  generic_interface_t* interface = NULL;
+  color_sequence_t* color_sequence = NULL;
+  png_t* ref = NULL;
+  png_t* img = NULL;
 
   if (TEST_PROTECT()) {
     // create images
@@ -186,7 +182,7 @@ void test_generic_full_region(void) {
     // draw a pixel
     int color = truecolor_random_color();
     int ret =
-        simultaneous_generic_region(reference, interface, &color, 1, 1, 28, 28);
+        simultaneous_generic_region(reference, interface, color, 1, 1, 28, 28);
 
     // save images to png
     ref = new_png_from_image(reference);

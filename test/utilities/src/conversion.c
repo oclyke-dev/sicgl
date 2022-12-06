@@ -87,7 +87,6 @@ gdImage* new_image_from_libgd_specific_interface(
   }
 
   // convert memory
-  size_t pixels = interface->length / interface->bpp;
   int* p = (int*)interface->memory;
   for (size_t v = 0; v < height; v++) {
     for (size_t u = 0; u < width; u++) {

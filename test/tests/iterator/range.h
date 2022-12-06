@@ -13,6 +13,7 @@ typedef struct _range_t {
 
 static inline void* range_first(void* args) {
   range_t* range = (range_t*)args;
+  (void)range;
   return args;
 }
 static inline void* range_next(void* args) {

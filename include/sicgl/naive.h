@@ -25,6 +25,7 @@ typedef struct _hline_t {
 
 static inline void* hline_first(void* args) {
   hline_t* hline = (hline_t*)args;
+  (void)hline;
   return args;
 }
 static inline void* hline_next(void* args) {
@@ -57,6 +58,7 @@ typedef struct _vline_t {
 
 static inline void* vline_first(void* args) {
   vline_t* vline = (vline_t*)args;
+  (void)vline;
   return args;
 }
 static inline void* vline_next(void* args) {
@@ -90,6 +92,7 @@ typedef struct _region_t {
 
 static inline void* region_first(void* args) {
   region_t* region = (region_t*)args;
+  (void)region;
   return args;
 }
 static inline void* region_next(void* args) {

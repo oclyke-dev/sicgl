@@ -18,15 +18,29 @@ small iterator graphics library
 unit tests are handled with [unity](https://github.com/ThrowTheSwitch/Unity) and functional tests are enabled using [libgd](https://github.com/libgd/libgd) and [libspng](https://github.com/randy408/libspng).
 
 **building tests**
-```
+``` sh
+# create build dir
 ~/sicgl % mkdir build
-~/sicgl % cd build
+
+# install libgd
+~/sicgl % cd third-party/libgd
+~/third-party/libgd % mkdir build
+~/third-party/libgd/build % cmake -DBUILD_TEST=1 ..
+~/third-party/libgd/build % cmake --build .
+~/third-party/libgd/build % make install DESTDIR=../../../build/libgd
+~/third-party/libgd/build % cd ../../../build
+
+# build the tests
 ~/sicgl/build % cmake ..
 ~/sicgl/build % cmake --build .
 ```
 
 **running tests**
-```
+``` sh
+# run all tests
+~/sicgl/build % ../tools/run-tests.sh
+
+# run individual tests
 ~/sicgl/build % ./test_unity
 ~/sicgl/build % ./test_libspng_manual_pixels
 ...

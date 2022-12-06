@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "sicgl/color.h"
+
 typedef enum {
   SICGL_CS_STATIC,
   SICGL_CS_FORWARD,
@@ -18,7 +20,7 @@ typedef struct _color_sequence_t {
   size_t scale;  // how many pixels to draw with each color before advance
 
   size_t bpp;
-  uint8_t* buffer;
+  color_t* buffer;
   size_t length;
 } color_sequence_t;
 
@@ -34,4 +36,4 @@ out:
 
 int color_sequence_set(
     color_sequence_t* sequence, color_sequence_type_e type, size_t bpp,
-    uint8_t* buffer, size_t length);
+    color_t* buffer, size_t length);

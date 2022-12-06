@@ -8,12 +8,12 @@ void specific_hrun(
     specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u,
     uext_t v, ext_t du) {
   color_t color = color_sequence_get_color(color_sequence);
-  size_t bpp = interface->bpp;
-  int increment = (du > 0) ? bpp : -bpp;
+  int increment = (du > 0) ? COLOR_SIZE_BYTES : -COLOR_SIZE_BYTES;
   int count = (du > 0) ? du : -du;
-  uint8_t* p = interface->memory + bpp * (interface->display.width * v + u);
+  uint8_t* p =
+      interface->memory + COLOR_SIZE_BYTES * (interface->display.width * v + u);
   while (count-- > 0) {
-    memcpy(p, color, bpp);
+    memcpy(p, &color, COLOR_SIZE_BYTES);
     p += increment;
   }
 }
@@ -22,13 +22,13 @@ void specific_vrun(
     specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u,
     uext_t v, ext_t dv) {
   color_t color = color_sequence_get_color(color_sequence);
-  size_t bpp = interface->bpp;
   uext_t width = interface->display.width;
-  int increment = (dv > 0) ? bpp * width : -bpp * width;
+  int increment =
+      (dv > 0) ? COLOR_SIZE_BYTES * width : -COLOR_SIZE_BYTES * width;
   int count = (dv > 0) ? dv : -dv;
-  uint8_t* p = interface->memory + bpp * (width * v + u);
+  uint8_t* p = interface->memory + COLOR_SIZE_BYTES * (width * v + u);
   while (count-- > 0) {
-    memcpy(p, color, bpp);
+    memcpy(p, &color, COLOR_SIZE_BYTES);
     p += increment;
   }
 }
@@ -39,19 +39,18 @@ void specific_hline(
   color_t color = color_sequence_get_color(color_sequence);
   int increment;
   size_t distance;
-  size_t bpp = interface->bpp;
   if (u0 < u1) {
-    increment = bpp;
+    increment = COLOR_SIZE_BYTES;
     distance = u1 - u0 + 1;
   } else {
-    increment = -bpp;
+    increment = -COLOR_SIZE_BYTES;
     distance = u0 - u1 + 1;
   }
 
-  uint8_t* p =
-      interface->memory + interface->bpp * (interface->display.width * v + u0);
+  uint8_t* p = interface->memory +
+               COLOR_SIZE_BYTES * (interface->display.width * v + u0);
   for (size_t idx = 0; idx < distance; idx++) {
-    memcpy(p, color, bpp);
+    memcpy(p, &color, COLOR_SIZE_BYTES);
     p += increment;
   }
 }
@@ -62,19 +61,18 @@ void specific_vline(
   color_t color = color_sequence_get_color(color_sequence);
   int increment;
   size_t distance;
-  size_t bpp = interface->bpp;
   if (v0 < v1) {
-    increment = bpp * interface->display.width;
+    increment = COLOR_SIZE_BYTES * interface->display.width;
     distance = v1 - v0 + 1;
   } else {
-    increment = -bpp * interface->display.width;
+    increment = -COLOR_SIZE_BYTES * interface->display.width;
     distance = v0 - v1 + 1;
   }
 
-  uint8_t* p =
-      interface->memory + interface->bpp * (interface->display.width * v0 + u);
+  uint8_t* p = interface->memory +
+               COLOR_SIZE_BYTES * (interface->display.width * v0 + u);
   for (size_t idv = 0; idv < distance; idv++) {
-    memcpy(p, color, bpp);
+    memcpy(p, &color, COLOR_SIZE_BYTES);
     p += increment;
   }
 }
@@ -84,22 +82,21 @@ void specific_diagonal(
     uext_t u0, uext_t v0, ext_t diru, ext_t dirv, uext_t count) {
   int du, dv;
   color_t color = color_sequence_get_color(color_sequence);
-  size_t bpp = interface->bpp;
   if (diru > 0) {
-    du = bpp;
+    du = COLOR_SIZE_BYTES;
   } else {
-    du = -bpp;
+    du = -COLOR_SIZE_BYTES;
   }
   if (dirv > 0) {
-    dv = bpp * interface->display.width;
+    dv = COLOR_SIZE_BYTES * interface->display.width;
   } else {
-    dv = -bpp * interface->display.width;
+    dv = -COLOR_SIZE_BYTES * interface->display.width;
   }
 
-  uint8_t* p =
-      interface->memory + interface->bpp * (interface->display.width * v0 + u0);
+  uint8_t* p = interface->memory +
+               COLOR_SIZE_BYTES * (interface->display.width * v0 + u0);
   for (uext_t idx = 0; idx < count; idx++) {
-    memcpy(p, color, bpp);
+    memcpy(p, &color, COLOR_SIZE_BYTES);
     p += du;
     p += dv;
   }
@@ -111,11 +108,11 @@ void specific_region(
   color_t color = color_sequence_get_color(color_sequence);
   size_t du;
   size_t dv;
-  size_t bpp = interface->bpp;
   uint8_t* p = interface->memory;
   size_t offset;  // length
   size_t scratch_length =
-      interface->scratch_length / bpp;  // compute available length in scratch
+      interface->scratch_length /
+      COLOR_SIZE_BYTES;  // compute available length in scratch
   uint8_t* scratch = interface->scratch;
   uext_t width = interface->display.width;
 
@@ -139,7 +136,9 @@ void specific_region(
     // use naive pixel-by-pixel implementation
     for (size_t idv = 0; idv < dv; idv++) {
       for (size_t idu = 0; idu < du; idu++) {
-        memcpy(interface->memory + bpp * offset, color, bpp);
+        memcpy(
+            interface->memory + COLOR_SIZE_BYTES * offset, &color,
+            COLOR_SIZE_BYTES);
         offset++;  // advance one column
       }
       offset += width;  // advance one row
@@ -155,7 +154,7 @@ void specific_region(
     }
     // copy color into scratch buffer
     for (size_t idu = 0; idu < wu; idu++) {
-      memcpy(scratch + bpp * idu, color, bpp);
+      memcpy(scratch + COLOR_SIZE_BYTES * idu, &color, COLOR_SIZE_BYTES);
     }
     // copy scratch buffer into each
     while (du > 0) {
@@ -164,11 +163,11 @@ void specific_region(
       }
       for (size_t idv = 0; idv < dv; idv++) {
         memcpy(p, scratch, wu);
-        p += bpp * width;  // adv. to next row
+        p += COLOR_SIZE_BYTES * width;  // adv. to next row
       }
       du -= wu;
       // adv. to next starting column and back to first row
-      p += bpp * (wu - width * dv);
+      p += COLOR_SIZE_BYTES * (wu - width * dv);
     }
   }
 }

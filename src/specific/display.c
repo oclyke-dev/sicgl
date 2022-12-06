@@ -166,10 +166,6 @@ int sicgl_specific_display_line(
     goto out;
   }
 
-  // get dimensions for clipping
-  uext_t dislay_width = interface->display.width;
-  uext_t dislay_height = interface->display.height;
-
   // standardize vertical direction for consistency
   ext_t tmp;
   if (v1 < v0) {
