@@ -141,7 +141,8 @@ specific_interface_t* new_libgd_specific_interface(
   // (the gdImage tpixels memory is not necessarily contiguous --
   // it is formed by many individual calls to malloc -- therefore
   // we must allocate our own contiguous memory to operate on)
-  interface->length = display->width * display->height * COLOR_SIZE_BYTES;
+  int bpp = bytes_per_pixel();
+  interface->length = display->width * display->height * bpp;
   interface->memory = malloc(interface->length);
   if (NULL == interface->memory) {
     free(interface);
@@ -205,7 +206,8 @@ int libgd_specific_interface_show_memory(specific_interface_t* interface) {
   }
 
   // show memory
-  size_t pixels = interface->length / COLOR_SIZE_BYTES;
+  int bpp = bytes_per_pixel();
+  size_t pixels = interface->length / bpp;
   uext_t width = interface->display.width;
   int* p = (int*)interface->memory;
   for (size_t idx = 0; idx < pixels; idx++) {
@@ -241,7 +243,8 @@ png_t* new_png_from_libgd_specific_interface(specific_interface_t* interface) {
   }
 
   // convert memory
-  size_t pixels = interface->length / COLOR_SIZE_BYTES;
+  int bpp = bytes_per_pixel();
+  size_t pixels = interface->length / bpp;
   int* p = (int*)interface->memory;
   for (size_t idx = 0; idx < pixels; idx++) {
     png->pixels[idx] = png_color_from_truecolor(p[idx]);

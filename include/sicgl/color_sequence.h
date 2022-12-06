@@ -26,3 +26,8 @@ int color_sequence_set_color(
     color_sequence_t* sequence, size_t idx, color_t color);
 int color_sequence_get_color(
     color_sequence_t* sequence, size_t idx, color_t* color);
+
+int color_sequence_get_color_linear(
+    color_sequence_t* sequence, double phase, color_t* color);
+int color_sequence_get_color_circular(
+    color_sequence_t* sequence, double phase, color_t* color);

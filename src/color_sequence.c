@@ -3,6 +3,7 @@
 #include <errno.h>
 
 #include "sicgl/debug.h"
+#include "sicgl/private/interpolation.h"
 
 int color_sequence_initialize(
     color_sequence_t* sequence, color_t* colors, size_t length) {
@@ -48,6 +49,47 @@ int color_sequence_get_color(
     goto out;
   }
   *color = sequence->colors[idx];
+out:
+  return ret;
+}
+
+int color_sequence_get_color_linear(
+    color_sequence_t* sequence, double phase, color_t* color) {
+  int ret = 0;
+  if (NULL == sequence) {
+    ret = -ENOMEM;
+    goto out;
+  }
+  if (NULL == color) {
+    goto out;
+  }
+
+  // linear interpolation of the color sequence
+  ret = interpolate_color_linear(sequence->colors, sequence->length, phase, color);
+  if (0 != ret) {
+    goto out;
+  }
+
+out:
+  return ret;
+}
+int color_sequence_get_color_circular(
+    color_sequence_t* sequence, double phase, color_t* color) {
+  int ret = 0;
+  if (NULL == sequence) {
+    ret = -ENOMEM;
+    goto out;
+  }
+  if (NULL == color) {
+    goto out;
+  }
+
+  // circular interpolation of the color sequence
+  ret = interpolate_color_circular(sequence->colors, sequence->length, phase, color);
+  if (0 != ret) {
+    goto out;
+  }
+
 out:
   return ret;
 }
