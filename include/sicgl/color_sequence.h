@@ -5,35 +5,24 @@
 
 #include "sicgl/color.h"
 
-typedef enum {
-  SICGL_CS_STATIC,
-  SICGL_CS_FORWARD,
-  SICGL_CS_REVERSE,
-
-  // helpers
-  SICGL_CS_NUM_TYPES,
-  SICGL_CS_UNKNOWN,
-} color_sequence_type_e;
-
 typedef struct _color_sequence_t {
-  color_sequence_type_e type;
-  size_t scale;  // how many pixels to draw with each color before advance
-
-  size_t bpp;
-  color_t* buffer;
+  color_t* colors;
   size_t length;
 } color_sequence_t;
 
-static inline size_t color_sequence_length_pixels(color_sequence_t* sequence) {
+static inline size_t color_sequence_length(color_sequence_t* sequence) {
   size_t len = 0;
   if (NULL == sequence) {
     goto out;
   }
-  len = sequence->length / sequence->bpp;
+  len = sequence->length;
 out:
   return len;
 }
 
-int color_sequence_set(
-    color_sequence_t* sequence, color_sequence_type_e type, size_t bpp,
-    color_t* buffer, size_t length);
+int color_sequence_initialize(
+    color_sequence_t* sequence, color_t* buffer, size_t length);
+int color_sequence_set_color(
+    color_sequence_t* sequence, size_t idx, color_t color);
+int color_sequence_get_color(
+    color_sequence_t* sequence, size_t idx, color_t* color);

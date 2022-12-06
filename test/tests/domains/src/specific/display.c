@@ -9,7 +9,6 @@ void test_specific_display_line(void) {
   gdImage* image = NULL;
   display_t* display = NULL;
   specific_interface_t* interface = NULL;
-  color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -25,15 +24,10 @@ void test_specific_display_line(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
-    // create a color sequence
-    int color = truecolor_random_color();
-    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
-    TEST_ASSERT_NOT_NULL_MESSAGE(
-        color_sequence, "could not create color sequence");
-
     // draw a line
+    int color = truecolor_random_color();
     int ret = simultaneous_specific_display_line(
-        reference, interface, color_sequence, width / 4, height / 8,
+        reference, interface, color, width / 4, height / 8,
         3 * width / 4, 7 * height / 8);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
@@ -58,7 +52,6 @@ void test_specific_display_line(void) {
   release_image(image);
   release_display(display);
   release_libgd_specific_interface(interface);
-  release_color_sequence(color_sequence);
   release_png(ref);
   release_png(img);
 }
@@ -71,7 +64,6 @@ void test_specific_display_rectangle(void) {
   gdImage* image = NULL;
   display_t* display = NULL;
   specific_interface_t* interface = NULL;
-  color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -87,15 +79,10 @@ void test_specific_display_rectangle(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
-    // create a color sequence
-    int color = truecolor_random_color();
-    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
-    TEST_ASSERT_NOT_NULL_MESSAGE(
-        color_sequence, "could not create color sequence");
-
     // draw a rectangle
+    int color = truecolor_random_color();
     int ret = simultaneous_specific_display_rectangle(
-        reference, interface, color_sequence, -(width / 4), height / 8,
+        reference, interface, color, -(width / 4), height / 8,
         3 * width / 4, 7 * height / 8);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
@@ -122,7 +109,6 @@ void test_specific_display_rectangle(void) {
   release_image(image);
   release_display(display);
   release_libgd_specific_interface(interface);
-  release_color_sequence(color_sequence);
   release_png(ref);
   release_png(img);
 }
@@ -135,7 +121,6 @@ void test_specific_display_circle_bresenham(void) {
   gdImage* image = NULL;
   display_t* display = NULL;
   specific_interface_t* interface = NULL;
-  color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -151,15 +136,10 @@ void test_specific_display_circle_bresenham(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
-    // create a color sequence
-    int color = truecolor_random_color();
-    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
-    TEST_ASSERT_NOT_NULL_MESSAGE(
-        color_sequence, "could not create color sequence");
-
     // draw a circle
+    int color = truecolor_random_color();
     int ret = simultaneous_specific_display_circle_bresenham(
-        reference, interface, color_sequence, width / 2, height / 2, 20);
+        reference, interface, color, width / 2, height / 2, 20);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -188,7 +168,6 @@ void test_specific_display_circle_bresenham(void) {
   release_image(image);
   release_display(display);
   release_libgd_specific_interface(interface);
-  release_color_sequence(color_sequence);
   release_png(ref);
   release_png(img);
 }
@@ -201,7 +180,6 @@ void test_specific_display_circle_ellipse(void) {
   gdImage* image = NULL;
   display_t* display = NULL;
   specific_interface_t* interface = NULL;
-  color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -217,15 +195,10 @@ void test_specific_display_circle_ellipse(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
-    // create a color sequence
-    int color = truecolor_random_color();
-    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
-    TEST_ASSERT_NOT_NULL_MESSAGE(
-        color_sequence, "could not create color sequence");
-
     // draw a circle
+    int color = truecolor_random_color();
     int ret = simultaneous_specific_display_circle_ellipse(
-        reference, interface, color_sequence, width / 2, height / 2, 20);
+        reference, interface, color, width / 2, height / 2, 20);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -253,7 +226,6 @@ void test_specific_display_circle_ellipse(void) {
   release_image(image);
   release_display(display);
   release_libgd_specific_interface(interface);
-  release_color_sequence(color_sequence);
   release_png(ref);
   release_png(img);
 }
@@ -270,7 +242,6 @@ void test_specific_display_line_case1(void) {
   gdImage* image = NULL;
   display_t* display = NULL;
   specific_interface_t* interface = NULL;
-  color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -286,15 +257,10 @@ void test_specific_display_line_case1(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
-    // create a color sequence
-    int color = truecolor_random_color();
-    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
-    TEST_ASSERT_NOT_NULL_MESSAGE(
-        color_sequence, "could not create color sequence");
-
     // draw a line
+    int color = truecolor_random_color();
     int ret = simultaneous_specific_display_line(
-        reference, interface, color_sequence, 1, 1, 0, 6);
+        reference, interface, color, 1, 1, 0, 6);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -320,7 +286,6 @@ void test_specific_display_line_case1(void) {
   release_image(image);
   release_display(display);
   release_libgd_specific_interface(interface);
-  release_color_sequence(color_sequence);
   release_png(ref);
   release_png(img);
 }
@@ -333,7 +298,6 @@ void test_specific_display_line_case2(void) {
   gdImage* image = NULL;
   display_t* display = NULL;
   specific_interface_t* interface = NULL;
-  color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -349,15 +313,10 @@ void test_specific_display_line_case2(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
-    // create a color sequence
-    int color = truecolor_random_color();
-    color_sequence = new_color_sequence(SICGL_CS_STATIC, &color, sizeof(color));
-    TEST_ASSERT_NOT_NULL_MESSAGE(
-        color_sequence, "could not create color sequence");
-
     // draw a line
+    int color = truecolor_random_color();
     int ret = simultaneous_specific_display_line(
-        reference, interface, color_sequence, 1, 1, 25, 6);
+        reference, interface, color, 1, 1, 25, 6);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -383,7 +342,6 @@ void test_specific_display_line_case2(void) {
   release_image(image);
   release_display(display);
   release_libgd_specific_interface(interface);
-  release_color_sequence(color_sequence);
   release_png(ref);
   release_png(img);
 }

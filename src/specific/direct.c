@@ -5,9 +5,8 @@
 #include "sicgl/specific/interface.h"
 
 void specific_hrun(
-    specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u,
+    specific_interface_t* interface, color_t color, uext_t u,
     uext_t v, ext_t du) {
-  color_t color = color_sequence_get_color(color_sequence);
   int increment = (du > 0) ? COLOR_SIZE_BYTES : -COLOR_SIZE_BYTES;
   int count = (du > 0) ? du : -du;
   uint8_t* p =
@@ -19,9 +18,8 @@ void specific_hrun(
 }
 
 void specific_vrun(
-    specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u,
+    specific_interface_t* interface, color_t color, uext_t u,
     uext_t v, ext_t dv) {
-  color_t color = color_sequence_get_color(color_sequence);
   uext_t width = interface->display.width;
   int increment =
       (dv > 0) ? COLOR_SIZE_BYTES * width : -COLOR_SIZE_BYTES * width;
@@ -34,9 +32,8 @@ void specific_vrun(
 }
 
 void specific_hline(
-    specific_interface_t* interface, color_sequence_t* color_sequence,
+    specific_interface_t* interface, color_t color,
     uext_t u0, uext_t v, uext_t u1) {
-  color_t color = color_sequence_get_color(color_sequence);
   int increment;
   size_t distance;
   if (u0 < u1) {
@@ -56,9 +53,8 @@ void specific_hline(
 }
 
 void specific_vline(
-    specific_interface_t* interface, color_sequence_t* color_sequence, uext_t u,
+    specific_interface_t* interface, color_t color, uext_t u,
     uext_t v0, uext_t v1) {
-  color_t color = color_sequence_get_color(color_sequence);
   int increment;
   size_t distance;
   if (v0 < v1) {
@@ -78,10 +74,9 @@ void specific_vline(
 }
 
 void specific_diagonal(
-    specific_interface_t* interface, color_sequence_t* color_sequence,
+    specific_interface_t* interface, color_t color,
     uext_t u0, uext_t v0, ext_t diru, ext_t dirv, uext_t count) {
   int du, dv;
-  color_t color = color_sequence_get_color(color_sequence);
   if (diru > 0) {
     du = COLOR_SIZE_BYTES;
   } else {
@@ -103,9 +98,8 @@ void specific_diagonal(
 }
 
 void specific_region(
-    specific_interface_t* interface, color_sequence_t* color_sequence,
+    specific_interface_t* interface, color_t color,
     uext_t u0, uext_t v0, uext_t u1, uext_t v1) {
-  color_t color = color_sequence_get_color(color_sequence);
   size_t du;
   size_t dv;
   uint8_t* p = interface->memory;

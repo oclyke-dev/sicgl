@@ -2,8 +2,7 @@
 
 #include "utils.h"
 
-color_sequence_t* new_color_sequence(
-    color_sequence_type_e type, color_t* buffer, size_t length) {
+color_sequence_t* new_color_sequence(color_t* colors, size_t length) {
   color_sequence_t* color_sequence =
       (color_sequence_t*)malloc(sizeof(color_sequence_t));
   if (color_sequence == NULL) {
@@ -17,8 +16,8 @@ color_sequence_t* new_color_sequence(
   memset(color_sequence, 0U, sizeof(*color_sequence));
 
   // set the properties
-  int ret = color_sequence_set(
-      color_sequence, type, COLOR_SIZE_BYTES, buffer, length);
+  int ret = color_sequence_initialize(
+      color_sequence, colors, length);
   if (0 != ret) {
     release_color_sequence(color_sequence);
     color_sequence = NULL;
@@ -50,10 +49,8 @@ int show_color_sequence(color_sequence_t* color_sequence) {
   }
 
   printf("color_sequence:\n");
-  printf("\ttype: %d\n", color_sequence->type);
-  printf("\tbpp: %lu\n", color_sequence->bpp);
-  printf("\tlength (bytes): %lu\n", color_sequence->length);
-  printf("\tbuffer address: 0x%016lx\n", (long)color_sequence->buffer);
+  printf("\tlength: %lu\n", color_sequence->length);
+  printf("\tbuffer address: 0x%016lx\n", (long)color_sequence->colors);
 
 out:
   return ret;
