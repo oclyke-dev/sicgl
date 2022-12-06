@@ -98,7 +98,7 @@ out:
 }
 
 int color_sequence_get_color_discrete_linear(
-  color_sequence_t* sequence, double phase, color_t* color) {
+    color_sequence_t* sequence, double phase, color_t* color) {
   int ret = 0;
   if (NULL == sequence) {
     ret = -ENOMEM;
@@ -137,7 +137,7 @@ out:
 }
 
 int color_sequence_get_color_discrete_circular(
-  color_sequence_t* sequence, double phase, color_t* color) {
+    color_sequence_t* sequence, double phase, color_t* color) {
   int ret = 0;
   if (NULL == sequence) {
     ret = -ENOMEM;
@@ -162,7 +162,7 @@ int color_sequence_get_color_discrete_circular(
   // circular sequences restrict the phase to the range [0.0, 1.0]
   phase = fmod(phase, 1.0f);
   size_t idx = phase * (sequence->length) + 0.5f;
-  
+
   if (idx >= sequence->length) {
     *color = sequence->colors[0];
     goto out;
