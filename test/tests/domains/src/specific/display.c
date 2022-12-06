@@ -27,8 +27,8 @@ void test_specific_display_line(void) {
     // draw a line
     int color = truecolor_random_color();
     int ret = simultaneous_specific_display_line(
-        reference, interface, color, width / 4, height / 8,
-        3 * width / 4, 7 * height / 8);
+        reference, interface, color, width / 4, height / 8, 3 * width / 4,
+        7 * height / 8);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
@@ -82,8 +82,8 @@ void test_specific_display_rectangle(void) {
     // draw a rectangle
     int color = truecolor_random_color();
     int ret = simultaneous_specific_display_rectangle(
-        reference, interface, color, -(width / 4), height / 8,
-        3 * width / 4, 7 * height / 8);
+        reference, interface, color, -(width / 4), height / 8, 3 * width / 4,
+        7 * height / 8);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 

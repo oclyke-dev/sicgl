@@ -10,8 +10,7 @@
  */
 
 int sicgl_specific_global_pixel(
-    specific_interface_t* interface, color_t color, ext_t u0,
-    ext_t v0) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
   int ret = 0;
   ret = translate_global_to_screen(&interface->screen, &u0, &v0);
   if (0 != ret) {
@@ -24,8 +23,8 @@ out:
 }
 
 int sicgl_specific_global_line(
-    specific_interface_t* interface, color_t color, ext_t u0,
-    ext_t v0, ext_t u1, ext_t v1) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t u1, ext_t v1) {
   int ret = 0;
   ret = translate_global_to_screen(&interface->screen, &u0, &v0);
   if (0 != ret) {
@@ -42,8 +41,8 @@ out:
 }
 
 int sicgl_specific_global_rectangle(
-    specific_interface_t* interface, color_t color, ext_t u0,
-    ext_t v0, ext_t u1, ext_t v1) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t u1, ext_t v1) {
   int ret = 0;
   ret = translate_global_to_screen(&interface->screen, &u0, &v0);
   if (0 != ret) {
@@ -53,16 +52,15 @@ int sicgl_specific_global_rectangle(
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_specific_display_rectangle(
-      interface, color, u0, v0, u1, v1);
+  ret = sicgl_specific_display_rectangle(interface, color, u0, v0, u1, v1);
 
 out:
   return ret;
 }
 
 int sicgl_specific_global_circle_bresenham(
-    specific_interface_t* interface, color_t color, ext_t u0,
-    ext_t v0, ext_t diameter) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t diameter) {
   int ret = 0;
   ret = translate_global_to_screen(&interface->screen, &u0, &v0);
   if (0 != ret) {
@@ -76,30 +74,29 @@ out:
 }
 
 int sicgl_specific_global_circle_ellipse(
-    specific_interface_t* interface, color_t color, ext_t u0,
-    ext_t v0, ext_t diameter) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t diameter) {
   int ret = 0;
   ret = translate_global_to_screen(&interface->screen, &u0, &v0);
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_specific_display_circle_ellipse(
-      interface, color, u0, v0, diameter);
+  ret =
+      sicgl_specific_display_circle_ellipse(interface, color, u0, v0, diameter);
 
 out:
   return ret;
 }
 
 int sicgl_specific_global_ellipse(
-    specific_interface_t* interface, color_t color, ext_t u0,
-    ext_t v0, ext_t semiu, ext_t semiv) {
+    specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
+    ext_t semiu, ext_t semiv) {
   int ret = 0;
   ret = translate_global_to_screen(&interface->screen, &u0, &v0);
   if (0 != ret) {
     goto out;
   }
-  ret = sicgl_specific_display_ellipse(
-      interface, color, u0, v0, semiu, semiv);
+  ret = sicgl_specific_display_ellipse(interface, color, u0, v0, semiu, semiv);
 
 out:
   return ret;

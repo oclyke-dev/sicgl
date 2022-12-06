@@ -3,8 +3,8 @@
 #include <errno.h>
 
 int simultaneous_specific_display_line(
-    gdImage* image, specific_interface_t* interface,
-    color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+    gdImage* image, specific_interface_t* interface, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
   gdImageLine(image, u0, v0, u1, v1, (int)color);
   ret = sicgl_specific_display_line(interface, color, u0, v0, u1, v1);
@@ -13,19 +13,18 @@ out:
 }
 
 int simultaneous_specific_display_rectangle(
-    gdImage* image, specific_interface_t* interface,
-    color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+    gdImage* image, specific_interface_t* interface, color_t color, ext_t u0,
+    ext_t v0, ext_t u1, ext_t v1) {
   int ret = 0;
   gdImageRectangle(image, u0, v0, u1, v1, (int)color);
-  ret = sicgl_specific_display_rectangle(
-      interface, color, u0, v0, u1, v1);
+  ret = sicgl_specific_display_rectangle(interface, color, u0, v0, u1, v1);
 out:
   return ret;
 }
 
 int simultaneous_specific_display_circle_bresenham(
-    gdImage* image, specific_interface_t* interface,
-    color_t color, ext_t u0, ext_t v0, ext_t diameter) {
+    gdImage* image, specific_interface_t* interface, color_t color, ext_t u0,
+    ext_t v0, ext_t diameter) {
   int ret = 0;
   gdImageEllipse(image, u0, v0, diameter, diameter, (int)color);
   ret = sicgl_specific_display_circle_bresenham(
@@ -34,18 +33,17 @@ int simultaneous_specific_display_circle_bresenham(
 }
 
 int simultaneous_specific_display_circle_ellipse(
-    gdImage* image, specific_interface_t* interface,
-    color_t color, ext_t u0, ext_t v0, ext_t diameter) {
+    gdImage* image, specific_interface_t* interface, color_t color, ext_t u0,
+    ext_t v0, ext_t diameter) {
   int ret = 0;
   gdImageEllipse(image, u0, v0, diameter, diameter, (int)color);
-  ret = sicgl_specific_display_circle_ellipse(
-      interface, color, u0, v0, diameter);
+  ret =
+      sicgl_specific_display_circle_ellipse(interface, color, u0, v0, diameter);
   return ret;
 }
 
 int simultaneous_specific_display_ellipse(
-    gdImage* image, specific_interface_t* interface,
-    color_t color, ext_t u0, ext_t v0, ext_t major,
-    ext_t minor) {
+    gdImage* image, specific_interface_t* interface, color_t color, ext_t u0,
+    ext_t v0, ext_t major, ext_t minor) {
   return -EINVAL;
 }

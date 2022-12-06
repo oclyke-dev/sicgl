@@ -16,8 +16,7 @@ color_sequence_t* new_color_sequence(color_t* colors, size_t length) {
   memset(color_sequence, 0U, sizeof(*color_sequence));
 
   // set the properties
-  int ret = color_sequence_initialize(
-      color_sequence, colors, length);
+  int ret = color_sequence_initialize(color_sequence, colors, length);
   if (0 != ret) {
     release_color_sequence(color_sequence);
     color_sequence = NULL;
