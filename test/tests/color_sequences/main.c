@@ -16,9 +16,12 @@ int main(void) {
 
   RUN_TEST(test_linear_case1);
   RUN_TEST(test_linear_case2);
+  RUN_TEST(test_linear_case3);
 
   RUN_TEST(test_circular_case1);
   RUN_TEST(test_circular_case2);
+  RUN_TEST(test_circular_case3);
+  RUN_TEST(test_circular_case4);
 
   return UNITY_END();
 }

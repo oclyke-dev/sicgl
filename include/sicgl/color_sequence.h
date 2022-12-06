@@ -31,3 +31,8 @@ int color_sequence_get_color_linear(
     color_sequence_t* sequence, double phase, color_t* color);
 int color_sequence_get_color_circular(
     color_sequence_t* sequence, double phase, color_t* color);
+
+int color_sequence_get_color_discrete_linear(
+  color_sequence_t* sequence, double phase, color_t* color);
+int color_sequence_get_color_discrete_circular(
+  color_sequence_t* sequence, double phase, color_t* color);
