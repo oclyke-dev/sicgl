@@ -94,7 +94,7 @@ void test_screen_intersect(void) {
     screen_normalize(s0);
     screen_normalize(s1);
     ret = screen_intersect(intersection, s0, s1);
-    TEST_ASSERT_MESSAGE((ret != 0), "case 1: screens should not intersect");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(SICGL_SCREEN_INTERSECTION_NONEXISTENT, ret, "case 1: screens should not intersect");
 
     // case 2: little overlap
     screen_set(s0, 0, 0, 2, 2, 0, 0);    // 3x3 screen top-left at (0, 0)
