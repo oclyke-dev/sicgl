@@ -142,14 +142,13 @@ specific_interface_t* new_libgd_specific_interface(
   // it is formed by many individual calls to malloc -- therefore
   // we must allocate our own contiguous memory to operate on)
   int bpp = bytes_per_pixel();
-  interface->length = display->width * display->height * bpp;
-  interface->memory = malloc(interface->length);
+  interface->length = display->width * display->height;
+  interface->memory = calloc(interface->length, bpp);
   if (NULL == interface->memory) {
     free(interface);
     interface = NULL;
     goto out;
   }
-  memset(interface->memory, 0x00, interface->length);
 
   // set attributes
   interface->display = *display;
@@ -206,15 +205,13 @@ int libgd_specific_interface_show_memory(specific_interface_t* interface) {
   }
 
   // show memory
-  int bpp = bytes_per_pixel();
-  size_t pixels = interface->length / bpp;
+  size_t pixels = interface->length;
   uext_t width = interface->display.width;
-  int* p = (int*)interface->memory;
   for (size_t idx = 0; idx < pixels; idx++) {
     if ((idx % width) == 0) {
       printf("\n%08x: ", (uint32_t)idx);
     }
-    printf("%08x ", *p++);
+    printf("%08x ", interface->memory[idx]);
   }
   printf("\n");
 
@@ -243,11 +240,9 @@ png_t* new_png_from_libgd_specific_interface(specific_interface_t* interface) {
   }
 
   // convert memory
-  int bpp = bytes_per_pixel();
-  size_t pixels = interface->length / bpp;
-  int* p = (int*)interface->memory;
+  size_t pixels = interface->length;
   for (size_t idx = 0; idx < pixels; idx++) {
-    png->pixels[idx] = png_color_from_truecolor(p[idx]);
+    png->pixels[idx] = png_color_from_truecolor(interface->memory[idx]);
   }
 
 out:
