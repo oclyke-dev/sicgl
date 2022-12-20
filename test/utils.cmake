@@ -8,7 +8,6 @@ set(TESTUTILS_LIBRARIES testutils)
 add_library(testutils SHARED
 	${TESTUTILS_ROOT_DIR}/src/color_sequence.c
 	${TESTUTILS_ROOT_DIR}/src/conversion.c
-	${TESTUTILS_ROOT_DIR}/src/display.c
 	${TESTUTILS_ROOT_DIR}/src/image.c
 	${TESTUTILS_ROOT_DIR}/src/interface_libgd.c
 	${TESTUTILS_ROOT_DIR}/src/png.c

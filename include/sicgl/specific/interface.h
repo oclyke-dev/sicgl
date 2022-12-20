@@ -4,13 +4,11 @@
 
 #include "sicgl/color.h"
 #include "sicgl/color_sequence.h"
-#include "sicgl/display.h"
 #include "sicgl/extent.h"
 #include "sicgl/screen.h"
 
 typedef struct _specific_interface_t {
-  display_t display;  // hardware display information
-  screen_t screen;    // display information represented as screen
+  screen_t screen;  // geometrical display info
 
   // display memory
   color_t* memory;  // pointer to start of specific memory

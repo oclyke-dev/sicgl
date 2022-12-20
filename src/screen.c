@@ -41,9 +41,10 @@ out:
  * @param screen
  * @return int
  */
-int screen_set_from_display(screen_t* screen, display_t* display) {
+int screen_set_extent(
+    screen_t* screen, ext_t width, ext_t height, ext_t lu, ext_t lv) {
   int ret = 0;
-  if ((NULL == screen) || (NULL == display)) {
+  if (NULL == screen) {
     ret = -ENOMEM;
     goto out;
   }
@@ -51,11 +52,11 @@ int screen_set_from_display(screen_t* screen, display_t* display) {
   // apply public properties
   screen->u0 = 0;
   screen->v0 = 0;
-  screen->u1 = display->width - 1;
-  screen->v1 = display->height - 1;
+  screen->u1 = width - 1;
+  screen->v1 = height - 1;
   ;
-  screen->lu = display->lu;
-  screen->lv = display->lv;
+  screen->lu = lu;
+  screen->lv = lv;
 
 out:
   return ret;
@@ -97,6 +98,9 @@ int screen_normalize(screen_t* screen) {
   screen->_gv0 = screen->lv + screen->v0;
   screen->_gu1 = screen->lu + screen->u1;
   screen->_gv1 = screen->lv + screen->v1;
+
+  screen->width = screen->u1 - screen->u0 + 1;
+  screen->height = screen->v1 - screen->v0 + 1;
 
 out:
   return ret;

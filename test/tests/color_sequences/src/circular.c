@@ -7,7 +7,7 @@ void test_circular_case1(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
@@ -20,9 +20,9 @@ void test_circular_case1(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // create a color sequence
@@ -71,7 +71,7 @@ void test_circular_case1(void) {
   } else {
     release_image(reference);
     release_image(image);
-    release_display(display);
+    release_screen(screen);
     release_libgd_specific_interface(interface);
     release_color_sequence(color_sequence);
     release_png(ref);
@@ -85,7 +85,7 @@ void test_circular_case2(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
@@ -98,9 +98,9 @@ void test_circular_case2(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // create a color sequence
@@ -151,7 +151,7 @@ void test_circular_case2(void) {
   } else {
     release_image(reference);
     release_image(image);
-    release_display(display);
+    release_screen(screen);
     release_libgd_specific_interface(interface);
     release_color_sequence(color_sequence);
     release_png(ref);
@@ -165,7 +165,7 @@ void test_circular_case3(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
@@ -178,9 +178,9 @@ void test_circular_case3(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // create a color sequence
@@ -231,7 +231,7 @@ void test_circular_case3(void) {
   } else {
     release_image(reference);
     release_image(image);
-    release_display(display);
+    release_screen(screen);
     release_libgd_specific_interface(interface);
     release_color_sequence(color_sequence);
     release_png(ref);
@@ -245,7 +245,7 @@ void test_circular_case4(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
@@ -258,9 +258,9 @@ void test_circular_case4(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // create a color sequence
@@ -312,7 +312,7 @@ void test_circular_case4(void) {
   } else {
     release_image(reference);
     release_image(image);
-    release_display(display);
+    release_screen(screen);
     release_libgd_specific_interface(interface);
     release_color_sequence(color_sequence);
     release_png(ref);
