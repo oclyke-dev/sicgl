@@ -13,10 +13,10 @@ typedef struct _specific_interface_t {
   screen_t screen;    // display information represented as screen
 
   // display memory
-  uint8_t* memory;  // pointer to start of specific memory
-  size_t length;    // memory length in bytes
+  color_t* memory;  // pointer to start of specific memory
+  size_t length;    // memory length in pixels
 
   // scratch space
-  uint8_t* scratch;       // memory for scratch space
-  size_t scratch_length;  // number of bytes in scratch
+  color_t* scratch;       // memory for scratch space
+  size_t scratch_length;  // number of pixels in scratch
 } specific_interface_t;
