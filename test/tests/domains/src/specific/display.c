@@ -93,11 +93,11 @@ void test_specific_display_rectangle(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0,
-        png_to_file(ref, TEST_OUTPUT_DIR "/specific_display_rectangle_ref.png"));
+        0, png_to_file(
+               ref, TEST_OUTPUT_DIR "/specific_display_rectangle_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0,
-        png_to_file(img, TEST_OUTPUT_DIR "/specific_display_rectangle_img.png"));
+        0, png_to_file(
+               img, TEST_OUTPUT_DIR "/specific_display_rectangle_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw rectangle");
 
     // compare the images
@@ -208,11 +208,13 @@ void test_specific_display_circle_ellipse(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(
-               ref, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_ref.png"));
+        0,
+        png_to_file(
+            ref, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(
-               img, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_img.png"));
+        0,
+        png_to_file(
+            img, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw circle");
 
     // compare the images
