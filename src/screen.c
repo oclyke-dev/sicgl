@@ -113,8 +113,10 @@ out:
  *
  * Input screens must be normalized prior.
  *
- * If there is no intersection a negative error code
- * is returned, otherwise zero.
+ * Returns:
+ *   SICGL_SCREEN_INTERSECTION_EXISTS: success, intersection exists
+ *   SICGL_SCREEN_INTERSECTION_NONEXISTENT: success, intersection does not exist
+ *   negative error code: failure
  *
  * @param target
  * @param s0
@@ -131,7 +133,7 @@ int screen_intersect(screen_t* target, screen_t* s0, screen_t* s1) {
   // check for complete disagreement
   if ((s0->_gu1 < s1->_gu0) || (s0->_gv1 < s1->_gv0) || (s1->_gu1 < s0->_gu0) ||
       (s1->_gv1 < s0->_gv0)) {
-    ret = -EEXIST;
+    ret = SICGL_SCREEN_INTERSECTION_NONEXISTENT;
     goto out;
   }
 
