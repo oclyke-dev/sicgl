@@ -123,7 +123,7 @@ out:
  * @return specific_interface_t*
  */
 specific_interface_t* new_libgd_specific_interface(
-    display_t* display, uint8_t* scratch, size_t scratch_length) {
+    display_t* display, color_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
   if (NULL == display) {
