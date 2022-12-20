@@ -27,6 +27,22 @@ out:
   return screen;
 }
 
+screen_t* new_screen_extent(ext_t width, ext_t height, ext_t lu, ext_t lv) {
+  screen_t* screen = NULL;
+  screen = new_screen(0, 0, width - 1, height - 1, lu, lv);
+
+  // normalize the screen to apply the width / height
+  int ret = screen_normalize(screen);
+  if (0 != ret) {
+    release_screen(screen);
+    screen = NULL;
+    goto out;
+  }
+
+out:
+  return screen;
+}
+
 int release_screen(screen_t* screen) {
   int ret = 0;
   free(screen);

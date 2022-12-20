@@ -7,7 +7,7 @@ void test_specific_display_line(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -19,9 +19,9 @@ void test_specific_display_line(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a line
@@ -38,9 +38,9 @@ void test_specific_display_line(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(ref, TEST_OUTPUT_DIR "/specific_display_line_ref.png"));
+        0, png_to_file(ref, TEST_OUTPUT_DIR "/specific_screen_line_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(img, TEST_OUTPUT_DIR "/specific_display_line_img.png"));
+        0, png_to_file(img, TEST_OUTPUT_DIR "/specific_screen_line_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw line");
 
     // compare the images
@@ -50,7 +50,7 @@ void test_specific_display_line(void) {
   // clean up
   release_image(reference);
   release_image(image);
-  release_display(display);
+  release_screen(screen);
   release_libgd_specific_interface(interface);
   release_png(ref);
   release_png(img);
@@ -62,7 +62,7 @@ void test_specific_display_rectangle(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -74,9 +74,9 @@ void test_specific_display_rectangle(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a rectangle
@@ -93,11 +93,11 @@ void test_specific_display_rectangle(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(
-               ref, TEST_OUTPUT_DIR "/specific_display_rectangle_ref.png"));
+        0,
+        png_to_file(ref, TEST_OUTPUT_DIR "/specific_screen_rectangle_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(
-               img, TEST_OUTPUT_DIR "/specific_display_rectangle_img.png"));
+        0,
+        png_to_file(img, TEST_OUTPUT_DIR "/specific_screen_rectangle_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw rectangle");
 
     // compare the images
@@ -107,7 +107,7 @@ void test_specific_display_rectangle(void) {
   // clean up
   release_image(reference);
   release_image(image);
-  release_display(display);
+  release_screen(screen);
   release_libgd_specific_interface(interface);
   release_png(ref);
   release_png(img);
@@ -119,7 +119,7 @@ void test_specific_display_circle_bresenham(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -131,9 +131,9 @@ void test_specific_display_circle_bresenham(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a circle
@@ -151,11 +151,11 @@ void test_specific_display_circle_bresenham(void) {
     TEST_ASSERT_EQUAL_INT(
         0,
         png_to_file(
-            ref, TEST_OUTPUT_DIR "/specific_display_circle_bresenham_ref.png"));
+            ref, TEST_OUTPUT_DIR "/specific_screen_circle_bresenham_ref.png"));
     TEST_ASSERT_EQUAL_INT(
         0,
         png_to_file(
-            img, TEST_OUTPUT_DIR "/specific_display_circle_bresenham_img.png"));
+            img, TEST_OUTPUT_DIR "/specific_screen_circle_bresenham_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw circle");
 
     // compare the images
@@ -166,7 +166,7 @@ void test_specific_display_circle_bresenham(void) {
   // clean up
   release_image(reference);
   release_image(image);
-  release_display(display);
+  release_screen(screen);
   release_libgd_specific_interface(interface);
   release_png(ref);
   release_png(img);
@@ -178,7 +178,7 @@ void test_specific_display_circle_ellipse(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -190,9 +190,9 @@ void test_specific_display_circle_ellipse(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a circle
@@ -208,13 +208,11 @@ void test_specific_display_circle_ellipse(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
-        0,
-        png_to_file(
-            ref, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_ref.png"));
+        0, png_to_file(
+               ref, TEST_OUTPUT_DIR "/specific_screen_circle_ellipse_ref.png"));
     TEST_ASSERT_EQUAL_INT(
-        0,
-        png_to_file(
-            img, TEST_OUTPUT_DIR "/specific_display_circle_ellipse_img.png"));
+        0, png_to_file(
+               img, TEST_OUTPUT_DIR "/specific_screen_circle_ellipse_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw circle");
 
     // compare the images
@@ -224,7 +222,7 @@ void test_specific_display_circle_ellipse(void) {
   // clean up
   release_image(reference);
   release_image(image);
-  release_display(display);
+  release_screen(screen);
   release_libgd_specific_interface(interface);
   release_png(ref);
   release_png(img);
@@ -240,7 +238,7 @@ void test_specific_display_line_case1(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -252,9 +250,9 @@ void test_specific_display_line_case1(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a line
@@ -271,10 +269,10 @@ void test_specific_display_line_case1(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
         0, png_to_file(
-               ref, TEST_OUTPUT_DIR "/specific_display_line_case1_ref.png"));
+               ref, TEST_OUTPUT_DIR "/specific_screen_line_case1_ref.png"));
     TEST_ASSERT_EQUAL_INT(
         0, png_to_file(
-               img, TEST_OUTPUT_DIR "/specific_display_line_case1_img.png"));
+               img, TEST_OUTPUT_DIR "/specific_screen_line_case1_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw line");
 
     // compare the images
@@ -284,7 +282,7 @@ void test_specific_display_line_case1(void) {
   // clean up
   release_image(reference);
   release_image(image);
-  release_display(display);
+  release_screen(screen);
   release_libgd_specific_interface(interface);
   release_png(ref);
   release_png(img);
@@ -296,7 +294,7 @@ void test_specific_display_line_case2(void) {
 
   gdImage* reference = NULL;
   gdImage* image = NULL;
-  display_t* display = NULL;
+  screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -308,9 +306,9 @@ void test_specific_display_line_case2(void) {
         reference, "could not allocate reference image");
 
     // create specific interface
-    display = new_display(width, height, 0, 0);
-    interface = new_libgd_specific_interface(display, NULL, 0);
-    TEST_ASSERT_NOT_NULL_MESSAGE(display, "could not create display");
+    screen = new_screen_extent(width, height, 0, 0);
+    interface = new_libgd_specific_interface(screen, NULL, 0);
+    TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a line
@@ -327,10 +325,10 @@ void test_specific_display_line_case2(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
         0, png_to_file(
-               ref, TEST_OUTPUT_DIR "/specific_display_line_case2_ref.png"));
+               ref, TEST_OUTPUT_DIR "/specific_screen_line_case2_ref.png"));
     TEST_ASSERT_EQUAL_INT(
         0, png_to_file(
-               img, TEST_OUTPUT_DIR "/specific_display_line_case2_img.png"));
+               img, TEST_OUTPUT_DIR "/specific_screen_line_case2_img.png"));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to draw line");
 
     // compare the images
@@ -340,7 +338,7 @@ void test_specific_display_line_case2(void) {
   // clean up
   release_image(reference);
   release_image(image);
-  release_display(display);
+  release_screen(screen);
   release_libgd_specific_interface(interface);
   release_png(ref);
   release_png(img);

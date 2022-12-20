@@ -5,7 +5,6 @@
 
 #include "gd.h"
 #include "utilities/conversion.h"
-#include "utilities/display.h"
 #include "utilities/interfaces.h"
 #include "utilities/screen.h"
 
@@ -52,14 +51,8 @@ generic_interface_t* new_libgd_generic_interface_partial(
     interface->vline = libgd_vline;
   }
 
-  // add the display information
-  interface->display.width = image->sx;
-  interface->display.height = image->sy;
-  interface->display.lu = 0;
-  interface->display.lv = 0;
-
-  // create the screen definition from display
-  int ret = screen_set_from_display(&interface->screen, &interface->display);
+  // create the screen definition from image
+  int ret = screen_set_extent(&interface->screen, image->sx, image->sy, 0, 0);
   if (0 != ret) {
     release_libgd_generic_interface(interface);
     interface = NULL;
@@ -123,10 +116,10 @@ out:
  * @return specific_interface_t*
  */
 specific_interface_t* new_libgd_specific_interface(
-    display_t* display, color_t* scratch, size_t scratch_length) {
+    screen_t* screen, color_t* scratch, size_t scratch_length) {
   specific_interface_t* interface = NULL;
 
-  if (NULL == display) {
+  if (NULL == screen) {
     goto out;
   }
 
@@ -142,7 +135,7 @@ specific_interface_t* new_libgd_specific_interface(
   // it is formed by many individual calls to malloc -- therefore
   // we must allocate our own contiguous memory to operate on)
   int bpp = bytes_per_pixel();
-  interface->length = display->width * display->height;
+  interface->length = screen->width * screen->height;
   interface->memory = calloc(interface->length, bpp);
   if (NULL == interface->memory) {
     free(interface);
@@ -151,18 +144,12 @@ specific_interface_t* new_libgd_specific_interface(
   }
 
   // set attributes
-  interface->display = *display;
+  interface->screen = *screen;
   interface->scratch = scratch;
   interface->scratch_length = scratch_length;
 
-  // create the screen definition from display
-  int ret = screen_set_from_display(&interface->screen, &interface->display);
-  if (0 != ret) {
-    release_libgd_specific_interface(interface);
-    interface = NULL;
-    goto out;
-  }
-  ret = screen_normalize(&interface->screen);
+  // normalize the screen
+  int ret = screen_normalize(&interface->screen);
   if (0 != ret) {
     release_libgd_specific_interface(interface);
     interface = NULL;
@@ -206,7 +193,7 @@ int libgd_specific_interface_show_memory(specific_interface_t* interface) {
 
   // show memory
   size_t pixels = interface->length;
-  uext_t width = interface->display.width;
+  uext_t width = interface->screen.width;
   for (size_t idx = 0; idx < pixels; idx++) {
     if ((idx % width) == 0) {
       printf("\n%08x: ", (uint32_t)idx);
@@ -232,8 +219,8 @@ png_t* new_png_from_libgd_specific_interface(specific_interface_t* interface) {
     goto out;
   }
 
-  uext_t width = interface->display.width;
-  uext_t height = interface->display.height;
+  uext_t width = interface->screen.width;
+  uext_t height = interface->screen.height;
   png = new_png(width, height);
   if (NULL == png) {
     goto out;

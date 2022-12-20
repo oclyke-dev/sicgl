@@ -79,18 +79,18 @@ gdImage* new_image_from_libgd_specific_interface(
   }
 
   // prepare image
-  uext_t width = interface->display.width;
-  uext_t height = interface->display.height;
+  uext_t width = interface->screen.width;
+  uext_t height = interface->screen.height;
   image = gdImageCreateTrueColor(width, height);
   if (NULL == image) {
     goto out;
   }
 
   // convert memory
-  int* p = (int*)interface->memory;
   for (size_t v = 0; v < height; v++) {
     for (size_t u = 0; u < width; u++) {
-      gdImageSetPixel(image, u, v, p[v * width + u]);
+      color_t color = interface->memory[v * width + u];
+      gdImageSetPixel(image, u, v, color);
     }
   }
 

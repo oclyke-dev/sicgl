@@ -12,7 +12,6 @@
 // include tools
 #include "utilities/color_sequence.h"
 #include "utilities/conversion.h"
-#include "utilities/display.h"
 #include "utilities/image.h"
 #include "utilities/screen.h"
 #include "utilities/simultaneous.h"

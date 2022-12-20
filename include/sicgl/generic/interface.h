@@ -1,7 +1,6 @@
 #pragma once
 
 #include "sicgl/color.h"
-#include "sicgl/display.h"
 #include "sicgl/extent.h"
 #include "sicgl/screen.h"
 
@@ -30,6 +29,5 @@ typedef struct _generic_interface_t {
   void* arg;
 
   // hardware display information (used for clipping)
-  display_t display;
   screen_t screen;
 } generic_interface_t;
