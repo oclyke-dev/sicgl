@@ -34,6 +34,12 @@ typedef struct _screen_t {
   ext_t height;
 } screen_t;
 
+// codes which identify intersection existence
+enum {
+  SICGL_SCREEN_INTERSECTION_EXISTS = 0,
+  SICGL_SCREEN_INTERSECTION_NONEXISTENT,
+};
+
 int screen_set(
     screen_t* screen, ext_t u0, ext_t v0, ext_t u1, ext_t v1, ext_t lu,
     ext_t lv);
