@@ -15,6 +15,7 @@ set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/specific/blit.c
 	${SICGL_ROOT_DIR}/src/specific/direct.c
 	${SICGL_ROOT_DIR}/src/specific/display.c
+	${SICGL_ROOT_DIR}/src/specific/field.c
 	${SICGL_ROOT_DIR}/src/specific/global.c
 	${SICGL_ROOT_DIR}/src/specific/screen.c
 

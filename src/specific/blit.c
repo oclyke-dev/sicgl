@@ -24,6 +24,11 @@ int sicgl_specific_blit(
   }
   if (NULL == screen) {
     ret = -ENOMEM;
+    goto out;
+  }
+  if (NULL == sprite) {
+    ret = -ENOMEM;
+    goto out;
   }
 
   // find screen overlap
@@ -79,15 +84,6 @@ int sicgl_specific_blit(
     sprite_offset += screen->width;
     interface_offset += interface->screen.width;
   }
-
-  // printf("sprite starting at: (%d, %d)\n", su0, sv0);
-  // printf("interface starting at: (%d, %d)\n", iu0, iv0);
-
-  // // now:
-  // // figure out how wide the horizontals will be
-  // // figure out how many horizontals
-  // // figure out offsets in the sprite
-  // // figure out offsets in the interface screen
 
 out:
   return ret;

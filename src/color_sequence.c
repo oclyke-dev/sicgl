@@ -161,6 +161,10 @@ int color_sequence_get_color_discrete_circular(
 
   // circular sequences restrict the phase to the range [0.0, 1.0]
   phase = fmod(phase, 1.0f);
+  if (phase < 0.0f) {
+    phase += 1.0f;
+  }
+
   size_t idx = phase * (sequence->length) + 0.5f;
 
   if (idx >= sequence->length) {
