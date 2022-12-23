@@ -1,6 +1,6 @@
 #include "utils.h"
 
-void test_specific_blit(void) {
+static void test_specific_blit_coords(int u, int v) {
   uext_t width = 20;
   uext_t height = 20;
 
@@ -8,8 +8,6 @@ void test_specific_blit(void) {
   screen_t* screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* img = NULL;
-
-  printf("here I am!\n");
 
   if (TEST_PROTECT()) {
     // create specific interface
@@ -20,27 +18,7 @@ void test_specific_blit(void) {
 
     // create sprite buffer information
     int color = truecolor_random_color();
-    screen_t* sprite_screen = new_screen_extent(3, 3, 0, 0);
-
-    screen_t intersection;
-    screen_intersect(&intersection, sprite_screen, &interface->screen);
-
-    printf("interface screen:\n");
-    show_screen(&interface->screen);
-
-    printf("sprite screen:\n");
-    show_screen(sprite_screen);
-
-    printf("intersection screen:\n");
-    show_screen(&intersection);
-
-
-    // printf("screen width: %d\n", sprite_screen->width);
-    // printf("screen height: %d\n", sprite_screen->height);
-
-    // printf("screen width: %d\n", interface->screen.width);
-    // printf("screen height: %d\n", interface->screen.height);
-
+    screen_t* sprite_screen = new_screen_extent(3, 3, u, v);
     color_t sprite[] = {
         color, 0, color, 0, color, 0, color, 0, color,
     };
@@ -51,10 +29,15 @@ void test_specific_blit(void) {
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
     // save images to png
+    int filename_length =
+        snprintf(NULL, 0, TEST_OUTPUT_DIR "/specific_blit_%d_%d.png", u, v) + 1;
+    char filename[filename_length];
+    snprintf(
+        filename, filename_length, TEST_OUTPUT_DIR "/specific_blit_%d_%d.png",
+        u, v);
     img = new_png_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
-    TEST_ASSERT_EQUAL_INT(
-        0, png_to_file(img, TEST_OUTPUT_DIR "/specific_blit_img.png"));
+    TEST_ASSERT_EQUAL_INT(0, png_to_file(img, filename));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to blit");
 
   } else {
@@ -63,4 +46,15 @@ void test_specific_blit(void) {
     release_libgd_specific_interface(interface);
     release_png(img);
   }
+}
+
+void test_specific_blit(void) {
+  test_specific_blit_coords(1, 1);
+  test_specific_blit_coords(1, 0);
+  test_specific_blit_coords(1, -1);
+  test_specific_blit_coords(0, -1);
+  test_specific_blit_coords(-1, -1);
+  test_specific_blit_coords(-1, 0);
+  test_specific_blit_coords(-1, 1);
+  test_specific_blit_coords(0, 0);
 }

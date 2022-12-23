@@ -4,6 +4,7 @@
 
 #include "sicgl/debug.h"
 #include "sicgl/screen.h"
+#include "sicgl/translate.h"
 
 /**
  * @brief Bit-blit a sprite into the region determined by screen upon the
@@ -26,8 +27,8 @@ int sicgl_specific_blit(
   }
 
   // find screen overlap
-  screen_t target;
-  ret = screen_intersect(&target, screen, &interface->screen);
+  screen_t intersection;
+  ret = screen_intersect(&intersection, screen, &interface->screen);
   if (ret == SICGL_SCREEN_INTERSECTION_NONEXISTENT) {
     ret = 0;
     goto out;
@@ -35,8 +36,58 @@ int sicgl_specific_blit(
     goto out;
   }
 
-  printf("target overlap: \n");
-  printf("width: %d, height: %d\n", target.width, target.height);
+  // assumptions:
+  // - sprite buffer is large enough to fill the entire sprite screen
+  // - intersection of the sprite screen with the interface screen will
+  //   yeild a screen that is no larger than the sprite screen
+
+  // determine starting location in both sprite and target screens
+  // (intersection screen is computed in global coordinates)
+  // sprite screen starting location:
+  ext_t su0 = intersection.u0;
+  ext_t sv0 = intersection.v0;
+  ret = translate_screen_to_screen(&intersection, screen, &su0, &sv0);
+  if (0 != ret) {
+    goto out;
+  }
+
+  // target screen starting location:
+  ext_t tu0 = interface->screen.u0;
+  ext_t tv0 = interface->screen.v0;
+  ret =
+      translate_screen_to_screen(&intersection, &interface->screen, &tu0, &tv0);
+  if (0 != ret) {
+    goto out;
+  }
+
+  // the starting positions give us the starting offsets into the appropriate
+  // buffers
+  size_t sprite_offset = screen->width * sv0 + su0;
+  size_t interface_offset = interface->screen.width * tv0 + tu0;
+
+  // then simply loop over the intersection screen height copying data from
+  // the sprite buffer to the target buffer (using the full width of the
+  // intersection)
+  size_t width = intersection.width;
+  size_t bpp = bytes_per_pixel();
+  for (size_t idx = 0; idx < intersection.height; idx++) {
+    memcpy(
+        &interface->memory[interface_offset], &sprite[sprite_offset],
+        width * bpp);
+
+    // add whole rows to sprite and interface offsets
+    sprite_offset += screen->width;
+    interface_offset += interface->screen.width;
+  }
+
+  // printf("sprite starting at: (%d, %d)\n", su0, sv0);
+  // printf("interface starting at: (%d, %d)\n", iu0, iv0);
+
+  // // now:
+  // // figure out how wide the horizontals will be
+  // // figure out how many horizontals
+  // // figure out offsets in the sprite
+  // // figure out offsets in the interface screen
 
 out:
   return ret;
