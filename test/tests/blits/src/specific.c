@@ -6,6 +6,7 @@ static void test_specific_blit_coords(int u, int v) {
 
   gdImage* image = NULL;
   screen_t* screen = NULL;
+  screen_t* sprite_screen = NULL;
   specific_interface_t* interface = NULL;
   png_t* img = NULL;
 
@@ -18,7 +19,7 @@ static void test_specific_blit_coords(int u, int v) {
 
     // create sprite buffer information
     int color = truecolor_random_color();
-    screen_t* sprite_screen = new_screen_extent(3, 3, u, v);
+    sprite_screen = new_screen_extent(3, 3, u, v);
     color_t sprite[] = {
         color, 0, color, 0, color, 0, color, 0, color,
     };
@@ -43,6 +44,7 @@ static void test_specific_blit_coords(int u, int v) {
   } else {
     release_image(image);
     release_screen(screen);
+    release_screen(sprite_screen);
     release_libgd_specific_interface(interface);
     release_png(img);
   }

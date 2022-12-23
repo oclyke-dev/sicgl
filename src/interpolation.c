@@ -119,6 +119,9 @@ int interpolate_color_circular(
 
   // circular interpolation restricts the phase to the range [0.0, 1.0]
   phase = fmod(phase, 1.0f);
+  if (phase < 0.0f) {
+    phase += 1.0f;
+  }
 
   // get bounding values
   double center = phase * length;    // center E [0, length]
