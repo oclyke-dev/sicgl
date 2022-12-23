@@ -79,15 +79,15 @@ out:
 /**
  * @brief DEPRECATED.
  * Set corners and global location of screen.
- * 
- * @param screen 
- * @param u0 
- * @param v0 
- * @param u1 
- * @param v1 
- * @param lu 
- * @param lv 
- * @return int 
+ *
+ * @param screen
+ * @param u0
+ * @param v0
+ * @param u1
+ * @param v1
+ * @param lu
+ * @param lv
+ * @return int
  */
 int screen_set(
     screen_t* screen, ext_t u0, ext_t v0, ext_t u1, ext_t v1, ext_t lu,
@@ -105,7 +105,7 @@ int screen_set(
   }
 
   // set the location
-  ret = screen_set_location(screen, lu, lv);   
+  ret = screen_set_location(screen, lu, lv);
   if (0 != ret) {
     goto out;
   }
