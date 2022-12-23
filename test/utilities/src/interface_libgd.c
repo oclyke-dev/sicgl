@@ -52,7 +52,13 @@ generic_interface_t* new_libgd_generic_interface_partial(
   }
 
   // create the screen definition from image
-  int ret = screen_set_extent(&interface->screen, image->sx, image->sy, 0, 0);
+  int ret = screen_set_corners(&interface->screen, 0, 0, 0, 0);
+  if (0 != ret) {
+    release_libgd_generic_interface(interface);
+    interface = NULL;
+    goto out;
+  }
+  ret = screen_set_extent(&interface->screen, image->sx, image->sy);
   if (0 != ret) {
     release_libgd_generic_interface(interface);
     interface = NULL;
