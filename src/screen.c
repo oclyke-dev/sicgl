@@ -7,11 +7,86 @@
 #include "sicgl/debug.h"
 #include "sicgl/minmax.h"
 
+static int recompute_extent(screen_t* screen) {
+  int ret = 0;
+  if (NULL == screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  // compute the extent (width and height) from corner coordinates
+  screen->width = screen->u1 - screen->u0 + 1;
+  screen->height = screen->v1 - screen->v0 + 1;
+
+out:
+  return ret;
+}
+
 /**
- * @brief Set the public members of a screen all at once.
+ * @brief Recompute the corners of a screen based on the extent.
+ * (u0, v0) is used as the fixed point.
+ * Screen is assumed to be normalized.
+ *
+ * @param screen
+ * @return int
+ */
+static int recompute_corners(screen_t* screen) {
+  int ret = 0;
+  if (NULL == screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  // compute the corners from the extent
+  screen->u1 = screen->u0 + screen->width - 1;
+  screen->v1 = screen->v0 + screen->height - 1;
+
+out:
+  return ret;
+}
+
+/**
+ * @brief Set the corners of a screen all at once.
  * Note: this function does not normalize the screen.
  *
  * @param screen
+ * @return int
+ */
+int screen_set_corners(
+    screen_t* screen, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+  int ret = 0;
+  if (NULL == screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  // set the corners
+  screen->u0 = u0;
+  screen->v0 = v0;
+  screen->u1 = u1;
+  screen->v1 = v1;
+
+  // recompute the width and height
+  ret = recompute_extent(screen);
+  if (0 != ret) {
+    goto out;
+  }
+
+out:
+  return ret;
+}
+
+/**
+ * @brief DEPRECATED.
+ * Set corners and global location of screen.
+ *
+ * @param screen
+ * @param u0
+ * @param v0
+ * @param u1
+ * @param v1
+ * @param lu
+ * @param lv
  * @return int
  */
 int screen_set(
@@ -23,38 +98,68 @@ int screen_set(
     goto out;
   }
 
-  // apply public properties
-  screen->u0 = u0;
-  screen->v0 = v0;
-  screen->u1 = u1;
-  screen->v1 = v1;
-  screen->lu = lu;
-  screen->lv = lv;
+  // set the corners
+  ret = screen_set_corners(screen, u0, v0, u1, v1);
+  if (0 != ret) {
+    goto out;
+  }
+
+  // set the location
+  ret = screen_set_location(screen, lu, lv);
+  if (0 != ret) {
+    goto out;
+  }
 
 out:
   return ret;
 }
 
 /**
- * @brief Set the public members of a screen from a display_t.
+ * @brief Set the extent of a screen.
+ * Corner locations are recomputed using (u0, v0) as the fixed point.
  *
  * @param screen
+ * @param width
+ * @param height
  * @return int
  */
-int screen_set_extent(
-    screen_t* screen, ext_t width, ext_t height, ext_t lu, ext_t lv) {
+int screen_set_extent(screen_t* screen, ext_t width, ext_t height) {
   int ret = 0;
   if (NULL == screen) {
     ret = -ENOMEM;
     goto out;
   }
 
-  // apply public properties
-  screen->u0 = 0;
-  screen->v0 = 0;
-  screen->u1 = width - 1;
-  screen->v1 = height - 1;
-  ;
+  // set the extent
+  screen->width = width;
+  screen->height = height;
+
+  // recompute corners
+  ret = recompute_corners(screen);
+  if (0 != ret) {
+    goto out;
+  }
+
+out:
+  return ret;
+}
+
+/**
+ * @brief Set the location of a screen in global coordinates.
+ *
+ * @param screen
+ * @param lu
+ * @param lv
+ * @return int
+ */
+int screen_set_location(screen_t* screen, ext_t lu, ext_t lv) {
+  int ret = 0;
+  if (NULL == screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  // set the screen's location
   screen->lu = lu;
   screen->lv = lv;
 
