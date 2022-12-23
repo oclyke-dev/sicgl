@@ -259,6 +259,12 @@ int screen_intersect(screen_t* target, screen_t* s0, screen_t* s1) {
     target->v0 = 0;
     target->u1 = target->_gu1 - target->_gu0;
     target->v1 = target->_gv1 - target->_gv0;
+
+    // compute the target extent
+    ret = recompute_extent(target);
+    if (0 != ret) {
+      goto out;
+    }
   }
 
 out:
