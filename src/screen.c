@@ -38,8 +38,8 @@ static int recompute_corners(screen_t* screen) {
   }
 
   // compute the corners from the extent
-  screen->u1 = screen->u0 + screen->width;
-  screen->v1 = screen->v0 + screen->height;
+  screen->u1 = screen->u0 + screen->width - 1;
+  screen->v1 = screen->v0 + screen->height - 1;
 
 out:
   return ret;

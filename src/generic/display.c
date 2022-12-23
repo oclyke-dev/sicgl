@@ -170,8 +170,6 @@ int sicgl_generic_display_line(
     goto out;
   }
 
-  printf("I am here!\n");
-
   // check for diagonal
   ext_t signu, signv;   // direction in u and v axes
   uext_t absdu, absdv;  // absolute value of distance in u and v axes

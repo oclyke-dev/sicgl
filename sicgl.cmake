@@ -12,7 +12,6 @@ set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/screen.c
 	${SICGL_ROOT_DIR}/src/translate.c
 
-	${SICGL_ROOT_DIR}/src/specific/blit.c
 	${SICGL_ROOT_DIR}/src/specific/direct.c
 	${SICGL_ROOT_DIR}/src/specific/display.c
 	${SICGL_ROOT_DIR}/src/specific/global.c
