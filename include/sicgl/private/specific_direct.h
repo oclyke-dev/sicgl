@@ -10,7 +10,7 @@ static inline void sicgl_specific_pixel(
   size_t offset = interface->screen->width * v + u;
   interface->memory[offset] = color;
 out:
-    return;
+  return;
 }
 
 void specific_hrun(
