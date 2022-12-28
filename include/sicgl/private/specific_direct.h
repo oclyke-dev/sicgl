@@ -4,8 +4,13 @@
 
 static inline void sicgl_specific_pixel(
     specific_interface_t* interface, color_t color, ext_t u, ext_t v) {
-  size_t offset = interface->screen.width * v + u;
+  if (NULL == interface->screen) {
+    goto out;
+  }
+  size_t offset = interface->screen->width * v + u;
   interface->memory[offset] = color;
+out:
+  return;
 }
 
 void specific_hrun(

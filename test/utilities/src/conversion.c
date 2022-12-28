@@ -77,10 +77,13 @@ gdImage* new_image_from_libgd_specific_interface(
   if (NULL == interface) {
     goto out;
   }
+  if (NULL == interface->screen) {
+    goto out;
+  }
 
   // prepare image
-  uext_t width = interface->screen.width;
-  uext_t height = interface->screen.height;
+  uext_t width = interface->screen->width;
+  uext_t height = interface->screen->height;
   image = gdImageCreateTrueColor(width, height);
   if (NULL == image) {
     goto out;
