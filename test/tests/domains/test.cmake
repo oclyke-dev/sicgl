@@ -5,9 +5,6 @@ add_executable(${TARGET_NAME})
 target_sources(${TARGET_NAME} PRIVATE
   ${TESTS_SRC}
   ${CMAKE_CURRENT_LIST_DIR}/main.c
-	${CMAKE_CURRENT_LIST_DIR}/src/generic/display.c
-	${CMAKE_CURRENT_LIST_DIR}/src/generic/global.c
-	${CMAKE_CURRENT_LIST_DIR}/src/generic/screen.c
 	${CMAKE_CURRENT_LIST_DIR}/src/specific/display.c
 	${CMAKE_CURRENT_LIST_DIR}/src/specific/global.c
 	${CMAKE_CURRENT_LIST_DIR}/src/specific/screen.c
