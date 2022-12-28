@@ -13,11 +13,6 @@ add_library(testutils SHARED
 	${TESTUTILS_ROOT_DIR}/src/png.c
 	${TESTUTILS_ROOT_DIR}/src/screen.c
 
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/display.c
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/global.c
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/interface.c
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/generic/screen.c
-
 	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/display.c
 	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/global.c
 	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/interface.c

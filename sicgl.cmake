@@ -18,12 +18,6 @@ set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/specific/field.c
 	${SICGL_ROOT_DIR}/src/specific/global.c
 	${SICGL_ROOT_DIR}/src/specific/screen.c
-
-	${SICGL_ROOT_DIR}/src/generic/direct.c
-	${SICGL_ROOT_DIR}/src/generic/display.c
-	${SICGL_ROOT_DIR}/src/generic/global.c
-	${SICGL_ROOT_DIR}/src/generic/naive.c
-	${SICGL_ROOT_DIR}/src/generic/screen.c
 )
 if(DEFINED DEBUG)
 	set(SICGL_SOURCES ${SICGL_SOURCES}
