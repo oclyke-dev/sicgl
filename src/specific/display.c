@@ -17,7 +17,7 @@
 
 static int specific_display_pixel(
     specific_interface_t* interface, color_t color, ext_t u0, ext_t v0) {
-  int ret = screen_clip_pixel(&interface->screen, u0, v0);
+  int ret = screen_clip_pixel(interface->screen, u0, v0);
   if (0 == ret) {
     sicgl_specific_pixel(interface, color, u0, v0);
   } else if (ret > 0) {
@@ -32,7 +32,7 @@ out:
 static int specific_display_hline(
     specific_interface_t* interface, color_t color, ext_t u0, ext_t v,
     ext_t u1) {
-  int ret = screen_clip_hline(&interface->screen, &u0, &v, &u1);
+  int ret = screen_clip_hline(interface->screen, &u0, &v, &u1);
   if (0 == ret) {
     specific_hline(interface, color, u0, v, u1);
   } else if (ret > 0) {
@@ -47,7 +47,7 @@ out:
 static int specific_display_vline(
     specific_interface_t* interface, color_t color, ext_t u, ext_t v0,
     ext_t v1) {
-  int ret = screen_clip_vline(&interface->screen, &u, &v0, &v1);
+  int ret = screen_clip_vline(interface->screen, &u, &v0, &v1);
   if (0 == ret) {
     specific_vline(interface, color, u, v0, v1);
   } else if (ret > 0) {
@@ -63,7 +63,7 @@ static int specific_display_diagonal(
     specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
     ext_t diru, ext_t dirv, uext_t count) {
   int ret =
-      screen_clip_diagonal(&interface->screen, &u0, &v0, diru, dirv, &count);
+      screen_clip_diagonal(interface->screen, &u0, &v0, diru, dirv, &count);
   if (0 == ret) {
     specific_diagonal(interface, color, u0, v0, diru, dirv, count);
   } else if (ret > 0) {
@@ -122,7 +122,7 @@ int sicgl_specific_display_line(
     specific_interface_t* interface, color_t color, ext_t u0, ext_t v0,
     ext_t u1, ext_t v1) {
   int ret = 0;
-  screen_t* screen = &interface->screen;
+  screen_t* screen = interface->screen;
 
   if (NULL == interface) {
     ret = -EINVAL;

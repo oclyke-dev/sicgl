@@ -30,10 +30,14 @@ int sicgl_specific_blit(
     ret = -ENOMEM;
     goto out;
   }
+  if (NULL == interface->screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
 
   // find screen overlap
   screen_t intersection;
-  ret = screen_intersect(&intersection, screen, &interface->screen);
+  ret = screen_intersect(&intersection, screen, interface->screen);
   if (ret == SICGL_SCREEN_INTERSECTION_NONEXISTENT) {
     ret = 0;
     goto out;
@@ -57,10 +61,10 @@ int sicgl_specific_blit(
   }
 
   // target screen starting location:
-  ext_t tu0 = interface->screen.u0;
-  ext_t tv0 = interface->screen.v0;
+  ext_t tu0 = interface->screen->u0;
+  ext_t tv0 = interface->screen->v0;
   ret =
-      translate_screen_to_screen(&intersection, &interface->screen, &tu0, &tv0);
+      translate_screen_to_screen(&intersection, interface->screen, &tu0, &tv0);
   if (0 != ret) {
     goto out;
   }
@@ -68,7 +72,7 @@ int sicgl_specific_blit(
   // the starting positions give us the starting offsets into the appropriate
   // buffers
   size_t sprite_offset = screen->width * sv0 + su0;
-  size_t interface_offset = interface->screen.width * tv0 + tu0;
+  size_t interface_offset = interface->screen->width * tv0 + tu0;
 
   // then simply loop over the intersection screen height copying data from
   // the sprite buffer to the target buffer (using the full width of the
@@ -82,7 +86,7 @@ int sicgl_specific_blit(
 
     // add whole rows to sprite and interface offsets
     sprite_offset += screen->width;
-    interface_offset += interface->screen.width;
+    interface_offset += interface->screen->width;
   }
 
 out:

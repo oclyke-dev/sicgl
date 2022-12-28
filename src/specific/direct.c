@@ -7,19 +7,27 @@
 void specific_hrun(
     specific_interface_t* interface, color_t color, uext_t u, uext_t v,
     ext_t du) {
+  if (NULL == interface->screen) {
+    goto out;
+  }
   int increment = (du > 0) ? 1 : -1;
   int count = (du > 0) ? du : -du;
-  size_t offset = interface->screen.width * v + u;
+  size_t offset = interface->screen->width * v + u;
   while (count-- > 0) {
     interface->memory[offset] = color;
     offset += increment;
   }
+out:
+  return;
 }
 
 void specific_vrun(
     specific_interface_t* interface, color_t color, uext_t u, uext_t v,
     ext_t dv) {
-  uext_t width = interface->screen.width;
+  if (NULL == interface->screen) {
+    goto out;
+  }
+  uext_t width = interface->screen->width;
   int increment = (dv > 0) ? width : -width;
   int count = (dv > 0) ? dv : -dv;
   size_t offset = width * v + u;
@@ -27,11 +35,16 @@ void specific_vrun(
     interface->memory[offset] = color;
     offset += increment;
   }
+out:
+  return;
 }
 
 void specific_hline(
     specific_interface_t* interface, color_t color, uext_t u0, uext_t v,
     uext_t u1) {
+  if (NULL == interface->screen) {
+    goto out;
+  }
   int increment;
   size_t distance;
   if (u0 < u1) {
@@ -42,36 +55,46 @@ void specific_hline(
     distance = u0 - u1 + 1;
   }
 
-  size_t offset = interface->screen.width * v + u0;
+  size_t offset = interface->screen->width * v + u0;
   for (size_t idx = 0; idx < distance; idx++) {
     interface->memory[offset] = color;
     offset += increment;
   }
+out:
+  return;
 }
 
 void specific_vline(
     specific_interface_t* interface, color_t color, uext_t u, uext_t v0,
     uext_t v1) {
+  if (NULL == interface->screen) {
+    goto out;
+  }
   int increment;
   size_t distance;
   if (v0 < v1) {
-    increment = interface->screen.width;
+    increment = interface->screen->width;
     distance = v1 - v0 + 1;
   } else {
-    increment = -interface->screen.width;
+    increment = -interface->screen->width;
     distance = v0 - v1 + 1;
   }
 
-  size_t offset = interface->screen.width * v0 + u;
+  size_t offset = interface->screen->width * v0 + u;
   for (size_t idv = 0; idv < distance; idv++) {
     interface->memory[offset] = color;
     offset += increment;
   }
+out:
+  return;
 }
 
 void specific_diagonal(
     specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
     ext_t diru, ext_t dirv, uext_t count) {
+  if (NULL == interface->screen) {
+    goto out;
+  }
   int du, dv;
   if (diru > 0) {
     du = 1;
@@ -79,29 +102,34 @@ void specific_diagonal(
     du = -1;
   }
   if (dirv > 0) {
-    dv = interface->screen.width;
+    dv = interface->screen->width;
   } else {
-    dv = -interface->screen.width;
+    dv = -interface->screen->width;
   }
 
-  size_t offset = interface->screen.width * v0 + u0;
+  size_t offset = interface->screen->width * v0 + u0;
   for (uext_t idx = 0; idx < count; idx++) {
     interface->memory[offset] = color;
     offset += du;
     offset += dv;
   }
+out:
+  return;
 }
 
 void specific_region(
     specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
     uext_t u1, uext_t v1) {
+  if (NULL == interface->screen) {
+    goto out;
+  }
   size_t du;
   size_t dv;
   color_t* p = interface->memory;
   size_t offset;
   size_t scratch_length = interface->scratch_length;
   color_t* scratch = interface->scratch;
-  uext_t width = interface->screen.width;
+  uext_t width = interface->screen->width;
 
   // compute values
   if (u0 < u1) {
@@ -156,4 +184,6 @@ void specific_region(
       p += wu - width * dv;
     }
   }
+out:
+  return;
 }

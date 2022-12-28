@@ -150,12 +150,12 @@ specific_interface_t* new_libgd_specific_interface(
   }
 
   // set attributes
-  interface->screen = *screen;
+  interface->screen = screen;
   interface->scratch = scratch;
   interface->scratch_length = scratch_length;
 
   // normalize the screen
-  int ret = screen_normalize(&interface->screen);
+  int ret = screen_normalize(interface->screen);
   if (0 != ret) {
     release_libgd_specific_interface(interface);
     interface = NULL;
@@ -196,10 +196,14 @@ int libgd_specific_interface_show_memory(specific_interface_t* interface) {
     ret = -ENOMEM;
     goto out;
   }
+  if (NULL == interface->screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
 
   // show memory
   size_t pixels = interface->length;
-  uext_t width = interface->screen.width;
+  uext_t width = interface->screen->width;
   for (size_t idx = 0; idx < pixels; idx++) {
     if ((idx % width) == 0) {
       printf("\n%08x: ", (uint32_t)idx);
@@ -224,9 +228,12 @@ png_t* new_png_from_libgd_specific_interface(specific_interface_t* interface) {
   if (NULL == interface) {
     goto out;
   }
+  if (NULL == interface->screen) {
+    goto out;
+  }
 
-  uext_t width = interface->screen.width;
-  uext_t height = interface->screen.height;
+  uext_t width = interface->screen->width;
+  uext_t height = interface->screen->height;
   png = new_png(width, height);
   if (NULL == png) {
     goto out;

@@ -8,7 +8,7 @@
 #include "sicgl/screen.h"
 
 typedef struct _specific_interface_t {
-  screen_t screen;  // geometrical display info
+  screen_t* screen;  // geometrical display info
 
   // display memory
   color_t* memory;  // pointer to start of specific memory

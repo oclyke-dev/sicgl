@@ -42,10 +42,14 @@ static int apply_specific_field(
     ret = -EINVAL;
     goto out;
   }
+  if (NULL == interface->screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
 
   // find screen overlap
   screen_t intersection;
-  ret = screen_intersect(&intersection, screen, &interface->screen);
+  ret = screen_intersect(&intersection, screen, interface->screen);
   if (ret == SICGL_SCREEN_INTERSECTION_NONEXISTENT) {
     ret = 0;
     goto out;
@@ -70,10 +74,10 @@ static int apply_specific_field(
   }
 
   // target screen starting location:
-  ext_t tu0 = interface->screen.u0;
-  ext_t tv0 = interface->screen.v0;
+  ext_t tu0 = interface->screen->u0;
+  ext_t tv0 = interface->screen->v0;
   ret =
-      translate_screen_to_screen(&intersection, &interface->screen, &tu0, &tv0);
+      translate_screen_to_screen(&intersection, interface->screen, &tu0, &tv0);
   if (0 != ret) {
     goto out;
   }
@@ -81,7 +85,7 @@ static int apply_specific_field(
   // the starting positions give us the starting offsets into the appropriate
   // buffers
   size_t scalar_offset = screen->width * sv0 + su0;
-  size_t interface_offset = interface->screen.width * tv0 + tu0;
+  size_t interface_offset = interface->screen->width * tv0 + tu0;
 
   // then simply loop over the intersection screen height copying data from
   // the scalar buffer to the target buffer (using the full width of the
@@ -102,7 +106,7 @@ static int apply_specific_field(
 
     // new line, carriage return
     scalar_offset += screen->width - intersection.width;
-    interface_offset += interface->screen.width - intersection.width;
+    interface_offset += interface->screen->width - intersection.width;
   }
 
 out:
