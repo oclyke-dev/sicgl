@@ -8,7 +8,7 @@ void test_linear_case1(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -21,7 +21,7 @@ void test_linear_case1(void) {
 
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
@@ -47,7 +47,7 @@ void test_linear_case1(void) {
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
-      ret = simultaneous_specific_pixel(reference, interface, color, idu, 1);
+      ret = simultaneous_interface_pixel(reference, interface, color, idu, 1);
       TEST_ASSERT_EQUAL_INT(0, ret);
     }
 
@@ -57,7 +57,7 @@ void test_linear_case1(void) {
 
     // save images to png
     ref = new_png_from_image(reference);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
@@ -72,7 +72,7 @@ void test_linear_case1(void) {
     release_image(reference);
     release_image(image);
     release_screen(screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_color_sequence(color_sequence);
     release_png(ref);
     release_png(img);
@@ -86,7 +86,7 @@ void test_linear_case2(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -99,7 +99,7 @@ void test_linear_case2(void) {
 
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
@@ -127,7 +127,7 @@ void test_linear_case2(void) {
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
-      ret = simultaneous_specific_pixel(reference, interface, color, idu, 1);
+      ret = simultaneous_interface_pixel(reference, interface, color, idu, 1);
       TEST_ASSERT_EQUAL_INT(0, ret);
     }
 
@@ -137,7 +137,7 @@ void test_linear_case2(void) {
 
     // save images to png
     ref = new_png_from_image(reference);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
@@ -152,7 +152,7 @@ void test_linear_case2(void) {
     release_image(reference);
     release_image(image);
     release_screen(screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_color_sequence(color_sequence);
     release_png(ref);
     release_png(img);
@@ -166,7 +166,7 @@ void test_linear_case3(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -179,7 +179,7 @@ void test_linear_case3(void) {
 
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
@@ -208,7 +208,7 @@ void test_linear_case3(void) {
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
-      ret = simultaneous_specific_pixel(reference, interface, color, idu, 1);
+      ret = simultaneous_interface_pixel(reference, interface, color, idu, 1);
       TEST_ASSERT_EQUAL_INT(0, ret);
     }
 
@@ -218,7 +218,7 @@ void test_linear_case3(void) {
 
     // save images to png
     ref = new_png_from_image(reference);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
@@ -233,7 +233,7 @@ void test_linear_case3(void) {
     release_image(reference);
     release_image(image);
     release_screen(screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_color_sequence(color_sequence);
     release_png(ref);
     release_png(img);

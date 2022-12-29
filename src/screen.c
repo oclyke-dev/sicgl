@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 #include "sicgl/debug.h"
-#include "sicgl/minmax.h"
+#include "sicgl/private/minmax.h"
 
 static int recompute_extent(screen_t* screen) {
   int ret = 0;

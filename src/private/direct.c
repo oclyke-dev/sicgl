@@ -2,11 +2,10 @@
 #include <stddef.h>
 
 #include "sicgl/debug.h"
-#include "sicgl/specific/interface.h"
+#include "sicgl/interface.h"
 
-void specific_hrun(
-    specific_interface_t* interface, color_t color, uext_t u, uext_t v,
-    ext_t du) {
+void sicgl_direct_hrun(
+    interface_t* interface, color_t color, uext_t u, uext_t v, ext_t du) {
   if (NULL == interface->screen) {
     goto out;
   }
@@ -21,9 +20,8 @@ out:
   return;
 }
 
-void specific_vrun(
-    specific_interface_t* interface, color_t color, uext_t u, uext_t v,
-    ext_t dv) {
+void sicgl_direct_vrun(
+    interface_t* interface, color_t color, uext_t u, uext_t v, ext_t dv) {
   if (NULL == interface->screen) {
     goto out;
   }
@@ -39,9 +37,8 @@ out:
   return;
 }
 
-void specific_hline(
-    specific_interface_t* interface, color_t color, uext_t u0, uext_t v,
-    uext_t u1) {
+void sicgl_direct_hline(
+    interface_t* interface, color_t color, uext_t u0, uext_t v, uext_t u1) {
   if (NULL == interface->screen) {
     goto out;
   }
@@ -64,9 +61,8 @@ out:
   return;
 }
 
-void specific_vline(
-    specific_interface_t* interface, color_t color, uext_t u, uext_t v0,
-    uext_t v1) {
+void sicgl_direct_vline(
+    interface_t* interface, color_t color, uext_t u, uext_t v0, uext_t v1) {
   if (NULL == interface->screen) {
     goto out;
   }
@@ -89,9 +85,9 @@ out:
   return;
 }
 
-void specific_diagonal(
-    specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
-    ext_t diru, ext_t dirv, uext_t count) {
+void sicgl_direct_diagonal(
+    interface_t* interface, color_t color, uext_t u0, uext_t v0, ext_t diru,
+    ext_t dirv, uext_t count) {
   if (NULL == interface->screen) {
     goto out;
   }
@@ -117,18 +113,15 @@ out:
   return;
 }
 
-void specific_region(
-    specific_interface_t* interface, color_t color, uext_t u0, uext_t v0,
-    uext_t u1, uext_t v1) {
+void sicgl_direct_region(
+    interface_t* interface, color_t color, uext_t u0, uext_t v0, uext_t u1,
+    uext_t v1) {
   if (NULL == interface->screen) {
     goto out;
   }
   size_t du;
   size_t dv;
-  color_t* p = interface->memory;
   size_t offset;
-  size_t scratch_length = interface->scratch_length;
-  color_t* scratch = interface->scratch;
   uext_t width = interface->screen->width;
 
   // compute values
@@ -147,42 +140,19 @@ void specific_region(
     dv = v0 - v1 + 1;
   }
 
-  if (scratch_length == 0) {
-    // use naive pixel-by-pixel implementation
-    for (size_t idv = 0; idv < dv; idv++) {
-      for (size_t idu = 0; idu < du; idu++) {
-        interface->memory[offset] = color;
-        offset++;  // advance one column
-      }
-      offset += width;  // advance one row
-      offset -= du;     // advance back to starting column
-    }
-  } else {
-    // fill scratch buffer once then copy it repeatedly
-    // this may be marginally faster than the above implementation
-    // depending on whether the hardware supports fast memory copy
-    size_t wu = scratch_length;
-    size_t bpp = bytes_per_pixel();
-    if (wu > du) {
-      wu = du;
-    }
-    // copy color into scratch buffer
-    for (size_t idu = 0; idu < wu; idu++) {
-      scratch[idu] = color;
-    }
-    // copy scratch buffer into each
-    while (du > 0) {
-      if (wu > du) {
-        wu = du;
-      }
-      for (size_t idv = 0; idv < dv; idv++) {
-        memcpy(p, scratch, wu * bpp);
-        p += width;  // adv. to next row
-      }
-      du -= wu;
-      // adv. to next starting column and back to first row
-      p += wu - width * dv;
-    }
+  // first: fill up one row
+  for (size_t idu = 0; idu < du; idu++) {
+    interface->memory[offset + idu] = color;
+  }
+
+  // then copy that memory region repeatedly for each subsequent row
+  // copy scratch buffer into each
+  size_t bpp = bytes_per_pixel();
+  color_t* row = &interface->memory[offset];
+  while (dv > 0) {
+    memcpy(row, &interface->memory[offset], du * bpp);
+    row += width;  // go to next row by advancing the fulll width
+    dv--;
   }
 out:
   return;

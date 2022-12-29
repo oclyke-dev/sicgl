@@ -116,8 +116,7 @@ void run_test_case(location_test_case_t test_case) {
   } else {
     screen_t* screen = new_screen(bytes->width, bytes->height, 0, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not allocate screen object");
-    specific_interface_t* intfc =
-        new_bytes_specific_interface(bytes, screen, NULL, 0);
+    interface_t* intfc = new_bytes_specific_interface(bytes, screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
     specific_hline(intfc, test_color, u0, v, u1);
     release_bytes_specific_interface(intfc);
@@ -157,7 +156,7 @@ void test_hline(void) {
   generic_interface_t* fast_intfc = new_png_generic_interface_full(fast_bm);
   generic_interface_t* naive_intfc =
       new_png_generic_interface_partial(naive_bm, naive_prototype);
-  specific_interface_t* specfic_intfc =
+  interface_t* specfic_intfc =
       new_png_specific_interface(spec_bm, screen, NULL, 0);
 
   TEST_ASSERT_NOT_NULL(fast_bm);

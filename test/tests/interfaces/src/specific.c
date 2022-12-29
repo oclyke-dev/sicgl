@@ -8,7 +8,7 @@ void test_specific_pixel(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -20,19 +20,19 @@ void test_specific_pixel(void) {
 
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a pixel
     int color = truecolor_random_color();
-    int ret = simultaneous_specific_pixel(reference, interface, color, 1, 1);
+    int ret = simultaneous_direct_pixel(reference, interface, color, 1, 1);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
     // save images to png
     ref = new_png_from_image(reference);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
@@ -48,7 +48,7 @@ void test_specific_pixel(void) {
     release_image(reference);
     release_image(image);
     release_screen(screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_png(ref);
     release_png(img);
   }
@@ -61,7 +61,7 @@ void test_specific_hline(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -73,20 +73,20 @@ void test_specific_hline(void) {
 
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a hline
     int color = truecolor_random_color();
     int ret =
-        simultaneous_specific_hline(reference, interface, color, 1, 1, 28, 1);
+        simultaneous_direct_hline(reference, interface, color, 1, 1, 28, 1);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
     // save images to png
     ref = new_png_from_image(reference);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
@@ -102,7 +102,7 @@ void test_specific_hline(void) {
     release_image(reference);
     release_image(image);
     release_screen(screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_png(ref);
     release_png(img);
   }
@@ -115,7 +115,7 @@ void test_specific_vline(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -127,20 +127,20 @@ void test_specific_vline(void) {
 
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a vline
     int color = truecolor_random_color();
     int ret =
-        simultaneous_specific_vline(reference, interface, color, 1, 1, 1, 28);
+        simultaneous_direct_vline(reference, interface, color, 1, 1, 1, 28);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
     // save images to png
     ref = new_png_from_image(reference);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
@@ -156,7 +156,7 @@ void test_specific_vline(void) {
     release_image(reference);
     release_image(image);
     release_screen(screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_png(ref);
     release_png(img);
   }
@@ -169,7 +169,7 @@ void test_specific_region(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
 
@@ -181,20 +181,20 @@ void test_specific_region(void) {
 
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
     // draw a pixel
     int color = truecolor_random_color();
     int ret =
-        simultaneous_specific_region(reference, interface, color, 1, 1, 28, 28);
+        simultaneous_direct_region(reference, interface, color, 1, 1, 28, 28);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
     // save images to png
     ref = new_png_from_image(reference);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(ref, "could not create ref png");
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(
@@ -210,7 +210,7 @@ void test_specific_region(void) {
     release_image(reference);
     release_image(image);
     release_screen(screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_png(ref);
     release_png(img);
   }

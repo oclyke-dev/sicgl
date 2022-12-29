@@ -15,7 +15,7 @@ int main(void) {
   UNITY_BEGIN();
 
   // specific
-  RUN_TEST(test_specific_blit);
+  RUN_TEST(test_blit);
 
   return UNITY_END();
 }

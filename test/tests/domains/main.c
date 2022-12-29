@@ -15,13 +15,13 @@ int main(void) {
   UNITY_BEGIN();
 
   // specific
-  RUN_TEST(test_specific_display_line);
-  RUN_TEST(test_specific_display_line_case1);
-  RUN_TEST(test_specific_display_line_case2);
-  RUN_TEST(test_specific_display_rectangle);
-  RUN_TEST(test_specific_display_circle_bresenham);
-  RUN_TEST(test_specific_display_circle_ellipse);
-  RUN_TEST(test_specific_display_ellipse);
+  RUN_TEST(test_interface_line);
+  RUN_TEST(test_interface_line_case1);
+  RUN_TEST(test_interface_line_case2);
+  RUN_TEST(test_interface_rectangle);
+  RUN_TEST(test_interface_circle_bresenham);
+  RUN_TEST(test_interface_circle_ellipse);
+  RUN_TEST(test_interface_ellipse);
 
   RUN_TEST(test_specific_global_line);
   RUN_TEST(test_specific_global_rectangle);

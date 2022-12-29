@@ -15,7 +15,7 @@ static void test_specific_field(
   gdImage* image = NULL;
   screen_t* screen = NULL;
   screen_t* scalar_screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   png_t* img = NULL;
 
   TEST_ASSERT_NOT_NULL_MESSAGE(fn, "scalar field function was not provided");
@@ -23,7 +23,7 @@ static void test_specific_field(
   if (TEST_PROTECT()) {
     // create specific interface
     screen = new_screen_extent(width, height, 0, 0);
-    interface = new_libgd_specific_interface(screen, NULL, 0);
+    interface = new_libgd_interface(screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not create screen");
     TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");
 
@@ -55,7 +55,7 @@ static void test_specific_field(
     snprintf(
         filename, filename_length,
         TEST_OUTPUT_DIR "/specific_blit_%s_%s_%s.png", name, disc, circ);
-    img = new_png_from_libgd_specific_interface(interface);
+    img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(0, png_to_file(img, filename));
     TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "failed to apply scalar field");
@@ -64,7 +64,7 @@ static void test_specific_field(
     release_image(image);
     release_screen(screen);
     release_screen(scalar_screen);
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     release_color_sequence(sequence);
     release_png(img);
   }
