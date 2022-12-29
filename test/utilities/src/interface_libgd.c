@@ -14,7 +14,7 @@
  * @param image
  * @return interface_t*
  */
-interface_t* new_libgd_specific_interface(
+interface_t* new_libgd_interface(
     screen_t* screen, color_t* scratch, size_t scratch_length) {
   interface_t* interface = NULL;
 
@@ -48,7 +48,7 @@ interface_t* new_libgd_specific_interface(
   // normalize the screen
   int ret = screen_normalize(interface->screen);
   if (0 != ret) {
-    release_libgd_specific_interface(interface);
+    release_libgd_interface(interface);
     interface = NULL;
     goto out;
   }
@@ -57,7 +57,7 @@ out:
   return interface;
 }
 
-int release_libgd_specific_interface(interface_t* interface) {
+int release_libgd_interface(interface_t* interface) {
   int ret = 0;
   free(interface);
 out:
@@ -70,7 +70,7 @@ out:
  * @param interface
  * @return int
  */
-int libgd_specific_interface_show_memory(interface_t* interface) {
+int libgd_interface_show_memory(interface_t* interface) {
   int ret = 0;
   if (NULL == interface) {
     ret = -EINVAL;
@@ -106,7 +106,7 @@ out:
  * @param interface
  * @return png_t*
  */
-png_t* new_png_from_libgd_specific_interface(interface_t* interface) {
+png_t* new_png_from_libgd_interface(interface_t* interface) {
   png_t* png = NULL;
 
   if (NULL == interface) {

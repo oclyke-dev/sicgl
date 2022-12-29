@@ -63,7 +63,7 @@ void test_rising_sun(void) {
 
   screen_t* display = new_screen(width, height, 0, 0);
   interface_t* specific =
-      new_libgd_specific_interface(display, buffer, buffer_length);
+      new_libgd_interface(display, buffer, buffer_length);
 
   screen_t* screen = new_screen(width, height, -127, -127);
   int color = truecolor_random_color();
@@ -103,7 +103,7 @@ void test_bounding(void) {
 
   screen_t* display = new_screen(width, height, 0, 0);
   interface_t* specific =
-      new_libgd_specific_interface(display, buffer, buffer_length);
+      new_libgd_interface(display, buffer, buffer_length);
   screen_t* bounds = new_screen(20, 20, 10, 10);
 
   // draw bounds

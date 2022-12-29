@@ -81,13 +81,13 @@ int main() {
 
   // run test of specific_regular interface
   interface_t* specific_regular =
-      new_libgd_specific_interface(display, NULL, 0);
+      new_libgd_interface(display, NULL, 0);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
     specific_region(specific_regular, &color, u0, v0, u1, v1);
   }
   end = clock();  // in clock cycles
-  release_libgd_specific_interface(specific_regular);
+  release_libgd_interface(specific_regular);
   time_taken_specific_regular = ((double)(end - start)) / CLOCKS_PER_SEC;
   printf(
       "specific_regular interface took %f seconds.\n",
@@ -95,13 +95,13 @@ int main() {
 
   // run test of specific_fast interface
   interface_t* specific_fast =
-      new_libgd_specific_interface(screen, scratch, scratch_bytes);
+      new_libgd_interface(screen, scratch, scratch_bytes);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
     specific_region(specific_fast, &color, u0, v0, u1, v1);
   }
   end = clock();  // in clock cycles
-  release_libgd_specific_interface(specific_fast);
+  release_libgd_interface(specific_fast);
   time_taken_specific_regular = ((double)(end - start)) / CLOCKS_PER_SEC;
   printf(
       "specific_fast interface took %f seconds.\n",
