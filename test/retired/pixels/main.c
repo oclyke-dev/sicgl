@@ -65,8 +65,7 @@ void test_pixel_location_specific(void) {
   screen_t* screen = new_screen(bytes->width, bytes->height, 0, 0);
   TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not allocate screen object");
 
-  interface_t* intfc =
-      new_bytes_specific_interface(bytes, screen, NULL, 0);
+  interface_t* intfc = new_bytes_specific_interface(bytes, screen, NULL, 0);
   TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
 
   // draw a pixel to the location

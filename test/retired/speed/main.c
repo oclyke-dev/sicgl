@@ -80,8 +80,7 @@ int main() {
       "generic_naive interface took %f seconds.\n", time_taken_generic_naive);
 
   // run test of specific_regular interface
-  interface_t* specific_regular =
-      new_libgd_interface(display, NULL, 0);
+  interface_t* specific_regular = new_libgd_interface(display, NULL, 0);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
     specific_region(specific_regular, &color, u0, v0, u1, v1);

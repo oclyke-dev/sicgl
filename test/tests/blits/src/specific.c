@@ -34,8 +34,7 @@ static void test_blit_coords(int u, int v) {
         snprintf(NULL, 0, TEST_OUTPUT_DIR "/blit_%d_%d.png", u, v) + 1;
     char filename[filename_length];
     snprintf(
-        filename, filename_length, TEST_OUTPUT_DIR "/blit_%d_%d.png",
-        u, v);
+        filename, filename_length, TEST_OUTPUT_DIR "/blit_%d_%d.png", u, v);
     img = new_png_from_libgd_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");
     TEST_ASSERT_EQUAL_INT(0, png_to_file(img, filename));

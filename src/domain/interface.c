@@ -3,8 +3,8 @@
 
 #include "sicgl.h"
 #include "sicgl/debug.h"
-#include "sicgl/screen.h"
 #include "sicgl/private/direct.h"
+#include "sicgl/screen.h"
 
 /**
  * @brief Interface-relative drawing functions.
@@ -16,8 +16,7 @@
  */
 
 static int sicgl_interface_hline(
-    interface_t* interface, color_t color, ext_t u0, ext_t v,
-    ext_t u1) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v, ext_t u1) {
   int ret = screen_clip_hline(interface->screen, &u0, &v, &u1);
   if (0 == ret) {
     sicgl_direct_hline(interface, color, u0, v, u1);
@@ -31,8 +30,7 @@ out:
 }
 
 static int sicgl_interface_vline(
-    interface_t* interface, color_t color, ext_t u, ext_t v0,
-    ext_t v1) {
+    interface_t* interface, color_t color, ext_t u, ext_t v0, ext_t v1) {
   int ret = screen_clip_vline(interface->screen, &u, &v0, &v1);
   if (0 == ret) {
     sicgl_direct_vline(interface, color, u, v0, v1);
@@ -46,8 +44,8 @@ out:
 }
 
 static int sicgl_interface_diagonal(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0,
-    ext_t diru, ext_t dirv, uext_t count) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t diru,
+    ext_t dirv, uext_t count) {
   int ret =
       screen_clip_diagonal(interface->screen, &u0, &v0, diru, dirv, &count);
   if (0 == ret) {
@@ -62,8 +60,8 @@ out:
 }
 
 static int sicgl_interface_circle_eight(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0,
-    ext_t du, ext_t dv) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t du,
+    ext_t dv) {
   int ret = 0;
   sicgl_direct_pixel(interface, color, u0 + du, v0 + dv);
   sicgl_direct_pixel(interface, color, u0 - du, v0 + dv);
@@ -111,8 +109,8 @@ out:
  * @return int
  */
 int sicgl_interface_line(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0,
-    ext_t u1, ext_t v1) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    ext_t v1) {
   int ret = 0;
   screen_t* screen = interface->screen;
 
@@ -286,8 +284,8 @@ out:
 }
 
 int sicgl_rectangle(
-    interface_t* interface, color_t color, uext_t u0, uext_t v0,
-    uext_t u1, uext_t v1) {
+    interface_t* interface, color_t color, uext_t u0, uext_t v0, uext_t u1,
+    uext_t v1) {
   int ret = 0;
 
 out:
@@ -295,8 +293,8 @@ out:
 }
 
 int sicgl_interface_rectangle(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0,
-    ext_t u1, ext_t v1) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    ext_t v1) {
   int ret = 0;
 
   ret = sicgl_interface_hline(interface, color, u0, v0, u1);
@@ -335,8 +333,7 @@ out:
  * @return int
  */
 int sicgl_interface_circle_bresenham(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0,
-    ext_t d) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
   int ret = 0;
   if (NULL == interface) {
     ret = -ENOMEM;
@@ -389,8 +386,7 @@ out:
  * @return int
  */
 int sicgl_interface_circle_ellipse(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0,
-    ext_t d) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t d) {
   int ret = 0;
   if (NULL == interface) {
     ret = -ENOMEM;
@@ -427,8 +423,8 @@ out:
  * @return int
  */
 int sicgl_interface_ellipse(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0,
-    ext_t semiu, ext_t semiv) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t semiu,
+    ext_t semiv) {
   int ret = 0;
   ext_t x = 0, mu0 = 0, mu1 = 0, mv0 = 0, mv1 = 0;
   int64_t aq, bq, dx, dy, r, rx, ry, a, b;

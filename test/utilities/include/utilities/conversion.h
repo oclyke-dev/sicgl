@@ -10,5 +10,4 @@ int truecolor_from_png_pixel(png_pixel_t pixel);
 
 // image conversion / creation
 png_t* new_png_from_image(gdImage* image);
-gdImage* new_image_from_libgd_specific_interface(
-    interface_t* interface);
+gdImage* new_image_from_libgd_specific_interface(interface_t* interface);

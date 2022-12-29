@@ -140,8 +140,7 @@ void run_test_case(location_test_case_t test_case) {
   } else {
     screen_t* screen = new_screen(bytes->width, bytes->height, 0, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(screen, "could not allocate screen object");
-    interface_t* intfc =
-        new_bytes_specific_interface(bytes, screen, NULL, 0);
+    interface_t* intfc = new_bytes_specific_interface(bytes, screen, NULL, 0);
     TEST_ASSERT_NOT_NULL_MESSAGE(intfc, "could not allocate interface object");
     specific_region(intfc, test_color, u0, v0, u1, v1);
     release_bytes_specific_interface(intfc);
