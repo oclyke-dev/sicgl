@@ -13,10 +13,10 @@ add_library(testutils SHARED
 	${TESTUTILS_ROOT_DIR}/src/png.c
 	${TESTUTILS_ROOT_DIR}/src/screen.c
 
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/display.c
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/global.c
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/interface.c
-	${TESTUTILS_ROOT_DIR}/src/simultaneous/specific/screen.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/direct.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/global.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/interface.c
+	${TESTUTILS_ROOT_DIR}/src/simultaneous/screen.c
 )
 target_include_directories(testutils PRIVATE
 	${SICGL_ROOT_DIR}/include

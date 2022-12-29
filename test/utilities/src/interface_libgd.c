@@ -12,18 +12,18 @@
  * @brief Create a specific interface which draws to libgd images.
  *
  * @param image
- * @return specific_interface_t*
+ * @return interface_t*
  */
-specific_interface_t* new_libgd_specific_interface(
+interface_t* new_libgd_specific_interface(
     screen_t* screen, color_t* scratch, size_t scratch_length) {
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
 
   if (NULL == screen) {
     goto out;
   }
 
   // allocate
-  interface = malloc(sizeof(specific_interface_t));
+  interface = malloc(sizeof(interface_t));
   if (NULL == interface) {
     goto out;
   }
@@ -44,8 +44,6 @@ specific_interface_t* new_libgd_specific_interface(
 
   // set attributes
   interface->screen = screen;
-  interface->scratch = scratch;
-  interface->scratch_length = scratch_length;
 
   // normalize the screen
   int ret = screen_normalize(interface->screen);
@@ -59,7 +57,7 @@ out:
   return interface;
 }
 
-int release_libgd_specific_interface(specific_interface_t* interface) {
+int release_libgd_specific_interface(interface_t* interface) {
   int ret = 0;
   free(interface);
 out:
@@ -72,7 +70,7 @@ out:
  * @param interface
  * @return int
  */
-int libgd_specific_interface_show_memory(specific_interface_t* interface) {
+int libgd_specific_interface_show_memory(interface_t* interface) {
   int ret = 0;
   if (NULL == interface) {
     ret = -EINVAL;
@@ -108,7 +106,7 @@ out:
  * @param interface
  * @return png_t*
  */
-png_t* new_png_from_libgd_specific_interface(specific_interface_t* interface) {
+png_t* new_png_from_libgd_specific_interface(interface_t* interface) {
   png_t* png = NULL;
 
   if (NULL == interface) {

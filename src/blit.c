@@ -1,4 +1,4 @@
-#include "sicgl/specific/blit.h"
+#include "sicgl/blit.h"
 
 #include <errno.h>
 
@@ -16,7 +16,7 @@
  * @return int
  */
 int sicgl_specific_blit(
-    specific_interface_t* interface, screen_t* screen, color_t* sprite) {
+    interface_t* interface, screen_t* screen, color_t* sprite) {
   int ret = 0;
 
   if (NULL == interface) {

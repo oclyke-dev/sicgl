@@ -1,4 +1,4 @@
-#include "sicgl/specific/field.h"
+#include "sicgl/field.h"
 
 #include <errno.h>
 
@@ -19,7 +19,7 @@
 typedef int (*sequence_map_fn)(
     color_sequence_t* sequence, double phase, color_t* color);
 static int apply_specific_field(
-    specific_interface_t* interface, screen_t* screen, double* scalars,
+    interface_t* interface, screen_t* screen, double* scalars,
     color_sequence_t* sequence, sequence_map_fn map) {
   int ret = 0;
 
@@ -128,7 +128,7 @@ out:
  * @return int
  */
 int sicgl_specific_scalar_field(
-    specific_interface_t* interface, screen_t* screen, double* scalars,
+    interface_t* interface, screen_t* screen, double* scalars,
     color_sequence_t* sequence, bool discrete, bool circular) {
   int ret = 0;
 

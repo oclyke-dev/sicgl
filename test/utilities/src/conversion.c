@@ -71,7 +71,7 @@ out:
  * @return gdImage*
  */
 gdImage* new_image_from_libgd_specific_interface(
-    specific_interface_t* interface) {
+    interface_t* interface) {
   gdImage* image = NULL;
 
   if (NULL == interface) {

@@ -7,7 +7,7 @@ static void test_specific_blit_coords(int u, int v) {
   gdImage* image = NULL;
   screen_t* screen = NULL;
   screen_t* sprite_screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   png_t* img = NULL;
 
   if (TEST_PROTECT()) {

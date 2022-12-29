@@ -62,7 +62,7 @@ void test_rising_sun(void) {
   uint8_t buffer[buffer_length];
 
   screen_t* display = new_screen(width, height, 0, 0);
-  specific_interface_t* specific =
+  interface_t* specific =
       new_libgd_specific_interface(display, buffer, buffer_length);
 
   screen_t* screen = new_screen(width, height, -127, -127);
@@ -102,7 +102,7 @@ void test_bounding(void) {
   uint8_t buffer[buffer_length];
 
   screen_t* display = new_screen(width, height, 0, 0);
-  specific_interface_t* specific =
+  interface_t* specific =
       new_libgd_specific_interface(display, buffer, buffer_length);
   screen_t* bounds = new_screen(20, 20, 10, 10);
 

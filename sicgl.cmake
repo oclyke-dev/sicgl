@@ -7,17 +7,18 @@ set(SICGL_LIBRARIES sicgl ${SICGL_LIB_DEPS})
 
 set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/color_sequence.c
-	${SICGL_ROOT_DIR}/src/interpolation.c
 	${SICGL_ROOT_DIR}/src/iter.c
 	${SICGL_ROOT_DIR}/src/screen.c
 	${SICGL_ROOT_DIR}/src/translate.c
+	${SICGL_ROOT_DIR}/src/blit.c
+	${SICGL_ROOT_DIR}/src/field.c
+	
+	${SICGL_ROOT_DIR}/src/private/interpolation.c
+	${SICGL_ROOT_DIR}/src/private/direct.c
 
-	${SICGL_ROOT_DIR}/src/specific/blit.c
-	${SICGL_ROOT_DIR}/src/specific/direct.c
-	${SICGL_ROOT_DIR}/src/specific/display.c
-	${SICGL_ROOT_DIR}/src/specific/field.c
-	${SICGL_ROOT_DIR}/src/specific/global.c
-	${SICGL_ROOT_DIR}/src/specific/screen.c
+	${SICGL_ROOT_DIR}/src/domain/interface.c
+	${SICGL_ROOT_DIR}/src/domain/global.c
+	${SICGL_ROOT_DIR}/src/domain/screen.c
 )
 if(DEFINED DEBUG)
 	set(SICGL_SOURCES ${SICGL_SOURCES}

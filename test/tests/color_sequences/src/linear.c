@@ -8,7 +8,7 @@ void test_linear_case1(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -47,7 +47,7 @@ void test_linear_case1(void) {
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
-      ret = simultaneous_specific_pixel(reference, interface, color, idu, 1);
+      ret = simultaneous_interface_pixel(reference, interface, color, idu, 1);
       TEST_ASSERT_EQUAL_INT(0, ret);
     }
 
@@ -86,7 +86,7 @@ void test_linear_case2(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -127,7 +127,7 @@ void test_linear_case2(void) {
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
-      ret = simultaneous_specific_pixel(reference, interface, color, idu, 1);
+      ret = simultaneous_interface_pixel(reference, interface, color, idu, 1);
       TEST_ASSERT_EQUAL_INT(0, ret);
     }
 
@@ -166,7 +166,7 @@ void test_linear_case3(void) {
   gdImage* reference = NULL;
   gdImage* image = NULL;
   screen_t* screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   color_sequence_t* color_sequence = NULL;
   png_t* ref = NULL;
   png_t* img = NULL;
@@ -208,7 +208,7 @@ void test_linear_case3(void) {
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
-      ret = simultaneous_specific_pixel(reference, interface, color, idu, 1);
+      ret = simultaneous_interface_pixel(reference, interface, color, idu, 1);
       TEST_ASSERT_EQUAL_INT(0, ret);
     }
 

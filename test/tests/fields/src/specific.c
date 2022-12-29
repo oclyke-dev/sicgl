@@ -15,7 +15,7 @@ static void test_specific_field(
   gdImage* image = NULL;
   screen_t* screen = NULL;
   screen_t* scalar_screen = NULL;
-  specific_interface_t* interface = NULL;
+  interface_t* interface = NULL;
   png_t* img = NULL;
 
   TEST_ASSERT_NOT_NULL_MESSAGE(fn, "scalar field function was not provided");

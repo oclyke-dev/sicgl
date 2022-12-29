@@ -80,7 +80,7 @@ int main() {
       "generic_naive interface took %f seconds.\n", time_taken_generic_naive);
 
   // run test of specific_regular interface
-  specific_interface_t* specific_regular =
+  interface_t* specific_regular =
       new_libgd_specific_interface(display, NULL, 0);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
@@ -94,7 +94,7 @@ int main() {
       time_taken_specific_regular);
 
   // run test of specific_fast interface
-  specific_interface_t* specific_fast =
+  interface_t* specific_fast =
       new_libgd_specific_interface(screen, scratch, scratch_bytes);
   start = clock();
   for (size_t idx = 0; idx < num_tests; idx++) {
