@@ -25,7 +25,7 @@ static void test_blit_coords(int u, int v) {
     };
 
     // blit
-    int ret = sicgl_specific_blit(interface, sprite_screen, sprite);
+    int ret = sicgl_blit(interface, sprite_screen, sprite);
     image = new_image_from_libgd_specific_interface(interface);
     TEST_ASSERT_NOT_NULL_MESSAGE(image, "could not convert test image");
 
