@@ -49,9 +49,9 @@ static void test_specific_field(
       }
     } else {
       if (circular) {
-        map_fn = color_sequence_get_color_circular;
+        map_fn = color_sequence_get_color_continuous_circular;
       } else {
-        map_fn = color_sequence_get_color_linear;
+        map_fn = color_sequence_get_color_continuous_linear;
       }
     }
 
