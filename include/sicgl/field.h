@@ -6,6 +6,6 @@
 #include "sicgl/interface.h"
 #include "sicgl/screen.h"
 
-int sicgl_specific_scalar_field(
-    interface_t* interface, screen_t* screen, double* scalars,
-    color_sequence_t* sequence, bool discrete, bool circular);
+int sicgl_scalar_field(
+    interface_t* interface, screen_t* field, double* scalars,
+    color_sequence_t* sequence, sequence_map_fn map);

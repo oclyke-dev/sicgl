@@ -20,6 +20,9 @@ out:
   return len;
 }
 
+typedef int (*sequence_map_fn)(
+    color_sequence_t* sequence, double phase, color_t* color);
+
 int color_sequence_initialize(
     color_sequence_t* sequence, color_t* buffer, size_t length);
 int color_sequence_set_color(
@@ -27,6 +30,8 @@ int color_sequence_set_color(
 int color_sequence_get_color(
     color_sequence_t* sequence, size_t idx, color_t* color);
 
+// color sequence map functions
+// map a double to a color from a color sequence
 int color_sequence_get_color_linear(
     color_sequence_t* sequence, double phase, color_t* color);
 int color_sequence_get_color_circular(

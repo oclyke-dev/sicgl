@@ -15,8 +15,7 @@
  * @param sprite
  * @return int
  */
-int sicgl_specific_blit(
-    interface_t* interface, screen_t* screen, color_t* sprite) {
+int sicgl_blit(interface_t* interface, screen_t* screen, color_t* sprite) {
   int ret = 0;
 
   if (NULL == interface) {
