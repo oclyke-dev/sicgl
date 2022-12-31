@@ -9,24 +9,23 @@
  * @brief Map a color sequence onto a scalar field.
  * Parameterizes mapping with the 'map' function.
  * Internal use.
- *
- * @param interface
- * @param screen
- * @param sprite
- * @param sequence
- * @return int
+ * 
+ * @param interface 
+ * @param field screen defining the region over which to apply the field. coordinates must be in interface
+ * @param scalars scalar values to map to colors for each pixel. assumed to have sufficient length for the size of 'field' screen
+ * @param sequence color sequence used
+ * @param map function for mapping scalar value to color
+ * @return int 
  */
-typedef int (*sequence_map_fn)(
-    color_sequence_t* sequence, double phase, color_t* color);
-static int apply_specific_field(
-    interface_t* interface, screen_t* screen, double* scalars,
+int sicgl_scalar_field(
+    interface_t* interface, screen_t* field, double* scalars,
     color_sequence_t* sequence, sequence_map_fn map) {
   int ret = 0;
 
   if (NULL == interface) {
     goto out;
   }
-  if (NULL == screen) {
+  if (NULL == field) {
     ret = -ENOMEM;
     goto out;
   }
@@ -49,7 +48,7 @@ static int apply_specific_field(
 
   // find screen overlap
   screen_t intersection;
-  ret = screen_intersect(&intersection, screen, interface->screen);
+  ret = screen_intersect(&intersection, field, interface->screen);
   if (ret == SICGL_SCREEN_INTERSECTION_NONEXISTENT) {
     ret = 0;
     goto out;
@@ -68,7 +67,7 @@ static int apply_specific_field(
   // scalar screen starting location:
   ext_t su0 = intersection.u0;
   ext_t sv0 = intersection.v0;
-  ret = translate_screen_to_screen(&intersection, screen, &su0, &sv0);
+  ret = translate_screen_to_screen(&intersection, field, &su0, &sv0);
   if (0 != ret) {
     goto out;
   }
@@ -84,7 +83,7 @@ static int apply_specific_field(
 
   // the starting positions give us the starting offsets into the appropriate
   // buffers
-  size_t scalar_offset = screen->width * sv0 + su0;
+  size_t scalar_offset = field->width * sv0 + su0;
   size_t interface_offset = interface->screen->width * tv0 + tu0;
 
   // then simply loop over the intersection screen height copying data from
@@ -105,51 +104,9 @@ static int apply_specific_field(
     }
 
     // new line, carriage return
-    scalar_offset += screen->width - intersection.width;
+    scalar_offset += field->width - intersection.width;
     interface_offset += interface->screen->width - intersection.width;
   }
-
-out:
-  return ret;
-}
-
-/**
- * @brief
- *
- * @param interface
- * @param screen definition of the space over which to apply the field
- * @param scalars the scalar values, must be enough entries to cover the
- * provided screen
- * @param sequence the color sequence being mapped onto the scalars
- * @param discrete when true colors are sampled discretely, else continusouly
- * using interpolation
- * @param circular when true the scalar value is wrapped around the sequence
- * circularly, else it is clamped on the domain [0.0, 1.0]
- * @return int
- */
-int sicgl_specific_scalar_field(
-    interface_t* interface, screen_t* screen, double* scalars,
-    color_sequence_t* sequence, bool discrete, bool circular) {
-  int ret = 0;
-
-  // determine the map function
-  sequence_map_fn map_fn = NULL;
-  if (discrete) {
-    if (circular) {
-      map_fn = color_sequence_get_color_discrete_circular;
-    } else {
-      map_fn = color_sequence_get_color_discrete_linear;
-    }
-  } else {
-    if (circular) {
-      map_fn = color_sequence_get_color_circular;
-    } else {
-      map_fn = color_sequence_get_color_linear;
-    }
-  }
-
-  // call the helper
-  ret = apply_specific_field(interface, screen, scalars, sequence, map_fn);
 
 out:
   return ret;

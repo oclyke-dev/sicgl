@@ -39,9 +39,26 @@ static void test_specific_field(
       scalars[idx] = fn(u, v);
     }
 
+    // determine the map function
+    sequence_map_fn map_fn = NULL;
+    if (discrete) {
+      if (circular) {
+        map_fn = color_sequence_get_color_discrete_circular;
+      } else {
+        map_fn = color_sequence_get_color_discrete_linear;
+      }
+    } else {
+      if (circular) {
+        map_fn = color_sequence_get_color_circular;
+      } else {
+        map_fn = color_sequence_get_color_linear;
+      }
+    }
+
+
     // apply scalar field with color sequence
-    int ret = sicgl_specific_scalar_field(
-        interface, scalar_screen, scalars, sequence, discrete, circular);
+    int ret = sicgl_scalar_field(
+        interface, scalar_screen, scalars, sequence, map_fn);
 
     // save images to png
     char* disc = (discrete) ? "discrete" : "continuous";
