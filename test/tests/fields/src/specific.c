@@ -55,10 +55,9 @@ static void test_specific_field(
       }
     }
 
-
     // apply scalar field with color sequence
-    int ret = sicgl_scalar_field(
-        interface, scalar_screen, scalars, sequence, map_fn);
+    int ret =
+        sicgl_scalar_field(interface, scalar_screen, scalars, sequence, map_fn);
 
     // save images to png
     char* disc = (discrete) ? "discrete" : "continuous";

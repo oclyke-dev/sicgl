@@ -9,13 +9,15 @@
  * @brief Map a color sequence onto a scalar field.
  * Parameterizes mapping with the 'map' function.
  * Internal use.
- * 
- * @param interface 
- * @param field screen defining the region over which to apply the field. coordinates must be in interface
- * @param scalars scalar values to map to colors for each pixel. assumed to have sufficient length for the size of 'field' screen
+ *
+ * @param interface
+ * @param field screen defining the region over which to apply the field.
+ * coordinates must be in interface
+ * @param scalars scalar values to map to colors for each pixel. assumed to have
+ * sufficient length for the size of 'field' screen
  * @param sequence color sequence used
  * @param map function for mapping scalar value to color
- * @return int 
+ * @return int
  */
 int sicgl_scalar_field(
     interface_t* interface, screen_t* field, double* scalars,
