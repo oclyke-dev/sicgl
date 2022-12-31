@@ -43,7 +43,8 @@ void test_circular_case1(void) {
       double phase = ((idu - 1) / (double)(width - 3));
 
       // perform the interpolation
-      ret = color_sequence_get_color_continuous_circular(color_sequence, phase, &color);
+      ret = color_sequence_get_color_continuous_circular(
+          color_sequence, phase, &color);
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
@@ -123,7 +124,8 @@ void test_circular_case2(void) {
       double phase = ((idu - 1) / (double)(width - 3));
 
       // perform the interpolation
-      ret = color_sequence_get_color_continuous_circular(color_sequence, phase, &color);
+      ret = color_sequence_get_color_continuous_circular(
+          color_sequence, phase, &color);
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
@@ -203,7 +205,8 @@ void test_circular_case3(void) {
       double phase = 2 * ((idu - 1) / (double)(width - 3));
 
       // perform the interpolation
-      ret = color_sequence_get_color_continuous_circular(color_sequence, phase, &color);
+      ret = color_sequence_get_color_continuous_circular(
+          color_sequence, phase, &color);
       TEST_ASSERT_EQUAL_INT(0, ret);
 
       // draw a pixel at this location
