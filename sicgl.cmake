@@ -7,6 +7,7 @@ set(SICGL_LIBRARIES sicgl ${SICGL_LIB_DEPS})
 
 set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/color_sequence.c
+	${SICGL_ROOT_DIR}/src/compose.c
 	${SICGL_ROOT_DIR}/src/iter.c
 	${SICGL_ROOT_DIR}/src/screen.c
 	${SICGL_ROOT_DIR}/src/translate.c
