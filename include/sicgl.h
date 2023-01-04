@@ -9,6 +9,7 @@
 #include "sicgl/domain/screen.h"
 #include "sicgl/extent.h"
 #include "sicgl/field.h"
+#include "sicgl/gamma.h"
 #include "sicgl/interface.h"
 #include "sicgl/iterator.h"
 #include "sicgl/screen.h"

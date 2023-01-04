@@ -12,6 +12,7 @@ set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/translate.c
 	${SICGL_ROOT_DIR}/src/blit.c
 	${SICGL_ROOT_DIR}/src/field.c
+	${SICGL_ROOT_DIR}/src/gamma.c
 	
 	${SICGL_ROOT_DIR}/src/private/interpolation.c
 	${SICGL_ROOT_DIR}/src/private/direct.c
