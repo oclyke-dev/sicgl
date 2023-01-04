@@ -51,7 +51,7 @@ int sicgl_gamma_correct(interface_t* input, interface_t* output) {
     length = output->length;
   }
   for (size_t idx = 0; idx < length; idx++) {
-    output->memory[idx] = gamma_correct_color(input->memory);
+    output->memory[idx] = gamma_correct_color(input->memory[idx]);
   }
 
 out:
