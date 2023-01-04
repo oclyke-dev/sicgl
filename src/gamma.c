@@ -41,9 +41,11 @@ int sicgl_gamma_correct(interface_t* input, interface_t* output) {
 
   if (NULL == input) {
     ret = -ENOMEM;
+    goto out;
   }
   if (NULL == output) {
     ret = -ENOMEM;
+    goto out;
   }
 
   size_t length = input->length;
