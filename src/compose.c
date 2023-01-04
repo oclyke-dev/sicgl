@@ -35,6 +35,10 @@ int sicgl_compose(
     ret = -ENOMEM;
     goto out;
   }
+  if (NULL == compositor) {
+    ret = -EINVAL;
+    goto out;
+  }
 
   // find screen overlap
   screen_t intersection;
