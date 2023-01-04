@@ -23,17 +23,11 @@ static const uint8_t gamma8[] = {
     255};
 
 static inline color_t gamma_correct_color(color_t color) {
-  uint8_t red = (color >> 16) & 0xff;
-  uint8_t green = (color >> 8) & 0xff;
-  uint8_t blue = (color >> 0) & 0xff;
-
-  uint8_t g_red = gamma8[red];
-  uint8_t g_green = gamma8[green];
-  uint8_t g_blue = gamma8[blue];
-
-  return (
-      ((color_t)g_red << 16) | ((color_t)g_green << 8) |
-      ((color_t)g_blue << 0));
+  return color_from_channels(
+    gamma8[(uint8_t)color_channel_red(color)],
+    gamma8[(uint8_t)color_channel_green(color)],
+    gamma8[(uint8_t)color_channel_blue(color)]
+  );
 }
 
 int sicgl_gamma_correct(interface_t* input, interface_t* output) {
