@@ -1,6 +1,7 @@
 #include "sicgl/debug.h"
 #include "sicgl/domain/interface.h"
 #include "sicgl/translate.h"
+#include "sicgl/domain/screen.h"
 
 /**
  * @brief Screen-relative drawing functions.
@@ -81,16 +82,6 @@ int sicgl_screen_rectangle_filled(
     goto out;
   }
   ret = translate_screen_to_screen(screen, interface->screen, &u1, &v1);
-  if (0 != ret) {
-    goto out;
-  }
-
-  ret = screen_clip_pixel(screen, &u0, &v0);
-  if (0 != ret) {
-    goto out;
-  }
-
-  ret = screen_clip_pixel(screen, &u1, &v1);
   if (0 != ret) {
     goto out;
   }

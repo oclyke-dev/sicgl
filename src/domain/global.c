@@ -74,16 +74,6 @@ int sicgl_global_rectangle_filled(
     goto out;
   }
 
-  ret = screen_clip_pixel(interface->screen, &u0, &v0);
-  if (0 != ret) {
-    goto out;
-  }
-
-  ret = screen_clip_pixel(interface->screen, &u1, &v1);
-  if (0 != ret) {
-    goto out;
-  }
-
   ret = sicgl_interface_rectangle_filled(interface, color, u0, v0, u1, v1);
   if (0 != ret) {
     goto out;

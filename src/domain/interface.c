@@ -47,12 +47,22 @@ static int sicgl_interface_region(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
     ext_t v1) {
   int ret = 0;
-  ret = screen_clip_pixel(interface->screen, &u0, &v0);
-  if (ret < 0) {
+
+  // use in-bounds coordinates to ensure proper clipping of horizontal and vertical dimensions
+  ext_t u_inbounds = interface->screen->u0;
+  ext_t v_inbounds = interface->screen->v0;
+  ret = screen_clip_hline(interface->screen, &u0, &v_inbounds, &u1);
+  if (ret > 0) {
+    ret = 0;
+    goto out;
+  } else if (ret < 0) {
     goto out;
   }
-  ret = screen_clip_pixel(interface->screen, &u1, &v1);
-  if (ret < 0) {
+  ret = screen_clip_vline(interface->screen, &u_inbounds, &v0, &v1);
+  if (ret > 0) {
+    ret = 0;
+    goto out;
+  } else if (ret < 0) {
     goto out;
   }
 

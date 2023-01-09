@@ -15,7 +15,7 @@ int sicgl_screen_rectangle(
     interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0,
     ext_t u1, ext_t v1);
 int sicgl_screen_rectangle_filled(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0, ext_t u1,
     ext_t v1);
 int sicgl_screen_circle_bresenham(
     interface_t* interface, screen_t* screen, color_t color, ext_t u0, ext_t v0,
