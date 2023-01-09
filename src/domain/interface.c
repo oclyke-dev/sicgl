@@ -44,7 +44,8 @@ out:
 }
 
 static int sicgl_interface_region(
-  interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    ext_t v1) {
   int ret = 0;
   ret = screen_clip_pixel(interface->screen, &u0, &v0);
   if (ret < 0) {
@@ -101,7 +102,9 @@ static int sicgl_interface_circle_eight(
  */
 int sicgl_interface_fill(interface_t* interface, color_t color) {
   int ret = 0;
-  ret = sicgl_interface_region(interface, color, interface->screen->u0, interface->screen->v0, interface->screen->u1, interface->screen->v1);
+  ret = sicgl_interface_region(
+      interface, color, interface->screen->u0, interface->screen->v0,
+      interface->screen->u1, interface->screen->v1);
 out:
   return ret;
 }

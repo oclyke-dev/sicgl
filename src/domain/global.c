@@ -60,7 +60,6 @@ out:
   return ret;
 }
 
-
 int sicgl_global_rectangle_filled(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
     ext_t v1) {
