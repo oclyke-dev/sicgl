@@ -48,7 +48,8 @@ static int sicgl_interface_region(
     ext_t v1) {
   int ret = 0;
 
-  // use in-bounds coordinates to ensure proper clipping of horizontal and vertical dimensions
+  // use in-bounds coordinates to ensure proper clipping of horizontal and
+  // vertical dimensions
   ext_t u_inbounds = interface->screen->u0;
   ext_t v_inbounds = interface->screen->v0;
   ret = screen_clip_hline(interface->screen, &u0, &v_inbounds, &u1);

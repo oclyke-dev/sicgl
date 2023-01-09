@@ -1,7 +1,8 @@
+#include "sicgl/domain/screen.h"
+
 #include "sicgl/debug.h"
 #include "sicgl/domain/interface.h"
 #include "sicgl/translate.h"
-#include "sicgl/domain/screen.h"
 
 /**
  * @brief Screen-relative drawing functions.
