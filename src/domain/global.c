@@ -60,6 +60,40 @@ out:
   return ret;
 }
 
+
+int sicgl_global_rectangle_filled(
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    ext_t v1) {
+  int ret = 0;
+
+  ret = translate_global_to_screen(interface->screen, &u0, &v0);
+  if (0 != ret) {
+    goto out;
+  }
+  ret = translate_global_to_screen(interface->screen, &u1, &v1);
+  if (0 != ret) {
+    goto out;
+  }
+
+  ret = screen_clip_pixel(interface->screen, &u0, &v0);
+  if (0 != ret) {
+    goto out;
+  }
+
+  ret = screen_clip_pixel(interface->screen, &u1, &v1);
+  if (0 != ret) {
+    goto out;
+  }
+
+  ret = sicgl_interface_rectangle_filled(interface, color, u0, v0, u1, v1);
+  if (0 != ret) {
+    goto out;
+  }
+
+out:
+  return ret;
+}
+
 int sicgl_global_circle_bresenham(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t diameter) {
   int ret = 0;

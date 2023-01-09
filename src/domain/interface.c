@@ -43,6 +43,24 @@ out:
   return ret;
 }
 
+static int sicgl_interface_region(
+  interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1, ext_t v1) {
+  int ret = 0;
+  ret = screen_clip_pixel(interface->screen, &u0, &v0);
+  if (ret < 0) {
+    goto out;
+  }
+  ret = screen_clip_pixel(interface->screen, &u1, &v1);
+  if (ret < 0) {
+    goto out;
+  }
+
+  sicgl_direct_region(interface, color, u0, v0, u1, v1);
+
+out:
+  return ret;
+}
+
 static int sicgl_interface_diagonal(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t diru,
     ext_t dirv, uext_t count) {
@@ -71,6 +89,20 @@ static int sicgl_interface_circle_eight(
   sicgl_direct_pixel(interface, color, u0 - dv, v0 + du);
   sicgl_direct_pixel(interface, color, u0 + dv, v0 - du);
   sicgl_direct_pixel(interface, color, u0 - dv, v0 - du);
+  return ret;
+}
+
+/**
+ * @brief
+ *
+ * @param interface
+ * @param color
+ * @return int
+ */
+int sicgl_interface_fill(interface_t* interface, color_t color) {
+  int ret = 0;
+  ret = sicgl_interface_region(interface, color, interface->screen->u0, interface->screen->v0, interface->screen->u1, interface->screen->v1);
+out:
   return ret;
 }
 
@@ -283,15 +315,6 @@ out:
   return ret;
 }
 
-int sicgl_rectangle(
-    interface_t* interface, color_t color, uext_t u0, uext_t v0, uext_t u1,
-    uext_t v1) {
-  int ret = 0;
-
-out:
-  return ret;
-}
-
 int sicgl_interface_rectangle(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
     ext_t v1) {
@@ -317,6 +340,15 @@ int sicgl_interface_rectangle(
     goto out;
   }
 
+out:
+  return ret;
+}
+
+int sicgl_interface_rectangle_filled(
+    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t u1,
+    ext_t v1) {
+  int ret = 0;
+  ret = sicgl_interface_region(interface, color, u0, v0, u1, v1);
 out:
   return ret;
 }
