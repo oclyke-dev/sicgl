@@ -83,7 +83,9 @@ int sicgl_compose(
   // the sprite buffer to the target buffer (using the full width of the
   // intersection)
   for (size_t idx = 0; idx < intersection.height; idx++) {
-    compositor(&sprite[sprite_offset], &interface->memory[interface_offset]);
+    compositor(
+        &sprite[sprite_offset], &interface->memory[interface_offset],
+        intersection.width);
 
     // add whole rows to sprite and interface offsets
     sprite_offset += screen->width;
