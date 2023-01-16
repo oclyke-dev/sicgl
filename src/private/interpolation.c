@@ -23,9 +23,12 @@ static inline int interpolate_color_between(
   color_t blue = (phase * ((int)color_channel_blue(upper) -
                            (int)color_channel_blue(lower))) +
                  color_channel_blue(lower);
+  color_t alpha = (phase * ((int)color_channel_alpha(upper) -
+                            (int)color_channel_alpha(lower))) +
+                  color_channel_alpha(lower);
 
   // assemble the resulting color
-  *color = color_from_channels(red, green, blue);
+  *color = color_from_channels(red, green, blue, alpha);
 
 out:
   return ret;

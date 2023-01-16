@@ -28,7 +28,8 @@ static inline color_t color_channel_blue(color_t color) {
 
 // tools to assemble color channels
 static inline color_t color_from_channels(
-    color_t red, color_t green, color_t blue) {
+    color_t red, color_t green, color_t blue, color_t alpha) {
   return (
-      ((red & 0xff) << 16U) | ((green & 0xff) << 8U) | ((blue & 0xff) << 0U));
+      (((alpha & 0xff) << 24U) | (red & 0xff) << 16U) | ((green & 0xff) << 8U) |
+      ((blue & 0xff) << 0U));
 }
