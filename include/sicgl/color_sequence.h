@@ -32,12 +32,12 @@ int color_sequence_get_color(
 
 // color sequence map functions
 // map a double to a color from a color sequence
-int color_sequence_get_color_continuous_linear(
+int color_sequence_interpolate_color_continuous_linear(
     color_sequence_t* sequence, double phase, color_t* color);
-int color_sequence_get_color_continuous_circular(
+int color_sequence_interpolate_color_continuous_circular(
     color_sequence_t* sequence, double phase, color_t* color);
 
-int color_sequence_get_color_discrete_linear(
+int color_sequence_interpolate_color_discrete_linear(
     color_sequence_t* sequence, double phase, color_t* color);
-int color_sequence_get_color_discrete_circular(
+int color_sequence_interpolate_color_discrete_circular(
     color_sequence_t* sequence, double phase, color_t* color);

@@ -43,15 +43,15 @@ static void test_specific_field(
     sequence_map_fn map_fn = NULL;
     if (discrete) {
       if (circular) {
-        map_fn = color_sequence_get_color_discrete_circular;
+        map_fn = color_sequence_interpolate_color_discrete_circular;
       } else {
-        map_fn = color_sequence_get_color_discrete_linear;
+        map_fn = color_sequence_interpolate_color_discrete_linear;
       }
     } else {
       if (circular) {
-        map_fn = color_sequence_get_color_continuous_circular;
+        map_fn = color_sequence_interpolate_color_continuous_circular;
       } else {
-        map_fn = color_sequence_get_color_continuous_linear;
+        map_fn = color_sequence_interpolate_color_continuous_linear;
       }
     }
 
