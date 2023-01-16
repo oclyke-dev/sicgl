@@ -43,7 +43,7 @@ void test_linear_case1(void) {
       double phase = ((idu - 1) / (double)(width - 3));
 
       // perform the interpolation
-      ret = color_sequence_get_color_continuous_linear(
+      ret = color_sequence_interpolate_color_continuous_linear(
           color_sequence, phase, &color);
       TEST_ASSERT_EQUAL_INT(0, ret);
 
@@ -124,7 +124,7 @@ void test_linear_case2(void) {
       double phase = ((idu - 1) / (double)(width - 3));
 
       // perform the interpolation
-      ret = color_sequence_get_color_continuous_linear(
+      ret = color_sequence_interpolate_color_continuous_linear(
           color_sequence, phase, &color);
       TEST_ASSERT_EQUAL_INT(0, ret);
 
@@ -205,7 +205,7 @@ void test_linear_case3(void) {
       double phase = ((idu - 1) / (double)(width - 3));
 
       // perform the interpolation
-      ret = color_sequence_get_color_discrete_linear(
+      ret = color_sequence_interpolate_color_discrete_linear(
           color_sequence, phase, &color);
       TEST_ASSERT_EQUAL_INT(0, ret);
 

@@ -54,7 +54,7 @@ out:
   return ret;
 }
 
-int color_sequence_get_color_continuous_linear(
+int color_sequence_interpolate_color_continuous_linear(
     color_sequence_t* sequence, double phase, color_t* color) {
   int ret = 0;
   if (NULL == sequence) {
@@ -75,7 +75,7 @@ int color_sequence_get_color_continuous_linear(
 out:
   return ret;
 }
-int color_sequence_get_color_continuous_circular(
+int color_sequence_interpolate_color_continuous_circular(
     color_sequence_t* sequence, double phase, color_t* color) {
   int ret = 0;
   if (NULL == sequence) {
@@ -97,7 +97,7 @@ out:
   return ret;
 }
 
-int color_sequence_get_color_discrete_linear(
+int color_sequence_interpolate_color_discrete_linear(
     color_sequence_t* sequence, double phase, color_t* color) {
   int ret = 0;
   if (NULL == sequence) {
@@ -136,7 +136,7 @@ out:
   return ret;
 }
 
-int color_sequence_get_color_discrete_circular(
+int color_sequence_interpolate_color_discrete_circular(
     color_sequence_t* sequence, double phase, color_t* color) {
   int ret = 0;
   if (NULL == sequence) {
