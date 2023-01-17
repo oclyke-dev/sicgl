@@ -20,7 +20,7 @@
  * @return int
  */
 int sicgl_scalar_field(
-    interface_t* interface, screen_t* field, double* scalars,
+    interface_t* interface, screen_t* field, double* scalars, double offset,
     color_sequence_t* sequence, sequence_map_fn map) {
   int ret = 0;
 
@@ -94,7 +94,7 @@ int sicgl_scalar_field(
   for (size_t idv = 0; idv < intersection.height; idv++) {
     for (size_t idu = 0; idu < intersection.width; idu++) {
       color_t color;
-      ret = map(sequence, scalars[scalar_offset], &color);
+      ret = map(sequence, scalars[scalar_offset] + offset, &color);
       if (0 != ret) {
         goto out;
       }

@@ -7,5 +7,5 @@
 #include "sicgl/screen.h"
 
 int sicgl_scalar_field(
-    interface_t* interface, screen_t* field, double* scalars,
+    interface_t* interface, screen_t* field, double* scalars, double offset,
     color_sequence_t* sequence, sequence_map_fn map);
