@@ -7,3 +7,6 @@
 [submodule "third-party/libgd"]
 	path = third-party/libgd
 	url = https://github.com/libgd/libgd
+[submodule "tools/third-party/run-clang-format"]
+	path = tools/third-party/run-clang-format
+	url = https://github.com/Sarcasm/run-clang-format.git

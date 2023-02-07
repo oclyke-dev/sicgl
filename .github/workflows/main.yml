@@ -13,13 +13,20 @@ jobs:
     steps:
       # check out the repo
       - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      # install clang-format
+      - name: install clang-format
+        run: |
+          sudo apt update
+          sudo apt install clang-format
+          clang-format --version
 
       # lint using clang-format
       - name: clang-format lint
-        uses: DoozyX/clang-format-lint-action@v0.14
-        with:
-          source: 'src include test'
-          clangFormatVersion: 14
+        run: |
+          ./scripts/third-party/run-clang-format/run-clang-format.py -r src include
   
   test:
     runs-on: ubuntu-latest
