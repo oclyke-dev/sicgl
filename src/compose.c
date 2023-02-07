@@ -13,11 +13,13 @@
  * @param interface
  * @param screen
  * @param sprite
+ * @param compositor
+ * @param args
  * @return int
  */
 int sicgl_compose(
     interface_t* interface, screen_t* screen, color_t* sprite,
-    compositor_fn compositor) {
+    compositor_fn compositor, void* args) {
   int ret = 0;
 
   if (NULL == interface) {
@@ -85,7 +87,7 @@ int sicgl_compose(
   for (size_t idx = 0; idx < intersection.height; idx++) {
     compositor(
         &sprite[sprite_offset], &interface->memory[interface_offset],
-        intersection.width);
+        intersection.width, args);
 
     // add whole rows to sprite and interface offsets
     sprite_offset += screen->width;
