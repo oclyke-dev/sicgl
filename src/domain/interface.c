@@ -93,14 +93,14 @@ static int sicgl_interface_circle_eight(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t du,
     ext_t dv) {
   int ret = 0;
-  sicgl_direct_pixel(interface, color, u0 + du, v0 + dv);
-  sicgl_direct_pixel(interface, color, u0 - du, v0 + dv);
-  sicgl_direct_pixel(interface, color, u0 + du, v0 - dv);
-  sicgl_direct_pixel(interface, color, u0 - du, v0 - dv);
-  sicgl_direct_pixel(interface, color, u0 + dv, v0 + du);
-  sicgl_direct_pixel(interface, color, u0 - dv, v0 + du);
-  sicgl_direct_pixel(interface, color, u0 + dv, v0 - du);
-  sicgl_direct_pixel(interface, color, u0 - dv, v0 - du);
+  sicgl_interface_pixel(interface, color, u0 + du, v0 + dv);
+  sicgl_interface_pixel(interface, color, u0 - du, v0 + dv);
+  sicgl_interface_pixel(interface, color, u0 + du, v0 - dv);
+  sicgl_interface_pixel(interface, color, u0 - du, v0 - dv);
+  sicgl_interface_pixel(interface, color, u0 + dv, v0 + du);
+  sicgl_interface_pixel(interface, color, u0 - dv, v0 + du);
+  sicgl_interface_pixel(interface, color, u0 + dv, v0 - du);
+  sicgl_interface_pixel(interface, color, u0 - dv, v0 - du);
   return ret;
 }
 
@@ -167,14 +167,7 @@ int sicgl_interface_line(
 
   // handle simple cases
   if ((u0 == u1) && (v0 == v1)) {
-    ret = screen_clip_pixel(screen, u0, v0);
-    if (ret == 0) {
-      sicgl_direct_pixel(interface, color, u0, v0);
-      goto out;
-    } else if (ret > 0) {
-      ret = 0;
-      goto out;
-    }
+    ret = sicgl_interface_pixel(interface, color, u0, v0);
     goto out;
   }
   if (v0 == v1) {
@@ -488,8 +481,8 @@ int sicgl_interface_ellipse(
   b = semiv;
 
   // draw pixels at either end
-  sicgl_direct_pixel(interface, color, u0 + a, v0);
-  sicgl_direct_pixel(interface, color, u0 - a, v0);
+  sicgl_interface_pixel(interface, color, u0 + a, v0);
+  sicgl_interface_pixel(interface, color, u0 - a, v0);
 
   mu0 = u0 - a;
   mv0 = v0;
@@ -518,10 +511,10 @@ int sicgl_interface_ellipse(
       rx -= dy;
       r += rx;
     }
-    sicgl_direct_pixel(interface, color, mu0, mv0);
-    sicgl_direct_pixel(interface, color, mu0, mv1);
-    sicgl_direct_pixel(interface, color, mu1, mv0);
-    sicgl_direct_pixel(interface, color, mu1, mv1);
+    sicgl_interface_pixel(interface, color, mu0, mv0);
+    sicgl_interface_pixel(interface, color, mu0, mv1);
+    sicgl_interface_pixel(interface, color, mu1, mv0);
+    sicgl_interface_pixel(interface, color, mu1, mv1);
   }
 
 out:
