@@ -116,7 +116,6 @@ int sicgl_interface_fill(interface_t* interface, color_t color) {
   ret = sicgl_interface_region(
       interface, color, interface->screen->u0, interface->screen->v0,
       interface->screen->u1, interface->screen->v1);
-out:
   return ret;
 }
 
@@ -356,7 +355,6 @@ int sicgl_interface_rectangle_filled(
     ext_t v1) {
   int ret = 0;
   ret = sicgl_interface_region(interface, color, u0, v0, u1, v1);
-out:
   return ret;
 }
 
@@ -517,6 +515,5 @@ int sicgl_interface_ellipse(
     sicgl_interface_pixel(interface, color, mu1, mv1);
   }
 
-out:
   return ret;
 }

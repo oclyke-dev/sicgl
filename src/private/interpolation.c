@@ -14,16 +14,16 @@ static inline int interpolate_color_between(
   }
 
   // interpolate channels individually
-  color_t red = (phase * ((int)color_channel_red(upper) -
+  color_t red = (color_t)(phase * ((int)color_channel_red(upper) -
                           (int)color_channel_red(lower))) +
                 color_channel_red(lower);
-  color_t green = (phase * ((int)color_channel_green(upper) -
+  color_t green = (color_t)(phase * ((int)color_channel_green(upper) -
                             (int)color_channel_green(lower))) +
                   color_channel_green(lower);
-  color_t blue = (phase * ((int)color_channel_blue(upper) -
+  color_t blue = (color_t)(phase * ((int)color_channel_blue(upper) -
                            (int)color_channel_blue(lower))) +
                  color_channel_blue(lower);
-  color_t alpha = (phase * ((int)color_channel_alpha(upper) -
+  color_t alpha = (color_t)(phase * ((int)color_channel_alpha(upper) -
                             (int)color_channel_alpha(lower))) +
                   color_channel_alpha(lower);
 
@@ -60,10 +60,10 @@ int interpolate_color_linear(
   }
 
   // linear interpolation gets clamped at the array bounds
-  if (phase <= 0.0f) {
+  if (phase <= 0.0) {
     *color = colors[0];
     goto out;
-  } else if (phase >= 1.0f) {
+  } else if (phase >= 1.0) {
     *color = colors[length - 1];
     goto out;
   }
@@ -71,8 +71,8 @@ int interpolate_color_linear(
   // get bounding values
   size_t max_idx = length - 1;
   double center = phase * max_idx;   // center E [0, max_idx]
-  size_t lower_idx = floor(center);  // lower E [0, max_idx], integer
-  size_t upper_idx = ceil(center);   // upper E [0, max_idx], integer
+  size_t lower_idx = (size_t)floor(center);  // lower E [0, max_idx], integer
+  size_t upper_idx = (size_t)ceil(center);   // upper E [0, max_idx], integer
 
   // handle balance case
   if (lower_idx == upper_idx) {
@@ -81,7 +81,7 @@ int interpolate_color_linear(
   }
 
   // get delta from the lower index
-  double spacing = 1.0f / max_idx;
+  double spacing = 1.0 / max_idx;
   double delta = (phase / spacing) - lower_idx;
 
   // interpolate between these two colors
@@ -121,15 +121,15 @@ int interpolate_color_circular(
   }
 
   // circular interpolation restricts the phase to the range [0.0, 1.0]
-  phase = fmod(phase, 1.0f);
-  if (phase < 0.0f) {
-    phase += 1.0f;
+  phase = fmod(phase, 1.0);
+  if (phase < 0.0) {
+    phase += 1.0;
   }
 
   // get bounding values
   double center = phase * length;    // center E [0, length]
-  size_t lower_idx = floor(center);  // lower E [0, length], integer
-  size_t upper_idx = ceil(center);   // upper E [0, length], integer
+  size_t lower_idx = (size_t)floor(center);  // lower E [0, length], integer
+  size_t upper_idx = (size_t)ceil(center);   // upper E [0, length], integer
 
   // handle balance case
   if (lower_idx == upper_idx) {
@@ -143,7 +143,7 @@ int interpolate_color_circular(
   }
 
   // get delta from the lower
-  double spacing = 1.0f / length;
+  double spacing = 1.0 / length;
   double delta = (phase / spacing) - lower_idx;
 
   // interpolate between these two colors
