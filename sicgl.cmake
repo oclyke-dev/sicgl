@@ -6,14 +6,22 @@ set(SICGL_ROOT_DIR ${CMAKE_SOURCE_DIR})
 set(SICGL_LIBRARIES sicgl ${SICGL_LIB_DEPS})
 
 set(SICGL_SOURCES
+	${SICGL_ROOT_DIR}/src/blend.c
+	${SICGL_ROOT_DIR}/src/blenders.c
 	${SICGL_ROOT_DIR}/src/color_sequence.c
 	${SICGL_ROOT_DIR}/src/compose.c
+	${SICGL_ROOT_DIR}/src/compositors/alpha.c
+	${SICGL_ROOT_DIR}/src/compositors/bitwise.c
+	${SICGL_ROOT_DIR}/src/compositors/channelwise.c
+	${SICGL_ROOT_DIR}/src/compositors/direct.c
+	${SICGL_ROOT_DIR}/src/compositors/simple_alpha.c
 	${SICGL_ROOT_DIR}/src/iter.c
 	${SICGL_ROOT_DIR}/src/screen.c
 	${SICGL_ROOT_DIR}/src/translate.c
 	${SICGL_ROOT_DIR}/src/blit.c
 	${SICGL_ROOT_DIR}/src/field.c
 	${SICGL_ROOT_DIR}/src/gamma.c
+	${SICGL_ROOT_DIR}/src/unity_color.c
 	
 	${SICGL_ROOT_DIR}/src/private/interpolation.c
 	${SICGL_ROOT_DIR}/src/private/direct.c
