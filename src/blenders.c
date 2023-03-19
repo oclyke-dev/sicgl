@@ -72,10 +72,23 @@ static inline color_t color_screen(unity_color_t Cmem, unity_color_t Csrc) {
   return color_from_unity_color(Cmem);
 }
 
-// seperable blending
+// separable blending
 void blend_normal(color_t* memory, color_t* source, size_t width, void* args) {
+  // do nothing - normal blending ignores the source and keeps only the memory
+}
+
+void blend_forget(color_t* memory, color_t* source, size_t width, void* args) {
+  // forget will ignore the memory value and use only the backdrop
+  // however the alpha component of the memory is retained
   for (size_t idx = 0; idx < width; idx++) {
-    memory[idx] = source[idx];
+    color_t mem = memory[idx];
+    color_t src = source[idx];
+    memory[idx] = color_from_channels(
+      color_channel_red(src),
+      color_channel_green(src),
+      color_channel_blue(src),
+      color_channel_alpha(mem)
+    );
   }
 }
 
