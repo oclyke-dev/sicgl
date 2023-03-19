@@ -121,15 +121,15 @@ int color_sequence_interpolate_color_discrete_linear(
   }
 
   // linear sequences are clipped to the domain
-  if (phase < 0.0f) {
+  if (phase < 0.0) {
     *color = sequence->colors[0];
     goto out;
-  } else if (phase > 1.0f) {
+  } else if (phase > 1.0) {
     *color = sequence->colors[sequence->length - 1];
     goto out;
   }
 
-  size_t idx = phase * sequence->length;
+  size_t idx = (size_t)(phase * sequence->length);
   *color = sequence->colors[idx];
 
 out:
@@ -160,12 +160,12 @@ int color_sequence_interpolate_color_discrete_circular(
   }
 
   // circular sequences restrict the phase to the range [0.0, 1.0]
-  phase = fmod(phase, 1.0f);
-  if (phase < 0.0f) {
-    phase += 1.0f;
+  phase = fmod(phase, 1.0);
+  if (phase < 0.0) {
+    phase += 1.0;
   }
 
-  size_t idx = phase * (sequence->length) + 0.5f;
+  size_t idx = (size_t)(phase * (sequence->length) + 0.5);
 
   if (idx >= sequence->length) {
     *color = sequence->colors[0];

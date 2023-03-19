@@ -645,7 +645,7 @@ static int screen_clip_line_partial(
     // we already know the slope, it is easy to check the other point as well
     // now
     if (*u1 > umax) {
-      *v1 += slope * (umax - *u1);
+      *v1 += (ext_t)slope * (umax - *u1);
       *u1 = umax;
     }
     goto out;

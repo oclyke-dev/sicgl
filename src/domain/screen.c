@@ -15,7 +15,6 @@ int sicgl_screen_fill(interface_t* interface, screen_t* screen, color_t color) {
   int ret = 0;
   ret = sicgl_screen_rectangle_filled(
       interface, screen, color, screen->u0, screen->v0, screen->u1, screen->v1);
-out:
   return ret;
 }
 
