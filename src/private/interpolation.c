@@ -14,18 +14,18 @@ static inline int interpolate_color_between(
   }
 
   // interpolate channels individually
-  color_t red = (color_t)(phase * ((int)color_channel_red(upper) -
-                          (int)color_channel_red(lower))) +
-                color_channel_red(lower);
-  color_t green = (color_t)(phase * ((int)color_channel_green(upper) -
-                            (int)color_channel_green(lower))) +
-                  color_channel_green(lower);
-  color_t blue = (color_t)(phase * ((int)color_channel_blue(upper) -
-                           (int)color_channel_blue(lower))) +
-                 color_channel_blue(lower);
-  color_t alpha = (color_t)(phase * ((int)color_channel_alpha(upper) -
-                            (int)color_channel_alpha(lower))) +
-                  color_channel_alpha(lower);
+  color_t red =
+      (color_t)(phase * ((int)color_channel_red(upper) - (int)color_channel_red(lower))) +
+      color_channel_red(lower);
+  color_t green =
+      (color_t)(phase * ((int)color_channel_green(upper) - (int)color_channel_green(lower))) +
+      color_channel_green(lower);
+  color_t blue =
+      (color_t)(phase * ((int)color_channel_blue(upper) - (int)color_channel_blue(lower))) +
+      color_channel_blue(lower);
+  color_t alpha =
+      (color_t)(phase * ((int)color_channel_alpha(upper) - (int)color_channel_alpha(lower))) +
+      color_channel_alpha(lower);
 
   // assemble the resulting color
   *color = color_from_channels(red, green, blue, alpha);
@@ -70,7 +70,7 @@ int interpolate_color_linear(
 
   // get bounding values
   size_t max_idx = length - 1;
-  double center = phase * max_idx;   // center E [0, max_idx]
+  double center = phase * max_idx;           // center E [0, max_idx]
   size_t lower_idx = (size_t)floor(center);  // lower E [0, max_idx], integer
   size_t upper_idx = (size_t)ceil(center);   // upper E [0, max_idx], integer
 
@@ -127,7 +127,7 @@ int interpolate_color_circular(
   }
 
   // get bounding values
-  double center = phase * length;    // center E [0, length]
+  double center = phase * length;            // center E [0, length]
   size_t lower_idx = (size_t)floor(center);  // lower E [0, length], integer
   size_t upper_idx = (size_t)ceil(center);   // upper E [0, length], integer
 
