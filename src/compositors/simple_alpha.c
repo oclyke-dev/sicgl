@@ -14,7 +14,7 @@ void compositor_alpha_simple(
     unity_color_premultiply(&Cd);
 
     // compute helpful values
-    double one_minus_alpha_source = (1.0f - Cs.alpha);
+    double one_minus_alpha_source = (1.0 - Cs.alpha);
     double alpha_out = Cs.alpha + Cd.alpha * one_minus_alpha_source;
 
     // scale the destination color by its strength
