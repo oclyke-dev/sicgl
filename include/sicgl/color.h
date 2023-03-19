@@ -48,7 +48,7 @@ static inline color_t color_channel_clamp(color_t channel) {
 
 // tools to convert color channel to floating precision
 static inline double color_channel_as_unity_double(color_t channel) {
-  return (double)channel / 255.0f;
+  return (double)channel / 255.0;
 }
 
 static inline color_t color_channel_from_unity_double(double channel) {

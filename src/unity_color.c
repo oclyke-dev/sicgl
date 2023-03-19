@@ -5,10 +5,10 @@
 #include "sicgl/color.h"
 
 static inline double clamp_double_positive_unity(double val) {
-  if (val < 0.0f) {
-    return 0.0f;
-  } else if (val > 1.0f) {
-    return 1.0f;
+  if (val < 0.0) {
+    return 0.0;
+  } else if (val > 1.0) {
+    return 1.0;
   } else {
     return val;
   }

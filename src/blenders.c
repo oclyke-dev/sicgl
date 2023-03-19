@@ -15,39 +15,39 @@ static inline double channel_color_screen(double memory, double source) {
 }
 
 static inline double channel_color_dodge(double memory, double source) {
-  if (source == 1.0f) {
-    return 1.0f;
-  } else if (memory == 0.0f) {
-    return 0.0f;
+  if (source == 1.0) {
+    return 1.0;
+  } else if (memory == 0.0) {
+    return 0.0;
   } else {
-    return min(1.0f, memory / (1.0f - source));
+    return min(1.0, memory / (1.0 - source));
   }
 }
 
 static inline double channel_color_burn(double memory, double source) {
-  if (memory == 1.0f) {
-    return 1.0f;
-  } else if (source == 0.0f) {
-    return 0.0f;
+  if (memory == 1.0) {
+    return 1.0;
+  } else if (source == 0.0) {
+    return 0.0;
   } else {
-    return 1.0f - min(1.0f, (1.0f - memory) / source);
+    return 1.0 - min(1.0, (1.0 - memory) / source);
   }
 }
 
 static inline double channel_color_hard_light(double memory, double source) {
-  if (source <= 0.5f) {
-    return channel_color_multiply(memory, (2.0f * source));
+  if (source <= 0.5) {
+    return channel_color_multiply(memory, (2.0 * source));
   } else {
-    return channel_color_screen(memory, (2.0f * source) - 1.0f);
+    return channel_color_screen(memory, (2.0 * source) - 1.0);
   }
 }
 
 static inline double channel_color_soft_light(double memory, double source) {
-  if (source <= 0.5f) {
+  if (source <= 0.5) {
     return memory - ((1 - (2 * source)) * memory * (1 - memory));
   } else {
     double d;
-    if (memory < 0.25f) {
+    if (memory < 0.25) {
       d = (((16 * memory) - 12) * memory + 4) * memory;
     } else {
       d = sqrt(memory);
@@ -202,9 +202,9 @@ void blend_exclusion(
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
     unity_color_from(source[idx], &Csrc);
-    Cmem.red = Cmem.red + Csrc.red - 2.0f * Cmem.red * Csrc.red;
-    Cmem.green = Cmem.green + Csrc.green - 2.0f * Cmem.green * Csrc.green;
-    Cmem.blue = Cmem.blue + Csrc.blue - 2.0f * Cmem.blue * Csrc.blue;
+    Cmem.red = Cmem.red + Csrc.red - 2.0 * Cmem.red * Csrc.red;
+    Cmem.green = Cmem.green + Csrc.green - 2.0 * Cmem.green * Csrc.green;
+    Cmem.blue = Cmem.blue + Csrc.blue - 2.0 * Cmem.blue * Csrc.blue;
     unity_color_clamp(&Cmem);
     memory[idx] = color_from_unity_color(Cmem);
   }

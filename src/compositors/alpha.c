@@ -26,7 +26,7 @@ void compositor_alpha_source_over(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    double one_minus_alpha_source = (1.0f - Cs.alpha);
+    double one_minus_alpha_source = (1.0 - Cs.alpha);
     alpha_out = Cs.alpha + Cd.alpha * one_minus_alpha_source;
 
     unity_color_premultiply(&Cs);
@@ -52,7 +52,7 @@ void compositor_alpha_destination_over(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    double one_minus_alpha_destination = (1.0f - Cd.alpha);
+    double one_minus_alpha_destination = (1.0 - Cd.alpha);
     alpha_out = Cs.alpha * one_minus_alpha_destination + Cd.alpha;
 
     unity_color_premultiply(&Cs);
@@ -116,7 +116,7 @@ void compositor_alpha_source_out(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    double one_minus_alpha_destination = (1.0f - Cd.alpha);
+    double one_minus_alpha_destination = (1.0 - Cd.alpha);
     alpha_out = Cs.alpha * one_minus_alpha_destination;
 
     unity_color_premultiply(&Cs);
@@ -136,7 +136,7 @@ void compositor_alpha_destination_out(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    double one_minus_alpha_source = (1.0f - Cs.alpha);
+    double one_minus_alpha_source = (1.0 - Cs.alpha);
     alpha_out = Cd.alpha * one_minus_alpha_source;
 
     unity_color_premultiply(&Cd);
@@ -156,7 +156,7 @@ void compositor_alpha_source_atop(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    double one_minus_alpha_source = (1.0f - Cs.alpha);
+    double one_minus_alpha_source = (1.0 - Cs.alpha);
     alpha_out = Cs.alpha * Cd.alpha + Cd.alpha * one_minus_alpha_source;
 
     unity_color_premultiply(&Cs);
@@ -183,7 +183,7 @@ void compositor_alpha_destination_atop(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    double one_minus_alpha_destination = (1.0f - Cd.alpha);
+    double one_minus_alpha_destination = (1.0 - Cd.alpha);
     alpha_out = Cs.alpha * one_minus_alpha_destination + Cd.alpha * Cs.alpha;
 
     unity_color_premultiply(&Cd);
@@ -210,8 +210,8 @@ void compositor_alpha_xor(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    double one_minus_alpha_source = (1.0f - Cs.alpha);
-    double one_minus_alpha_destination = (1.0f - Cd.alpha);
+    double one_minus_alpha_source = (1.0 - Cs.alpha);
+    double one_minus_alpha_destination = (1.0 - Cd.alpha);
     alpha_out = Cs.alpha * one_minus_alpha_destination +
                 Cd.alpha * one_minus_alpha_source;
 
