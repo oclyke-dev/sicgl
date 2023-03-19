@@ -60,7 +60,6 @@ out:
 int release_libgd_interface(interface_t* interface) {
   int ret = 0;
   free(interface);
-out:
   return ret;
 }
 

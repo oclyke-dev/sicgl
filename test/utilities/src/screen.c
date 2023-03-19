@@ -46,7 +46,6 @@ out:
 int release_screen(screen_t* screen) {
   int ret = 0;
   free(screen);
-out:
   return ret;
 }
 
