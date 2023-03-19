@@ -84,11 +84,8 @@ void blend_forget(color_t* memory, color_t* source, size_t width, void* args) {
     color_t mem = memory[idx];
     color_t src = source[idx];
     memory[idx] = color_from_channels(
-      color_channel_red(src),
-      color_channel_green(src),
-      color_channel_blue(src),
-      color_channel_alpha(mem)
-    );
+        color_channel_red(src), color_channel_green(src),
+        color_channel_blue(src), color_channel_alpha(mem));
   }
 }
 
