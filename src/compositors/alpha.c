@@ -1,6 +1,6 @@
 #include "sicgl/compositors.h"
-#include "sicgl/unity_color.h"
 #include "sicgl/debug.h"
+#include "sicgl/unity_color.h"
 
 void compositor_alpha_clear(
     color_t* source, color_t* destination, size_t width, void* args) {
@@ -82,7 +82,7 @@ void compositor_alpha_source_in(
     alpha_out = Cs.alpha * Cd.alpha;
 
     unity_color_premultiply(&Cs);
-    unity_color_scale(&Cs, Cd.alpha);    
+    unity_color_scale(&Cs, Cd.alpha);
     Cs.alpha = alpha_out;
     unity_color_un_premultiply(&Cs);
 
