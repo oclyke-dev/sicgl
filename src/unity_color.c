@@ -34,7 +34,7 @@ color_t color_from_unity_color(unity_color_t unity) {
       color_channel_from_unity_double(unity.red),
       color_channel_from_unity_double(unity.green),
       color_channel_from_unity_double(unity.blue),
-      color_channel_from_unity_double(unity.alpha));
+      alpha_channel_from_unity_double(unity.alpha));
 }
 
 int unity_color_clamp(unity_color_t* unity) {

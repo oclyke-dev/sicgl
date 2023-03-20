@@ -1,0 +1,20 @@
+#include "tests/alpha.h"
+
+#include "tests/utilities.h"
+#include "utils.h"
+
+DEFINE_COMPOSITOR_TEST(alpha_clear, compositor_alpha_clear)
+DEFINE_COMPOSITOR_TEST(alpha_copy, compositor_alpha_copy)
+DEFINE_COMPOSITOR_TEST(alpha_destination, compositor_alpha_destination)
+DEFINE_COMPOSITOR_TEST(alpha_source_over, compositor_alpha_source_over)
+DEFINE_COMPOSITOR_TEST(
+    alpha_destination_over, compositor_alpha_destination_over)
+DEFINE_COMPOSITOR_TEST(alpha_source_in, compositor_alpha_source_in)
+DEFINE_COMPOSITOR_TEST(alpha_destination_in, compositor_alpha_destination_in)
+DEFINE_COMPOSITOR_TEST(alpha_source_out, compositor_alpha_source_out)
+DEFINE_COMPOSITOR_TEST(alpha_destination_out, compositor_alpha_destination_out)
+DEFINE_COMPOSITOR_TEST(alpha_source_atop, compositor_alpha_source_atop)
+DEFINE_COMPOSITOR_TEST(
+    alpha_destination_atop, compositor_alpha_destination_atop)
+DEFINE_COMPOSITOR_TEST(alpha_xor, compositor_alpha_xor)
+DEFINE_COMPOSITOR_TEST(alpha_lighter, compositor_alpha_lighter)
