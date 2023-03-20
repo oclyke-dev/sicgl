@@ -84,7 +84,7 @@ out:
   return ret;
 }
 
-int unity_color_premultiply_alpha(unity_color_t* unity, double alpha) {
+int unity_color_scale(unity_color_t* unity, double factor) {
   int ret = 0;
 
   if (NULL == unity) {
@@ -92,13 +92,9 @@ int unity_color_premultiply_alpha(unity_color_t* unity, double alpha) {
     goto out;
   }
 
-  if (unity_color_is_premultiplied(*unity)) {
-    goto out;
-  }
-
-  unity->red = unity->red * alpha;
-  unity->green = unity->green * alpha;
-  unity->blue = unity->blue * alpha;
+  unity->red = unity->red * factor;
+  unity->green = unity->green * factor;
+  unity->blue = unity->blue * factor;
 
 out:
   return ret;
@@ -112,7 +108,11 @@ int unity_color_premultiply(unity_color_t* unity) {
     goto out;
   }
 
-  ret = unity_color_premultiply_alpha(unity, unity->alpha);
+  if (unity->premultiplied) {
+    goto out;
+  }
+
+  ret = unity_color_scale(unity, unity->alpha);
 
 out:
   return ret;

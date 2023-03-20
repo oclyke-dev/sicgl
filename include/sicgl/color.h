@@ -56,11 +56,11 @@ static inline color_t color_channel_from_unity_double(double channel) {
 }
 
 static inline double alpha_channel_as_unity_double(color_t channel) {
-  return (double)channel / 127.0;
+  return 1.0 - ((double)channel / 127.0);
 }
 
 static inline color_t alpha_channel_from_unity_double(double channel) {
-  return (color_t)(channel * 127);
+  return (color_t)((1.0 - channel) * 127);
 }
 
 static inline int color_components_unity_double(

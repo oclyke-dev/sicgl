@@ -18,7 +18,7 @@ void compositor_alpha_simple(
     double alpha_out = Cs.alpha + Cd.alpha * one_minus_alpha_source;
 
     // scale the destination color by its strength
-    unity_color_premultiply_alpha(&Cd, one_minus_alpha_source);
+    unity_color_scale(&Cd, one_minus_alpha_source);
 
     // add the source colors to the destination colors, and
     Cd.red = Cs.red + Cd.red;
