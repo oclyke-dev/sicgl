@@ -55,6 +55,14 @@ static inline color_t color_channel_from_unity_double(double channel) {
   return (color_t)(channel * 255);
 }
 
+static inline double alpha_channel_as_unity_double(color_t channel) {
+  return (double)channel / 127.0;
+}
+
+static inline color_t alpha_channel_from_unity_double(double channel) {
+  return (color_t)(channel * 127);
+}
+
 static inline int color_components_unity_double(
     color_t color, double* red, double* green, double* blue, double* alpha) {
   int ret = 0;
@@ -72,7 +80,7 @@ static inline int color_components_unity_double(
   }
 
   if (NULL != alpha) {
-    *alpha = color_channel_as_unity_double(color_channel_alpha(color));
+    *alpha = alpha_channel_as_unity_double(color_channel_alpha(color));
   }
 
   return ret;
