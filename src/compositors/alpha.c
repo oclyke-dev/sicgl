@@ -1,4 +1,5 @@
 #include "sicgl/compositors.h"
+#include "sicgl/debug.h"
 #include "sicgl/unity_color.h"
 
 void compositor_alpha_clear(
@@ -31,7 +32,7 @@ void compositor_alpha_source_over(
 
     unity_color_premultiply(&Cs);
     unity_color_premultiply(&Cd);
-    unity_color_premultiply_alpha(&Cd, one_minus_alpha_source);
+    unity_color_scale(&Cd, one_minus_alpha_source);
 
     Cd.red = Cs.red + Cd.red;
     Cd.green = Cs.green + Cd.green;
@@ -58,7 +59,7 @@ void compositor_alpha_destination_over(
     unity_color_premultiply(&Cs);
     unity_color_premultiply(&Cd);
 
-    unity_color_premultiply_alpha(&Cs, one_minus_alpha_destination);
+    unity_color_scale(&Cs, one_minus_alpha_destination);
 
     Cd.red = Cs.red + Cd.red;
     Cd.green = Cs.green + Cd.green;
@@ -78,10 +79,10 @@ void compositor_alpha_source_in(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    alpha_out = Cs.alpha + Cd.alpha;
+    alpha_out = Cs.alpha * Cd.alpha;
 
     unity_color_premultiply(&Cs);
-    unity_color_premultiply_alpha(&Cs, Cd.alpha);
+    unity_color_scale(&Cs, Cd.alpha);
     Cs.alpha = alpha_out;
     unity_color_un_premultiply(&Cs);
 
@@ -97,10 +98,10 @@ void compositor_alpha_destination_in(
     unity_color_from(source[idx], &Cs);
     unity_color_from(destination[idx], &Cd);
 
-    alpha_out = Cs.alpha + Cd.alpha;
+    alpha_out = Cs.alpha * Cd.alpha;
 
     unity_color_premultiply(&Cd);
-    unity_color_premultiply_alpha(&Cd, Cs.alpha);
+    unity_color_scale(&Cd, Cs.alpha);
     Cd.alpha = alpha_out;
     unity_color_un_premultiply(&Cd);
 
@@ -120,7 +121,7 @@ void compositor_alpha_source_out(
     alpha_out = Cs.alpha * one_minus_alpha_destination;
 
     unity_color_premultiply(&Cs);
-    unity_color_premultiply_alpha(&Cs, one_minus_alpha_destination);
+    unity_color_scale(&Cs, one_minus_alpha_destination);
     Cs.alpha = alpha_out;
     unity_color_un_premultiply(&Cs);
 
@@ -140,7 +141,7 @@ void compositor_alpha_destination_out(
     alpha_out = Cd.alpha * one_minus_alpha_source;
 
     unity_color_premultiply(&Cd);
-    unity_color_premultiply_alpha(&Cd, one_minus_alpha_source);
+    unity_color_scale(&Cd, one_minus_alpha_source);
     Cd.alpha = alpha_out;
     unity_color_un_premultiply(&Cd);
 
@@ -160,10 +161,10 @@ void compositor_alpha_source_atop(
     alpha_out = Cs.alpha * Cd.alpha + Cd.alpha * one_minus_alpha_source;
 
     unity_color_premultiply(&Cs);
-    unity_color_premultiply_alpha(&Cs, Cd.alpha);
+    unity_color_scale(&Cs, Cd.alpha);
 
     unity_color_premultiply(&Cd);
-    unity_color_premultiply_alpha(&Cd, one_minus_alpha_source);
+    unity_color_scale(&Cd, one_minus_alpha_source);
 
     Cd.red = Cs.red + Cd.red;
     Cd.green = Cs.green + Cd.green;
@@ -187,10 +188,10 @@ void compositor_alpha_destination_atop(
     alpha_out = Cs.alpha * one_minus_alpha_destination + Cd.alpha * Cs.alpha;
 
     unity_color_premultiply(&Cd);
-    unity_color_premultiply_alpha(&Cd, Cs.alpha);
+    unity_color_scale(&Cd, Cs.alpha);
 
     unity_color_premultiply(&Cs);
-    unity_color_premultiply_alpha(&Cs, one_minus_alpha_destination);
+    unity_color_scale(&Cs, one_minus_alpha_destination);
 
     Cd.red = Cs.red + Cd.red;
     Cd.green = Cs.green + Cd.green;
@@ -216,10 +217,10 @@ void compositor_alpha_xor(
                 Cd.alpha * one_minus_alpha_source;
 
     unity_color_premultiply(&Cd);
-    unity_color_premultiply_alpha(&Cd, one_minus_alpha_source);
+    unity_color_scale(&Cd, one_minus_alpha_source);
 
     unity_color_premultiply(&Cs);
-    unity_color_premultiply_alpha(&Cs, one_minus_alpha_destination);
+    unity_color_scale(&Cs, one_minus_alpha_destination);
 
     Cd.red = Cs.red + Cd.red;
     Cd.green = Cs.green + Cd.green;
