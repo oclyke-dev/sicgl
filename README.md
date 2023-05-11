@@ -54,9 +54,18 @@ on mac from within the build directory you could run all the tests like this:
 ```find -E . -regex '\.\/test_[^\.]*$' -exec '{}' -v \;```
 
 # code formatting
-this project uses clang-format. to format all the right code:
+this project uses clang-format and [run-clang-format.py](https://github.com/Sarcasm/run-clang-format). to format all the right code:
 
-mac: ```find -E . -regex '\.\/(src|include|test)\/.*\.(c|h)$' | xargs clang-format -i```
+```bash
+# once, to set up virtual environment
+python3 -m venv venv
+
+# once per session, activate virtual environment
+source ./venv/bin/activate
+
+# to format all code
+./tools/third-party/run-clang-format/run-clang-format.py -r src include
+```
 
 # debug mode
 ```cmake .. -DDEBUG=true```
