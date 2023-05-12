@@ -26,7 +26,7 @@ jobs:
       # lint using clang-format
       - name: clang-format lint
         run: |
-          ./tools/third-party/run-clang-format/run-clang-format.py -r src include
+          ./tools/third-party/run-clang-format/run-clang-format.py -r src include test
   
   test:
     runs-on: ubuntu-latest
