@@ -66,8 +66,11 @@ python3 -m venv venv
 # once per session, activate virtual environment
 source ./venv/bin/activate
 
+# to check code formatting
+./tools/third-party/run-clang-format/run-clang-format.py -r include src test
+
 # to format all code
-./tools/third-party/run-clang-format/run-clang-format.py -r src include
+./tools/third-party/run-clang-format/run-clang-format.py -r include src test -i
 ```
 
 # debug mode

@@ -93,17 +93,22 @@ void create_source_images(void) {
   TEST_ASSERT_NOT_NULL_MESSAGE(
       gradient_source_png, "could not create gradient source png");
 
-  TEST_ASSERT_EQUAL_INT(
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
       0,
-      png_to_file(solid_backdrop_png, TEST_OUTPUT_DIR "/_solid_backdrop.png"));
-  TEST_ASSERT_EQUAL_INT(
-      0, png_to_file(solid_source_png, TEST_OUTPUT_DIR "/_solid_source.png"));
-  TEST_ASSERT_EQUAL_INT(
-      0, png_to_file(
-             gradient_backdrop_png, TEST_OUTPUT_DIR "/_gradient_backdrop.png"));
-  TEST_ASSERT_EQUAL_INT(
-      0, png_to_file(
-             gradient_source_png, TEST_OUTPUT_DIR "/_gradient_source.png"));
+      png_to_file(solid_backdrop_png, TEST_OUTPUT_DIR "/_solid_backdrop.png"),
+      "failed to store solid backdrop png");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0, png_to_file(solid_source_png, TEST_OUTPUT_DIR "/_solid_source.png"),
+      "failed to store solid source png");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0,
+      png_to_file(
+          gradient_backdrop_png, TEST_OUTPUT_DIR "/_gradient_backdrop.png"),
+      "failed to store gradient backdrop png");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0,
+      png_to_file(gradient_source_png, TEST_OUTPUT_DIR "/_gradient_source.png"),
+      "failed to store gradient source png");
 }
 
 void setUp(void) {
