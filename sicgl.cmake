@@ -14,7 +14,6 @@ set(SICGL_SOURCES
 	${SICGL_ROOT_DIR}/src/compositors/bitwise.c
 	${SICGL_ROOT_DIR}/src/compositors/channelwise.c
 	${SICGL_ROOT_DIR}/src/compositors/direct.c
-	${SICGL_ROOT_DIR}/src/compositors/simple_alpha.c
 	${SICGL_ROOT_DIR}/src/iter.c
 	${SICGL_ROOT_DIR}/src/screen.c
 	${SICGL_ROOT_DIR}/src/translate.c

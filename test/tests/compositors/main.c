@@ -2,7 +2,6 @@
 #include "globals.h"
 #include "sicgl/screen.h"
 #include "tests/alpha.h"
-#include "tests/alpha_simple.h"
 #include "tests/bitwise.h"
 #include "tests/channelwise.h"
 #include "tests/direct.h"
@@ -203,9 +202,6 @@ void run_solid_tests(void) {
   RUN_TEST(test_solid_channelwise_divide_clamped);
   RUN_TEST(test_solid_channelwise_divide_reverse_clamped);
 
-  // alpha simple
-  RUN_TEST(test_solid_alpha_simple);
-
   // alpha porter-duff
   RUN_TEST(test_solid_alpha_clear);
   RUN_TEST(test_solid_alpha_copy);
@@ -253,9 +249,6 @@ void run_gradient_tests(void) {
   RUN_TEST(test_gradient_channelwise_multiply_clamped);
   RUN_TEST(test_gradient_channelwise_divide_clamped);
   RUN_TEST(test_gradient_channelwise_divide_reverse_clamped);
-
-  // alpha simple
-  RUN_TEST(test_gradient_alpha_simple);
 
   // alpha porter-duff
   RUN_TEST(test_gradient_alpha_clear);
