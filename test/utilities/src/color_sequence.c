@@ -30,7 +30,6 @@ out:
 int release_color_sequence(color_sequence_t* color_sequence) {
   int ret = 0;
   free(color_sequence);
-out:
   return ret;
 }
 

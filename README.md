@@ -33,6 +33,9 @@ unit tests are handled with [unity](https://github.com/ThrowTheSwitch/Unity) and
 # build the tests
 ~/sicgl/build % cmake ..
 ~/sicgl/build % cmake --build .
+
+# clean the build dir
+~/sicgl/build % cmake --build . --target=clean
 ```
 
 **running tests**
