@@ -52,6 +52,36 @@ out:
 void release_png(png_t* png) { free(png); }
 
 /**
+ * @brief Compares png_t structs for equality.
+ *
+ * @param png1
+ * @param png2
+ * @param equal_out
+ * @return int
+ */
+int png_compare(png_t* png1, png_t* png2) {
+  int diff = 1;
+
+  // check input existence
+  if ((NULL == png1) || (NULL == png2)) {
+    goto out;
+  }
+
+  // compare sizes
+  if ((png1->width != png2->width) || (png1->height != png2->height)) {
+    diff = 1;
+  }
+
+  // compare the png memory
+  diff = memcmp(
+      png1->pixels, png2->pixels,
+      sizeof(png_pixel_t) * png1->width * png1->height);
+
+out:
+  return diff;
+}
+
+/**
  * @brief Write out a png image to a file.
  *
  * @param png
@@ -66,7 +96,7 @@ int png_to_file(png_t const* png, char const* path) {
 
   // check input pngs
   if (NULL == png) {
-    ret = -1;
+    ret = -ENOMEM;
     goto out;
   }
 
@@ -80,14 +110,14 @@ int png_to_file(png_t const* png, char const* path) {
   // get spng context
   ctx = spng_ctx_new(SPNG_CTX_ENCODER);
   if (NULL == ctx) {
-    ret = -1;
+    ret = -ENOMEM;
     goto out;
   }
 
   // open file
   fp = fopen(path, "w");
   if (fp == NULL) {
-    ret = -1;
+    ret = -EEXIST;
     goto cleanup_ctx;
   };
 
@@ -115,6 +145,121 @@ cleanup_file:
   fclose(fp);
 cleanup_ctx:
   spng_ctx_free(ctx);
+out:
+  return ret;
+}
+
+/**
+ * @brief Read file into a png image.
+ *
+ * Returns a new png structure, ownership is transferred out.
+ *
+ * @param path filepath to read
+ * @param png_out
+ * @return int
+ */
+int png_from_file(char const* path, png_t** png_out) {
+  int ret = 0;
+  FILE* fp = NULL;
+  spng_ctx* ctx = NULL;
+  size_t out_size = 0;
+  unsigned char* in_data = NULL;
+  struct spng_ihdr ihdr;
+
+  // check inputs
+  if (NULL == path) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  if (NULL == png_out) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  // open file
+  fp = fopen(path, "rb");
+  if (fp == NULL) {
+    ret = -EEXIST;
+    goto out;
+  };
+
+  // Read the file contents
+  fseek(fp, 0, SEEK_END);
+  size_t file_size = ftell(fp);
+  fseek(fp, 0, SEEK_SET);
+
+  // allocate memory to store the file contents in memory
+  in_data = malloc(file_size);
+  if (!in_data) {
+    fclose(fp);
+    ret = -ENOMEM;
+    goto cleanup_indata;
+  }
+
+  // read file contents into memory
+  int size_read = fread(in_data, 1, file_size, fp);
+  if (size_read != file_size) {
+    fclose(fp);
+    ret = -ENFILE;
+    goto cleanup_indata;
+  }
+
+  // close the file
+  ret = fclose(fp);
+  if (0 != ret) {
+    goto cleanup_indata;
+  }
+
+  // get spng context
+  ctx = spng_ctx_new(0);
+  if (NULL == ctx) {
+    ret = -ENOMEM;
+    goto cleanup_indata;
+  }
+
+  // set the input PNG data
+  ret = spng_set_png_buffer(ctx, in_data, file_size);
+  if (0 != ret) {
+    goto cleanup_ctx_indata;
+  }
+
+  // get ihdr PNG image information
+  ret = spng_get_ihdr(ctx, &ihdr);
+  if (0 != ret) {
+    goto cleanup_ctx_indata;
+  }
+
+  // calculate output image size
+  ret = spng_decoded_image_size(ctx, SPNG_FMT_RGBA8, &out_size);
+  if (0 != ret) {
+    goto cleanup_ctx_indata;
+  }
+
+  // create the new png structure
+  // ownership of this memory is transferred out
+  png_t* png = new_png(ihdr.width, ihdr.height);
+  if (NULL == png) {
+    ret = -ENOMEM;
+    goto cleanup_ctx_indata;
+  }
+
+  // pass out the allocated png structure
+  *png_out = png;
+
+  // decode the PNG image into the structure memory
+  ret = spng_decode_image(
+      ctx, png->pixels, sizeof(png_pixel_t) * png->width * png->height,
+      SPNG_FMT_RGBA8, 0);
+  if (0 != ret) {
+    ret = -1;
+    goto cleanup_ctx_indata;
+  }
+
+cleanup_ctx_indata:
+  spng_ctx_free(ctx);
+cleanup_indata:
+  free(in_data);
 out:
   return ret;
 }

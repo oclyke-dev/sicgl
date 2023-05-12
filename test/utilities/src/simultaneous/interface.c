@@ -7,7 +7,6 @@ int simultaneous_interface_pixel(
   int ret = 0;
   gdImageSetPixel(image, u0, v0, color);
   sicgl_interface_pixel(interface, color, u0, v0);
-out:
   return ret;
 }
 
@@ -17,7 +16,6 @@ int simultaneous_interface_line(
   int ret = 0;
   gdImageLine(image, u0, v0, u1, v1, (int)color);
   ret = sicgl_interface_line(interface, color, u0, v0, u1, v1);
-out:
   return ret;
 }
 
@@ -27,7 +25,6 @@ int simultaneous_interface_rectangle(
   int ret = 0;
   gdImageRectangle(image, u0, v0, u1, v1, (int)color);
   ret = sicgl_interface_rectangle(interface, color, u0, v0, u1, v1);
-out:
   return ret;
 }
 

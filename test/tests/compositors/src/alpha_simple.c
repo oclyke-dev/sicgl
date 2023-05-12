@@ -3,4 +3,4 @@
 #include "tests/utilities.h"
 #include "utils.h"
 
-DEFINE_COMPOSITOR_TEST(alpha_simple, compositor_alpha_simple)
+DEFINE_UNREFERENCED_COMPOSITOR_TEST(alpha_simple, compositor_alpha_simple);

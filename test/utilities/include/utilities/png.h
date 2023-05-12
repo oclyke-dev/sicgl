@@ -55,5 +55,9 @@ png_pixel_t png_color_random(void);
 png_t* new_png(uext_t width, uext_t height);
 void release_png(png_t* png);
 
-// output tools
+// png comparison
+int png_compare(png_t* png1, png_t* png2);
+
+// file io tools
 int png_to_file(png_t const* png, char const* path);
+int png_from_file(const char* path, png_t** png);

@@ -44,10 +44,12 @@ foreach(TEST ${TESTS})
   INCLUDE(${TEST})
   if(DEFINED TEST_NAME)
     if(DEFINED TARGET_NAME)
+      set(TEST_SRC_DIR ${TEST_ROOT_DIR}/tests/${TEST_NAME})
       set(TEST_OUT_DIR ${BUILD_ROOT_DIR}/tests/${TEST_NAME})
       file(MAKE_DIRECTORY "${TEST_OUT_DIR}")
       file(MAKE_DIRECTORY "${TEST_OUT_DIR}/output")
       target_compile_definitions(${TARGET_NAME} PRIVATE
+        -DTEST_SOURCE_DIR="${TEST_SRC_DIR}"
         -DTEST_OUTPUT_DIR="${TEST_OUT_DIR}/output"
       )
       set_target_properties(${TARGET_NAME} PROPERTIES

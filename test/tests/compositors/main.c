@@ -23,7 +23,20 @@ color_t clear = gdTrueColorAlpha(0, 0, 0, gdAlphaTransparent);
 color_t canary = gdTrueColorAlpha(255, 255, 0, gdAlphaOpaque);
 color_t cyan = gdTrueColorAlpha(0, 255, 255, gdAlphaOpaque);
 
-void setUp(void) {
+png_t* solid_backdrop_png = NULL;
+png_t* solid_source_png = NULL;
+png_t* gradient_backdrop_png = NULL;
+png_t* gradient_source_png = NULL;
+
+/**
+ * @brief Create a source images object
+ *
+ * These images are used to feed the compositor tests.
+ *
+ * These images are no longer used, to prevent changes
+ * in sicgl code from invalidating existing test references.
+ */
+void create_source_images(void) {
   // create screen and interfaces to persist the original layers
   screen = new_screen_extent(width, height, 0, 0);
   backdrop_interface = new_libgd_interface(screen, NULL, 0);
@@ -65,26 +78,85 @@ void setUp(void) {
   }
 
   // save the reference pictures
-  png_t* backdrop_png = new_png_from_libgd_interface(backdrop_interface);
-  png_t* source_png = new_png_from_libgd_interface(source_interface);
-  png_t* gradient_backdrop_png =
+  solid_backdrop_png = new_png_from_libgd_interface(backdrop_interface);
+  solid_source_png = new_png_from_libgd_interface(source_interface);
+  gradient_backdrop_png =
       new_png_from_libgd_interface(gradient_backdrop_interface);
-  png_t* gradient_source_png =
-      new_png_from_libgd_interface(gradient_source_interface);
+  gradient_source_png = new_png_from_libgd_interface(gradient_source_interface);
 
-  TEST_ASSERT_NOT_NULL_MESSAGE(backdrop_png, "could not create backdrop png");
-  TEST_ASSERT_NOT_NULL_MESSAGE(source_png, "could not create source png");
+  TEST_ASSERT_NOT_NULL_MESSAGE(
+      solid_backdrop_png, "could not create solid backdrop png");
+  TEST_ASSERT_NOT_NULL_MESSAGE(
+      solid_source_png, "could not create solid source png");
+  TEST_ASSERT_NOT_NULL_MESSAGE(
+      gradient_backdrop_png, "could not create gradient backdrop png");
+  TEST_ASSERT_NOT_NULL_MESSAGE(
+      gradient_source_png, "could not create gradient source png");
 
   TEST_ASSERT_EQUAL_INT(
-      0, png_to_file(backdrop_png, TEST_OUTPUT_DIR "/_backdrop.png"));
+      0,
+      png_to_file(solid_backdrop_png, TEST_OUTPUT_DIR "/_solid_backdrop.png"));
   TEST_ASSERT_EQUAL_INT(
-      0, png_to_file(source_png, TEST_OUTPUT_DIR "/_source.png"));
+      0, png_to_file(solid_source_png, TEST_OUTPUT_DIR "/_solid_source.png"));
   TEST_ASSERT_EQUAL_INT(
       0, png_to_file(
              gradient_backdrop_png, TEST_OUTPUT_DIR "/_gradient_backdrop.png"));
   TEST_ASSERT_EQUAL_INT(
       0, png_to_file(
              gradient_source_png, TEST_OUTPUT_DIR "/_gradient_source.png"));
+}
+
+void setUp(void) {
+  // create the source images
+  // (todo: use the reference images directly to create the interfaces
+  // which are used in the test compositions)
+  create_source_images();
+
+  // ensure that the reference pictures have not changed
+  // (this could happen, for instance, if the sicgl code used to draw the
+  // reference pictures has changed)
+  png_t* reference_solid_backdrop_png = NULL;
+  png_t* reference_solid_source_png = NULL;
+  png_t* reference_gradient_backdrop_png = NULL;
+  png_t* reference_gradient_source_png = NULL;
+
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0,
+      png_from_file(
+          TEST_SOURCE_DIR "/reference/_solid_backdrop.png",
+          &reference_solid_backdrop_png),
+      "could not load reference solid backdrop image");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0,
+      png_from_file(
+          TEST_SOURCE_DIR "/reference/_solid_source.png",
+          &reference_solid_source_png),
+      "could not load reference solid source image");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0,
+      png_from_file(
+          TEST_SOURCE_DIR "/reference/_gradient_backdrop.png",
+          &reference_gradient_backdrop_png),
+      "could not load reference gradient backdrop image");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0,
+      png_from_file(
+          TEST_SOURCE_DIR "/reference/_gradient_source.png",
+          &reference_gradient_source_png),
+      "could not load reference gradient source image");
+
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0, png_compare(reference_solid_backdrop_png, solid_backdrop_png),
+      "solid backdrop images did not match");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0, png_compare(reference_solid_source_png, solid_source_png),
+      "solid source images did not match");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0, png_compare(reference_gradient_backdrop_png, gradient_backdrop_png),
+      "gradient backdrop images did not match");
+  TEST_ASSERT_EQUAL_INT_MESSAGE(
+      0, png_compare(reference_gradient_source_png, gradient_source_png),
+      "gradient source images did not match");
 }
 
 void tearDown(void) {
