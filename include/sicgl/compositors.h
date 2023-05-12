@@ -56,10 +56,6 @@ void compositor_channelwise_divide_clamped(
 void compositor_channelwise_divide_reverse_clamped(
     color_t* source, color_t* destination, size_t width, void* args);
 
-// simple alpha compositing
-void compositor_alpha_simple(
-    color_t* source, color_t* destination, size_t width, void* args);
-
 // porter-duff alpha compositing
 void compositor_alpha_clear(
     color_t* source, color_t* destination, size_t width, void* args);
