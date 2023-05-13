@@ -110,7 +110,7 @@ void create_source_images(void) {
       "failed to store gradient source png");
 }
 
-void setUp(void) {
+void preTests(void) {
   // create the source images
   // (todo: use the reference images directly to create the interfaces
   // which are used in the test compositions)
@@ -163,14 +163,25 @@ void setUp(void) {
       "gradient source images did not match");
 }
 
-void tearDown(void) {
+void postTests(void){
   // clean stuff up here
   release_screen(screen);
   release_libgd_interface(backdrop_interface);
   release_libgd_interface(source_interface);
 }
 
+void setUp(void) {
+
+}
+
+void tearDown(void) {
+
+}
+
 void run_solid_tests(void) {
+  // run pre-test code
+  preTests();
+
   // direct
   RUN_TEST(test_solid_direct_set);
   RUN_TEST(test_solid_direct_clear);
@@ -216,6 +227,9 @@ void run_solid_tests(void) {
   RUN_TEST(test_solid_alpha_destination_atop);
   RUN_TEST(test_solid_alpha_xor);
   RUN_TEST(test_solid_alpha_lighter);
+
+  // run cleanup code
+  postTests();
 }
 
 void run_gradient_tests(void) {
