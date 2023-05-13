@@ -12,8 +12,9 @@ DEFINE_REFERENCED_COMPOSITOR_TEST(
 DEFINE_REFERENCED_COMPOSITOR_TEST(
     alpha_destination, compositor_alpha_destination,
     "solid_alpha_destination.png", "gradient_alpha_destination.png")
-DEFINE_UNREFERENCED_COMPOSITOR_TEST(
-    alpha_source_over, compositor_alpha_source_over)
+DEFINE_REFERENCED_COMPOSITOR_TEST(
+    alpha_source_over, compositor_alpha_source_over,
+    "solid_alpha_source_over.png", "gradient_alpha_source_over.png")
 DEFINE_UNREFERENCED_COMPOSITOR_TEST(
     alpha_destination_over, compositor_alpha_destination_over)
 DEFINE_UNREFERENCED_COMPOSITOR_TEST(alpha_source_in, compositor_alpha_source_in)
