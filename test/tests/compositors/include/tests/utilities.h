@@ -60,10 +60,10 @@
       TEST_ASSERT_EQUAL_INT_MESSAGE(                                         \
           0, png_from_file(TEST_SOURCE_DIR "/reference/" __reference, &ref), \
           "failed to load reference image");                                 \
-      TEST_ASSERT_EQUAL_INT_MESSAGE(                                         \
-          0, png_compare(img, ref), "image and reference did not match");    \
       TEST_ASSERT_EQUAL_INT(                                                 \
           0, png_to_file(img, TEST_OUTPUT_DIR "/solid_" #__name ".png"));    \
+      TEST_ASSERT_EQUAL_INT_MESSAGE(                                         \
+          0, png_compare(img, ref), "image and reference did not match");    \
     }                                                                        \
     release_libgd_interface(interface);                                      \
     release_png(img);                                                        \
@@ -88,10 +88,10 @@
       TEST_ASSERT_EQUAL_INT_MESSAGE(                                          \
           0, png_from_file(TEST_SOURCE_DIR "/reference/" __reference, &ref),  \
           "failed to load reference image");                                  \
-      TEST_ASSERT_EQUAL_INT_MESSAGE(                                          \
-          0, png_compare(img, ref), "image and reference did not match");     \
       TEST_ASSERT_EQUAL_INT(                                                  \
           0, png_to_file(img, TEST_OUTPUT_DIR "/gradient_" #__name ".png"));  \
+      TEST_ASSERT_EQUAL_INT_MESSAGE(                                          \
+          0, png_compare(img, ref), "image and reference did not match");     \
     }                                                                         \
     release_libgd_interface(interface);                                       \
     release_png(img);                                                         \
