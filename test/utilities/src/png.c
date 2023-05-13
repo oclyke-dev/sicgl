@@ -246,7 +246,7 @@ int png_from_file(char const* path, png_t** png_out) {
   }
 
   // calculate output image size
-  ret = spng_decoded_image_size(ctx, SPNG_FMT_RGBA8, &out_size);
+  ret = spng_decoded_image_size(ctx, SPNG_FMT_PNG, &out_size);
   if (0 != ret) {
     goto cleanup_ctx_indata;
   }
