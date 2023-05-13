@@ -78,14 +78,13 @@ int png_compare(png_t* png1, png_t* png2) {
   for (size_t idy = 0; idy < png1->width; idy++) {
     for (size_t idx = 0; idx < png1->width; idx++) {
       size_t pos = idy * idx;
-      if (
-        (png1->pixels[pos].r != png2->pixels[pos].r) || 
-        (png1->pixels[pos].g != png2->pixels[pos].g) || 
-        (png1->pixels[pos].b != png2->pixels[pos].b) || 
-        (png1->pixels[pos].a != png2->pixels[pos].a)) {
-          diff = 30;
-          goto out;
-        }
+      if ((png1->pixels[pos].r != png2->pixels[pos].r) ||
+          (png1->pixels[pos].g != png2->pixels[pos].g) ||
+          (png1->pixels[pos].b != png2->pixels[pos].b) ||
+          (png1->pixels[pos].a != png2->pixels[pos].a)) {
+        diff = 30;
+        goto out;
+      }
     }
   }
 
