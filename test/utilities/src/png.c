@@ -60,22 +60,34 @@ void release_png(png_t* png) { free(png); }
  * @return int
  */
 int png_compare(png_t* png1, png_t* png2) {
-  int diff = 1;
+  int diff = 0;
 
   // check input existence
   if ((NULL == png1) || (NULL == png2)) {
+    diff = 1;
     goto out;
   }
 
   // compare sizes
   if ((png1->width != png2->width) || (png1->height != png2->height)) {
-    diff = 1;
+    diff = 2;
+    goto out;
   }
 
-  // compare the png memory
-  diff = memcmp(
-      png1->pixels, png2->pixels,
-      sizeof(png_pixel_t) * png1->width * png1->height);
+  // compare pixel by pixel
+  for (size_t idy = 0; idy < png1->width; idy++) {
+    for (size_t idx = 0; idx < png1->width; idx++) {
+      size_t pos = idy * idx;
+      if (
+        (png1->pixels[pos].r != png2->pixels[pos].r) || 
+        (png1->pixels[pos].g != png2->pixels[pos].g) || 
+        (png1->pixels[pos].b != png2->pixels[pos].b) || 
+        (png1->pixels[pos].a != png2->pixels[pos].a)) {
+          diff = 30;
+          goto out;
+        }
+    }
+  }
 
 out:
   return diff;
