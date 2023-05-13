@@ -39,4 +39,6 @@ DEFINE_REFERENCED_COMPOSITOR_TEST(
 DEFINE_REFERENCED_COMPOSITOR_TEST(
     alpha_xor, compositor_alpha_xor, "solid_alpha_xor.png",
     "gradient_alpha_xor.png")
-DEFINE_UNREFERENCED_COMPOSITOR_TEST(alpha_lighter, compositor_alpha_lighter)
+DEFINE_REFERENCED_COMPOSITOR_TEST(
+    alpha_lighter, compositor_alpha_lighter, "solid_alpha_lighter.png",
+    "gradient_alpha_lighter.png")

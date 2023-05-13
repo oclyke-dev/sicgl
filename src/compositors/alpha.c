@@ -241,6 +241,9 @@ void compositor_alpha_lighter(
     unity_color_from(destination[idx], &Cd);
 
     alpha_out = Cs.alpha + Cd.alpha;
+    if (alpha_out > 1.0) {
+      alpha_out = 1.0;
+    }
 
     unity_color_premultiply(&Cd);
     unity_color_premultiply(&Cs);
