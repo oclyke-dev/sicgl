@@ -91,7 +91,7 @@
       TEST_ASSERT_EQUAL_INT_MESSAGE(                                          \
           0, png_compare(img, ref), "image and reference did not match");     \
       TEST_ASSERT_EQUAL_INT(                                                  \
-          0, png_to_file(img, TEST_OUTPUT_DIR "/gradient" #__name ".png"));   \
+          0, png_to_file(img, TEST_OUTPUT_DIR "/gradient_" #__name ".png"));  \
     }                                                                         \
     release_libgd_interface(interface);                                       \
     release_png(img);                                                         \
