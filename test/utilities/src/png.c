@@ -251,8 +251,6 @@ int png_from_file(char const* path, png_t** png_out) {
     goto cleanup_ctx_indata;
   }
 
-  printf("width: %d, height: %d\n", ihdr.width, ihdr.height);
-
   // create the new png structure
   // ownership of this memory is transferred out
   png_t* png = new_png(ihdr.width, ihdr.height);
