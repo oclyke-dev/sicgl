@@ -36,5 +36,7 @@ DEFINE_REFERENCED_COMPOSITOR_TEST(
 DEFINE_REFERENCED_COMPOSITOR_TEST(
     alpha_destination_atop, compositor_alpha_destination_atop,
     "solid_alpha_destination_atop.png", "gradient_alpha_destination_atop.png")
-DEFINE_UNREFERENCED_COMPOSITOR_TEST(alpha_xor, compositor_alpha_xor)
+DEFINE_REFERENCED_COMPOSITOR_TEST(
+    alpha_xor, compositor_alpha_xor, "solid_alpha_xor.png",
+    "gradient_alpha_xor.png")
 DEFINE_UNREFERENCED_COMPOSITOR_TEST(alpha_lighter, compositor_alpha_lighter)
