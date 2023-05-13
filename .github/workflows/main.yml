@@ -61,7 +61,7 @@ jobs:
       - name: build tests
         run: |
           cd build
-          cmake ..
+          cmake -DDEBUG=true ..
           cmake --build .
       
       # test
