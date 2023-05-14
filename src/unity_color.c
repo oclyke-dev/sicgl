@@ -108,10 +108,6 @@ int unity_color_premultiply(unity_color_t* unity) {
     goto out;
   }
 
-  if (unity->premultiplied) {
-    goto out;
-  }
-
   ret = unity_color_scale(unity, unity->alpha);
 
 out:
@@ -123,10 +119,6 @@ int unity_color_un_premultiply_alpha(unity_color_t* unity, double alpha) {
 
   if (NULL == unity) {
     ret = -ENOMEM;
-    goto out;
-  }
-
-  if (!unity_color_is_premultiplied(*unity)) {
     goto out;
   }
 
