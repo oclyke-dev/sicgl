@@ -163,20 +163,16 @@ void setUp(void) {
       "gradient source images did not match");
 }
 
-void tearDown(void){
+void tearDown(void) {
   // clean stuff up here
   release_screen(screen);
   release_libgd_interface(backdrop_interface);
   release_libgd_interface(source_interface);
 }
 
-void preTests(void) {
+void preTests(void) {}
 
-}
-
-void postTests(void) {
-
-}
+void postTests(void) {}
 
 void run_solid_tests(void) {
   // run pre-test code
