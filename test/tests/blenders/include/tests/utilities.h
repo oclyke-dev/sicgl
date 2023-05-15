@@ -1,9 +1,9 @@
 #include "globals.h"
 #include "sicgl.h"
-#include "sicgl/compose.h"
+#include "sicgl/blend.h"
 #include "utils.h"
 
-#define DEFINE_UNREFERENCED_SOLID_COMPOSITOR_TEST(__name, __compositor)      \
+#define DEFINE_UNREFERENCED_SOLID_BLENDER_TEST(__name, __blender)      \
   void test_solid_##__name(void) {                                           \
     interface_t* interface = NULL;                                           \
     png_t* img = NULL;                                                       \
@@ -11,8 +11,8 @@
       interface = new_libgd_interface(screen, NULL, 0);                      \
       TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface"); \
       sicgl_blit(interface, screen, backdrop_interface->memory);             \
-      sicgl_compose(                                                         \
-          interface, screen, source_interface->memory, __compositor, NULL);  \
+      sicgl_blend(                                                         \
+          interface, screen, source_interface->memory, __blender, NULL);  \
       img = new_png_from_libgd_interface(interface);                         \
       TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");         \
       TEST_ASSERT_EQUAL_INT(                                                 \
@@ -22,7 +22,7 @@
     release_png(img);                                                        \
   }
 
-#define DEFINE_UNREFERENCED_GRADIENT_COMPOSITOR_TEST(__name, __compositor)    \
+#define DEFINE_UNREFERENCED_GRADIENT_BLENDER_TEST(__name, __blender)    \
   void test_gradient_##__name(void) {                                         \
     interface_t* interface = NULL;                                            \
     png_t* img = NULL;                                                        \
@@ -30,8 +30,8 @@
       interface = new_libgd_interface(screen, NULL, 0);                       \
       TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");  \
       sicgl_blit(interface, screen, gradient_backdrop_interface->memory);     \
-      sicgl_compose(                                                          \
-          interface, screen, gradient_source_interface->memory, __compositor, \
+      sicgl_blend(                                                          \
+          interface, screen, gradient_source_interface->memory, __blender, \
           NULL);                                                              \
       img = new_png_from_libgd_interface(interface);                          \
       TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");          \
@@ -42,8 +42,8 @@
     release_png(img);                                                         \
   }
 
-#define DEFINE_REFERENCED_SOLID_COMPOSITOR_TEST(                             \
-    __name, __compositor, __reference)                                       \
+#define DEFINE_REFERENCED_SOLID_BLENDER_TEST(                             \
+    __name, __blender, __reference)                                       \
   void test_solid_##__name(void) {                                           \
     interface_t* interface = NULL;                                           \
     png_t* img = NULL;                                                       \
@@ -52,8 +52,8 @@
       interface = new_libgd_interface(screen, NULL, 0);                      \
       TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface"); \
       sicgl_blit(interface, screen, backdrop_interface->memory);             \
-      sicgl_compose(                                                         \
-          interface, screen, source_interface->memory, __compositor, NULL);  \
+      sicgl_blend(                                                         \
+          interface, screen, source_interface->memory, __blender, NULL);  \
       img = new_png_from_libgd_interface(interface);                         \
       TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");         \
       TEST_ASSERT_EQUAL_INT_MESSAGE(                                         \
@@ -69,8 +69,8 @@
     release_png(ref);                                                        \
   }
 
-#define DEFINE_REFERENCED_GRADIENT_COMPOSITOR_TEST(                           \
-    __name, __compositor, __reference)                                        \
+#define DEFINE_REFERENCED_GRADIENT_BLENDER_TEST(                           \
+    __name, __blender, __reference)                                        \
   void test_gradient_##__name(void) {                                         \
     interface_t* interface = NULL;                                            \
     png_t* img = NULL;                                                        \
@@ -79,8 +79,8 @@
       interface = new_libgd_interface(screen, NULL, 0);                       \
       TEST_ASSERT_NOT_NULL_MESSAGE(interface, "could not create interface");  \
       sicgl_blit(interface, screen, gradient_backdrop_interface->memory);     \
-      sicgl_compose(                                                          \
-          interface, screen, gradient_source_interface->memory, __compositor, \
+      sicgl_blend(                                                          \
+          interface, screen, gradient_source_interface->memory, __blender, \
           NULL);                                                              \
       img = new_png_from_libgd_interface(interface);                          \
       TEST_ASSERT_NOT_NULL_MESSAGE(img, "could not create img png");          \
@@ -97,13 +97,13 @@
     release_png(ref);                                                         \
   }
 
-#define DEFINE_UNREFERENCED_COMPOSITOR_TEST(__name, __compositor) \
-  DEFINE_UNREFERENCED_SOLID_COMPOSITOR_TEST(__name, __compositor) \
-  DEFINE_UNREFERENCED_GRADIENT_COMPOSITOR_TEST(__name, __compositor)
+#define DEFINE_UNREFERENCED_BLENDER_TEST(__name, __blender) \
+  DEFINE_UNREFERENCED_SOLID_BLENDER_TEST(__name, __blender) \
+  DEFINE_UNREFERENCED_GRADIENT_BLENDER_TEST(__name, __blender)
 
-#define DEFINE_REFERENCED_COMPOSITOR_TEST(                          \
-    __name, __compositor, __solid_reference, __gradient__reference) \
-  DEFINE_REFERENCED_SOLID_COMPOSITOR_TEST(                          \
-      __name, __compositor, __solid_reference)                      \
-  DEFINE_REFERENCED_GRADIENT_COMPOSITOR_TEST(                       \
-      __name, __compositor, __gradient__reference)
+#define DEFINE_REFERENCED_BLENDER_TEST(                          \
+    __name, __blender, __solid_reference, __gradient__reference) \
+  DEFINE_REFERENCED_SOLID_BLENDER_TEST(                          \
+      __name, __blender, __solid_reference)                      \
+  DEFINE_REFERENCED_GRADIENT_BLENDER_TEST(                       \
+      __name, __blender, __gradient__reference)

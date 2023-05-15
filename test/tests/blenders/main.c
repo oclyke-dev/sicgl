@@ -1,10 +1,7 @@
 #include "gd.h"
 #include "globals.h"
 #include "sicgl/screen.h"
-#include "tests/alpha.h"
-#include "tests/bitwise.h"
-#include "tests/channelwise.h"
-#include "tests/direct.h"
+#include "tests/blenders.h"
 #include "utils.h"
 
 // size of canvases for these tests
@@ -175,99 +172,35 @@ void preTests(void) {}
 void postTests(void) {}
 
 void run_solid_tests(void) {
-  // direct
-  RUN_TEST(test_solid_direct_set);
-  RUN_TEST(test_solid_direct_clear);
-  RUN_TEST(test_solid_direct_none);
-
-  // bitwise
-  RUN_TEST(test_solid_bitwise_and);
-  RUN_TEST(test_solid_bitwise_or);
-  RUN_TEST(test_solid_bitwise_xor);
-  RUN_TEST(test_solid_bitwise_nand);
-  RUN_TEST(test_solid_bitwise_nor);
-  RUN_TEST(test_solid_bitwise_xnor);
-
-  // channelwise
-  RUN_TEST(test_solid_channelwise_min);
-  RUN_TEST(test_solid_channelwise_max);
-
-  RUN_TEST(test_solid_channelwise_sum);
-  RUN_TEST(test_solid_channelwise_diff);
-  RUN_TEST(test_solid_channelwise_diff_reverse);
-  RUN_TEST(test_solid_channelwise_multiply);
-  RUN_TEST(test_solid_channelwise_divide);
-  RUN_TEST(test_solid_channelwise_divide_reverse);
-
-  RUN_TEST(test_solid_channelwise_sum_clamped);
-  RUN_TEST(test_solid_channelwise_diff_clamped);
-  RUN_TEST(test_solid_channelwise_diff_reverse_clamped);
-  RUN_TEST(test_solid_channelwise_multiply_clamped);
-  RUN_TEST(test_solid_channelwise_divide_clamped);
-  RUN_TEST(test_solid_channelwise_divide_reverse_clamped);
-
-  // alpha porter-duff
-  RUN_TEST(test_solid_alpha_clear);
-  RUN_TEST(test_solid_alpha_copy);
-  RUN_TEST(test_solid_alpha_destination);
-  RUN_TEST(test_solid_alpha_source_over);
-  RUN_TEST(test_solid_alpha_destination_over);
-  RUN_TEST(test_solid_alpha_source_in);
-  RUN_TEST(test_solid_alpha_destination_in);
-  RUN_TEST(test_solid_alpha_source_out);
-  RUN_TEST(test_solid_alpha_destination_out);
-  RUN_TEST(test_solid_alpha_source_atop);
-  RUN_TEST(test_solid_alpha_destination_atop);
-  RUN_TEST(test_solid_alpha_xor);
-  RUN_TEST(test_solid_alpha_lighter);
+  RUN_TEST(test_solid_blend_normal);
+  RUN_TEST(test_solid_blend_forget);
+  RUN_TEST(test_solid_blend_multiply);
+  RUN_TEST(test_solid_blend_screen);
+  RUN_TEST(test_solid_blend_overlay);
+  RUN_TEST(test_solid_blend_darken);
+  RUN_TEST(test_solid_blend_lighten);
+  RUN_TEST(test_solid_blend_color_dodge);
+  RUN_TEST(test_solid_blend_color_burn);
+  RUN_TEST(test_solid_blend_hard_light);
+  RUN_TEST(test_solid_blend_soft_light);
+  RUN_TEST(test_solid_blend_difference);
+  RUN_TEST(test_solid_blend_exclusion);
 }
 
 void run_gradient_tests(void) {
-  // direct
-  RUN_TEST(test_gradient_direct_set);
-  RUN_TEST(test_gradient_direct_clear);
-  RUN_TEST(test_gradient_direct_none);
-
-  // bitwise
-  RUN_TEST(test_gradient_bitwise_and);
-  RUN_TEST(test_gradient_bitwise_or);
-  RUN_TEST(test_gradient_bitwise_xor);
-  RUN_TEST(test_gradient_bitwise_nand);
-  RUN_TEST(test_gradient_bitwise_nor);
-  RUN_TEST(test_gradient_bitwise_xnor);
-
-  // channelwise
-  RUN_TEST(test_gradient_channelwise_min);
-  RUN_TEST(test_gradient_channelwise_max);
-
-  RUN_TEST(test_gradient_channelwise_sum);
-  RUN_TEST(test_gradient_channelwise_diff);
-  RUN_TEST(test_gradient_channelwise_diff_reverse);
-  RUN_TEST(test_gradient_channelwise_multiply);
-  RUN_TEST(test_gradient_channelwise_divide);
-  RUN_TEST(test_gradient_channelwise_divide_reverse);
-
-  RUN_TEST(test_gradient_channelwise_sum_clamped);
-  RUN_TEST(test_gradient_channelwise_diff_clamped);
-  RUN_TEST(test_gradient_channelwise_diff_reverse_clamped);
-  RUN_TEST(test_gradient_channelwise_multiply_clamped);
-  RUN_TEST(test_gradient_channelwise_divide_clamped);
-  RUN_TEST(test_gradient_channelwise_divide_reverse_clamped);
-
-  // alpha porter-duff
-  RUN_TEST(test_gradient_alpha_clear);
-  RUN_TEST(test_gradient_alpha_copy);
-  RUN_TEST(test_gradient_alpha_destination);
-  RUN_TEST(test_gradient_alpha_source_over);
-  RUN_TEST(test_gradient_alpha_destination_over);
-  RUN_TEST(test_gradient_alpha_source_in);
-  RUN_TEST(test_gradient_alpha_destination_in);
-  RUN_TEST(test_gradient_alpha_source_out);
-  RUN_TEST(test_gradient_alpha_destination_out);
-  RUN_TEST(test_gradient_alpha_source_atop);
-  RUN_TEST(test_gradient_alpha_destination_atop);
-  RUN_TEST(test_gradient_alpha_xor);
-  RUN_TEST(test_gradient_alpha_lighter);
+  RUN_TEST(test_gradient_blend_normal);
+  RUN_TEST(test_gradient_blend_forget);
+  RUN_TEST(test_gradient_blend_multiply);
+  RUN_TEST(test_gradient_blend_screen);
+  RUN_TEST(test_gradient_blend_overlay);
+  RUN_TEST(test_gradient_blend_darken);
+  RUN_TEST(test_gradient_blend_lighten);
+  RUN_TEST(test_gradient_blend_color_dodge);
+  RUN_TEST(test_gradient_blend_color_burn);
+  RUN_TEST(test_gradient_blend_hard_light);
+  RUN_TEST(test_gradient_blend_soft_light);
+  RUN_TEST(test_gradient_blend_difference);
+  RUN_TEST(test_gradient_blend_exclusion);
 }
 
 // not needed when using generate_test_runner.rb

@@ -1,4 +1,4 @@
-#include "tests/alpha.h"
+#include "sicgl/compositors.h"
 #include "tests/utilities.h"
 #include "utils.h"
 
