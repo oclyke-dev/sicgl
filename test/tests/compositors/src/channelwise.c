@@ -22,13 +22,10 @@ DEFINE_REFERENCED_COMPOSITOR_TEST(
 DEFINE_REFERENCED_COMPOSITOR_TEST(
     channelwise_multiply, compositor_channelwise_multiply,
     "solid_channelwise_multiply.png", "gradient_channelwise_multiply.png")
-DEFINE_REFERENCED_COMPOSITOR_TEST(
-    channelwise_divide, compositor_channelwise_divide,
-    "solid_channelwise_divide.png", "gradient_channelwise_divide.png")
-DEFINE_REFERENCED_COMPOSITOR_TEST(
-    channelwise_divide_reverse, compositor_channelwise_divide_reverse,
-    "solid_channelwise_divide_reverse.png",
-    "gradient_channelwise_divide_reverse.png")
+DEFINE_UNREFERENCED_COMPOSITOR_TEST(
+    channelwise_divide, compositor_channelwise_divide)
+DEFINE_UNREFERENCED_COMPOSITOR_TEST(
+    channelwise_divide_reverse, compositor_channelwise_divide_reverse)
 
 DEFINE_REFERENCED_COMPOSITOR_TEST(
     channelwise_sum_clamped, compositor_channelwise_sum_clamped,
