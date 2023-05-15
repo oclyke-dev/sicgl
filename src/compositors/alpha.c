@@ -158,7 +158,7 @@ void compositor_alpha_source_atop(
     unity_color_from(destination[idx], &Cd);
 
     double one_minus_alpha_source = (1.0 - Cs.alpha);
-    alpha_out = Cs.alpha * Cd.alpha + Cd.alpha * one_minus_alpha_source;
+    alpha_out = Cd.alpha;
 
     unity_color_premultiply(&Cs);
     unity_color_scale(&Cs, Cd.alpha);
@@ -185,7 +185,7 @@ void compositor_alpha_destination_atop(
     unity_color_from(destination[idx], &Cd);
 
     double one_minus_alpha_destination = (1.0 - Cd.alpha);
-    alpha_out = Cs.alpha * one_minus_alpha_destination + Cd.alpha * Cs.alpha;
+    alpha_out = Cs.alpha;
 
     unity_color_premultiply(&Cd);
     unity_color_scale(&Cd, Cs.alpha);
@@ -241,6 +241,9 @@ void compositor_alpha_lighter(
     unity_color_from(destination[idx], &Cd);
 
     alpha_out = Cs.alpha + Cd.alpha;
+    if (alpha_out > 1.0) {
+      alpha_out = 1.0;
+    }
 
     unity_color_premultiply(&Cd);
     unity_color_premultiply(&Cs);

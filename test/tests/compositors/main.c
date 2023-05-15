@@ -170,7 +170,14 @@ void tearDown(void) {
   release_libgd_interface(source_interface);
 }
 
+void preTests(void) {}
+
+void postTests(void) {}
+
 void run_solid_tests(void) {
+  // run pre-test code
+  preTests();
+
   // direct
   RUN_TEST(test_solid_direct_set);
   RUN_TEST(test_solid_direct_clear);
@@ -216,6 +223,9 @@ void run_solid_tests(void) {
   RUN_TEST(test_solid_alpha_destination_atop);
   RUN_TEST(test_solid_alpha_xor);
   RUN_TEST(test_solid_alpha_lighter);
+
+  // run cleanup code
+  postTests();
 }
 
 void run_gradient_tests(void) {
