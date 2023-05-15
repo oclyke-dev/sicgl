@@ -112,7 +112,7 @@ void setUp(void) {}
 void tearDown(void) {}
 
 void preTests(void) {
-    // create the source images
+  // create the source images
   // (todo: use the reference images directly to create the interfaces
   // which are used in the test compositions)
   create_source_images();
