@@ -74,26 +74,33 @@ int png_compare(png_t* png1, png_t* png2) {
     goto out;
   }
 
-  // compare pixel by pixel
-  for (size_t idy = 0; idy < png1->width; idy++) {
-    for (size_t idx = 0; idx < png1->width; idx++) {
-      size_t pos = idy * idx;
-      if ((png1->pixels[pos].r != png2->pixels[pos].r) ||
-          (png1->pixels[pos].g != png2->pixels[pos].g) ||
-          (png1->pixels[pos].b != png2->pixels[pos].b) ||
-          (png1->pixels[pos].a != png2->pixels[pos].a)) {
-        diff = 30;
-        printf(
-            "mismatch detected at pixel position %ld (%ld, %ld).\n", pos, idx,
-            idy);
-        printf(
-            "png1 color: (%u, %u, %u, %u).\n", png1->pixels[pos].r,
-            png1->pixels[pos].g, png1->pixels[pos].b, png1->pixels[pos].a);
-        printf(
-            "png2 color: (%u, %u, %u, %u).\n", png2->pixels[pos].r,
-            png2->pixels[pos].g, png2->pixels[pos].b, png2->pixels[pos].a);
+  // perform memory comparison
+  // if there is a mismatch then compare pixel by pixel to identify the first
+  // difference
+  diff = memcmp(
+      png1->pixels, png2->pixels,
+      sizeof(png_pixel_t) * png1->width * png1->height);
+  if (0 != diff) {
+    for (size_t idy = 0; idy < png1->width; idy++) {
+      for (size_t idx = 0; idx < png1->width; idx++) {
+        size_t pos = idy * idx;
+        if ((png1->pixels[pos].r != png2->pixels[pos].r) ||
+            (png1->pixels[pos].g != png2->pixels[pos].g) ||
+            (png1->pixels[pos].b != png2->pixels[pos].b) ||
+            (png1->pixels[pos].a != png2->pixels[pos].a)) {
+          diff = 30;
+          printf(
+              "mismatch detected at pixel position %ld (%ld, %ld).\n", pos, idx,
+              idy);
+          printf(
+              "png1 color: (%u, %u, %u, %u).\n", png1->pixels[pos].r,
+              png1->pixels[pos].g, png1->pixels[pos].b, png1->pixels[pos].a);
+          printf(
+              "png2 color: (%u, %u, %u, %u).\n", png2->pixels[pos].r,
+              png2->pixels[pos].g, png2->pixels[pos].b, png2->pixels[pos].a);
 
-        goto out;
+          goto out;
+        }
       }
     }
   }
