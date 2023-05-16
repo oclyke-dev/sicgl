@@ -30,6 +30,10 @@ int color_sequence_set_color(
 int color_sequence_get_color(
     color_sequence_t* sequence, size_t idx, color_t* color);
 
+int color_sequence_interpolate_single(
+    color_sequence_t* sequence, sequence_map_fn map, double phase,
+    color_t* color);
+
 // color sequence map functions
 // map a double to a color from a color sequence
 int color_sequence_interpolate_color_continuous_linear(
