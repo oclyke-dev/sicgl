@@ -54,6 +54,12 @@ out:
   return ret;
 }
 
+int color_sequence_interpolate_single(
+    color_sequence_t* sequence, sequence_map_fn map, double phase,
+    color_t* color) {
+  return map(sequence, phase, color);
+}
+
 int color_sequence_interpolate_color_continuous_linear(
     color_sequence_t* sequence, double phase, color_t* color) {
   int ret = 0;
