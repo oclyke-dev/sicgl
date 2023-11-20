@@ -67,10 +67,10 @@ python3 -m venv venv
 source ./venv/bin/activate
 
 # to check code formatting
-./tools/third-party/run-clang-format/run-clang-format.py -r include src test
+./tools/third-party/run-clang-format/run-clang-format.py -r include src include test
 
 # to format all code
-./tools/third-party/run-clang-format/run-clang-format.py -r include src test -i
+./tools/third-party/run-clang-format/run-clang-format.py -r include src include test -i
 ```
 
 # debug mode

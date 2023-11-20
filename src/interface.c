@@ -7,7 +7,8 @@
 #include "sicgl/debug.h"
 #include "sicgl/private/minmax.h"
 
-int sicgl_interface_get_pixel_offset(interface_t* interface, uext_t offset, color_t* color) {
+int sicgl_interface_get_pixel_offset(
+    interface_t* interface, uext_t offset, color_t* color) {
   int ret = 0;
   if (NULL == interface->memory) {
     goto out;
@@ -23,7 +24,8 @@ out:
   return ret;
 }
 
-int sicgl_interface_get_pixel(interface_t* interface, uext_t u, uext_t v, color_t* color) {
+int sicgl_interface_get_pixel(
+    interface_t* interface, uext_t u, uext_t v, color_t* color) {
   int ret = 0;
   if (NULL == interface->memory) {
     goto out;
