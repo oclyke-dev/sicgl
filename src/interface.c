@@ -12,10 +12,10 @@ int sicgl_interface_get_pixel_offset(interface_t* interface, uext_t offset, colo
   if (NULL == interface->memory) {
     goto out;
   }
-  if (offset >= interface->length) {
+  if (NULL == color) {
     goto out;
   }
-  if (NULL == color) {
+  if (offset >= interface->length) {
     goto out;
   }
   *color = interface->memory[offset];
