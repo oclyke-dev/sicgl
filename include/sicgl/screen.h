@@ -51,6 +51,10 @@ int screen_set_corners(
 int screen_set_extent(screen_t* screen, ext_t width, ext_t height);
 int screen_set_location(screen_t* screen, ext_t lu, ext_t lv);
 
+int screen_get_num_pixels(screen_t* screen, uext_t* num_pixels);
+int screen_get_extent(screen_t* screen, ext_t* width, ext_t* height);
+int screen_get_location(screen_t* screen, ext_t* lu, ext_t* lv);
+
 int screen_normalize(screen_t* screen);
 int screen_intersect(screen_t* target, screen_t* s0, screen_t* s1);
 

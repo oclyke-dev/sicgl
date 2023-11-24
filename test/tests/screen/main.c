@@ -523,6 +523,107 @@ void test_screen_clip_line(void) {
   // this area for cleanup of dynamically allocated items
 }
 
+void test_screen_get_num_pixels(void) {
+  int ret = 0;
+  screen_t screen;
+  screen_set(&screen, 0, 0, 0, 0, 0, 0);
+  uext_t num_pixels = 0;
+  if (TEST_PROTECT()) {
+    // check null inputs
+    ret = screen_get_num_pixels(NULL, &num_pixels);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    // 3x3 screen
+    ret = screen_set(&screen, 0, 0, 2, 2, 0, 0);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    // test
+    ret = screen_get_num_pixels(&screen, &num_pixels);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(9, num_pixels);
+
+    // 8x8 screen
+    ret = screen_set(&screen, 0, 0, 7, 7, 0, 0);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    // test
+    ret = screen_get_num_pixels(&screen, &num_pixels);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(64, num_pixels);
+  } else {
+    // this area for cleanup of dynamically allocated items
+  }
+}
+
+void test_screen_get_extent(void) {
+  int ret = 0;
+  screen_t screen;
+  screen_set(&screen, 0, 0, 0, 0, 0, 0);
+  ext_t width = 0;
+  ext_t height = 0;
+  if (TEST_PROTECT()) {
+    // check null inputs
+    ret = screen_get_extent(NULL, &width, &height);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    // 3x3 screen
+    ret = screen_set(&screen, 0, 0, 2, 2, 0, 0);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    ret = screen_get_extent(&screen, &width, &height);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(3, width);
+    TEST_ASSERT_EQUAL_INT(3, height);
+
+    // 8x8 screen
+    ret = screen_set(&screen, 0, 0, 7, 7, 0, 0);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    ret = screen_get_extent(&screen, &width, &height);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(8, width);
+    TEST_ASSERT_EQUAL_INT(8, height);
+  } else {
+    // this area for cleanup of dynamically allocated items
+  }
+}
+
+void test_screen_get_location(void) {
+  int ret = 0;
+  screen_t screen;
+  screen_set(&screen, 0, 0, 0, 0, 0, 0);
+  ext_t lu = 0;
+  ext_t lv = 0;
+  if (TEST_PROTECT()) {
+    // check null inputs
+    ret = screen_get_location(NULL, &lu, &lv);
+    TEST_ASSERT_LESS_THAN_INT32_MESSAGE(
+        0, ret, "should return negative error code");
+
+    // at (0, 0)
+    ret = screen_set(&screen, 0, 0, 2, 2, 0, 0);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    ret = screen_get_location(&screen, &lu, &lv);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(0, lu);
+    TEST_ASSERT_EQUAL_INT(0, lv);
+
+    // at (3, 3)
+    ret = screen_set(&screen, 0, 0, 7, 7, 3, 3);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    ret = screen_get_location(&screen, &lu, &lv);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(3, lu);
+    TEST_ASSERT_EQUAL_INT(3, lv);
+  } else {
+    // this area for cleanup of dynamically allocated items
+  }
+}
+
 // not needed when using generate_test_runner.rb
 int main(void) {
   UNITY_BEGIN();
@@ -533,5 +634,8 @@ int main(void) {
   RUN_TEST(test_screen_clip_vline);
   RUN_TEST(test_screen_clip_diagonal);
   RUN_TEST(test_screen_clip_line);
+  RUN_TEST(test_screen_get_num_pixels);
+  RUN_TEST(test_screen_get_extent);
+  RUN_TEST(test_screen_get_location);
   return UNITY_END();
 }
