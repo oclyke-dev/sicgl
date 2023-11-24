@@ -168,6 +168,80 @@ out:
 }
 
 /**
+ * @brief Get the number of pixels in a screen.
+ *
+ * @param screen
+ * @param num_pixels
+ * @return int
+ */
+int screen_get_num_pixels(screen_t* screen, uext_t* num_pixels) {
+  int ret = 0;
+  if (NULL == screen) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  if (NULL != num_pixels) {
+    *num_pixels = screen->width * screen->height;
+  }
+
+out:
+  return ret;
+}
+
+/**
+ * @brief Get the extent of a screen.
+ *
+ * @param screen
+ * @param width
+ * @param height
+ * @return int
+ */
+int screen_get_extent(screen_t* screen, ext_t* width, ext_t* height) {
+  int ret = 0;
+  if ((NULL == screen) || (NULL == width) || (NULL == height)) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  if (NULL != width) {
+    *width = screen->width;
+  }
+  if (NULL != height) {
+    *height = screen->height;
+  }
+
+out:
+  return ret;
+}
+
+/**
+ * @brief Get the location of a screen in global coordinates.
+ *
+ * @param screen
+ * @param lu
+ * @param lv
+ * @return int
+ */
+int screen_get_location(screen_t* screen, ext_t* lu, ext_t* lv) {
+  int ret = 0;
+  if ((NULL == screen) || (NULL == lu) || (NULL == lv)) {
+    ret = -ENOMEM;
+    goto out;
+  }
+
+  if (NULL != lu) {
+    *lu = screen->lu;
+  }
+  if (NULL != lv) {
+    *lv = screen->lv;
+  }
+
+out:
+  return ret;
+}
+
+/**
  * @brief Normalize a screen for subsequent operations.
  * This function enforces assumptions about screen definition.
  *
