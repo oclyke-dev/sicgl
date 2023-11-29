@@ -84,7 +84,7 @@ int sicgl_compose(
   // then simply loop over the intersection screen height copying data from
   // the sprite buffer to the target buffer (using the full width of the
   // intersection)
-  for (size_t idx = 0; idx < intersection.height; idx++) {
+  for (ext_t idx = 0; idx < intersection.height; idx++) {
     compositor(
         &sprite[sprite_offset], &interface->memory[interface_offset],
         intersection.width, args);

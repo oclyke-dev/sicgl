@@ -623,7 +623,7 @@ int screen_clip_diagonal(
   // if the starting coordinate is on or outside the circumscribing rectangle
   // and either of the directions is positive then there will never be an
   // intersection.
-  if ((ru + rv) > (distance - 1)) {
+  if ((ru + rv) > (ext_t)(distance - 1)) {
     if ((diru > 0) || (dirv > 0)) {
       ret = 1;
       goto out;
