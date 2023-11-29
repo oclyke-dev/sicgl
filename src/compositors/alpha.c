@@ -4,6 +4,8 @@
 
 void compositor_alpha_clear(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)source;
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     destination[idx] = 0x00;
   }
@@ -11,16 +13,23 @@ void compositor_alpha_clear(
 
 void compositor_alpha_copy(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     destination[idx] = source[idx];
   }
 }
 
 void compositor_alpha_destination(
-    color_t* source, color_t* destination, size_t width, void* args) {}
+    color_t* source, color_t* destination, size_t width, void* args) {
+  (void)source;
+  (void)destination;
+  (void)width;
+  (void)args;
+}
 
 void compositor_alpha_source_over(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -47,6 +56,7 @@ void compositor_alpha_source_over(
 
 void compositor_alpha_destination_over(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -73,6 +83,7 @@ void compositor_alpha_destination_over(
 
 void compositor_alpha_source_in(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -92,6 +103,7 @@ void compositor_alpha_source_in(
 
 void compositor_alpha_destination_in(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -111,6 +123,7 @@ void compositor_alpha_destination_in(
 
 void compositor_alpha_source_out(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -131,6 +144,7 @@ void compositor_alpha_source_out(
 
 void compositor_alpha_destination_out(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -151,6 +165,7 @@ void compositor_alpha_destination_out(
 
 void compositor_alpha_source_atop(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -178,6 +193,7 @@ void compositor_alpha_source_atop(
 
 void compositor_alpha_destination_atop(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -205,6 +221,7 @@ void compositor_alpha_destination_atop(
 
 void compositor_alpha_xor(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {
@@ -234,6 +251,7 @@ void compositor_alpha_xor(
 
 void compositor_alpha_lighter(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t Cs, Cd;
   double alpha_out;
   for (size_t idx = 0; idx < width; idx++) {

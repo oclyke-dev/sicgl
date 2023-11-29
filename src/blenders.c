@@ -75,11 +75,16 @@ static inline color_t color_screen(unity_color_t Cmem, unity_color_t Csrc) {
 // separable blending
 void blend_normal(color_t* memory, color_t* source, size_t width, void* args) {
   // do nothing - normal blending ignores the source and keeps only the memory
+  (void)memory;
+  (void)source;
+  (void)width;
+  (void)args;
 }
 
 void blend_forget(color_t* memory, color_t* source, size_t width, void* args) {
   // forget will ignore the memory value and use only the backdrop
   // however the alpha component of the memory is retained
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t mem = memory[idx];
     color_t src = source[idx];
@@ -91,6 +96,7 @@ void blend_forget(color_t* memory, color_t* source, size_t width, void* args) {
 
 void blend_multiply(
     color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
@@ -100,6 +106,7 @@ void blend_multiply(
 }
 
 void blend_screen(color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
@@ -113,6 +120,7 @@ void blend_overlay(color_t* memory, color_t* source, size_t width, void* args) {
 }
 
 void blend_darken(color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t mem = memory[idx];
@@ -125,6 +133,7 @@ void blend_darken(color_t* memory, color_t* source, size_t width, void* args) {
 }
 
 void blend_lighten(color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t mem = memory[idx];
@@ -138,6 +147,7 @@ void blend_lighten(color_t* memory, color_t* source, size_t width, void* args) {
 
 void blend_color_dodge(
     color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
@@ -152,6 +162,7 @@ void blend_color_dodge(
 
 void blend_color_burn(
     color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
@@ -166,6 +177,7 @@ void blend_color_burn(
 
 void blend_hard_light(
     color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
@@ -180,6 +192,7 @@ void blend_hard_light(
 
 void blend_soft_light(
     color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
@@ -194,6 +207,7 @@ void blend_soft_light(
 
 void blend_difference(
     color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);
@@ -208,6 +222,7 @@ void blend_difference(
 
 void blend_exclusion(
     color_t* memory, color_t* source, size_t width, void* args) {
+  (void)args;
   unity_color_t Cmem, Csrc;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(memory[idx], &Cmem);

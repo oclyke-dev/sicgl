@@ -91,8 +91,8 @@ int sicgl_scalar_field(
   // then simply loop over the intersection screen height copying data from
   // the scalar buffer to the target buffer (using the full width of the
   // intersection)
-  for (size_t idv = 0; idv < intersection.height; idv++) {
-    for (size_t idu = 0; idu < intersection.width; idu++) {
+  for (ext_t idv = 0; idv < intersection.height; idv++) {
+    for (ext_t idu = 0; idu < intersection.width; idu++) {
       color_t color;
       ret = map(sequence, scalars[scalar_offset] + offset, &color);
       if (0 != ret) {

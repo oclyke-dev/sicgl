@@ -78,7 +78,7 @@ int sicgl_blit(interface_t* interface, screen_t* screen, color_t* sprite) {
   // intersection)
   size_t width = intersection.width;
   size_t bpp = bytes_per_pixel();
-  for (size_t idx = 0; idx < intersection.height; idx++) {
+  for (ext_t idx = 0; idx < intersection.height; idx++) {
     memcpy(
         &interface->memory[interface_offset], &sprite[sprite_offset],
         width * bpp);

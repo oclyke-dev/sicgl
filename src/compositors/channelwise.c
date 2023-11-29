@@ -4,6 +4,7 @@
 
 void compositor_channelwise_min(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -17,6 +18,7 @@ void compositor_channelwise_min(
 
 void compositor_channelwise_max(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -30,6 +32,7 @@ void compositor_channelwise_max(
 
 void compositor_channelwise_sum(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -43,6 +46,7 @@ void compositor_channelwise_sum(
 
 void compositor_channelwise_diff(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -56,6 +60,7 @@ void compositor_channelwise_diff(
 
 void compositor_channelwise_diff_reverse(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -69,6 +74,7 @@ void compositor_channelwise_diff_reverse(
 
 void compositor_channelwise_multiply(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t src, dest;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(source[idx], &src);
@@ -83,6 +89,7 @@ void compositor_channelwise_multiply(
 
 void compositor_channelwise_divide(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t src, dest;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(source[idx], &src);
@@ -97,6 +104,7 @@ void compositor_channelwise_divide(
 
 void compositor_channelwise_divide_reverse(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t src, dest;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(source[idx], &src);
@@ -111,6 +119,7 @@ void compositor_channelwise_divide_reverse(
 
 void compositor_channelwise_sum_clamped(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -126,6 +135,7 @@ void compositor_channelwise_sum_clamped(
 
 void compositor_channelwise_diff_clamped(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -141,6 +151,7 @@ void compositor_channelwise_diff_clamped(
 
 void compositor_channelwise_diff_reverse_clamped(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   for (size_t idx = 0; idx < width; idx++) {
     color_t src = source[idx];
     color_t dest = destination[idx];
@@ -156,6 +167,7 @@ void compositor_channelwise_diff_reverse_clamped(
 
 void compositor_channelwise_multiply_clamped(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t src, dest;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(source[idx], &src);
@@ -171,6 +183,7 @@ void compositor_channelwise_multiply_clamped(
 
 void compositor_channelwise_divide_clamped(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t src, dest;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(source[idx], &src);
@@ -186,6 +199,7 @@ void compositor_channelwise_divide_clamped(
 
 void compositor_channelwise_divide_reverse_clamped(
     color_t* source, color_t* destination, size_t width, void* args) {
+  (void)args;
   unity_color_t src, dest;
   for (size_t idx = 0; idx < width; idx++) {
     unity_color_from(source[idx], &src);

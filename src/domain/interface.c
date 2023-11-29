@@ -73,22 +73,6 @@ out:
   return ret;
 }
 
-static int sicgl_interface_diagonal(
-    interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t diru,
-    ext_t dirv, uext_t count) {
-  int ret =
-      screen_clip_diagonal(interface->screen, &u0, &v0, diru, dirv, &count);
-  if (0 == ret) {
-    sicgl_direct_diagonal(interface, color, u0, v0, diru, dirv, count);
-  } else if (ret > 0) {
-    ret = 0;
-    goto out;
-  }
-
-out:
-  return ret;
-}
-
 static int sicgl_interface_circle_eight(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t du,
     ext_t dv) {

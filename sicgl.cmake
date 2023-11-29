@@ -48,6 +48,12 @@ target_link_libraries(sicgl
 target_compile_definitions(sicgl PRIVATE
   ${SICGL_COMPILE_DEFINITIONS}
 )
+target_compile_options(sicgl PRIVATE
+  -Werror
+  -Wall
+  -Wextra
+  -pedantic
+)
 
 message("SICGL_COMPILE_DEFINITIONS=${SICGL_COMPILE_DEFINITIONS}")
 
