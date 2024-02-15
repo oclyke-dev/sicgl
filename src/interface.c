@@ -40,7 +40,7 @@ int sicgl_interface_get_pixel(
     goto out;
   }
   size_t offset = interface->screen->width * v + u;
-out:
   ret = sicgl_interface_get_pixel_offset(interface, offset, color);
+out:
   return ret;
 }
