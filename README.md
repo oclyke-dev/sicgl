@@ -2,6 +2,24 @@
 \ si-kəl \
 small iterator graphics library
 
+**status**
+
+sicgl is / was mostly a tool for myself and a learning experience for basic graphics operations.
+sicgl will continue to receive support at my liesure and will follow semantic versioning practices so you can depend on it.
+there are no large feature additions planned at this time, but I am very open to thoughtful contributions from individuals who understand sicgl's place in the graphics ecosystem.
+
+**should you use sicgl?**
+
+Maybe.
+If you are looking for a no-frills library which is easy to integrate into your system then this is for you!
+You can always start with sicgl and move on to a more capable library if you find the need for it.
+
+**alternatives**
+
+- [lvgl](https://github.com/lvgl/lvgl): Well supported and feature rich graphics libary which is still intended primarily for use in resource constrained systems.
+- [libgd](https://github.com/libgd/libgd): Portable graphics library with a long history.
+- [embedded_graphics](https://github.com/embedded-graphics/embedded-graphics): If you can use Rust then you might consider this high quality project.
+
 # todo
 
 * perform bounds checking within the library based on 
