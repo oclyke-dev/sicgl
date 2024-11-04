@@ -7,6 +7,10 @@
 #include "sicgl/extent.h"
 #include "sicgl/screen.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct _interface_t {
   screen_t* screen;  // geometrical display info
   color_t* memory;   // pointer to start of specific memory
@@ -17,3 +21,7 @@ int sicgl_interface_get_pixel_offset(
     interface_t* interface, uext_t offset, color_t* color);
 int sicgl_interface_get_pixel(
     interface_t* interface, uext_t u, uext_t v, color_t* color);
+
+#ifdef __cplusplus
+}
+#endif

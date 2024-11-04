@@ -2,6 +2,10 @@
 
 #include "sicgl/color.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // direct compositors
 void compositor_direct_set(
     color_t* source, color_t* destination, size_t width, void* args);
@@ -83,3 +87,7 @@ void compositor_alpha_xor(
     color_t* source, color_t* destination, size_t width, void* args);
 void compositor_alpha_lighter(
     color_t* source, color_t* destination, size_t width, void* args);
+
+#ifdef __cplusplus
+}
+#endif

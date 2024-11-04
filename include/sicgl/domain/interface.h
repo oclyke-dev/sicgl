@@ -2,6 +2,10 @@
 
 #include "sicgl/interface.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // write direct-to-display
 int sicgl_interface_fill(interface_t* interface, color_t color);
 int sicgl_interface_pixel(
@@ -22,3 +26,7 @@ int sicgl_interface_circle_ellipse(
 int sicgl_interface_ellipse(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t semiu,
     ext_t semiv);
+
+#ifdef __cplusplus
+}
+#endif
