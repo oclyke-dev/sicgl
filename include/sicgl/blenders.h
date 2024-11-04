@@ -1,5 +1,9 @@
 #include "sicgl/color.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // seperable blending
 void blend_normal(color_t* memory, color_t* source, size_t width, void* args);
 void blend_forget(color_t* memory, color_t* source, size_t width, void* args);
@@ -27,3 +31,7 @@ void blend_exclusion(
 // args); void blend_color(color_t* memory, color_t* source, size_t width, void*
 // args); void blend_luminosity(color_t* memory, color_t* source, size_t width,
 // void* args);
+
+#ifdef __cplusplus
+}
+#endif

@@ -2,6 +2,10 @@
 
 #include "sicgl/extent.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // a screen which exists within the global pixel space
 typedef struct _screen_t {
   // corners of the screen
@@ -66,3 +70,7 @@ int screen_clip_diagonal(
     uext_t* count);
 int screen_clip_line(
     screen_t* screen, ext_t* u0, ext_t* v0, ext_t* u1, ext_t* v1);
+
+#ifdef __cplusplus
+}
+#endif

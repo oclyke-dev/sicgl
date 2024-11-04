@@ -3,6 +3,10 @@
 #include "sicgl/interface.h"
 #include "sicgl/screen.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // draw in global coordinates
 int sicgl_global_pixel(
     interface_t* interface, color_t color, ext_t u0, ext_t v0);
@@ -22,3 +26,7 @@ int sicgl_global_circle_ellipse(
 int sicgl_global_ellipse(
     interface_t* interface, color_t color, ext_t u0, ext_t v0, ext_t semiu,
     ext_t semiv);
+
+#ifdef __cplusplus
+}
+#endif

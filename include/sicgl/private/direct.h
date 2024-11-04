@@ -2,6 +2,10 @@
 
 #include "sicgl/interface.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 static inline void sicgl_direct_pixel(
     interface_t* interface, color_t color, ext_t u, ext_t v) {
   if (NULL == interface->screen) {
@@ -27,3 +31,7 @@ void sicgl_direct_diagonal(
 void sicgl_direct_region(
     interface_t* interface, color_t color, uext_t u0, uext_t v0, uext_t u1,
     uext_t v1);
+
+#ifdef __cplusplus
+}
+#endif

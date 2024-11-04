@@ -3,6 +3,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // colors are represented as a system int
 // https://github.com/oclyke/sicgl/issues/24
 // if necessary the user can change this definition
@@ -85,3 +89,7 @@ static inline int color_components_unity_double(
 
   return ret;
 }
+
+#ifdef __cplusplus
+}
+#endif

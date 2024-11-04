@@ -2,6 +2,10 @@
 
 #include <stdbool.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // a generic iterator which carries user defined data
 typedef struct _iter_t {
   // iterator function pointers
@@ -14,3 +18,7 @@ typedef struct _iter_t {
 } iter_t;
 
 void iter_foreach(iter_t iter, void (*callback)(void*), void* arg);
+
+#ifdef __cplusplus
+}
+#endif

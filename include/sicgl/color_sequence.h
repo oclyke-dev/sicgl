@@ -5,6 +5,10 @@
 
 #include "sicgl/color.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct _color_sequence_t {
   color_t* colors;
   size_t length;
@@ -45,3 +49,7 @@ int color_sequence_interpolate_color_discrete_linear(
     color_sequence_t* sequence, double phase, color_t* color);
 int color_sequence_interpolate_color_discrete_circular(
     color_sequence_t* sequence, double phase, color_t* color);
+
+#ifdef __cplusplus
+}
+#endif
